@@ -41,3 +41,4 @@ ok zip upload
 ok sync
  ok file delta, deltadelta
 ok addPath
+test

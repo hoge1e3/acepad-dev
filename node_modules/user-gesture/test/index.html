@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <script src="../dist/user-gesture.js">
+        </script>
+        <script>
+addEventListener("load",()=>{
+    function setMesg(m) {
+        document.querySelector("#mesg").innerText=m;
+    }
+    function setDownEvent(e, func) {
+        for (let t of ["mousedown","touchstart"]) {
+            // these events are NOT regarded as user gestures.
+            e.addEventListener(t,func);
+        }
+    }
+    setDownEvent(document.querySelector("#copy"), (e)=>{
+        // accessing to clipboard is not allowed in this context.
+        setMesg("Copying...");
+        UserGesture.post(async () => {
+            // accessing to clipboard is allowed in this context.
+            await navigator.clipboard.writeText("test");
+            setMesg("Copyed!");
+        });
+    });
+    setDownEvent(document.querySelector("#read"), (e)=>{
+        // accessing to clipboard is not allowed in this context.
+        setMesg("Reading...");
+        UserGesture.post(async () => {
+            // accessing to clipboard is allowed in this context.
+            document.querySelector("#content").value=await navigator.clipboard.readText();
+            setMesg("Read!");
+        });
+    });
+});
+        </script>
+    </head>
+    <body>
+        <div>
+            <button id="copy">Copy "test" to clipboard.</button>
+        </div>
+        <div>
+            <textarea id="content"></textarea>
+        </div>
+        <div>
+            <button id="read">Read clipboard data.</button>
+        </div>
+        <div id="mesg"></div>
+        
+    </body>
+</html>

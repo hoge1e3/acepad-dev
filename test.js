@@ -5,6 +5,14 @@ import {init,checkout} from "acepad-store";
 
 
 export async function main(){
+    let t=this.resolve("test.js");
+    t.setMetaInfo({lastUpdate:1});
+    let t2=this.resolve("test2.js");
+    t2.copyFrom(t);
+    this.echo(t.lastUpdate());
+    this.echo(t2.lastUpdate());
+    return ;
+    
     const target = ()=>({
   message1: "hello",
   message2: "everyone",

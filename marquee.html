@@ -39,5 +39,24 @@
             
         </div>
     </div>
+        <button id="b">btn</button>
+    <script>
+        document.querySelector("#b").addEventListener(
+            "touchstart",(e)=>{
+                alert("b");
+               console.log("btbmb");
+               //e.stopPropagation();
+               e.preventDefault();
+            });
+        document.querySelector("body").addEventListener(
+            "touchstart",(e)=>{
+                alert("bdy");
+               console.log("body");
+               e.stopPropagation();
+               e.preventDefault();
+            });
+        
+    </script>
     </body>
+    
 </html>

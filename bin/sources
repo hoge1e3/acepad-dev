@@ -1,0 +1,12 @@
+//!run
+
+export async function main(){
+    let r=[];
+    for(let [p,v] of urls.maps.path){
+        r.push(p);
+//        this.echo(p);
+    }
+    r.sort();
+    this.echo(r.join("\n"));
+
+}
