@@ -1,3 +1,6 @@
+tab size
+auto indent scroll
+multi editor
 state save
 folding
 replace
