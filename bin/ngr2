@@ -1,0 +1,46 @@
+//!run
+import {Document, DocumentSet} from "@hoge1e3/ngram";
+import * as assert from "assert";
+
+const timeout=(t)=>new Promise(s=>setTimeout(s,t));
+export async function main(){
+    let dir=this.resolve();
+    let s=new DocumentSet();
+
+    for(let f of dir.recursive()){
+        if(f.ext()!==".js")continue;
+        let d=new Document(f.relPath(dir),f.text());
+        s.addDocument(d);
+    }
+    let a=this.$acepad;
+    a.events.on("renderModifierState",()=>{
+        let e=a.getEditor();
+        if(!e)return ;
+        if(!e.session)return ;
+        predict(e.session);
+    });
+    let sug=$("<div>").text("sugg").
+    css({
+        backgroundColor:"#ddd",
+        position:"absolute",
+        bottom:0,left:100,
+    }).appendTo(a.getMainEditor().container);
+    this.echo("ready");
+    for(let i=0;i<30000;i++){
+        let p=s.expand();
+        sug.text(p);
+        if(p<10)break;
+        if(i%100==0)await timeout(1);
+    }
+
+    async function predict(session){
+        const r=session.getSelection().getRange().start;
+        const i=session.doc.positionToIndex(r);
+        const d=new Document("p",session.getValue());
+        let pr=await s.predict(d,i);
+        sug.text(
+            [...pr].map(([w,c])=>w+`(${Math.floor(c)})`).join(" ")
+        );
+    
+    }
+}
