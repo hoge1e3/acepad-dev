@@ -1,0 +1,96 @@
+import {events} from './events.js';
+import {sessionInfo} from './sessions.js';
+export function addMarker(session, range, options) {
+    options=options||{};
+    let markerClass=options.markerClass||"marker";
+    const doc=session.doc;
+    range.start = doc.createAnchor(range.start);
+    range.end = doc.createAnchor(range.end);
+    const highlight1 = {};
+    highlight1.update = (html, markerLayer, session, config) => {
+        if (options.update) options.update({html, markerLayer, session, config, range, options});
+        const markerElement = getMarkerHTML(html, markerLayer, session, config, range, markerClass);
+        $(markerElement).css('pointer-events', 'auto');
+    };
+    const marker1 = session.addDynamicMarker(highlight1);//, true);
+    const inf=sessionInfo(session);
+    inf.markers=inf.markers||new Set();
+    marker1.remove = () => {
+        session.removeMarker(marker1.id);
+        inf.markers.delete(marker1);        
+    };
+    inf.markers.add(marker1);
+    return marker1;
+}
+export function clearMarkers(session) {
+    const inf=sessionInfo(session);
+    inf.markers=inf.markers||new Set();
+    for (let m of inf.markers) m.remove();
+}
+export function findSubstringIndices(mainString, subString) {
+  const indices = [];
+  let currentIndex = mainString.indexOf(subString);
+  while (currentIndex !== -1) {
+    indices.push(currentIndex);
+    currentIndex = mainString.indexOf(subString, currentIndex + 1);
+  }
+  return indices;
+}
+export function findRegexMatches(mainString, regexPattern) {
+  const matches = [];
+  const regex = new RegExp(regexPattern, 'g');
+
+  let match;
+  while ((match = regex.exec(mainString)) !== null) {
+    matches.push({ index: match.index, length: match[0].length });
+  }
+
+  return matches;
+}
+export function findMatchRanges(str,sub){
+    if(typeof sub==="string"){
+        return findSubstringIndices(str,sub).map(
+            (i)=>({ index:i , length: sub.length }));
+    }else{
+        return findRegexMatches(str,sub);
+    }
+}
+
+
+export function addMatchedTextMarker(session, text) {
+    let res=[];
+    const valid=(typeof text==="string"?
+    (t)=>t===text:(t)=>text.exec(t));
+    
+    for (let{index,length} of findMatchRanges(session.getValue(),text)) {
+        let p=session.doc.indexToPosition(index);
+        let e=session.doc.indexToPosition(index+length);
+        let m=addMarker(session, ace.Range.fromPoints(p, e), {
+            update(e) {
+                let t=session.doc.getTextRange(e.range);
+                if (!valid(t)) m.remove();
+            }
+        });
+        res.push(m);
+    }
+    return res;
+}
+
+export function getMarkerHTML(html, markerLayer, session, config, range, markerClass) {
+    const stringBuilder = [];
+    let marked;
+    if (range.isMultiLine()) {
+        marked=markerLayer.drawTextMarker(stringBuilder, range, markerClass, config);
+    } else {
+        marked=markerLayer.drawSingleLineMarker(stringBuilder, range, `${markerClass} ace_start ace_br15`, config);
+    }
+    return stringBuilder;
+}
+export function initMarker(){
+    events.on("changeSession",({session})=>{
+        if (window.findWord) {
+            clearMarkers(session);
+            addMatchedTextMarker(session, window.findWord);
+        }
+    });
+}

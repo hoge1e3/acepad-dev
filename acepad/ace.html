@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACE in Action</title>
+<script src="https://bitarrow.eplang.jp/beta2204/runtime/lib/jquery-1.12.1.js"></script>
+<!--script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script-->
+<script src="https://cho.is.meisei-u.ac.jp/sotu/cho/vconsole.js"></script>
+<style>
+    #__vconsole {
+        position: fixed;
+        z-index:300001;
+    }
+</style>
+<!--script src="https://edit.tonyu.jp/js/lib/jszip.min.js"></script>
+<script src="https://edit.tonyu.jp/js/fs/FS_umd.js"></script-->
+<!--script src="https://bitarrow.eplang.jp/bitarrow/js/fs2/FS.js"></script-->
+<script>
+    window.editorHomePath="/jsmod/";
+    window.homePath=localStorage.lastHome||
+    window.editorHomePath;
+    localStorage.lastHome=window.homePath;
+</script>
+<style type="text/css" media="screen">
+    body {
+        touch-action: manipulation;
+    }
+    /* no-wide mode */
+    @media screen and (
+        (max-width: 500px)or
+        (max-height: 400px)
+    ) {
+        .wide {
+            display: none;
+        }
+    }
+    /* wide mode */
+    @media screen and (
+        (min-width: 500px)and
+        (min-height: 400px)
+    ){
+        .no-wide {
+            display: none;
+        }
+    }
+    .marker {
+        position: absolute;
+        background-color: #fcc;
+        opacity: 30%;
+        border: 1px solid #888;
+    }
+    #editor { 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 40%;
+        left: 0;
+    }
+    .widget { 
+        z-index:300000;
+        background: white;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 40%;
+        left: 0;
+    }
+    .widget-close { 
+        z-index:300001;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50px;
+        height:30px;
+    }
+    .widget iframe {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+        height: 100%;
+    }
+    #keypad{
+        z-index: 300000;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height:40%;
+        margin: 0px;
+    }
+    
+    @media (max-height: 400px) {
+        #editor { 
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 40%;
+            left: 0;
+        }
+        #keypad{
+            z-index: 300000;
+            position: absolute;
+            top: 0%;
+            left: 60%;
+            bottom: 0;
+            height: 100%;
+            margin: 0px;
+        }
+        
+    }
+    #menucontainer { 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 40%;
+        left: 0;
+    }
+    #menucontainer button{
+        position: absolute;
+        z-index: 300000;
+    }
+
+    #keypad button {
+        white-space: nowrap; 
+        /*width: 10%;*/
+        /*height: calc(100% / 6);*/
+        height: 100%;
+        margin: 0px 0px 0px 0px;
+        padding: 0px;
+        /*border: 1px;*/
+        font-size: 20px;
+    }
+    #keypad.lock-shift button {
+        background-color: #df3;
+    }
+    #editor button.menu { 
+        position: absolute;
+        height: 16%;
+        z-index: 300000;
+        opacity: 50%;
+    }
+    #editor button.menu.touched { 
+        background: green;
+    }
+    #keypad .row{
+        height: calc(100% / 6);
+        width: 100%;
+    } 
+    #keypad .row .mask {
+        height: 100%;
+        
+    }
+    .keycontext {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    #keypad.ctrl button.ctrl {
+        background: cyan;
+    }
+    #keypad.shift button.shift {
+        background: lime;
+    }
+    .tip{
+        position: absolute;
+        left:50px;
+        top:50px;
+        display: none;
+        z-index: 300001;
+        font-size: 40px;
+        background-color: #08f;
+        color: white;
+        opacity: 60%;
+        text-align: center;
+    }
+    .transparent button {
+        opacity: 30%;
+    }
+    .wide {
+        background-color: #bfd;
+    }
+    .select .selButton{
+                background-color: #cc0;
+    }
+    .one-hand {
+        height: 100%;
+    }
+    .guide{
+        position: absolute;
+        z-index: 300001;
+        font-size: 40px;
+        background-color: #ddd;
+        border: solid 2px red;
+        text-align: center;
+    }
+
+
+</style>
+</head>
+<body>
+<span id="tip" class="tip"></span>
+<div id="editor"></div>
+<!--div id="menucontainer"></div-->
+<div id="keypad">
+    <div class="mask one-hand">
+    <div class="row justify">
+        <button class="autorepeat" data-keycode="37">←</button>
+        <button class="autorepeat" data-keycode="38">↑</button>
+        <button data-keycode="9">Tab</button>
+        <button class="chr wide">!</button>
+        <button class="chr wide">@</button>
+        <button class="chr wide">#</button>
+        <button class="chr wide">`</button>
+        <button class="chr wide">%</button>
+        <button class="chr wide">^</button>
+        <button class="chr wide">&</button>
+        <button class="autorepeat" data-keycode="40">↓</button>
+        <button class="autorepeat" data-keycode="39">→</button>
+        <button data-lock="single" class="no-wide" data-modifier="sym">SYM</button>
+    </div>
+    <div class="row row1">
+        <div class="justify mask no-edit">
+            <button class="chr wide">(</button>
+            <button class="chr">1!</button>
+            <button class="chr">2@</button>
+            <button class="chr">3#</button>
+            <button class="chr">4$</button>
+            <button class="chr">5%</button>
+            <button class="chr wide">)</button>
+            <button class="chr wide">?</button>
+            <button class="chr wide">]</button>
+            <button class="chr">6^</button>
+            <button class="chr">7&</button>
+            <button class="chr">8*</button>
+            <button class="chr">9(</button>
+            <button class="chr">0)</button>
+            <button class="chr wide">{</button>
+        </div>
+        <div class="justify mask edit">
+            <button data-command="cut">Cut</button>
+            <button data-command="copy">Copy</button>
+            <button data-command="paste">Paste</button>
+        </div>
+    </div>
+    <div class="row justify">
+        <div class="justify mask no-edit">
+            <button class="chr wide">[</button>
+            <button class="chr">q\</button>
+            <button class="chr">w|</button>
+            <button class="chr">e/</button>
+            <button class="chr">r[</button>
+            <button class="chr">t]</button>
+            <button class="chr wide">}</button>
+            <button class="chr wide">&lt;</button>
+            <button class="chr wide">&gt;</button>
+            <button class="chr">y{</button>
+            <button class="chr">u}</button>
+            <button class="chr">i&lt;</button>
+            <button class="chr">o&gt;</button>
+            <button class="chr">p=</button>
+            <button class="chr wide">=</button>
+        </div>
+        <div class="justify mask edit">
+            <button class="selButton" data-modifier="select" data-lock="single">Sel</button>
+            <button data-command="indent">Tab&gt;</button>
+            <button data-command="dedent">&lt;Tab</button>
+            <button data-command="findSel">Find</button>
+            <button data-command="quitEdit">Quit</button>
+        </div>
+
+    </div>
+    <div class="row justify">
+        <button class="chr wide">+</button>
+        <button class="chr">a~</button>
+        <button class="chr">s`</button>
+        <button class="chr">d'</button>
+        <button class="chr">f?</button>
+        <button class="chr wide">$</button>
+        <button class="chr wide">\</button>
+        <button class="chr wide">|</button>
+        <button class="chr wide">~</button>
+        <button class="chr">g+</button>
+        <button class="chr">h-</button>
+        <button class="chr">j"</button>
+        <button class="chr">k;</button>
+        <button class="chr">l:</button>
+        <button class="chr wide">;</button>
+    </div>
+    <div class="row justify">
+        <button class="shift" 
+        data-modifier="shift"
+        data-modifier-off="sym"
+        >Shift</button>
+        <button class="chr"
+        data-ctrl="undo">z</button>
+        <button class="chr"
+        data-ctrl="cut">x</button>
+        <button class="chr"
+        data-ctrl="copy">c</button>
+        <button class="chr"
+        data-ctrl="paste">v</button>
+        <button class="chr wide">'</button>
+        <button class="chr wide">*</button>
+        <button class="chr wide">/</button>
+        <button class="chr wide">-</button>
+        <button class="chr wide">"</button>
+        <button class="chr">b_</button>
+        <button class="chr">n,</button>
+        <button class="chr">m.</button>
+        <button class="autorepeat" 
+        data-keycode="8">BS</button>
+    </div>
+    <div class="row justify">
+        <button class="ctrl" 
+        data-modifier="ctrl"
+        data-modifier-off="sym"
+        data-lock="none">Ctrl</button>
+        <button class="chr wide">,</button>
+        <button class="chr wide">:</button>
+        <button data-text=" ">SPC</button>
+        <button class="chr wide">_</button>
+        <button data-text=" " class="wide">SPC</button>
+        <button class="chr wide">.</button>
+        <button data-keycode="13">Ent</button>
+    </div>
+    </div>
+</div>
+
+<script src="https://bitarrow.eplang.jp/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://bitarrow.eplang.jp/ace-builds/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script type="module" src="rest.js"></script>
+
+
+</body></html>
+
+

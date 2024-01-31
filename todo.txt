@@ -1,0 +1,22 @@
+path
+logging
+sync
+ file delta, deltadelta
+
+[jsmod/]$ ls
+Error: /jsmod/jsmod/: no such file or directory
+
+shell app with file
+ this=sh
+session local command
+session local menu
+separate file from acepad
+abolish home
+find with.specified.dir
+ find fron nears
+node mods convert
+ok zip upload
+bookmark command
+[]$ npm-init acepad-widget
+dedent/indent
+
