@@ -13,7 +13,7 @@ session local menu
 separate file from acepad
 abolish home
 find with.specified.dir
- find fron nears
+ find from nears
 node mods convert
 ok zip upload
 bookmark command
