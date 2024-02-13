@@ -1,0 +1,7 @@
+//!run
+export function main(dir){
+    	if (!dir) dir=this.cwd;
+    	else dir=this.resolve(dir, true);
+        return dir.ls().forEach((n)=>this.echo(n));
+    }
+

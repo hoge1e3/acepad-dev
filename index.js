@@ -75,6 +75,7 @@ async function initCmds(){
     });
     let {open}=await sh.jsm("browser.js");
     sh.addCmd("page",open,"f");
+    sh.addPath("/jsmod/bin/");
     await loadModule(sh.resolve("npm-init.js"));
     let a={
          async hoge(){}

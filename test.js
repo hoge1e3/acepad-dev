@@ -5,6 +5,17 @@ import {init,checkout} from "acepad-store";
 
 
 export async function main(){
+    const target = ()=>({
+  message1: "hello",
+  message2: "everyone",
+});
+
+const handler1 = {};
+
+const proxy1 = new Proxy(target, handler1);
+this.echo(typeof proxy1);
+this.echo(target===proxy1);
+return ;
     throw new Error("era2");
     let {locate}=this.get("acepad");
     for(let i=0;i<5;i++){
