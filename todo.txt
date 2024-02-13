@@ -1,7 +1,6 @@
+diff
 addPath
 logging
-sync
- file delta, deltadelta
 
 [jsmod/]$ ls
 Error: /jsmod/jsmod/: no such file or directory
@@ -16,6 +15,8 @@ find with.specified.dir
  find from nears
 node mods convert
 ok zip upload
+ok sync
+ ok file delta, deltadelta
 bookmark command
 []$ npm-init acepad-widget
 dedent/indent
