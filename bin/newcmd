@@ -1,0 +1,16 @@
+//!run
+
+export async function main(n){
+    if(!n){
+        throw new Error("cmd name");
+    }
+    let d=this.resolve(__dirname).rel(n);
+    if(!d.exists()){
+        d.text(`//!run
+
+export async function main(){
+
+}`);
+    }
+    this.edit(d);
+}
