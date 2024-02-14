@@ -5,9 +5,21 @@ export async function main(options){
         this.edit(this.resolve(__dirname).rel("playground"));
         return;
     }
-    this.$hoge="play";
+    let acepad=this.$acepad;
+    let session=acepad.createSession({
+        name: "hoge",
+        commands: {
+            return(e) {
+                let line=acepad.currentLine();
+                acepad.goLineEnd();
+                acepad.print("\nYou typed: "+line+"\n");
+            }
+        },
+    });
+    acepad.changeSession(session);
+    /*this.$hoge="play";
     this.echo("lets play");
     this.ls();
     this.echo(this.ls);
-    this.echo(this.get("hoge"));
+    this.echo(this.get("hoge"));*/
 }
