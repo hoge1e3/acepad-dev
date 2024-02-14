@@ -1,0 +1,13 @@
+//!run
+
+export async function main(options){
+    if(options && options.e) {
+        this.edit(this.resolve(__dirname).rel("playground"));
+        return;
+    }
+    this.$hoge="play";
+    this.echo("lets play");
+    this.ls();
+    this.echo(this.ls);
+    this.echo(this.get("hoge"));
+}
