@@ -8,15 +8,30 @@ export async function main(options){
     let acepad=this.$acepad;
     let session=acepad.createSession({
         name: "hoge",
+        text:"aaa",
         commands: {
             return(e) {
                 let line=acepad.currentLine();
                 acepad.goLineEnd();
+                if(line.match(/off/)){
+                        acepad.detachCommands(cmd);
+
+                }
                 acepad.print("\nYou typed: "+line+"\n");
             }
         },
     });
-    acepad.changeSession(session);
+    let cmd={
+        "ctrl-y":(editor)=>{
+            let i=acepad.sessionInfo(editor.session);
+            console.log("si",i);
+            acepad.changeSession(session);
+            
+            acepad.print(i.file);
+        }
+    };
+    acepad.attachCommands(cmd);
+    this.echo("ctrl-y");
     /*this.$hoge="play";
     this.echo("lets play");
     this.ls();
