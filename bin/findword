@@ -1,5 +1,5 @@
 //!run
-import {matcher} from "textmatcher";
+import {match} from "textmatcher";
 export function byts(a,b){
     return b.lastUpdate()-a.lastUpdate();
 }
@@ -82,31 +82,28 @@ export function createFind(sh,w="",dir="."){
     });
     return session;
     function onEnter(e){
-        
-        //session.getValue().match()
-        let line=
-        e.line.replace(
+        match(session.getValue(), 
+        /\ndir: *([^\n]+)/, (m)=>{dir=sh.resolve(m[1]);});
+        match(e.line,
             /^find: *(.*)/,
-            (_,n)=>{
-                runf(n,editor);
-            });
-        e.line.replace(
-            /^symb: *(.*)/,
-            (_,n)=>{
-                runf(new RegExp("\\b"+n+"\\b"),
+            (m)=>{
+                runf(m[1],editor);
+            },
+            /^symb: *([\w\d]+)/,
+            (m)=>{
+                runf(new RegExp("\\b"+m[1]+"\\b"),
                 editor);
-            });
-        e.line.replace(
+            },
             /^regx: *(.*)/,
-            (_,n)=>{
-                runf(new RegExp(n),editor);
-            });
-        e.line.replace(
+            (m)=>{
+                runf(new RegExp(m[1]),editor);
+            },
             /^(.*)\((\d+)\):/,
-            (_,f,l)=>{
-                sh.edit(dir.rel(f));
-                editor.gotoLine(l,0);
-            });
+            (m)=>{
+                sh.edit(dir.rel(m[1]));
+                editor.gotoLine(m[2],0);
+            },
+        );
     }
 }
 
