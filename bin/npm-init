@@ -1,5 +1,6 @@
+//!run
 import {sh} from "acepad-shell";
-sh.addCmd("npm-init",function (name){
+export async function main(name){
     let n=findNodeModuleRoot(this.resolve("."));
     n=n.rel(name+"/");
     if(n.exists()){
@@ -7,12 +8,24 @@ sh.addCmd("npm-init",function (name){
     }
     n.mkdir();
     let main=`${name}.js`;
+    let testp=`test/test-${name}.js`;
     n.rel("package.json").obj({
+        "scripts":{
+            "test":`run ${testp}`  
+        },
         main,
     });
+    let inpoto="import";
+    n.rel(testp).text(
+`${inpoto} * as ${name} from "${name}";
+${inpoto} * as assert from "assert";
+export async function main(){
+    
+}    
+`);
     n.rel(main).text("// "+name+"\n");
     this.edit(n.rel(main));
-});    
+}
 
 function findNodeModuleRoot(base){
     for(let p=base;p;p=p.up()){

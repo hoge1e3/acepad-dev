@@ -1,5 +1,7 @@
 //!run
 import {match} from "textmatcher";
+import {run} from "acepad-find";
+/*
 export function byts(a,b){
     return b.lastUpdate()-a.lastUpdate();
 }
@@ -105,7 +107,7 @@ export function createFind(sh,w="",dir="."){
             },
         );
     }
-}
+}*/
 
 export async function main(){
     let sh=this;
@@ -114,6 +116,7 @@ export async function main(){
         find:{
             bindKey:"ctrl-f",
             exec(){
+                run(sh);/*
                 let dir;
                 let i=a.sessionInfo(a.editor.session);
                 if(i.file){
@@ -121,8 +124,9 @@ export async function main(){
                 }else{
                     dir=sh.cwd;
                 }
-                let s=createFind(sh,"",dir);
-                a.changeSession(s);
+                let t=a.editor.getSelectedText()||"";
+                let s=createFind(sh,t,dir);
+                a.changeSession(s);*/
             }
         }
     });

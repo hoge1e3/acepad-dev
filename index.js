@@ -9,10 +9,13 @@ async function main(){
     document.querySelector("#beta").onclick=trial(async ()=>{
         sh.cd("/jsmod/");
         await initCmds();
+        
         let path=FS.get("/jsmod/node_modules/acepad/rest.js");
         window.acepad=await 
         (await loadModule(path)).init();   
         sh.set("acepad",window.acepad);
+        await sh.findword();
+
     }  ) ; 
     sh.upload=function (dst){
         return new Promise((s,err)=>{
@@ -64,9 +67,6 @@ async function initCmds(){
         }
         return mod;
     });
-    sh.addCmd("era",async function (){
-        throw new Error("era");
-    });
     sh.addCmd("testjs",function (f){
         return this.jsm(f,"test");
     });
@@ -76,7 +76,7 @@ async function initCmds(){
     let {open}=await sh.jsm("browser.js");
     sh.addCmd("page",open,"f");
     sh.addPath("/jsmod/bin/");
-    await loadModule(sh.resolve("npm-init.js"));
+    //await loadModule(sh.resolve("npm-init.js"));
     let a={
          async hoge(){}
     };
