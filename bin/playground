@@ -5,6 +5,7 @@ export async function main(options){
         this.edit(this.resolve(__dirname).rel("playground"));
         return;
     }
+    this.resolve("modb.js").appendText("\n///def");
     let acepad=this.$acepad;
     let session=acepad.createSession({
         name: "hoge",
@@ -21,6 +22,7 @@ export async function main(options){
             }
         },
     });
+    
     let cmd={
         "ctrl-y":(editor)=>{
             let i=acepad.sessionInfo(editor.session);
@@ -28,6 +30,15 @@ export async function main(options){
             acepad.changeSession(session);
             
             acepad.print(i.file);
+        },
+        "ctrl-t":()=>{
+            setInterval(()=>{
+                let l=acepad.locate;
+                l.save(()=>{
+                    l.bottom();
+                    acepad.print("hoge\n");
+                });
+            },1000);
         }
     };
     acepad.attachCommands(cmd);

@@ -1,4 +1,4 @@
-import {init,commit,checkout} from "acepad-sync";
+import {init,commit,checkout,clone} from "acepad-sync";
 
 export async function main(cmd, ...args){
     const sh=this;
@@ -10,5 +10,7 @@ export async function main(cmd, ...args){
             return await checkout(gd());
         case "commit":
             return await commit(gd());
+        case "clone":
+            return await clone(args.shift(),gd());
     }
 }
