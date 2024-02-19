@@ -1,9 +1,19 @@
 //!run
+/* global $*/
 import {showWidget} from "acepad-widget";
+const raf=()=>new Promise(requestAnimationFrame); 
 export async function main(){
-    let w=showWidget("<canvas>");
+    let wid=showWidget("<canvas>");
     /*let c=$("<canvas>").css({
         width:"100%",height:"100%"}).appendTo(w.element);*/
-    let ctx=w.element.getContext("2d");
-    ctx.fillRect(0,0,100,100);
+    let cv=wid.element;
+    let ctx=cv.getContext("2d");
+    let w= $(cv).width();
+    let h= $(cv).height();
+    cv.setAttribute("width", w);
+    cv.setAttribute("height", h);
+    for (let i=0;i<w;i++) {
+        ctx.fillRect(i,i,10,10);
+        await raf();
+    }
 }
