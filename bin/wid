@@ -1,0 +1,9 @@
+//!run
+import {showWidget} from "acepad-widget";
+export async function main(){
+    let w=showWidget("<canvas>");
+    /*let c=$("<canvas>").css({
+        width:"100%",height:"100%"}).appendTo(w.element);*/
+    let ctx=w.element.getContext("2d");
+    ctx.fillRect(0,0,100,100);
+}
