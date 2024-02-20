@@ -1,114 +1,6 @@
 //!run
 import {match} from "textmatcher";
 import {run} from "acepad-find";
-/*
-export function byts(a,b){
-    return b.lastUpdate()-a.lastUpdate();
-}
-export function createFind(sh,w="",dir="."){
-    let acepad=sh.$acepad;
-    const {
-        locate,editor,createSession,
-        sessionInfo,currentLine,print,
-        findWord,
-    }=acepad;
-    //let editor=acepad.getEditor();
-
-    let session;
-    //console.log("fnd",acepad);
-    function top(){
-        let s=editor.session.getSelection();
-        s.moveCursorFileStart();
-        s.clearSelection();
-    }
-    function bot(){
-        let s=editor.session.getSelection();
-        s.moveCursorFileEnd();
-        s.clearSelection();
-    }
-    function onActivated(editor){
-        //bot();
-        locate(10000,0);
-    }
-    function runf(word,editor){
-        //editor.setValue("find: "+word+"\n");
-        locate(1000);
-        sessionInfo(session,{
-            name:"?"+word
-        });
-        print("\n");
-        //bot();
-        window.findWord=word;
-        findWord(word);
-
-        const files=[];
-        const fil=(typeof word==="string"?
-        (line)=>line.indexOf(word)>=0:
-        (line)=>word.exec(line)
-        );
-        dir.recursive((f)=>files.push(f));
-        for (let f of files.sort(byts)) {
-            let ln=1;
-            //editor.onTextInput("{");
-            for(let line of f.lines()){
-                if(fil(line)){
-                    print(
-                        `${f.relPath(dir)}(${ln}): ${line}\n`
-                        );
-                }
-                ln++;
-            }
-            //editor.onTextInput("}");
-        }
-        top();
-    }
-    //SYM
-    delete window.findWord;
-    session= createSession({
-        type:"find",
-        text:"find: "+w+
-        "\nsymb: "+w+
-        "\nregx: "+w+
-        "\ndir: "+dir+
-        "\n",
-        name:"?"+w,
-        onActivated,
-        commands:{
-            return(){
-                onEnter({
-                    line:currentLine()
-                });
-            }
-        },
-        //onEnter
-    });
-    return session;
-    function onEnter(e){
-        match(session.getValue(), 
-        /\ndir: *([^\n]+)/, (m)=>{dir=sh.resolve(m[1]);});
-        match(e.line,
-            /^find: *(.*)/,
-            (m)=>{
-                runf(m[1],editor);
-            },
-            /^symb: *([\w\d]+)/,
-            (m)=>{
-                runf(new RegExp("\\b"+m[1]+"\\b"),
-                editor);
-            },
-            /^regx: *(.*)/,
-            (m)=>{
-                runf(new RegExp(m[1]),editor);
-            },
-            /^(.*)\((\d+)\):/,
-            (m)=>{
-                sh.edit(dir.rel(m[1]));
-                editor.gotoLine(m[2],0);
-            },
-        );
-    }
-}*/
-
 export async function main(){
     let sh=this;
     let a=this.$acepad;
@@ -116,17 +8,7 @@ export async function main(){
         find:{
             bindKey:"ctrl-f",
             exec(){
-                run(sh);/*
-                let dir;
-                let i=a.sessionInfo(a.editor.session);
-                if(i.file){
-                    dir=i.file.up();
-                }else{
-                    dir=sh.cwd;
-                }
-                let t=a.editor.getSelectedText()||"";
-                let s=createFind(sh,t,dir);
-                a.changeSession(s);*/
+                run(sh);
             }
         }
     });
