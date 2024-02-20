@@ -11,11 +11,12 @@ async function main(){
         await initCmds();
         
         let path=FS.get("/jsmod/node_modules/acepad/rest.js");
-        window.acepad=await 
+        let acepad=window.acepad=await 
         (await loadModule(path)).init();   
         sh.set("acepad",window.acepad);
         await sh.findword();
-
+        let {openFile}=await loadModule("acepad-files",sh.cwd);
+        openFile(sh,"./");
     }  ) ; 
     sh.upload=function (dst){
         return new Promise((s,err)=>{
