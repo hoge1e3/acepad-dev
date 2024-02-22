@@ -35,6 +35,9 @@ async function main(){
                 showVConsole();
             }
         });
+        acepad.events.on("keyclick",({b})=>{
+            console.log("k",b.innerText);
+        });
     }) ; 
     sh.upload=function (dst){
         return new Promise((s,err)=>{
