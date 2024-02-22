@@ -1,0 +1,6 @@
+//!run
+import {debugSession} from "acepad-debug";
+export async function main(){
+    let s=debugSession(this);
+    this.$acepad.changeSession(s);
+}

@@ -1,9 +1,9 @@
 import {FS,loadModule} from "acepad-os";
 import {open} from "acepad-browser";
-import {trial} from "acepad-debug";
+import {trial,debugSession} from "acepad-debug";
 import {sh} from "acepad-shell";
 import {showWidget} from "acepad-widget";
-
+import {initVConsole,showVConsole} from "show-vconsole";
 /*global $*/
 async function main(){
     document.querySelector("#beta").onclick=trial(async ()=>{
@@ -17,7 +17,25 @@ async function main(){
         await sh.findword();
         let {openFile}=await loadModule("acepad-files",sh.cwd);
         openFile(sh,"./");
-    }  ) ; 
+        debugSession(sh);
+        acepad.attachCommands({
+            "ctrl-r":()=>location.reload(),
+            showDebug:{bindKey:"ctrl-d",exec(){
+                acepad.changeSession("*debug*");
+            }},
+        });
+        sh.resolve(".").recursive((f)=>{
+            if(f.ext()!==".js")return ;
+            let s=f.text();
+            acepad.addToNgram(s);
+        });
+        initVConsole();
+        acepad.showMenuButtons({
+            cons(){
+                showVConsole();
+            }
+        });
+    }) ; 
     sh.upload=function (dst){
         return new Promise((s,err)=>{
             let w=showWidget($("<input>").attr({

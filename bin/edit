@@ -1,5 +1,5 @@
 //!run
 import {openFile} from "acepad-files";
-export async function main(file){
-    openFile(this,file);
+export async function main(file,o){
+    openFile(this,file,o);
 }
