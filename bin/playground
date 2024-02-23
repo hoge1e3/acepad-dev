@@ -5,6 +5,8 @@ export async function main(options){
         this.edit(this.resolve(__dirname).rel("playground"));
         return;
     }
+    this.echo(__dirname);
+    return;
     this.resolve("modb.js").appendText("\n///def");
     let acepad=this.$acepad;
     let session=acepad.createSession({

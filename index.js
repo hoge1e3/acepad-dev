@@ -6,6 +6,12 @@ import {showWidget} from "acepad-widget";
 import {initVConsole,showVConsole} from "show-vconsole";
 /*global $*/
 async function main(){
+    document.querySelector("#acepad-with-fs").onclick=trial(async ()=>{
+        sh.cd(__dirname);
+        await initCmds();
+        (await sh.jsm("acepad-with-fs")).main.call(sh);
+        
+    });
     document.querySelector("#beta").onclick=trial(async ()=>{
         sh.cd("/jsmod/");
         await initCmds();
@@ -76,7 +82,7 @@ async function main(){
 
 }
 async function initCmds(){
-    FS.mount("/ram/","ram");
+    if (!FS.get("/ram/").exists()) FS.mount("/ram/","ram");
     sh.addCmd("jsm",async function (path,name,args=[]){
         let f=this.resolve(path);
         let mod;
@@ -97,7 +103,7 @@ async function initCmds(){
     });
     let {open}=await sh.jsm("browser.js");
     sh.addCmd("page",open,"f");
-    sh.addPath("/jsmod/bin/");
+    sh.addPath(sh.resolve("bin/").path());
     //await loadModule(sh.resolve("npm-init.js"));
     let a={
          async hoge(){}

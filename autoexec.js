@@ -18,7 +18,7 @@
         }
         let {open}=await sh.jsm("browser.js");
         sh.addCmd("page",open,"f");
-        await FS.os.loadModule(sh.resolve("npm-init.js"));
+        //await FS.os.loadModule(sh.resolve("npm-init.js"));
         //alert(sh["npm-init"]);
     }catch(e){  
         alert(e.stack);
