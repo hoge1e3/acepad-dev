@@ -14,9 +14,9 @@
             return await mod.test();
         },"f");
         if(!FS.os.loadModule.hooks){
-        await sh.jsm("mod/modValue.js");
+        await sh.jsm("./mod/modValue.js");
         }
-        let {open}=await sh.jsm("browser.js");
+        let {open}=await sh.jsm("./browser.js");
         sh.addCmd("page",open,"f");
         //await FS.os.loadModule(sh.resolve("npm-init.js"));
         //alert(sh["npm-init"]);

@@ -1,10 +1,10 @@
 export function showTip(e) {
     let tip=document.querySelector("#tip");
-    //console.log(e);
     const b=e.currentTarget;
     if (e.changedTouches) {
         e=e.changedTouches[0];
     }
+    console.log("showTip",e);
     const r=b.getBoundingClientRect();
     const rt=tip.getBoundingClientRect();
     //console.log(r);

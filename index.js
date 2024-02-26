@@ -86,8 +86,12 @@ async function initCmds(){
     sh.addCmd("jsm",async function (path,name,args=[]){
         let f=this.resolve(path);
         let mod;
-        if(f.exists())mod=await loadModule(f);
-        else mod=await loadModule(path,this.cwd);
+        if(f.exists()){
+            if(path.match&&!path.match(/^[\/\.]/)){
+                console.warn(path,"should begin with / or ./");
+            }
+            mod=await loadModule(f);
+        }else mod=await loadModule(path,this.cwd);
         if(name){
             const f=mod[name];
             if(!f)throw new Error(`${path} has no export ${name}`);
@@ -101,7 +105,7 @@ async function initCmds(){
     sh.addCmd("run",function (f,...args){
         return this.jsm(f,"main",args);
     });
-    let {open}=await sh.jsm("browser.js");
+    let {open}=await sh.jsm("./browser.js");
     sh.addCmd("page",open,"f");
     sh.addPath(sh.resolve("bin/").path());
     //await loadModule(sh.resolve("npm-init.js"));

@@ -1,12 +1,18 @@
 export function showTip(e) {
     let tip=document.querySelector("#tip");
-    //console.log(e);
     const b=e.currentTarget;
     if (e.changedTouches) {
         e=e.changedTouches[0];
+        console.log("showTip",e.pageX,e.pageY);
     }
     const r=b.getBoundingClientRect();
     const rt=tip.getBoundingClientRect();
+    let cx=r.left+r.width/2;
+    let cy=r.top+r.height/2;
+    let dx=(e.pageX-cx)/r.width;
+    let dy=(e.pageY-cy)/r.height;
+    let d=Math.max(Math.abs(dx),Math.abs(dy));
+    console.log(d);
     //console.log(r);
     tip.setAttribute("style",
     `display:inline;
@@ -14,6 +20,13 @@ export function showTip(e) {
     height:${r.height}px;
     width:${r.width}px;
     top:${r.top-r.height}px;`);
+    if(d>0.25){
+        tip.classList.add("border");
+        window.navigator.vibrate(200);
+    }else{
+        tip.classList.remove("border");
+        window.navigator.vibrate(20);
+    }
     tip.innerText=b.innerText;
 }
 export function hideTip(b){
