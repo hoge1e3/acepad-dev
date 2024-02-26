@@ -12,11 +12,13 @@ export async function main(){
     let h= $(cv).height();
     cv.setAttribute("width", w);
     cv.setAttribute("height", h);
-    let y=0,vy=0;
-    for (let i=0;i<w;i++) {
-        ctx.fillRect(i,y,10,10);
-        y+=vy;vy+=0.2;
-        if(y>h){y=h;vy=-vy*0.9;}
+    while(true){
+        let y=h/2;
+        for (let i=0;i<w;i++) {
+            ctx.fillRect(i,y,1,1);
+            y+=(Math.random()*h<y?1:-1);
+            //if(y>h){y=h;vy=-vy*0.9;}
+        }
         await raf();
     }
 }
