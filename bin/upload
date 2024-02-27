@@ -1,0 +1,38 @@
+//!run
+import {showWidget} from "acepad-widget";
+/*global $*/
+export function main(dst){
+    const sh=this;
+    return new Promise((s,err)=>{
+        let w=showWidget($("<input>").attr({
+            type:"file",
+        }).on("input",oninput));
+        async function oninput(e){
+            w.close();
+            try{
+                let b=await readFile(this.files[0]);
+                let f=this.value.split(/[\\\/]/);
+                f=f.pop();
+                console.log(b,f);
+                if(!dst){
+                    dst=sh.resolve(f);
+                }else{
+                    dst=sh.resolve(dst);
+                }
+                dst.setBytes(b);
+                s(dst);
+            }catch(ex){
+                err(ex);
+            }
+        }
+    });
+    function readFile(file) {
+        return new Promise(function (succ) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                succ(reader.result);
+            };
+            reader.readAsArrayBuffer(file);
+        });
+    }
+}
