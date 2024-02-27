@@ -11,8 +11,8 @@ find from nears
 node mods convert
 bookmark command
 []$ npm-init acepad-widget
-dedent/indent
 
+ok dedent/indent
 ok shell app with file this=sh
 ok separate file from acepad
 ok abolish home
