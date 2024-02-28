@@ -1,6 +1,8 @@
+key layout
 swipe
 diff
 logging
+del session on file del
 
 [jsmod/]$ ls
 Error: /jsmod/jsmod/: no such file or directory
