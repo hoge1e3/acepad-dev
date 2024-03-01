@@ -5,6 +5,12 @@ export async function main(options){
         this.edit(this.resolve(__dirname).rel("playground"));
         return;
     }
+    let p=document;
+    for(let i=0;i<5;i++){
+        console.log(i,p);
+        p=Object.getPrototypeOf(p) ;
+        if(!p)break;
+    }
     this.echo(__dirname);
     return;
     this.resolve("modb.js").appendText("\n///def");

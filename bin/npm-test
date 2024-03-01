@@ -1,5 +1,5 @@
 //!run
-import {resolveModule} from "acepad-os";
+
 export async function main(name){
     let p=findNodeModule(name,this.cwd);
     this.cd(p);
