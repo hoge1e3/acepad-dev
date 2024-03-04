@@ -41,7 +41,7 @@ async function main(){
             }
         });
         acepad.events.on("keyclick",({b})=>{
-            console.log("k",b.innerText);
+//            console.log("k",b.innerText);
         });
     }) ; 
 }

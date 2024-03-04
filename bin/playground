@@ -1,10 +1,17 @@
 //!run
-
+import "https://cdn.plot.ly/plotly-2.29.1.min.js";
+import {showWidget} from "acepad-widget";
 export async function main(options){
     if(options && options.e) {
         this.edit(this.resolve(__dirname).rel("playground"));
         return;
     }
+    let w=showWidget("<div>");
+    Plotly.newPlot(w.element, [{ y: [1, 2, 3] }]);
+    return ;
+
+    this.echo(await retp(this));
+    return ;
     let p=document;
     for(let i=0;i<5;i++){
         console.log(i,p);
@@ -57,3 +64,9 @@ export async function main(options){
     this.echo(this.ls);
     this.echo(this.get("hoge"));*/
 }
+async function retp(sh){
+    await sh.sleep(1);
+    sh.echo(2);
+    return sh.sleep(1).then((e)=>5);
+}
+

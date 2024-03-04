@@ -1,0 +1,12 @@
+//!run
+
+async function ii(c){
+    return (await this.input(c))-0;
+}
+export async function main(){
+    let m=await ii.call(this,"m");
+    let s=await ii.call(this,"s");
+    let d=await ii.call(this,"d");
+    let r=((m*60+s)*(42.195/d));
+    this.echo(Math.floor(r/60)+":"+Math.floor(r%60));
+}

@@ -1,0 +1,27 @@
+//!run
+import {showWidget} from "acepad-widget";
+import build from "@hoge1e3/html-builder";
+
+export async function main(){
+    let w=showWidget("<div>");
+    build(w.element,(t)=>{
+        t.custom("cld",(t,...args)=>
+            t.h1((t)=>{
+                t.target.addEventListener("touchstart",()=>{
+                    t.target.innerText+="!";
+                });
+            },...args));
+        let d=t.cld("test");
+        t.hr();
+        let d2;
+        t.div("aaa",(t)=>{
+            d2=t.cld("test2");
+        },"bbb");
+        t.button((t)=>{
+            t("ok");
+            t.target.addEventListener("click",()=>{
+                d.before(d2);
+            });
+        });
+    });
+}

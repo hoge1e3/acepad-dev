@@ -1,0 +1,41 @@
+//!run
+
+function rnd(n){
+    return Math.floor(Math.random()*n);
+}
+function nc(n){
+    const r=[];
+    for(let i=0;i<n;i++){
+        r.push({
+            s:rnd(100),
+            g:(i+(i<2?0:rnd(2)))%2
+        })    ;
+    }
+    r.sort((s,t)=>s.g-t.g);
+    return r;
+}
+function avr(c,g){
+    if(g!=null)c=c.filter(s=>s.g==g);
+    c=c.map(a=>a.s);
+    return c.reduce((a,b)=>a+b,0)/c.length;
+}
+function show(a){
+    return a.map(e=>e.s+"@*"[e.g]).join(" ")+
+    avr(a)+" "+avr(a,0)+" "+avr(a,1)+" ";
+}
+export async function main(){
+    for(let i=0;i<1000;i++){
+        const a=nc(5+rnd(5));
+        const b=nc(5+rnd(5));
+        if(
+        (avr(a,0)>avr(b,0)&&avr(a,1)>avr(b,1)&&avr(a)<avr(b))
+        ||
+        (avr(a,0)<avr(b,0)&&avr(a,1)<avr(b,1)&&avr(a)>avr(b))
+        ){
+            this.echo(show(a));
+            this.echo(show(b));
+            break;
+        }
+    }
+    
+}
