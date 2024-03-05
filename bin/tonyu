@@ -1,0 +1,30 @@
+//!run
+import {loadScriptTag} from "acepad-os";
+export async function main(){
+    if(typeof requirejs!="function"){
+        await loadScriptTag("js/lib/require.js");
+    }
+    this.echo("load1");
+    await loadScriptTag("js/reqConf2.js");
+    console.log("reqConf2",reqConf);
+    this.echo("load2");
+    //let BuilderClient=await loadScriptTag("js/lang/BuilderClient4Sys.js");
+    let BuilderClient=await loadScriptTag("BuilderClient4Sys");
+    //window.TonyuBuilderClient;
+    this.echo("load3");
+    this.echo(!!BuilderClient);
+    this.echo(Object.keys(BuilderClient).join(", "));
+    return ;
+    let ns2depspec=[
+	    {namespace:"kernel", url: "Kernel/js/concat.js"},
+	    //    {namespace:"mapEditor2", url: WebSite.compiledTools.mapEditor2},
+	];
+	
+    const c=new BuilderClient(res ,{
+        worker: {
+            ns2depspec, 
+            url: "BuilderWorker.js"/*WORKER_URL*/
+        },
+        //locale:R.getLocale()
+    });
+}
