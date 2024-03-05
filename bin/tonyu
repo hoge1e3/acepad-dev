@@ -6,35 +6,30 @@ export async function main(prj){
     if(typeof requirejs!="function"){
         await loadScriptTag("js/lib/require.js");
     }
-    this.echo("load1");
+    //this.echo("load1");
     await loadScriptTag("js/reqConf2.js");
     console.log("reqConf2",reqConf);
     reqConf.paths.FS="acepad/FSStub";
     requirejs.config(reqConf);
-    this.echo("load2");
-    //let BuilderClient=await loadScriptTag("js/lang/BuilderClient4Sys.js");
+    //this.echo("load2");
     window.WebSite={runType:"IDE"};
     const WebSite=await loadScriptTag("WebSite");
     console.log("WS",WebSite);
     let BuilderClient=await loadScriptTag("BuilderClient4Sys");
-    //window.TonyuBuilderClient;
-    this.echo("load3");
+    /*this.echo("load3");
     this.echo(!!BuilderClient);
-    this.echo(Object.keys(BuilderClient).join(", "));
+    this.echo(Object.keys(BuilderClient).join(", "));*/
     const IDEProject=await loadScriptTag("IDEProject");
-    this.echo("load4",IDEProject);
+    //this.echo("load4",IDEProject);
     const ide={};
     const curPrj=IDEProject.create({dir:prj,ide});
-    /*BuilderClient.ProjectFactory.create("dir",{
-        
-    };*/
-    this.echo("load5",curPrj);
+    //this.echo("load5",curPrj);
     let ns2depspec=[
 	    {
 	        namespace:"kernel", 
 	        url: WebSite.compiledKernel/*"Kernel/js/concat.js"*/
 	    },
-	    //    {namespace:"mapEditor2", url: WebSite.compiledTools.mapEditor2},
+	    {namespace:"mapEditor2", url: WebSite.compiledTools.mapEditor2},
 	];
     const c=new BuilderClient(curPrj ,{
         worker: {
