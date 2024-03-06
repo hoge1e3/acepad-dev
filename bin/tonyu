@@ -8,6 +8,7 @@ export async function main(prj){
     }
     //this.echo("load1");
     await loadScriptTag("js/reqConf2.js");
+    
     console.log("reqConf2",reqConf);
     reqConf.paths.FS="acepad/FSStub";
     requirejs.config(reqConf);

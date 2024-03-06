@@ -1,0 +1,24 @@
+//!run
+
+export async function main(){
+    let a=this.$acepad;
+    let e=a.getEditor();
+    let m=a.showMenuButton("test",()=>{
+        m.text(m.offset().left);
+    });
+//    return;
+    setInterval(()=>{
+        let x=m.offset().left;
+        let y=m.offset().top;
+        let {row,column}=e.renderer.pixelToScreenCoordinates(x, y); 
+        let {row:row2,column:column2}=e.renderer.pixelToScreenCoordinates(
+            x+m.width(), y+m.height()); 
+        let s=e.session.getLines(row,row2).
+        map((s)=>s.substring(column,column2)).
+        join("");
+        if(s.length)m.css({opacity:"50%"});
+        else m.css({opacity:"100%"});
+        //m.html(row+","+column+"-"+row2+","+column2+"<br>"+s);
+        
+    },100);
+}

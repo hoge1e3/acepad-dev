@@ -1,7 +1,12 @@
 tonyu dev to publish
  dot pict
  smezonet
- 
+keypad resize
+widget minify
+menu
+ current/last
+ avoid edit text
+
 key layout
 swipe
 diff
