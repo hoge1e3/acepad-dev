@@ -8,7 +8,7 @@ menu
  avoid edit text
 
 key layout
-swipe
+key swipe
 diff
 logging
 del session on file del
