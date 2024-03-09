@@ -3,11 +3,17 @@
 export async function main(){
     let a=this.$acepad;
     let e=a.getEditor();
-    let m=a.showMenuButton("test",()=>{
+    let _m=a.showMenuButton("test",()=>{
         m.text(m.offset().left);
     });
+    let m=$(_m.element);
 //    return;
     setInterval(()=>{
+        if(_m.isTextOverlapped()){
+            m.css({opacity:"50%"});
+        }else m.css({opacity:"100%"});
+        return ;
+        
         let x=m.offset().left;
         let y=m.offset().top;
         let {row,column}=e.renderer.pixelToScreenCoordinates(x, y); 

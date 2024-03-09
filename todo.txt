@@ -5,7 +5,8 @@ keypad resize
 widget minify
 menu
  current/last
- avoid edit text
+ ok? avoid edit text
+ bubbling up
 
 key layout
 key swipe
@@ -18,7 +19,7 @@ Error: /jsmod/jsmod/: no such file or directory
 
 session local command
 session local menu
-find from nears
+ok find from nears
 node mods convert
 bookmark command
 []$ npm-init acepad-widget
@@ -33,3 +34,87 @@ ok sync
  ok file delta, deltadelta
 ok addPath
 
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1008): vdptest macro
+../Tonyu/Projects/spman/files/asm/before.genrom.asm(1997):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.asm(939): vdptest macro
+../Tonyu/Projects/spman/files/asm/macro.asm(4143):   ; described in https://www.msx.org/wiki/Compatibility_testing
+../Tonyu/Projects/spman/files/asm/macro.ram.asm(1406): vdptest macro
+../Tonyu/Projects/spman/files/asm/plain.asm(3205): ; described in https://www.msx.org/wiki/Compatibility_testing

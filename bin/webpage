@@ -1,5 +1,6 @@
 //!run
+import {showWidget,showIframe} from "acepad-widget";
 import {open} from "acepad-browser";
 export async function main(f){
-    open(this.resolve(f));
+    showIframe(this.resolve(f));
 }

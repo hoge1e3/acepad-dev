@@ -1,0 +1,14 @@
+//!run
+
+export async function main(){
+    this.echo("sta-to");
+    loop(this);
+    this.echo("endo");
+    
+}
+async function loop(sh){
+    for(let i=0;i<1000;i++){
+         sh.echo(i,{n:i%100});   
+         await i;
+    }
+}

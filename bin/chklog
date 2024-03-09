@@ -1,0 +1,10 @@
+//!run
+
+export async function main(){
+    let f=this.resolve("/log/keyclick.json");
+    for(let e of f.obj()){
+        
+    }
+    this.echo(f.size());
+    
+}
