@@ -1,0 +1,8 @@
+//!run
+
+export async function main(f){
+    f=this.resolve(f);
+    f.watch((e)=>{
+       this.echo(JSON.stringify(e));
+    });
+}

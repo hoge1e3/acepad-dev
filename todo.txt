@@ -4,6 +4,7 @@ tonyu dev to publish
 keypad resize
 widget minify
 menu
+ tree
  current/last
  ok? avoid edit text
  bubbling up

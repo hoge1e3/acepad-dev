@@ -3,12 +3,13 @@ import {sh} from "acepad-shell";
 export async function main(name){
     let n=findNodeModuleRoot(this.resolve("."));
     n=n.rel(name+"/");
+    let sn=name.split("/").pop();
     if(n.exists()){
         throw new Error(`${name} exists`);
     }
     n.mkdir();
-    let main=`${name}.js`;
-    let testp=`test/test-${name}.js`;
+    let main=`${sn}.js`;
+    let testp=`test/test-${sn}.js`;
     n.rel("package.json").obj({
         "scripts":{
             "test":`run ${testp}`  
@@ -17,7 +18,7 @@ export async function main(name){
     });
     let inpoto="import";
     n.rel(testp).text(
-`${inpoto} * as ${name} from "${name}";
+`${inpoto} * as ${sn} from "${name}";
 ${inpoto} * as assert from "assert";
 export async function main(){
     

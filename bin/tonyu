@@ -1,30 +1,21 @@
 //!run
 import {loadScriptTag} from "acepad-os";
 import {showIframe} from "acepad-widget";
-export async function main(prj){
-    prj=this.resolve(prj);
+let compiler;
+async function init(){
+    if(compiler)return compiler;
     if(typeof requirejs!="function"){
         await loadScriptTag("js/lib/require.js");
     }
-    //this.echo("load1");
     await loadScriptTag("js/reqConf2.js");
-    
     console.log("reqConf2",reqConf);
     reqConf.paths.FS="acepad/FSStub";
     requirejs.config(reqConf);
-    //this.echo("load2");
     window.WebSite={runType:"IDE"};
     const WebSite=await loadScriptTag("WebSite");
     console.log("WS",WebSite);
     let BuilderClient=await loadScriptTag("BuilderClient4Sys");
-    /*this.echo("load3");
-    this.echo(!!BuilderClient);
-    this.echo(Object.keys(BuilderClient).join(", "));*/
     const IDEProject=await loadScriptTag("IDEProject");
-    //this.echo("load4",IDEProject);
-    const ide={};
-    const curPrj=IDEProject.create({dir:prj,ide});
-    //this.echo("load5",curPrj);
     let ns2depspec=[
 	    {
 	        namespace:"kernel", 
@@ -32,13 +23,45 @@ export async function main(prj){
 	    },
 	    {namespace:"mapEditor2", url: WebSite.compiledTools.mapEditor2},
 	];
-    const c=new BuilderClient(curPrj ,{
-        worker: {
-            ns2depspec, 
-            url: "BuilderWorker.js"/*WORKER_URL*/
+    compiler={
+        create(prjdir){
+            const ide={
+                showError(e){
+                    console.error(e);
+                },
+            };
+            const curPrj=IDEProject.create({dir:prjdir,ide});
+            const c=new BuilderClient(curPrj ,{
+                worker: {
+                    ns2depspec, 
+                    url: "BuilderWorker.js"/*WORKER_URL*/
+                },
+                //locale:R.getLocale()
+            });
+            window.onTonyuDebuggerReady=d=>{
+                d.on("runtimeError",e=>{
+                    console.log("runt",e.stack.map(s=>s+"").join("\n"));
+                    ide.showError(e);
+                });
+                compiler.curDebugger=d;
+                d.requestStop=o=>ide.stop(o);
+                d.startWithAutoReload=compiler.startWithAutoReload;
+                c.setDebugger(d);
+            };
+            return c;
         },
-        //locale:R.getLocale()
-    });
+        startWithAutoReload(){
+            
+        },
+    };
+    return compiler;
+}
+export async function createCompiler(prjdir){
+    return (await init()).create(prjdir);
+}
+export async function main(prj="."){
+    prj=this.resolve(prj);
+    const c=await createCompiler(prj);
     await c.fullCompile();
     this.echo("compiled");
     showIframe("debug.html?prj="+prj.path());
