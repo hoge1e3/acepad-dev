@@ -2,6 +2,9 @@
 import {loadScriptTag} from "acepad-os";
 import {showIframe} from "acepad-widget";
 let compiler;
+let ides={
+    
+};
 async function init(){
     if(compiler)return compiler;
     if(typeof requirejs!="function"){
@@ -33,6 +36,7 @@ async function init(){
                 },
                 //locale:R.getLocale()
             });
+            ide.compiler=c;
             return c;
         },
     };
@@ -49,39 +53,75 @@ async function resEditor(prj,type){
 export async function createCompiler(prjdir){
     return (await init()).create(prjdir);
 }
-export async function main(prj="."){
-    prj=this.resolve(prj);
-    const ide={
+function runDialog(ide){
+    let closed;
+    //console.log("watcher",wat);
+    
+    let w=showIframe("debug.html?prj="+ide.dir.path());
+    w.on("close",()=>{
+        ide.runDialog=false;
+        ide.disconnectDebugger();
+    });
+    return w;
+}
+export async function main(prj,opt={}){
+    prj=this.resolve(prj||".");
+    const incache=ides[prj.path()];
+    const loaded=(!opt.f&&incache);
+    if(!loaded&&incache){
+        incache.dispose();
+    }
+    const ide=loaded||{
         dir:prj,
         showError(e){
             console.error(e);
         },
+        dispose(){
+            if(ide.watcher)ide.watcher.remove();
+            if(ide.runDialog)ide.runDialog.close();
+        },
+        stop(){
+            console.log("stopped");
+        },
+        disconnectDebugger(){
+            ide.curDebugger=null;
+            c.setDebugger();
+        }
     };
-    const c=await createCompiler(ide);
-    console.log("comp",c);
-    window.onTonyuDebuggerReady=d=>{
-        d.on("runtimeError",e=>{
-            console.log("runt",e.stack.map(s=>s+"").join("\n"));
-            ide.showError(e);
-        });
-        compiler.curDebugger=d;
-        d.requestStop=o=>ide.stop(o);
-        d.startWithAutoReload=true;
-        c.setDebugger(d);
-    };
+    const c=loaded?loaded.compiler:
+        await createCompiler(ide);
+    ides[prj.path()]=ide;
+    console.log("ide",ide);
+    if(!loaded){
+        window.onTonyuDebuggerReady=d=>{
+            d.on("runtimeError",e=>{
+                console.log("runt",e.stack.map(s=>s+"").join("\n"));
+                ide.showError(e);
+            });
+            ide.curDebugger=d;
+            d.requestStop=o=>ide.stop(o);
+            d.startWithAutoReload=true;
+            c.setDebugger(d);
+        };
+    }
+    if(opt.img){
+        return resEditor(c.prj,"image");
+        
+    }
+    console.log("comp1");
     await c.fullCompile();
+    console.log("comp2");
     this.echo("compiled");
-    let closed;
-    const wat=prj.watch((t,f)=>{
+    ide.watcher=ide.watcher||prj.watch((t,f)=>{
         if(closed)return ;
         if(f.ext()===".tonyu"){
             c.partialCompile(f);
         }
     });
-    console.log("watcher",wat);
+    if(!ide.runDialog){
+        ide.runDialog=runDialog(ide);
+    }   else{
+        ide.runDialog.show();
+    } 
     
-    let w=showIframe("debug.html?prj="+prj.path());
-    w.on("close",()=>{
-        closed=1;wat.remove();
-    });
 }
