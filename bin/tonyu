@@ -72,13 +72,16 @@ export async function main(prj="."){
     await c.fullCompile();
     this.echo("compiled");
     let closed;
-    prj.watch((t,f)=>{
+    const wat=prj.watch((t,f)=>{
         if(closed)return ;
         if(f.ext()===".tonyu"){
             c.partialCompile(f);
         }
     });
+    console.log("watcher",wat);
     
     let w=showIframe("debug.html?prj="+prj.path());
-    w.on("close",()=>closed=1);
+    w.on("close",()=>{
+        closed=1;wat.remove();
+    });
 }
