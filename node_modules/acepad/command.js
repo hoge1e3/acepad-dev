@@ -76,6 +76,7 @@ export async function paste(){
     try{
         let t=await readClipboard();
         editor.insert(t);
+        unsetSel(editor);
     }catch(e){
         alert(e);
     }

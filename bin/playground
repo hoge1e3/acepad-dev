@@ -2,10 +2,15 @@
 import "https://cdn.plot.ly/plotly-2.29.1.min.js";
 import {showWidget} from "acepad-widget";
 export async function main(options){
+    let f=this.resolve(__dirname).rel("playground");
     if(options && options.e) {
-        this.edit(this.resolve(__dirname).rel("playground"));
+        this.edit(f);
         return;
     }
+    f.up().watch((...args)=>console.log(...args));
+    return ;
+    
+    
     let w=showWidget("<div>");
     Plotly.newPlot(w.element, [{ y: [1, 2, 3] }]);
     return ;

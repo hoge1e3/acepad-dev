@@ -1,0 +1,25 @@
+//!run
+import {showWidget} from "acepad-widget";
+import sleep from "@hoge1e3/sleep";
+export async function main(){
+    let w=showWidget("<div>");
+    while(1){
+        let d=new Date();
+        let m=new Date(t(d)+32*86400*1000);
+        m1(m);
+        let f=new Date();
+        m1(f);
+        w.element.innerText=((t(d)-t(f))/(t(m)-t(f))*1000);
+        await sleep(10);
+    }
+}
+function t(d){
+    return d.getTime();
+}
+function m1(d){
+    d.setDate(1);
+    d.setHours(0);
+    d.setMinutes(0);
+    d.setSeconds(0);
+    d.setTime(Math.floor(t(d)/1000)*1000);
+}

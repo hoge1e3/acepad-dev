@@ -1,3 +1,4 @@
+console.error trace
 tonyu dev to publish
  dot pict
  smezonet

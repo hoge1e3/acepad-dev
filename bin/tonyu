@@ -24,13 +24,8 @@ async function init(){
 	    {namespace:"mapEditor2", url: WebSite.compiledTools.mapEditor2},
 	];
     compiler={
-        create(prjdir){
-            const ide={
-                showError(e){
-                    console.error(e);
-                },
-            };
-            const curPrj=IDEProject.create({dir:prjdir,ide});
+        create(ide){
+            const curPrj=IDEProject.create({dir:ide.dir,ide});
             const c=new BuilderClient(curPrj ,{
                 worker: {
                     ns2depspec, 
@@ -38,31 +33,52 @@ async function init(){
                 },
                 //locale:R.getLocale()
             });
-            window.onTonyuDebuggerReady=d=>{
-                d.on("runtimeError",e=>{
-                    console.log("runt",e.stack.map(s=>s+"").join("\n"));
-                    ide.showError(e);
-                });
-                compiler.curDebugger=d;
-                d.requestStop=o=>ide.stop(o);
-                d.startWithAutoReload=compiler.startWithAutoReload;
-                c.setDebugger(d);
-            };
             return c;
-        },
-        startWithAutoReload(){
-            
         },
     };
     return compiler;
+}
+async function resEditor(prj,type){
+    const ResEditors=await loadScriptTag("ResEditors");
+    const WebSite=await loadScriptTag("WebSite");
+    //const EC=await loadScriptTag("exceptionCatcher");
+    const resEditors=new ResEditors(prj);
+    resEditors.open(type);/*"image");
+        resEditors.open("sound");*/
 }
 export async function createCompiler(prjdir){
     return (await init()).create(prjdir);
 }
 export async function main(prj="."){
     prj=this.resolve(prj);
-    const c=await createCompiler(prj);
+    const ide={
+        dir:prj,
+        showError(e){
+            console.error(e);
+        },
+    };
+    const c=await createCompiler(ide);
+    console.log("comp",c);
+    window.onTonyuDebuggerReady=d=>{
+        d.on("runtimeError",e=>{
+            console.log("runt",e.stack.map(s=>s+"").join("\n"));
+            ide.showError(e);
+        });
+        compiler.curDebugger=d;
+        d.requestStop=o=>ide.stop(o);
+        d.startWithAutoReload=true;
+        c.setDebugger(d);
+    };
     await c.fullCompile();
     this.echo("compiled");
-    showIframe("debug.html?prj="+prj.path());
+    let closed;
+    prj.watch((t,f)=>{
+        if(closed)return ;
+        if(f.ext()===".tonyu"){
+            c.partialCompile(f);
+        }
+    });
+    
+    let w=showIframe("debug.html?prj="+prj.path());
+    w.on("close",()=>closed=1);
 }
