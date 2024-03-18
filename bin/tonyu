@@ -1,6 +1,7 @@
 //!run
 import {loadScriptTag} from "acepad-os";
 import {showIframe} from "acepad-widget";
+import {$} from "acepad-widget-dialog";
 let compiler;
 let ides={
     
@@ -19,6 +20,8 @@ async function init(){
     console.log("WS",WebSite);
     let BuilderClient=await loadScriptTag("BuilderClient4Sys");
     const IDEProject=await loadScriptTag("IDEProject");
+    const ErrorDialog=await loadScriptTag("ErrorDialog");
+    
     let ns2depspec=[
 	    {
 	        namespace:"kernel", 
@@ -36,18 +39,21 @@ async function init(){
                 },
                 //locale:R.getLocale()
             });
+            ide.prj=curPrj;
             ide.compiler=c;
+            ide.errorDialog=new ErrorDialog(ide);
             return c;
         },
     };
     return compiler;
 }
-async function resEditor(prj,type){
+
+async function resEditor(ide,type){
     const ResEditors=await loadScriptTag("ResEditors");
     const WebSite=await loadScriptTag("WebSite");
     //const EC=await loadScriptTag("exceptionCatcher");
-    const resEditors=new ResEditors(prj);
-    resEditors.open(type);/*"image");
+    ide.resEditors=ide.resEditors||new ResEditors(ide.prj);
+    ide.resEditors.open(type);/*"image");
         resEditors.open("sound");*/
 }
 export async function createCompiler(prjdir){
@@ -75,6 +81,8 @@ export async function main(prj,opt={}){
         dir:prj,
         showError(e){
             console.error(e);
+            ide.errorDialog.show(e);
+            //ide.stop();
         },
         dispose(){
             if(ide.watcher)ide.watcher.remove();
@@ -82,6 +90,9 @@ export async function main(prj,opt={}){
         },
         stop(){
             console.log("stopped");
+            if(ide.curDebugger){
+                ide.curDebugger.stop();
+            }
         },
         disconnectDebugger(){
             ide.curDebugger=null;
@@ -105,7 +116,7 @@ export async function main(prj,opt={}){
         };
     }
     if(opt.img){
-        return resEditor(c.prj,"image");
+        return resEditor(ide,"image");
         
     }
     console.log("comp1");
