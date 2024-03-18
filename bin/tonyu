@@ -40,6 +40,7 @@ async function init(){
                 //locale:R.getLocale()
             });
             ide.prj=curPrj;
+            ide.project=curPrj;
             ide.compiler=c;
             ide.errorDialog=new ErrorDialog(ide);
             return c;
@@ -52,7 +53,7 @@ async function resEditor(ide,type){
     const ResEditors=await loadScriptTag("ResEditors");
     const WebSite=await loadScriptTag("WebSite");
     //const EC=await loadScriptTag("exceptionCatcher");
-    ide.resEditors=ide.resEditors||new ResEditors(ide.prj);
+    ide.resEditors=ide.resEditors||new ResEditors(ide.project);
     ide.resEditors.open(type);/*"image");
         resEditors.open("sound");*/
 }
@@ -70,6 +71,37 @@ function runDialog(ide){
     });
     return w;
 }
+function convert(path, fromSide, toSide) {
+    console.log("cvthis",this);
+    for (let sides of this.sidesList) {
+        console.log("siid",sides,path);
+        if (path.startsWith(sides[fromSide])) {
+            return sides[toSide] + path.substring(sides[fromSide].length);
+        }
+    }
+    return path;
+}
+function  conv(err,ide){
+    const compiler=ide.project.compiler;
+    const fileMap=compiler.fileMap;
+    for (let {columnNumber, lineNumber, fileName} of err.stack) {
+        console.log(columnNumber, lineNumber, fileName);
+        if (!fileName) continue;
+        if (typeof columnNumber!=="number") continue;
+        if (typeof lineNumber!=="number") continue;
+        fileName=convert.call(fileMap,fileName,"remote","local");
+        //compiler.convertFromWorkerPath(fileName);
+        if (fileName.match(/^http/)) continue; // for concat.js
+        console.log("fn",fileName);
+        /*try {
+            src=FS.get(fileName);
+            pos={row:lineNumber, col:columnNumber};
+            if (src.exists()) break;
+        }catch(e){
+            //console.log("ErrorDialog","stack",e);
+        }*/
+    }
+}
 export async function main(prj,opt={}){
     prj=this.resolve(prj||".");
     const incache=ides[prj.path()];
@@ -81,8 +113,12 @@ export async function main(prj,opt={}){
         dir:prj,
         showError(e){
             console.error(e);
+            ide.stop();
+            try{
             ide.errorDialog.show(e);
-            //ide.stop();
+            }catch(e){
+                console.error(e);
+            }
         },
         dispose(){
             if(ide.watcher)ide.watcher.remove();
@@ -107,7 +143,10 @@ export async function main(prj,opt={}){
         window.onTonyuDebuggerReady=d=>{
             d.on("runtimeError",e=>{
                 console.log("runt",e.stack.map(s=>s+"").join("\n"));
+                console.log("filemap",c.fileMap);
+                conv(e,ide);
                 ide.showError(e);
+                
             });
             ide.curDebugger=d;
             d.requestStop=o=>ide.stop(o);
