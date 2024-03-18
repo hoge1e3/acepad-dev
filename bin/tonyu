@@ -139,21 +139,18 @@ export async function main(prj,opt={}){
         await createCompiler(ide);
     ides[prj.path()]=ide;
     console.log("ide",ide);
-    if(!loaded){
-        window.onTonyuDebuggerReady=d=>{
-            d.on("runtimeError",e=>{
-                console.log("runt",e.stack.map(s=>s+"").join("\n"));
-                console.log("filemap",c.fileMap);
-                conv(e,ide);
-                ide.showError(e);
-                
-            });
-            ide.curDebugger=d;
-            d.requestStop=o=>ide.stop(o);
-            d.startWithAutoReload=true;
-            c.setDebugger(d);
-        };
-    }
+    window.onTonyuDebuggerReady=d=>{
+        d.on("runtimeError",e=>{
+            console.log("runt",e.stack.map(s=>s+"").join("\n"));
+            console.log("filemap",c.fileMap);
+            conv(e,ide);
+            ide.showError(e);
+        });
+        ide.curDebugger=d;
+        d.requestStop=o=>ide.stop(o);
+        d.startWithAutoReload=true;
+        c.setDebugger(d);
+    };
     if(opt.img){
         return resEditor(ide,"image");
         
