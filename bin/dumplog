@@ -1,0 +1,11 @@
+//!run
+
+export async function main(){
+    this.cd("/log/");
+    let id=await this.sync("commit");
+    this.echo(id);
+    let log=this.resolve("keyclick.json");
+    this.echo("log size was",log.size());
+    await this.rm(log);
+    
+}

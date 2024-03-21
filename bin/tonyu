@@ -2,6 +2,8 @@
 import {loadScriptTag} from "acepad-os";
 import {showIframe} from "acepad-widget";
 import {$} from "acepad-widget-dialog";
+import {equal,ok} from "assert";
+import {trial,debugSession} from "acepad-debug";
 let compiler;
 let ides={
     
@@ -41,7 +43,7 @@ async function init(){
             });
             ide.prj=curPrj;
             ide.project=curPrj;
-            ide.compiler=c;
+            ok(ide.project.compiler,"idepc");
             ide.errorDialog=new ErrorDialog(ide);
             return c;
         },
@@ -135,17 +137,19 @@ export async function main(prj,opt={}){
             c.setDebugger();
         }
     };
-    const c=loaded?loaded.compiler:
+    const c=loaded?loaded.project.compiler:
         await createCompiler(ide);
     ides[prj.path()]=ide;
     console.log("ide",ide);
     window.onTonyuDebuggerReady=d=>{
-        d.on("runtimeError",e=>{
+        d.on("runtimeError",trial(e=>{
+            
             console.log("runt",e.stack.map(s=>s+"").join("\n"));
-            console.log("filemap",c.fileMap);
+            console.log("fileMap",c.fileMap);
+            equal(c,ide.project.compiler,"idec");
             conv(e,ide);
             ide.showError(e);
-        });
+        }));
         ide.curDebugger=d;
         d.requestStop=o=>ide.stop(o);
         d.startWithAutoReload=true;

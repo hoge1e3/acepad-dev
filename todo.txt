@@ -1,3 +1,4 @@
+shell completion
 console.error trace
 tonyu dev to publish
  dot pict

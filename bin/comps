@@ -1,0 +1,9 @@
+//!run
+
+export async function main(){
+    let a=this.$acepad;
+    a.showMenuButton("comp",({editor})=>{
+        console.log("comp",a.sessionInfo(editor.session).file+"",
+        editor.completers);
+    });
+}

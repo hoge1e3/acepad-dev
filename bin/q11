@@ -1,0 +1,15 @@
+//!run
+// qx-qy=q11
+
+export async function main(){
+    for(let n=1;n<=1000;n++){
+        let nn=n*n;
+        for(let y=1;y<n;y++){
+            if(nn%y)continue;
+            let x=nn/y;
+            let v=x+y-2*n;
+            if(v==11)this.echo(n,nn,x,y,v);
+            
+        }
+    }
+}

@@ -1,13 +1,16 @@
 //!run
 
 export async function main(name){
-    let p=findNodeModule(name,this.cwd);
-    this.cd(p);
-    p=p.rel("package.json").obj();
+    let p;
+    if(name){
+        p=findNodeModule(name,this.cwd);
+        this.cd(p);
+    }
+    p=this.resolve("package.json").obj();
     this.pwd();
     this.echo(p.scripts.test);
-    await this.enterCommand(p.scripts.test);
-    //this.echo(p+"");
+    await this.exec(p.scripts.test);
+    this.echo("passed");
 }
 function findNodeModule(name,base){
     for(let p=base;p;p=p.up()){

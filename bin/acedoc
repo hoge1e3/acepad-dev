@@ -1,5 +1,5 @@
 //!run
 import {showWidget,showIframe} from "acepad-widget";
 export async function main(){
-    showIframe("https://ajaxorg.github.io/ace-api-docs/modules/ace.html");
+    window.open("https://ajaxorg.github.io/ace-api-docs/modules/ace.html");
 }
