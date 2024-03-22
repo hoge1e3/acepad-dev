@@ -10,7 +10,19 @@ export async function main(options){
         return;
     }
     const a=this.$acepad;
-    a.getEditor().session.setMode(new Mode());
+    function             stripPrompt(line){
+            return line.replace(/^.*[:\$%]\s*/,"");
+        }
+    a.getEditor().session.setMode(new Mode(this,{
+        getContext(editor,session,pos,prefix){
+            const line=session.getLine(pos.row);
+            let picked=stripPrompt(line);
+            let c=pos.column-(line.length-picked.length);
+            let secondArg=picked.substring(0, c-prefix.length).match(/\s$/);
+            if(secondArg)return "argument";
+            else return "command";
+        }
+    }));
     //console.log(test);
     //f.up().watch((...args)=>console.log(...args));
     return ;
