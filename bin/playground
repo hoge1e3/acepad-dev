@@ -19,7 +19,7 @@ export async function main(options){
             let picked=stripPrompt(line);
             let c=pos.column-(line.length-picked.length);
             let secondArg=picked.substring(0, c-prefix.length).match(/\s$/);
-            if(secondArg)return "argument";
+            if(secondArg)return "file";
             else return "command";
         }
     }));

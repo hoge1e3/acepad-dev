@@ -34,16 +34,19 @@ async function init(){
     compiler={
         create(ide){
             const curPrj=IDEProject.create({dir:ide.dir,ide});
-            const c=new BuilderClient(curPrj ,{
-                worker: {
-                    ns2depspec, 
-                    url: "BuilderWorker.js"/*WORKER_URL*/
-                },
-                //locale:R.getLocale()
-            });
             ide.prj=curPrj;
             ide.project=curPrj;
+            const c=ide.project.compiler;/*new BuilderClient(curPrj ,{
+                worker: {
+                    ns2depspec, 
+                    url: "BuilderWorker.js"//WORKER_URL
+                },
+                //locale:R.getLocale()
+            });*/
+            console.log("idepc",ide.project.compiler);
             ok(ide.project.compiler,"idepc");
+            equal(c,ide.project.compiler,"idec2");
+
             ide.errorDialog=new ErrorDialog(ide);
             return c;
         },
@@ -105,6 +108,7 @@ function  conv(err,ide){
     }
 }
 export async function main(prj,opt={}){
+    //try{
     prj=this.resolve(prj||".");
     const incache=ides[prj.path()];
     const loaded=(!opt.f&&incache);
@@ -113,13 +117,19 @@ export async function main(prj,opt={}){
     }
     const ide=loaded||{
         dir:prj,
+        displayMode(){
+            
+        },
         showError(e){
+            if(!document.querySelector("#errorPos")){
+                $("<div>").attr({id:"errorPos"}).appendTo("body");
+            }
             console.error(e);
             ide.stop();
             try{
-            ide.errorDialog.show(e);
-            }catch(e){
-                console.error(e);
+                ide.errorDialog.show(e);
+            }catch(_e){
+                console.log("err!",_e);
             }
         },
         dispose(){
@@ -174,5 +184,7 @@ export async function main(prj,opt={}){
     }   else{
         ide.runDialog.show();
     } 
-    
+    /*}catch(e){
+        console.error(e);
+    }*/
 }
