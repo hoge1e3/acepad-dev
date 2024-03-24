@@ -1,14 +1,16 @@
 //!run
 import "https://cdn.plot.ly/plotly-2.29.1.min.js";
-import {showWidget} from "acepad-widget";
+import {showWidget,showIframe} from "acepad-widget";
 //import {test} from "./test.jsx";
-import {Mode} from "acepad-mode-shell";
+//import {Mode} from "acepad-mode-shell";
 export async function main(options){
     let f=this.resolve(__dirname).rel("playground");
     if(options && options.e) {
         this.edit(f);
         return;
     }
+    showIframe("index.html");
+    return ;
     const a=this.$acepad;
     function             stripPrompt(line){
             return line.replace(/^.*[:\$%]\s*/,"");

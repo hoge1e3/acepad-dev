@@ -1,0 +1,18 @@
+//!run
+
+export async function main(bindKey){
+    let cmds=(window.acepad.editor.commands.commands);
+    for(let c in cmds){
+        let k;
+        if(typeof cmds[c].bindKey==="string")k=cmds[c].bindKey;
+        if(cmds[c].bindKey&&
+        cmds[c].bindKey.win)k=cmds[c].bindKey.win;
+        if(bindKey){
+            if(!k)continue;
+            if(k.toLowerCase().indexOf(
+                bindKey.toLowerCase())<0)continue;
+        }
+        this.echo(k, c);
+    }
+    console.log(cmds);
+}
