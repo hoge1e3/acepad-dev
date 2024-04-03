@@ -1,3 +1,3 @@
-export function dob(){
+export default function dob(){
     alert("mod/modb?");
 }

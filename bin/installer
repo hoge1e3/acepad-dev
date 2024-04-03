@@ -1,0 +1,23 @@
+//!run
+import {match} from "textmatcher";
+export async function main(){
+    const dst=this.resolve("/acepad/");
+    
+}
+async function sel(options){
+    let a=this.$acepad;
+    a.createSession({
+        commands:{
+            return(e){
+                let line=a.currentLine();
+                a.goLineEnd();
+                match(
+                /^\d+/,
+                (m,n)=>{
+                    if(n<options.length)return n-0;
+                }
+                );
+            }
+        }        
+    });
+}

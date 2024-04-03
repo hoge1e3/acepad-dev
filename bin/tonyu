@@ -4,12 +4,12 @@ import {showIframe} from "acepad-widget";
 import {$} from "acepad-widget-dialog";
 import {equal,ok} from "assert";
 import {trial,debugSession} from "acepad-debug";
-let compiler;
+let Compiler;
 let ides={
     
 };
 async function init(){
-    if(compiler)return compiler;
+    if(Compiler)return Compiler;
     if(typeof requirejs!="function"){
         await loadScriptTag("js/lib/require.js");
     }
@@ -31,7 +31,7 @@ async function init(){
 	    },
 	    {namespace:"mapEditor2", url: WebSite.compiledTools.mapEditor2},
 	];
-    compiler={
+    Compiler={
         create(ide){
             const curPrj=IDEProject.create({dir:ide.dir,ide});
             ide.prj=curPrj;
@@ -51,7 +51,7 @@ async function init(){
             return c;
         },
     };
-    return compiler;
+    return Compiler;
 }
 
 async function resEditor(ide,type){
@@ -107,16 +107,13 @@ function  conv(err,ide){
         }*/
     }
 }
-export async function main(prj,opt={}){
-    //try{
-    prj=this.resolve(prj||".");
-    const incache=ides[prj.path()];
-    const loaded=(!opt.f&&incache);
-    if(!loaded&&incache){
-        incache.dispose();
-    }
-    const ide=loaded||{
-        dir:prj,
+export async function createIDE(prjdir,sh){
+    const ide={
+        dir:prjdir,
+        jump(src,row,column){
+            //alert(src+":"+row+":"+col);
+            sh.edit(src,{row,column});
+        },
         displayMode(){
             
         },
@@ -144,16 +141,27 @@ export async function main(prj,opt={}){
         },
         disconnectDebugger(){
             ide.curDebugger=null;
-            c.setDebugger();
+            ide.project.compiler.setDebugger();
         }
     };
-    const c=loaded?loaded.project.compiler:
-        await createCompiler(ide);
-    ides[prj.path()]=ide;
+    await createCompiler(ide);
+    ides[prjdir.path()]=ide;
+    return ide;
+}
+export async function main(prjdir,opt={}){
+    //try{
+    let sh=this;
+    prjdir=this.resolve(prjdir||".");
+    const incache=ides[prjdir.path()];
+    const loaded=(!opt.f&&incache);
+    if(!loaded&&incache){
+        incache.dispose();
+    }
+    const ide=loaded||await createIDE(prjdir,sh);
+    const c=ide.project.compiler;
     console.log("ide",ide);
     window.onTonyuDebuggerReady=d=>{
         d.on("runtimeError",trial(e=>{
-            
             console.log("runt",e.stack.map(s=>s+"").join("\n"));
             console.log("fileMap",c.fileMap);
             equal(c,ide.project.compiler,"idec");
@@ -167,13 +175,12 @@ export async function main(prj,opt={}){
     };
     if(opt.img){
         return resEditor(ide,"image");
-        
     }
     console.log("comp1");
     await c.fullCompile();
     console.log("comp2");
     this.echo("compiled");
-    ide.watcher=ide.watcher||prj.watch((t,f)=>{
+    ide.watcher=ide.watcher||prjdir.watch((t,f)=>{
         if(closed)return ;
         if(f.ext()===".tonyu"){
             c.partialCompile(f);
@@ -184,7 +191,4 @@ export async function main(prj,opt={}){
     }   else{
         ide.runDialog.show();
     } 
-    /*}catch(e){
-        console.error(e);
-    }*/
 }

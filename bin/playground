@@ -9,7 +9,10 @@ export async function main(options){
         this.edit(f);
         return;
     }
-    showIframe("index.html");
+//    showIframe("index.html");
+    const u=import.meta.url+"";
+    this.echo(this.resolve(u)+"");
+    
     return ;
     const a=this.$acepad;
     function             stripPrompt(line){

@@ -1,3 +1,4 @@
+magnify
 shell completion
 console.error trace
 tonyu dev to publish
