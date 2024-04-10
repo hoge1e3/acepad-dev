@@ -1,6 +1,7 @@
 //!run
 import "https://cdn.plot.ly/plotly-2.29.1.min.js";
-import {showWidget,showIframe} from "acepad-widget";
+//import {showWidget,showIframe} from "acepad-widget";
+import * as aw from "acepad-widget";
 //import {test} from "./test.jsx";
 //import {Mode} from "acepad-mode-shell";
 export async function main(options){
@@ -9,6 +10,9 @@ export async function main(options){
         this.edit(f);
         return;
     }
+    this.echo(Object.keys(aw).join(", "));
+    for(let k in aw)this.echo(k);
+    return ;
 //    showIframe("index.html");
     const u=import.meta.url+"";
     this.echo(this.resolve(u)+"");
