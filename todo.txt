@@ -1,17 +1,17 @@
 magnify
-shell completion
+ok shell completion
 console.error trace
 tonyu dev to publish
  dot pict
  smezonet
 keypad resize
-widget minify
+ok widget minify
 menu
  tree
  current/last
  ok? avoid edit text
- bubbling up
-
+ ok bubbling up
+n-gram layered
 
 key layout
 key swipe
