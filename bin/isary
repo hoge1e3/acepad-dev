@@ -3,9 +3,12 @@ import {showIframe} from "acepad-widget";
 
 export async function main(){
     let f=showIframe(this.resolve("isary.html"));
-    await this.sleep(1);
+    
+    let a=f.iframe.contentWindow.a();
+        
+    /*await this.sleep(1);
     let a=f.iframe.contentWindow.a();
     this.echo(a+"");
     this.echo(Array.isArray(a), a instanceof Array);
-    f.close();
+    f.close();*/
 }

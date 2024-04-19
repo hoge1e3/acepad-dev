@@ -1,0 +1,15 @@
+//!run
+
+function rnd(a,b){
+    return Math.floor(Math.random()*(b-a))+a;
+}
+export async function main(){
+    let p=rnd(-5,5);
+    let q=rnd(-5,5);
+    let i=3;
+    this.echo(`n=${p}i+${q}`);
+    for(let k=0;k<10;k++){
+        this.echo(i);
+        i=p*i+q;
+    }
+}
