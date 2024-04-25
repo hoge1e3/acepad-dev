@@ -1,9 +1,14 @@
 <body>
-aaa    <script>
+    AAA
+    <script>
         function a(){
-            let t=Date.now();
-            while(Date.now()<t+1000);
-            alert(5);
+            document.body.innerHTML+=("a<BR>");
+            setTimeout(()=>{
+                let t=Date.now();
+                while(Date.now()<t+3000);
+                document.body.innerHTML+=("b<BR>");
+            },100);
         }
+        a();
     </script>
 </body>
