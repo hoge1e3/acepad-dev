@@ -5,6 +5,7 @@ import {sh} from "acepad-os-jsm";
 import {initVConsole,showVConsole} from "show-vconsole";
 /*global $*/
 async function main(){
+    alert(3);
     document.querySelector("#acepad-with-fs").onclick=trial(async ()=>{
         sh.cd(__dirname);
         await initCmds();
