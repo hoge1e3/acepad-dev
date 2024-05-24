@@ -1,0 +1,16 @@
+//!run
+
+export async function main(){
+    let sh=this;
+    let w=new WebSocket("wss://bitarrow3.eplang.jp/ws/3000");
+    w.addEventListener("message",(e)=>{
+        e.data.text().then((s)=>{
+            sh.echo(s);  
+        });
+    });
+    while(true) {
+        let cmd=await sh.input();
+        w.send(cmd+"\n");
+    }
+}
+
