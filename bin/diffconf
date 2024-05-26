@@ -1,0 +1,19 @@
+//!run
+import {match} from "textmatcher";
+export async function main(){
+    let d=this.resolve("./");
+    for (let f of d.recursive()) {
+        await match(f.name(),
+            /^(.*)(\([0-9a-f]+\))(.*)$/,
+            async (m,_,b,n,a)=>{
+                this.echo(f);
+                let o=f.sibling(b+a);
+                if (o.exists()) {
+                    this.echo("diff",o,f);
+                    await this.diff(o, f);
+                    this.echo("rm "+f.path());
+                }
+            }
+        );
+    }
+}

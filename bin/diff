@@ -1,0 +1,47 @@
+//!run
+let url="https://bitarrow3.eplang.jp/bitarrow/js/lib/difflib.js";
+/*global difflib*/
+export async function main(f1,f2){
+    await $.getScript(url);
+    f1=this.resolve(f1);
+    f2=this.resolve(f2);
+    
+    calcDiff.call(this,f1,f2);
+    
+}
+function pad(n,k){
+    n="000000"+n;
+    return n.substring(n.length-k);
+}
+const l10=Math.log(10);
+function maxk(a){
+    return Math.ceil(
+        Math.log(a+0.1)/l10);
+}
+function calcDiff(f1,f2){
+  var base = f1.lines();
+  var newtxt = f2.lines();
+  var sm = new difflib.SequenceMatcher(base, newtxt);
+  const k=maxk(Math.max(base.length,newtxt.length));
+  var opcodes = sm.get_opcodes();
+  let diffLine="";
+  let sh=this;
+  console.log("sh",sh,this);
+  //this.echo(" "+this);
+  let echo=sh.echo.bind(sh);
+  function show(name,b1,e1,b2,e2){
+      if(name==="equal")return ;
+      for(let i=b1;i<e1;i++){
+          echo("<",pad(i+1,k),base[i]);
+      }
+      for(let i=b2;i<e2;i++){
+          echo(">",pad(i+1,k),newtxt[i]);
+      }
+  }
+  for(var opti in opcodes){
+    var opt=opcodes[opti];
+    if(opt[0]=="equal")continue;
+    echo(opt[1]+1,"-",opt[2]+1,"<>",opt[3]+1,"-",opt[4]+1);
+    show(...opt);
+  }
+}
