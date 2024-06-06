@@ -22,7 +22,7 @@ export async function main(options){
     function             stripPrompt(line){
             return line.replace(/^.*[:\$%]\s*/,"");
         }
-    a.getEditor().session.setMode(new Mode(this,{
+    a.getMainEditor().session.setMode(new Mode(this,{
         getContext(editor,session,pos,prefix){
             const line=session.getLine(pos.row);
             let picked=stripPrompt(line);

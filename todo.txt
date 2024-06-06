@@ -1,24 +1,18 @@
-aaa
-cd node_modules/acepad/
-diff longtap.js longtap(c783c9dd).js
-Conflict: node_modules/acepad/menu.js
-Saved to menu(c783c9dd).js
-Conflict: node_modules/acepad/instance.js
-Saved to instance(c783c9dd).js
-Conflict: node_modules/acepad-with-fs/ace.html
-Saved to ace(c783c9dd).html
-Conflict: node_modules/acepad-with-fs/acepad.css
-Saved to acepad(c783c9dd).css
-Conflict: node_modules/@hoge1e3/ngram/test/test-ngram.js
-Saved to test-ngram(c783c9dd).js
-Conflict: node_modules/@hoge1e3/ngram/ngram.js
-Saved to ngram(c783c9dd).js
-Conflict: node_modules/acepad-menu/acepad-menu.js
-Saved to acepad-menu(c783c9dd).js
-Conflict: bin/ngr2
-Saved to ngr2(c783c9dd)
 
-
+module update bug
+ mod a
+ mod b deps a
+ mod c deps a, b
+ when a is modified and run c:
+  c loads a and requests update a
+  a becomes "up2date"
+  c also loads b
+  check whether b is "up2date":
+   b is not modified
+   a is "up2date" <-oops!
+   => b is "up2date"!! 
+   
+open parent folder 
 tab size
 auto indent scroll
 multi editor
@@ -42,7 +36,7 @@ n-gram layered
 
 key layout
 key swipe
-diff
+ok diff
 logging
 del session on file del
 

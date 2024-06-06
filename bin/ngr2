@@ -7,6 +7,11 @@ const timeout=(t)=>new Promise(s=>setTimeout(s,t));
 export async function main(){
     let dir=this.resolve();
     let s=new DocumentSet();
+    let caps={"\n":"En",
+        " ":"Sp",
+        "\t":"Tb",
+    };
+
 
     for(let f of dir.recursive()){
         if(f.ext()!==".js")continue;
@@ -14,16 +19,18 @@ export async function main(){
         s.addDocument(d);
     }
     let a=this.$acepad;
-    a.events.on("renderModifierState",()=>{
-        let e=a.getEditor();
+    a.events.on("renderModifierState",async()=>{
+        let e=a.getCurrentEditor();
         if(!e)return ;
         if(!e.session)return ;
-        predict(e.session);
-        predictw(e.session);
+        sug.empty();
+
+        await predictw(e.session);
+        await predict(e.session);
     });
     //$("#sug").remove();
-    let sugw=$($(".suggest")[0]);
-    let sugs=$($(".suggest")[1]);
+    let sug=$($(".suggest")[0]);
+    //let sugs=$($(".suggest")[1]);
     
     /*.attr({id:"sug"}).text("sugg").
     css({
@@ -44,10 +51,6 @@ export async function main(){
     }
     s.calcCount();
     //this.echo("ready");
-    let caps={"\n":"En",
-        " ":"Sp",
-        "\t":"Tb",
-    };
     function btn(w){
         let b= $("<button>").
             css({
@@ -58,30 +61,49 @@ export async function main(){
         a.initKey(b[0]);
         return b;
     }
-    async function predict(session){
+    function di(session){
         const r=session.getSelection().getRange().start;
         const i=session.doc.positionToIndex(r);
         const d=new Document("p",session.getValue());
+        return {d,i};
+    }
+    async function predict(session){
+        const {d,i}=di(session);
         let pr=await s.predict(d,i);
-        sugs.empty();
         let c=0;
         for(let [w,_c] of pr){
             let b=btn(w);
-            b.appendTo(sugs);
+            b.appendTo(sug);
             if(c++>10)break;
         }
     }
+    function isAlpha(a){
+        return a.match(/^\w$/);
+    }
     async function predictw(session){
-        const r=session.getSelection().getRange().start;
-        const i=session.doc.positionToIndex(r);
-        const d=new Document("p",session.getValue());
-        sugw.empty();
+        let {d,i}=di(session);
         let c=0;
-        let pr=s.predictWord(d,i);
-        for(let {post:w} of pr){
-            let b=btn(w);
-            b.appendTo(sugw);
-            if(c++>10)break;
+        d.content=d.content.substring(0,i);
+        let res="";
+        while(true){
+            let pr=await s.predict(d,i);
+            if(!pr)break;
+            if(!pr[0])break;
+            let [w,_]=[...pr].shift();
+            //console.log("ww",w);
+            if(!isAlpha(w))break;
+            d.content+=w;
+            res+=w;
+            i++;
         }
+        if(!res)return ;
+        //console.log("wr",res);
+        let b=btn(res);
+        b.appendTo(sug);
+        /*for(let {post:w} of pr){
+            let b=btn(w);
+            b.appendTo(sug);
+            if(++c>0)break;
+        }*/
     }
 }

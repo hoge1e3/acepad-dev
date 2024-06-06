@@ -2,7 +2,7 @@
 
 export async function main(){
     let a=this.$acepad;
-    let e=a.getEditor();
+    let e=a.getMainEditor();
     let _m=a.showMenuButton("test",()=>{
         m.text(m.offset().left);
     });

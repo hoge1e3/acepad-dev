@@ -1,0 +1,22 @@
+//!run
+
+export async function main(){
+    let a=this.$acepad;
+    setInterval(loop,1000);
+    let al=0;
+    function loop(){
+        let s=a.getCurrentEditor().session;
+        let si=a.sessionInfo(s);
+        if(!si.file)return ;
+        if(si.file.isDir())return ;
+        if(si.file.text()!==s.getValue()){
+            if(al==10){
+                alert("not match "+si.file);
+            }
+            al++;
+            console.error("not match "+si.file   );
+        }
+        
+        
+    }
+}

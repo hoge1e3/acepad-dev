@@ -1,7 +1,7 @@
 //!run
 
 export async function main(bindKey){
-    let cmds=(window.acepad.editor.commands.commands);
+    let cmds=(window.acepad.getMainEditor().commands.commands);
     for(let c in cmds){
         let k;
         if(typeof cmds[c].bindKey==="string")k=cmds[c].bindKey;
