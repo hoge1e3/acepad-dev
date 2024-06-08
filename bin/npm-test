@@ -7,8 +7,8 @@ export async function main(name){
         this.cd(p);
     }
     p=this.resolve("package.json").obj();
-    this.pwd();
-    this.echo(p.scripts.test);
+    //this.pwd();
+    //this.echo(p.scripts.test);
     await this.exec(p.scripts.test);
     this.echo("passed");
 }
