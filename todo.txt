@@ -1,4 +1,5 @@
-
+test export function realtime
+insepect on editor realtime
 module update bug
  mod a
  mod b deps a
@@ -20,7 +21,6 @@ state save
 folding
 replace
 magnify
-ok shell completion
 console.error trace
 tonyu dev to publish
  dot pict
@@ -37,6 +37,8 @@ n-gram layered
 key layout
 key swipe
 ok diff
+ok shell completion
+
 logging
 del session on file del
 

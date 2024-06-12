@@ -1,0 +1,12 @@
+//!run
+import {showWidget,showIframe} from "acepad-widget";
+
+/*global $*/
+export async function main(){
+    let w=showWidget($("<div>"));
+    let a=this.$acepad;
+    const d=$("<div>").css({width:300,height:300,background:"cyan"});
+    $(w.element).append(d);
+    const editor=a.edit(d[0]);
+    console.log("ed",editor);
+}
