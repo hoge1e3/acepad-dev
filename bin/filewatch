@@ -1,5 +1,5 @@
 //!run
-
+import {showWidget} from "acepad-widget";
 export async function main(){
     let a=this.$acepad;
     setInterval(loop,1000);
@@ -12,13 +12,12 @@ export async function main(){
         if(si.file.text()!==s.getValue()){
             al++;
             if(al==3){
-                alert("not match "+si.file);
+                if(!window.shown)alert("<div>not match "+si.file+"</div>");
+                window.shown=1;
             }
             console.error("not match "+si.file   );
         }else {
             al=0;
         }
-        
-        
     }
 }

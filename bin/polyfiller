@@ -1,32 +1,20 @@
-import {myp} from "./p.js";
+//!run
 import * as polyfiller from "@hoge1e3/polyfiller";
 import * as assert from "assert";
-import {convertStack,FS} from "acepad-os";
+import {convertStack} from "acepad-os";
 import {hasTrace} from "acepad-debug";
-console.log("p2","loaded test");
 export async function main(){
-    //let d=dir(this).up();
-    let a=this.$acepad;
-    
     let rm=polyfiller.events.on("missing",({
         ptrace,key,id,args,trace})=>{
-        //assert.ok(d.isDir(),"isDir");
         let val=key!=="__call__"?
         polyfiller.pLiteral():
         polyfiller.functionLiteral(
         args,`${convertStack(trace[0])}
 ${usage(trace)}`);
         const pf=hasTrace(convertStack(ptrace[0]));
-        //alert(ptrace[0]+" "+pf.file+" "+pf.row);
         const line=extend(id,pf.file,key,val);
-        //alert(pf.file+":"+line);
         this.edit(pf.file,{row:line});
     });
-    try{
-        myp().foo(3).text(rm);
-    }finally{
-        rm.remove();
-    }
 }    
 function usage(trace){
     let s=convertStack(trace[0]);   
@@ -34,27 +22,9 @@ function usage(trace){
     if(!t)return s;
     return t.file.lines()[t.row-1];
 }
-/*export function findId(id,dir){
-    for(let f of dir.recursive()) {
-        if(f.ext()!==".js")continue;
-        if(f.text().includes(id))return f;
-    }   
-}*/
 export function extend(id,f,key,val){
-    /*if(f.isDir()){
-        let d=f;
-        f=findId(id,d);
-        if(!f)throw new Error(`${id} not found in dir ${d}`);
-        console.log("fund",f,d);
-    }*/
     let {src,line}=polyfiller.extend(id,f.text(),key,val);
     if(line==null)throw new Error(`${id} not found in ${f}`);
     f.text(src);
     return line;
 }
-/*function dir(sh){
-    const u=import.meta.url+"";
-    return(sh.resolve(u));
-}
-*/
-

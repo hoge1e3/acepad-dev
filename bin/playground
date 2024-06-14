@@ -2,6 +2,8 @@
 import "https://cdn.plot.ly/plotly-2.29.1.min.js";
 //import {showWidget,showIframe} from "acepad-widget";
 import * as aw from "acepad-widget";
+import {on} from "@hoge1e3/interruption";
+import {p as pcon} from "@hoge1e3/polyfiller";
 //import {test} from "./test.jsx";
 //import {Mode} from "acepad-mode-shell";
 export async function main(options){
@@ -10,6 +12,13 @@ export async function main(options){
         this.edit(f);
         return;
     }
+    window.p1=pcon("321",{
+        "ho": p("0.2023467592349557",{
+            
+        }),
+    });
+    return ;
+    //on("interrupt",()=>this.echo("inter"));
     this.echo(Object.keys(aw).join(", "));
     for(let k in aw)this.echo(k);
     return ;

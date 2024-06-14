@@ -1,3 +1,5 @@
+
+autorepeat stop on alert
 test export function realtime
 insepect on editor realtime
 module update bug
