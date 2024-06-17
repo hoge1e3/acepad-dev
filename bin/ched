@@ -1,12 +1,32 @@
 //!run
 import {showWidget,showIframe} from "acepad-widget";
-
+import {KeyPicker} from "acepad-keypicker";
+import {events} from "@hoge1e3/polyfiller";
 /*global $*/
 export async function main(){
     let w=showWidget($("<div>"));
     let a=this.$acepad;
     const d=$("<div>").css({width:300,height:300,background:"cyan"});
     $(w.element).append(d);
-    const editor=a.edit(d[0]);
-    console.log("ed",editor);
+    $("<button>").text("ed").click(()=>{
+      //  this.edit(import.meta.url);
+    }).appendTo(w.element);
+    
+    const editor=KeyPicker();//a.edit(d[0]);
+    //console.log("ed",editor);
+    a.setCurrentEditor(editor);
+    editor.events.on("input",({text})=>{
+        d.text(text);
+    });
+    editor.events.on("command",({modifier,keyCode})=>{
+        
+        d.text(modifier+" "+keyCode);
+    });
+    const rm=events.on("missing",({proxy})=>{
+        console.log("mos",proxy,editor,proxy===editor);
+        if(proxy===editor){
+            rm.remove();
+            w.close();
+        }
+    });
 }

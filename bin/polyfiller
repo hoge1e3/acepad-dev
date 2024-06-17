@@ -6,6 +6,7 @@ import {hasTrace} from "acepad-debug";
 export async function main(){
     let rm=polyfiller.events.on("missing",({
         ptrace,key,id,args,trace})=>{
+        //alert("missing "+key);
         let val=key!=="__call__"?
         polyfiller.pLiteral():
         polyfiller.functionLiteral(

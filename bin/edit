@@ -1,5 +1,13 @@
 //!run
 import {openFile} from "acepad-files";
+import {minifyAll} from "acepad-widget";
 export async function main(file,o){
+    try{
+        const a=this.$acepad;
+        a.setCurrentEditor(a.getMainEditor());
+        minifyAll();
+    }catch(e){
+        console.error(e);
+    }
     openFile(this,file,o);
 }
