@@ -16,7 +16,7 @@ export async function main(){
     //console.log("ed",editor);
     a.setCurrentEditor(editor);
     editor.events.on("input",({text})=>{
-        d.text(text);
+        d.text(text.charCodeAt(0));
     });
     editor.events.on("command",({modifier,keyCode})=>{
         
