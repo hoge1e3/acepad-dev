@@ -2,6 +2,7 @@
 /*global $*/
 import {Document, DocumentSet} from "@hoge1e3/ngram";
 import * as assert from "assert";
+import {timer} from "@hoge1e3/idle-timer";
 
 const timeout=(t)=>new Promise(s=>setTimeout(s,t));
 
@@ -45,7 +46,8 @@ export async function main(){
     }
     s.calcCount();
     const txt2b=a.textToButton();
-    a.events.on("renderModifierState",async()=>{
+    const idle=timer(50);
+    const dopre=async()=>{
         let e=a.getCurrentEditor();
         if(!e)return ;
         if(!e.session)return ;
@@ -53,8 +55,10 @@ export async function main(){
         removeGuides();
         await predictw(e.session);
         await predict(e.session);
-    });
-
+    };
+    idle.on("idle",dopre);
+    a.events.on("renderModifierState",()=>idle.active());
+    
     function removeGuides(){
         for(let g of guides) g.remove();
     }

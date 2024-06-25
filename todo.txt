@@ -1,7 +1,7 @@
 
-autorepeat stop on alert
+ok autorepeat stop on alert
 test export function realtime
-insepect on editor realtime
+inspect on editor realtime
 module update bug
  mod a
  mod b deps a
@@ -18,7 +18,7 @@ module update bug
 open parent folder 
 tab size
 auto indent scroll
-multi editor
+ok multi editor
 state save
 folding
 replace
