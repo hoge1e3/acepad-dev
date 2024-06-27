@@ -1,5 +1,6 @@
+widget on keypad
+function key
 
-ok autorepeat stop on alert
 test export function realtime
 inspect on editor realtime
 module update bug
@@ -18,7 +19,6 @@ module update bug
 open parent folder 
 tab size
 auto indent scroll
-ok multi editor
 state save
 folding
 replace
@@ -28,7 +28,6 @@ tonyu dev to publish
  dot pict
  smezonet
 keypad resize
-ok widget minify
 menu
  tree
  current/last
@@ -40,6 +39,9 @@ key layout
 key swipe
 ok diff
 ok shell completion
+ok widget minify
+ok multi editor
+ok autorepeat stop on alert
 
 logging
 del session on file del
