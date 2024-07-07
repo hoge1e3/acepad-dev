@@ -12,5 +12,9 @@ cmdj=json.dumps(cmd)
 print(f"\x1b]10;{cmdj}\x07\n")
 wrtj=input()
 wrt=json.loads(wrtj)
-with open(file,"w") as f:
-    f.write(wrt.content)
+if not "file" in wrt:
+    exit
+if not "content" in wrt:
+    exit
+with open(wrt["file"],"w") as f:
+    f.write(wrt["content"])
