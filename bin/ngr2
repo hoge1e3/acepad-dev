@@ -123,6 +123,7 @@ export async function main(){
             d.content+=w;
             res+=w;
             i++;
+            if(res.length>32)break;
         }
         if(!res)return ;
         //console.log("wr",res);

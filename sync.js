@@ -68,3 +68,18 @@ E(path, info, options);
             fs.utimesSync(np, atime, mtime);      
         }  
 },
+
+
+import FS from "@hoge1e3/fs-nw";
+
+const t=FS.get("/tmo/trst");
+t.text("tru");
+const d=t.lastUpdate();
+console.log(d);
+d.setMetaInfo({
+    lastUpdate:d-30000
+});
+const d2=t.lastUpdate();
+console.log(d2);
+
+*/
