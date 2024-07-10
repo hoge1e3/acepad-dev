@@ -1,0 +1,23 @@
+//!run
+
+export async function main(){
+    const n=this.resolve("node_modules/");
+    let c=0;
+    for(let f of n.recursive({includeDir:true})){
+        if(!f.isDir())continue;
+        console.log(f.path());
+        fix1(f);
+        c++;
+       // if(c>=5)break;
+    }
+}
+function fix1(npm){
+    const pkj=npm.rel("package.json");
+    if(!pkj.exists())return ;
+    const pk=pkj.obj();
+    pk.name=npm.name().replace(/\/$/,"");
+    pk.type="module";
+    const t=JSON.stringify(pk,null,4);
+    console.log(t);
+    pkj.text(t);
+}
