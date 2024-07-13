@@ -1,0 +1,28 @@
+1[t180 o4 ps0 @label1
+l16 (fr)4drfr 
+l64((bf)2r16)4 (fd)2r16(bf)2r16
+@jump1]
+
+1[t180 o5 ps0 v8 @label1
+l64 a8f8(d<b>)16(ad)4(fd)4(d<b>)32 
+(c<a>)24<(af)12(fd)12(af)12>(c<a>)8(d<b>)6(fd)12
+@jump1]
+
+1[t180 o5 ps0 v8 @label1
+l64 
+(af)12(fd)16(>c<a)16(af)8(fd)8(d<b>)8
+(ge)16(geafbg>c<a)1> (d<b>)24
+_<a (af)12(fd)16(>c<a)16(af)8(fd)8(d<b>)8
+(fd)16(fdecd<b>c<a>)1<_c (d<b>)24
+
+@jump1]
+
+
+1[t180 o5 ps0 v8 @label1
+l64 
+(af)12(fd)12(>c<a)12(af)6(fd)6(d<b>)6
+(ge)16(geafbg>c<a)1> (d<b>)24
+_<a (af)12(fd)12(>c<a)12(af)6(fd)6(d<b>)6
+(fd)16(fdecd<b>c<a>)1<_c (d<b>)24
+
+@jump1]

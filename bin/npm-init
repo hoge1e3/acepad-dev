@@ -10,11 +10,12 @@ export async function main(name){
     n.mkdir();
     let main=`${sn}.js`;
     let testp=`test/test-${sn}.js`;
-    n.rel("package.json").obj({
+    pobj(n.rel("package.json"), {
         "scripts":{
             "test":`run ${testp}`  
         },
         main,
+        type:"module",
     });
     let inpoto="import";
     n.rel(testp).text(
@@ -36,4 +37,10 @@ function findNodeModuleRoot(base){
         }
     }
     throw new Error(`node_modules/ not found from ${base}`);
+}
+function pobj(f,o){
+    const t=JSON.stringify(o,null,4);
+    
+    f.text(t);
+
 }

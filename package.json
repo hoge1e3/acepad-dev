@@ -1,3 +1,4 @@
 {
-    "main":"index2.js"
+    "main":"index2.js",
+    "type":"module"
 }
