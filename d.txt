@@ -1,3 +1,13 @@
+1[t180 o5 ps0 v8 @label1
+l16 o6 c<bagbagfagfedgfed>l64(c<g>)16
+@jump1]
+
+1[t180 o5 ps0 v8 @label1
+l16 o5 bbagl8bagf l32 a<a>adafad l64(ad)16
+@jump1]
+
+
+
 1[t180 o4 ps0 @label1
 l16 (fr)4drfr 
 l64((bf)2r16)4 (fd)2r16(bf)2r16
