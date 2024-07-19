@@ -3,8 +3,7 @@ import sys
 from importlib.util import spec_from_loader
 from types import ModuleType
 from browser import window
-fs=window.FS;
-path1=fs.get("/jsmod/")
+
 class VirtualFilesystemLoader:
     def __init__(self, virtual_fs, fullname, content):
         self.virtual_fs = virtual_fs
@@ -48,7 +47,7 @@ virtual_fs = {
 }
 
 # sys.meta_pathにVirtualFilesystemImporterを追加
-sys.meta_path.insert(0, VirtualFilesystemImporter(path1))
+sys.meta_path.insert(0, VirtualFilesystemImporter(virtual_fs))
 window.exec=exec
 
 
