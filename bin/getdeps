@@ -1,0 +1,41 @@
+//!run
+import {importModule} from "acepad-os";
+let sh;
+function p(...a){
+    sh.echo(...a);
+}
+const paths=urls.maps.path;
+export async function main(){
+    sh=this;
+    let pa=this.resolve("package.json");
+    this.echo([...await getDepsPkg(pa)].map(f=>f.path()));
+}
+async function getDepsPkg(pa){
+    const pao=pa.obj();
+    const m=pa.sibling(pao.main);
+    await importModule(m);
+    const depp=new Set();
+    const d=(f)=>{
+        for(let e of getDeps(f)){
+            p(e.path());
+            const pf=belongingPkg(e);
+            if(pf.equals(pa))d(e);
+            else depp.add(pf);
+        }
+    };
+    d(m);
+    return depp;
+}
+function belongingPkg(f){
+    f=f.up();
+    while(f){
+        const p=f.rel("package.json");
+        if(p.exists())return p;
+    }
+    return f;
+}
+function getDeps(f){
+    const deps=paths.get(f.path()).deps;
+    p(f.path(),deps);
+    return deps;
+}

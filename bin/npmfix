@@ -15,8 +15,9 @@ function fix1(npm){
     const pkj=npm.rel("package.json");
     if(!pkj.exists())return ;
     const pk=pkj.obj();
-    pk.name=npm.name().replace(/\/$/,"");
-    pk.type="module";
+    pk.name=pk.name||npm.name().replace(/\/$/,"");
+    pk.type=pk.type||"module";
+    pk.version=pk.version||"1.0.0";
     const t=JSON.stringify(pk,null,4);
     console.log(t);
     pkj.text(t);
