@@ -1,0 +1,9 @@
+//!run
+
+export async function main(){
+    for(let f of this.resolve("node_modules/").listFiles()){
+        await this.cd(f);
+        this.echo(f.path());
+        await this.setdeps();
+    }
+}

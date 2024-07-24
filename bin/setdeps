@@ -1,0 +1,69 @@
+//!run
+import {importModule} from "acepad-os";
+import {Class} from "@hoge1e3/recursive-safe";
+let sh;
+function p(...a){
+    sh.echo(...a);
+}
+const paths=urls.maps.path;
+export async function main(){
+    sh=this;
+    let pa=this.resolve("package.json");
+    update(pa);
+    /*this.echo([...await getDepsPkg(pa)].
+    reduce((o,f)=>Object.assign(o,toDepSpec(f)),{})
+    );*/
+}
+async function update(pa){
+    const dependencies=
+    [...await getDepsPkg(pa)].
+    reduce((o,f)=>Object.assign(o,toDepSpec(f)),{});
+    const pao=pa.obj();
+    pao.dependencies=dependencies;
+    save(pa,pao);
+}
+function toDepSpec(pa){
+    const pao=pa.obj();
+    return {
+        [pao.name]:`^${pao.version}`
+    };
+}
+async function getDepsPkg(pa){
+    const pao=pa.obj();
+    const m=pa.sibling(pao.main);
+    await importModule(m);
+    const depp=new Set();
+    const D=Class({
+        argKey({args:[f]}){
+            return f.path();
+        },
+        loop(f){
+            for(let e of getDeps(f)){
+                p(e.path());
+                const pf=belongingPkg(e);
+                if(pf.equals(pa))this.loop(e);
+                else depp.add(pf);
+            }
+        },
+    });
+    d(m);
+    return depp;
+}
+function belongingPkg(f){
+    f=f.up();
+    while(f){
+        const p=f.rel("package.json");
+        if(p.exists())return p;
+    }
+    return f;
+}
+function getDeps(f){
+    const deps=paths.get(f.path()).deps;
+    p(f.path(),deps);
+    return deps;
+}
+function save(pkj,pk){
+    const t=JSON.stringify(pk,null,4);
+    //console.log(t);
+    pkj.text(t);
+}

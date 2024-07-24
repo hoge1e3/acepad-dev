@@ -10,11 +10,13 @@ export async function main(name){
     n.mkdir();
     let main=`${sn}.js`;
     let testp=`test/test-${sn}.js`;
+    let version="1.0.0";
     pobj(n.rel("package.json"), {
         "scripts":{
             "test":`run ${testp}`  
         },
         main,
+        version,
         type:"module",
     });
     let inpoto="import";
