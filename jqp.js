@@ -1,5 +1,5 @@
-import {https} from 'https';
-import {querystring} from 'querystring';
+import * as https from 'https';
+import * as querystring from 'querystring';
 
 export const $ = {};
 
