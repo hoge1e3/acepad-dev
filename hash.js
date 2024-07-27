@@ -1,7 +1,8 @@
 import * as $ from "acepad-ajax";
 
+const url="hash.php";
 export async function put(data) { 
-    let r=await $.post("hash.php",{
+    let r=await $.post(url,{
         data:JSON.stringify(data)
     });
     return r.id;
