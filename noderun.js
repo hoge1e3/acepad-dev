@@ -1,5 +1,5 @@
 import FS from "@hoge1e3/fs-nw";
-import {$} from "./jqp.js"; 
+import $ from "./jqp.js"; 
 async function r(){
     FS.os={};
     globalThis.FS=FS;
