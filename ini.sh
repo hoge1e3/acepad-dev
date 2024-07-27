@@ -1,7 +1,12 @@
 cd ~/sync
-sh co 0d564cf892b3b98ddc2fbdf73556ef1cd5ac3c4d579c9a33a19f9c6488b28382
+sh co 39e145f4294ae057aa28459c72e2059f33c29098e71bf4a86d6980a786bf4a7a
 
 cd ~/jsmod
 cp nd ~/bin/
+cp bin/sync sync.js
+
 chmod 755 ~/bin/nd
-nd ./fstes.js
+cd /tmp/
+mkdir synctes
+cd synctes
+nd ~/jsmod/sync.js clone jsmod
