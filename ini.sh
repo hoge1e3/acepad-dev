@@ -1,5 +1,5 @@
 cd ~/sync
-sh co 8201d610d228e22bdc229a785424e3346e49d4d19145368b2373b254c6a8c44b
+sh co 850d48da6e5244414ec03806bfcaa12ff80ba89b09d9556fd1dd57aaeccb7156
 
 cd ~/jsmod
 node noderun.js ./fstes.js

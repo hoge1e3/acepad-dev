@@ -1,0 +1,17 @@
+//!run
+
+export async function main(){
+    try{
+        this.sync("commit");
+    }catch(e){
+        if(!e.message.match(/nothing/)){
+            throw e;
+        }
+    }
+    const tre=this.resolve(".sync/tree.json").obj();
+    let scr=this.resolve("ini.sh");
+    scr.text(
+        scr.text().
+        replace(/co [0-9a-f]+/,
+        `co ${tre.__id__}`));
+}

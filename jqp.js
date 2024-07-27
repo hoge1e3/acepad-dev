@@ -32,7 +32,8 @@ $.get = function(url, data, dataType) {
                         return;
                     }
                 }
-                resolve({ data, status: resp.statusCode, statusText: resp.statusMessage, headers: resp.headers });
+                resolve(data);
+                //resolve({ data, status: resp.statusCode, statusText: resp.statusMessage, headers: resp.headers });
             });
 
         }).on("error", (err) => {
