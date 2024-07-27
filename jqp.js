@@ -24,6 +24,7 @@ $.get = function(url, data, dataType) {
             });
 
             resp.on('end', () => {
+                console.log("dt",dataType,data.substring(0,100));
                 if (dataType === 'json') {
                     try {
                         data = JSON.parse(data);
