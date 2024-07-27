@@ -1,5 +1,5 @@
 cd ~/sync
-sh co 2ea3ba62dced489714704763a256a69acfe5c666c27f26751947c6c83a4ce6eb
+sh co 11c956f496474fd0686aaea4e461de604db9b02941eeee3ab0c678328236a9cf
 
 cd ~/jsmod
 cp nd ~/bin/
