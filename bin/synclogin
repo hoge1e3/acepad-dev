@@ -14,4 +14,5 @@ export async function main(){
         scr.text().
         replace(/co [0-9a-f]+/,
         `co ${tre.__id__}`));
+    this.bauth(scr);
 }
