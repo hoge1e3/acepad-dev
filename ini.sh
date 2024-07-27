@@ -1,7 +1,14 @@
 cd ~/sync
-sh co 11c956f496474fd0686aaea4e461de604db9b02941eeee3ab0c678328236a9cf
+sh co 16f2e99c17b70adc980c5c8fcb6728c53c79e32c540ace3897b142f3064f9d2b
 
-cd ~/jsmod
+
+cd ~/node_modles/@hoge1e3/nw-fs
+cp ~/jsmod/tesfs.js test.mjs
+npm run test-node
+
+exit
+
+
 cp nd ~/bin/
 cp bin/sync sync.js
 
