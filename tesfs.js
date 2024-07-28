@@ -115,6 +115,7 @@ try {
         rootFS.mount("/fs/", nfso = new NativeFS(nfsp));
         assert(nfso.exists("/fs/"), "/fs/ not exists");
         cd=nfs = root.rel("fs/");
+        assert(nfs.rel("Tonyu/").exists(),nfs+" not exists");
     }
     var r = cd.ls();
     console.log(r);
@@ -390,6 +391,9 @@ try {
     } catch (e) {
         console.error(e);
     }
+}
+function chkDU(){
+    
 }
 async function chkBigFile(testd) {
     var cap = LSFS.getCapacity();

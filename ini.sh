@@ -1,19 +1,15 @@
 cd ~/sync
-sh co a038a9832a0b6680c422d4a77f1651e0fc38062d7481b3f50ff7aa2b6c44eeae
-
-
-cd ~/node_modules/@hoge1e3/fs-nw
-cp ~/jsmod/tesfs.js test.mjs
-npm run test-node
-
-#exit
-
+sh co c61d7aa3fc9af52ad376ca658f2147514a3bd49e9dc9d2f0ec1222a50e6526e2
 
 #cp nd ~/bin/
 #cp bin/sync sync.js
-
 #chmod 755 ~/bin/nd
 #cd /tmp/
 #mkdir synctes
 #cd synctes
 #nd ~/jsmod/sync.js clone jsmod|less
+
+cd ~/node_modules/@hoge1e3/fs-nw
+cp ~/jsmod/tesfs.js test.mjs
+npm run test-node
+
