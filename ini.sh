@@ -1,12 +1,13 @@
 cd ~/sync
-sh co 2edf8dad7c3f0d171f6ec645ccffdc95aca8b6e1d464b544bd4c6d318478bb3f
+sh co 01860784083f13034ad00b1d64c0ab48045a80e6bed7077c08792ae28324958e
 
 #cp nd ~/bin/
-#cp bin/sync sync.js
+cp bin/sync sync.js
 #chmod 755 ~/bin/nd
 cd /tmp/
 mkdir synctes
 cd synctes
+vi ~/node_modules/@hoge1e3/fs-nw/src/NativeFS.js
 nd ~/jsmod/sync.js clone jsmod|less
 
 #cd ~/node_modules/@hoge1e3/fs-nw
