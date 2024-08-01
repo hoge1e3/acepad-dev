@@ -1,7 +1,7 @@
 import {sh} from "acepad-os-jsm";
 import * as ace from "acepad-with-fs";
 export async function main(){
-    sh.cd(__dirname);
+    sh.cd(sh.resolve(import.meta.url).up());
     await initCmds(sh);
     ace.main.call(sh);
 }
