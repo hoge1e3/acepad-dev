@@ -8,4 +8,4 @@ export async function main(){
 async function initCmds(sh){
     sh.addPath(sh.resolve("bin/").path());
 }
-main();
+main().then((s)=>0,(e)=>console.error(e));
