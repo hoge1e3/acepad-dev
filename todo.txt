@@ -1,9 +1,11 @@
-widget on keypad
+widget on keypad <-what?
+widget on session list
 function key
+npm for petit-node
 
 test export function realtime
 inspect on editor realtime
-module update bug
+ok module update bug
  mod a
  mod b deps a
  mod c deps a, b
@@ -19,6 +21,7 @@ module update bug
 open parent folder 
 tab size
 auto indent scroll
+auto hide gutter
 state save
 folding
 replace
@@ -33,7 +36,8 @@ menu
  current/last
  ok? avoid edit text
  ok bubbling up
-n-gram layered
+ok n-gram layered
+n-gram worker
 
 key layout
 key swipe
