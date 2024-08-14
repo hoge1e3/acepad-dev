@@ -1,5 +1,7 @@
 cd ~
-cd html/tonyu2/acepad/
+cd html/petit-node/src
 sync checkout
+#npm run build-dev
+cd ..
 
 
