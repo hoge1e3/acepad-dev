@@ -13,5 +13,10 @@ export async function main(cmd, ...args){
             return await commit(gd());
         case "clone":
             return await clone(args.shift(),gd());
+        case "auto":
+            await checkout(gd());
+            return await commit(gd());
+        default:
+            sh.echo("sync init/clone/checkout/commit");
     }
 }
