@@ -4,7 +4,7 @@ import {init,commit,checkout,clone} from "acepad-sync";
 export async function main(cmd, ...args){
     const sh=this;
     const gd=()=>sh.resolve(args.shift()||sh.cwd);
-    switch(cmd) {
+    switch(cmd||"auto") {
         case "init":
             return await init(args.shift(),gd());
         case "checkout":
