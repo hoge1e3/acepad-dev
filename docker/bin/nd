@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# 固定のコマンド名
-CMD="node ~/jsmod/noderun.js"
-
 # 引数が少なくとも1つあることを確認
 if [ $# -lt 1 ]; then
     echo "使用法: $0 <ファイル> [cmdへの引数...]"
