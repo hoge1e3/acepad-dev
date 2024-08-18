@@ -1,7 +1,8 @@
 cd /tmp
-python3 ~/bin/decode.py
-1d79ce338276bfb431cd8153bb14b5b07622fa800f5cfb84848e9111d9c58f02
+#python3 ~/bin/decode.py
+#b02d3a1c7b19b9cca125ba0c1f1145d0c08aa30effbf74d9d2420970440251af
 cd
+npm i @hoge1e3/fs-nw
 mkdir jsmod
 cd jsmod
 unzip /tmp/decoded.zip

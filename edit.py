@@ -13,10 +13,10 @@ print(f"\x1b]10;{cmdj}\x07\n")
 wrtj=input()
 wrt=json.loads(wrtj)
 if not "file" in wrt:
-    exit
+    exit()
 if not "content" in wrt:
-    exit
-if wrt["content"]==content and wrt["file"]==file:
-    exit
+    exit()
+if wrt["content"]==cont and wrt["file"]==file:
+    exit()
 with open(wrt["file"],"w") as f:
     f.write(wrt["content"])
