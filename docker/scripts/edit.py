@@ -1,8 +1,13 @@
 import sys
 import json
+import os
 file=sys.argv[1]
-with open(file,"r") as f:
-    cont=f.read()
+
+if os.path.isfile(file):
+    with open(file,"r") as f:
+        cont=f.read()
+else:
+    cont=""
 cmd={
     "cmd":"edit",
     "file":file,
