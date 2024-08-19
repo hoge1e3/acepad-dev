@@ -1,1 +1,1 @@
-python3 ~/jsmod/edit.py $1
+python3 ~/jsmod/docker/scripts/edit.py $1

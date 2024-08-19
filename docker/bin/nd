@@ -13,4 +13,4 @@ file_path=$(realpath "$1")
 args=("${@:2}")
 
 # コマンドを実行（最初の引数を絶対パスに、残りの引数をそのまま渡す）
-node ~/jsmod/noderun.js "$file_path" "${args[@]}"
+node ~/jsmod/docker/scripts/noderun.js "$file_path" "${args[@]}"
