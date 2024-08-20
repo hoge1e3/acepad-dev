@@ -3,6 +3,9 @@ import $ from "./jqp.js";
 async function r(){
     FS.os={};
     globalThis.FS=FS;
+    for(let k in process.env){
+        FS.setEnv(k,process.env[k]);
+    }
     globalThis.$=$;
     const {sh}=await import("acepad-shell");
     const modn=process.argv[2];
