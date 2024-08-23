@@ -1,5 +1,6 @@
 import "../../petit-node/dost/index.js";
 alert(globalThis.pNode);
+
 function loadScriptTag(url,attr={}){
     if ((attr.type!=="module") && 
     typeof define==="function" && 
