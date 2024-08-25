@@ -9,7 +9,7 @@ const paths=urls.maps.path;
 export async function main(){
     sh=this;
     let pa=this.resolve("package.json");
-    update(pa);
+    await update(pa);
     /*this.echo([...await getDepsPkg(pa)].
     reduce((o,f)=>Object.assign(o,toDepSpec(f)),{})
     );*/

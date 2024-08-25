@@ -12,6 +12,7 @@ export async function main(name){
     let testp=`test/test-${sn}.js`;
     let version="1.0.0";
     pobj(n.rel("package.json"), {
+        name,
         "scripts":{
             "test":`run ${testp}`  
         },
