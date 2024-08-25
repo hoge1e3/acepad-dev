@@ -46,7 +46,7 @@ async function getDepsPkg(pa){
             }
         },
     });
-    d(m);
+    new D().loop(m);
     return depp;
 }
 function belongingPkg(f){

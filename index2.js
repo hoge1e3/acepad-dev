@@ -4,4 +4,4 @@ export async function main(){
     sh.cd(sh.resolve(import.meta.url).up());
     ace.main.call(sh);
 }
-main().then((s)=>0,(e)=>console.error(e.stack));
+main().then((s)=>0,(e)=>alert(e.stack));
