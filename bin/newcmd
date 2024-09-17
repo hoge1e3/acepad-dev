@@ -4,7 +4,7 @@ export async function main(n){
     if(!n){
         throw new Error("cmd name");
     }
-    let d=this.resolve(__dirname).rel(n);
+    let d=this.resolve(import.meta.url).sibling(n);
     if(!d.exists()){
         d.text(`//!run
 

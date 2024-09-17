@@ -1,3 +1,12 @@
+Error: Conflict: node_modules/acepad-shell/index.js
+Saved to index(5bc64ac8).js
+cd bin/
+bin/newcmd
+Saved to newcmd(5bc64ac8)
+Conflict: bin/sources
+Saved to sources(5bc64ac8)
+
+
 widget on keypad <-what?
 widget on session list
 function key
