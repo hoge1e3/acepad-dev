@@ -3,7 +3,7 @@ ok zureru after
 ok? ctrl+r
 ed
 
-find with filename
+ok find with filename
 
 widget on keypad <-what?
 widget on session list
@@ -25,7 +25,7 @@ ok module update bug
    a is "up2date" <-oops!
    => b is "up2date"!! 
    
-open parent folder 
+ok open parent folder 
 tab size
 auto indent scroll
 auto hide gutter
