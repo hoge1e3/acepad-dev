@@ -1,8 +1,9 @@
 
-zureru after
-ctrl+r
+ok zureru after
+ok? ctrl+r
 ed
 
+find with filename
 
 widget on keypad <-what?
 widget on session list
