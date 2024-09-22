@@ -1,7 +1,7 @@
 
 ok zureru after
 ok? ctrl+r
-ed
+ok ed
 
 ok find with filename
 

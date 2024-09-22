@@ -6,7 +6,7 @@ export async function main(n){
     }
     let d=this.resolve(import.meta.url).sibling(n);
     if(!d.exists()){
-        d.text(`//!run
+        d.text(`#!run
 
 export async function main(){
 

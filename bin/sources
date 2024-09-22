@@ -1,12 +1,14 @@
 //!run
-
+import {loadedModules} from "petit-node";
 export async function main(){
     let r=[];
-    
+    for(let m of loadedModules()){
+        r.push(m.file.path());
+    }/*
     for(let [p,v] of urls.maps.path){
         r.push(p);
 //        this.echo(p);
-    }
+    }*/
     r.sort();
     this.echo(r.join("\n"));
 
