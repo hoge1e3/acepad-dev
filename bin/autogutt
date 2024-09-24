@@ -1,0 +1,14 @@
+//!run
+
+export async function main(){
+    setInterval( ()=>{
+         if (acepad.editor.renderer.getScrollLeft()>100) {
+        editor.renderer.setShowGutter(false);
+    } else {
+        editor.renderer.setShowGutter(true);
+        
+    }
+   
+    },100);
+    
+}
