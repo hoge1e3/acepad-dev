@@ -1,0 +1,6 @@
+#!run
+
+export async function main(){
+    this.rm("/show/node_modules/",{r:1});
+    this.cp("/jsmod/node_modules/","/show/node_modules/");
+}
