@@ -1,5 +1,5 @@
 //!run
-let url="https://bitarrow3.eplang.jp/bitarrow/js/lib/difflib.js";
+let url="https://unpkg.com/difflib@0.2.4/dist/difflib-browser.js";
 /*global difflib*/
 export async function main(f1,f2){
     await $.getScript(url);
@@ -21,12 +21,13 @@ function maxk(a){
 function calcDiff(f1,f2){
   var base = f1.lines();
   var newtxt = f2.lines();
-  var sm = new difflib.SequenceMatcher(base, newtxt);
+  var sm = new difflib.SequenceMatcher(null, base, newtxt);
   const k=maxk(Math.max(base.length,newtxt.length));
-  var opcodes = sm.get_opcodes();
+  var opcodes = sm.getOpcodes();
+  console.log("opc",opcodes);
   let diffLine="";
   let sh=this;
-  console.log("sh",sh,this);
+  //console.log("sh",sh,this);
   //this.echo(" "+this);
   let echo=sh.echo.bind(sh);
   function show(name,b1,e1,b2,e2){
