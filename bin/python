@@ -1,6 +1,11 @@
 #!run
 /*global $,$B*/
-let py;
+import {addPath, execFile} from "acepad-python";
+export async function main(file){
+    addPath(this.resolve("./"));
+    return execFile(this.resolve(file));
+}
+/*let py;
 export async function main(file){
     file=this.resolve(file);
     if(!py){
@@ -12,7 +17,8 @@ export async function main(file){
 }
 function load(sh){
     return new Promise((s)=>{
-        window.onBrythonLoaded=s;
+        window.onBrythonLoaded=([addPath, execFile,py])=>
+            s({addPath, execFile,py:__BRYTHON__.pyobj2jsobj(py)});
         setup(sh);
     });
 }
@@ -32,4 +38,4 @@ async function setup(sh){
     await load(`${head}/brython.js`);
     await load(`${head}/brython_stdlib.js`);
     await $B.brython();
-}
+}*/

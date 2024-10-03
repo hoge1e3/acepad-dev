@@ -1,3 +1,4 @@
-
+from moda import f
 for i in range(10):
-    print(i)
+    print(f(i))
+    
