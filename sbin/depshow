@@ -3,4 +3,11 @@
 export async function main(){
     this.rm("/show/node_modules/",{r:1});
     this.cp("/jsmod/node_modules/","/show/node_modules/");
+
+    this.rm("/show/bin/",{r:1});
+    this.cp("/jsmod/bin/","/show/bin/");
+
+    this.cd("/show/");
+    await this.sync();
+    this.bauth("/jsmod/depshow.sh");
 }
