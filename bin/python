@@ -1,18 +1,23 @@
 #!run
 /*global $,$B*/
+let py;
 export async function main(file){
     file=this.resolve(file);
-    if(typeof $B==="undefined"){
-        load();
+    if(!py){
+        py=await load(this);
     }
-    const py={
-        exec:window.py_exec,
-        addPath:window.py_addPath,
-    };
-    return py.exec(file);
+    console.log("py",py);
+    py.addPath(this.resolve("./"));
+    return py.execFile(file);
 }
-async function load(){
-    const src=this.resolve("vfs.py").text();
+function load(sh){
+    return new Promise((s)=>{
+        window.onBrythonLoaded=s;
+        setup(sh);
+    });
+}
+async function setup(sh){
+    const src=sh.resolve("vfs.py").text();
     const s2=document.createElement("script");
     s2.innerHTML=src;
     s2.setAttribute("type","text/python3");

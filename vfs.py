@@ -38,13 +38,15 @@ class VirtualFilesystemImporter:
             return spec_from_loader(fullname, VirtualFilesystemLoader(self.virtual_fs, fullname, init.text()), is_package=True)
         return None
 #window.py_exec=exec
-added=set()
-def addPath(d):
-    if d.path() in added:
-        return 
-    added+=d.path()
-    sys.meta_path.insert(0, VirtualFilesystemImporter(d))
-window.py_addPath=addPath
-def execf(f):
-    return exec(f.text())
-window.py_exec=execf
+#added=set()
+class Py:
+    def __init__(self):
+        self.added=set()
+    def addPath(self, d):
+        if d.path() in self.added:
+            return 
+        self.added+=d.path()
+        sys.meta_path.insert(0, VirtualFilesystemImporter(d))
+    def execFile(self, f):
+        return exec(f.text())
+window.onBrythonLoaded(Py())
