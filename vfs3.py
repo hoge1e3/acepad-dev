@@ -3,6 +3,8 @@ import sys
 from importlib.util import spec_from_loader
 from types import ModuleType
 from browser import window
+fs=window.FS;
+path1=fs.get("/jsmod/")
 class VirtualFilesystemLoader:
     def __init__(self, virtual_fs, fullname, content):
         self.virtual_fs = virtual_fs
@@ -37,14 +39,39 @@ class VirtualFilesystemImporter:
         if init.exists():
             return spec_from_loader(fullname, VirtualFilesystemLoader(self.virtual_fs, fullname, init.text()), is_package=True)
         return None
-#window.py_exec=exec
-added=set()
-def addPath(d):
-    if d.path() in added:
-        return 
-    added+=d.path()
-    sys.meta_path.insert(0, VirtualFilesystemImporter(d))
-window.py_addPath=addPath
+# 仮想ファイルシステムの定義
+virtual_fs_old = {
+    'mypackage': {
+        '__init__.py': 'print("Initializing mypackage")\n',
+        'module1.py': 'def func1():\n    print("This is func1 from module1")\n',
+        'subpackage': {
+            '__init__.py': 'print("Initializing mypackage.subpackage")\n',
+            'module2.py': 'def func2():\n    print("This is func2 from subpackage.module2")\n'
+        }
+    }
+}
+
+# sys.meta_pathにVirtualFilesystemImporterを追加
+sys.meta_path.insert(0, VirtualFilesystemImporter(path1))
+window.exec=exec
+
 def execf(f):
     return exec(f.text())
-window.py_exec=execf
+# 使用例
+try:
+    import mypackage
+    #import mypackage.module1 as module1
+    #from mypackage import module1
+    #from mypackage.subpackage import module2
+
+    #module1.func1()
+    #module2.func2()
+except ImportError as e:
+    print(f"Import error: {e}")
+"""
+# 存在しないモジュールのインポートを試みる
+try:
+    import non_existent_module
+except ImportError:
+    print("Failed to import 'non_existent_module'")
+"""

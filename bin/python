@@ -1,0 +1,30 @@
+#!run
+/*global $,$B*/
+export async function main(file){
+    file=this.resolve(file);
+    if(typeof $B==="undefined"){
+        load();
+    }
+    const py={
+        exec:window.py_exec,
+        addPath:window.py_addPath,
+    };
+    return py.exec(file);
+}
+async function load(){
+    const src=this.resolve("vfs.py").text();
+    const s2=document.createElement("script");
+    s2.innerHTML=src;
+    s2.setAttribute("type","text/python3");
+    document.body.appendChild(s2);
+    const load=(src)=>new Promise((suc)=>{
+        const s=document.createElement("script");
+        s.setAttribute("src",src);
+        document.body.appendChild(s);
+        s.addEventListener("load",suc);
+    });
+    const head="https://brython.info";
+    await load(`${head}/brython.js`);
+    await load(`${head}/brython_stdlib.js`);
+    await $B.brython();
+}

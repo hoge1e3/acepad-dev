@@ -4,7 +4,7 @@ export async function main(file){
     
     
     const src=this.resolve("vfs.py").text();
-    window.use_brython=function use_brython(run){
+    /*window.use_brython=function use_brython(run){
         let mod=run(`
 import foo
 print(foo.custom_attribute)
@@ -12,7 +12,7 @@ foo.bar()
 print(2*4)
 `);
         console.log("mod",mod);
-    };
+    };*/
 
     const s2=document.createElement("script");
     s2.innerHTML=src;
@@ -23,6 +23,7 @@ print(2*4)
         s.setAttribute("src",src);
         document.body.appendChild(s);
         s.addEventListener("load",suc);
+        
     });
 //    const head="https://edit.tonyu.jp/acepad/brython/src";
     const head="https://brython.info";
