@@ -1,0 +1,28 @@
+#!run
+
+export async function main(){
+let c=`sources
+newcmd
+npm-init
+npm-test
+npmfix
+webpage
+keysel
+edit
+acecmdls
+diff
+ls
+findword
+upload
+python`;
+    const dest=new Set();
+    for(let k of c.split("\n")){
+        dest.add(k);
+        //this.cp("/jsmod/bin/"+k,"/show/bin/"+k);
+    }
+    for(let k of this.resolve("/jsmod/bin/").ls()) {
+        if (dest.has(k)) continue;
+        //this.echo(k);
+        this.mv("/jsmod/bin/"+k,"/jsmod/sbin/"+k);
+    }
+}
