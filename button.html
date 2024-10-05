@@ -7,7 +7,11 @@
 ">go</button>
 <input type="checkbox" id="a">
 <textarea id="r" rows=20 cols=20></textarea>
+<div id="a1"><span id="x">A1</span></div>
+<div id="a2"><span id="x">A2</span></div>
 <script>
+    document.querySelector("#a1").querySelector("#x").innerHTML="B1 "+document.getElementById("x").innerText;
+    document.querySelector("#a2").querySelector("#x").innerHTML="B2 "+document.querySelectorAll("#x").length;
     function props(d){
         const r=[];
         for(let k in d){
