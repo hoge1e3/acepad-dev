@@ -5,4 +5,29 @@
     font-color: white;
     background: #8da;
 ">go</button>
-<input type="checkbox" checked id="a">
+<input type="checkbox" id="a">
+<textarea id="r" rows=20 cols=20></textarea>
+<script>
+    function props(d){
+        const r=[];
+        for(let k in d){
+            //if(d.hasOwnProperty(k)){
+            let t=(typeof d[k]);
+            if(t=="string"||t=="boolean")
+                r.push(k);
+            //}
+        }
+        return r;
+    }
+    setInterval(()=>{
+        const c=document.querySelector("#a");
+        const r=document.querySelector("#r");
+        console.log(props(c));
+        r.value=props(c).join(" ");
+        r.value=c.attributes.map((a)=>a.name).join("\r\n");
+        if(c.getAttribute("checked")){
+            r.value="*"+r.value;
+        }
+    },1000);
+    
+</script>
