@@ -6,10 +6,18 @@ export async function main(name){
         p=findNodeModule(name,this.cwd);
         this.cd(p);
     }
-    p=this.resolve("package.json").obj();
+    while(true){
+        p=this.resolve("package.json");
+        if(p.exists())break;
+        if(!this.cwd.up()){
+            throw new Error("package.json not found");
+        }
+        this.cd("../");
+    }
+    let po=p.obj();
     //this.pwd();
     //this.echo(p.scripts.test);
-    await this.exec(p.scripts.test);
+    await this.exec(po.scripts.test);
     this.echo("passed");
 }
 function findNodeModule(name,base){
