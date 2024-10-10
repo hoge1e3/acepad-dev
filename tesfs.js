@@ -1,5 +1,6 @@
 /* global requirejs, console, setTimeout, alert, location, process, localStorage, document, Buffer */
 import romk_f from "./ROM_k.mjs";
+//TEST!!
 const _root=(function (){
     if (typeof window!=="undefined") return window;
     if (typeof self!=="undefined") return self;

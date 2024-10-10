@@ -10,7 +10,7 @@ export async function main(...args){
         }
         for(let f of args){
             f=this.resolve(f);
-            await f.link(dst.rel(f.name()));
+            await dst.rel(f.name()).link(f);
         }
     }else{
         const src=this.resolve(args.pop());
@@ -23,7 +23,7 @@ export async function main(...args){
                 dst=dst.rel(src.name());
             }
             //dst.mkdir();
-            await src.link(dst);
+            await dst.link(src);
         }else{
             dst=this.resolve(dst);
             if(dst.isDir()){
@@ -33,7 +33,7 @@ export async function main(...args){
                     throw new Error(`${dst} is not existent.`);
                 }
             }
-            await src.link(dst);
+            await dst.link(src);
         }
     }
 }
