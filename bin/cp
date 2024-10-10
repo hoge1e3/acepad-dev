@@ -1,0 +1,39 @@
+#!run
+export async function main(...args){
+    args=this.collectOptions(args);
+    const o=args.pop();
+    let dst=args.pop();
+    if(args.length>1){
+        dst=this.directorify(dst);
+        if(!dst.exists()){
+            throw new Error(`${dst} is not a dir.`);
+        }
+        for(let f of args){
+            f=this.resolve(f);
+            await f.copyTo(dst.rel(f.name()));
+        }
+    }else{
+        const src=this.resolve(args.pop());
+        if(!src.exists()){
+            throw new Error(`${src} is not existent.`);
+        }
+        if(src.isDir()){
+            dst=this.directorify(dst);
+            if(dst.exists()){
+                dst=dst.rel(src.name());
+            }
+            dst.mkdir();
+            await src.copyTo(dst);
+        }else{
+            dst=this.resolve(dst);
+            if(dst.isDir()){
+                if(dst.exists()){
+                    dst=dst.rel(src.name());
+                }else{
+                    throw new Error(`${dst} is not existent.`);
+                }
+            }
+            await src.copyTo(dst);
+        }
+    }
+}

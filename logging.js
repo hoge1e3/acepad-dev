@@ -13,5 +13,5 @@ export function add(sh,data){
     
 }
 function moveToTmp(sh,logdir){
-
+    
 }

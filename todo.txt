@@ -5,6 +5,9 @@ ok ed
 
 ok find with filename
 
+cp/mv
+wildcard
+
 widget on keypad <-what?
 widget on session list
 function key
@@ -27,8 +30,9 @@ ok module update bug
    
 ok open parent folder 
 tab size
+font size
 auto indent scroll
-auto hide gutter
+50% auto hide gutter
 state save
 folding
 replace
