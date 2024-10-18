@@ -5,7 +5,7 @@ export function main(){
     //this.echo(ba);
     const file="index.html";
     const url=`${ba}/a.php?r=jsl_edit&dir=${this.cwd.path()}&autoexec=${file}`;
-    //this.echo(url);
+    this.echo(url);
     window.sendURL=(url)=>{
         window.open(url);
         ide.close();

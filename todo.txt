@@ -5,9 +5,10 @@ ok ed
 
 ok find with filename
 
-cp/mv
-wildcard
+ok cp/mv
+ok wildcard
 
+override text editor with ace-editor
 widget on keypad <-what?
 widget on session list
 function key
@@ -80,4 +81,3 @@ ok zip upload
 ok sync
  ok file delta, deltadelta
 ok addPath
-test
