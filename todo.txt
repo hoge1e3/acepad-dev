@@ -1,4 +1,4 @@
-
+multiline shell exec
 ok zureru after
 ok? ctrl+r
 ok ed
@@ -11,7 +11,7 @@ ok wildcard
 override text editor with ace-editor
 widget on keypad <-what?
 widget on session list
-function key
+function key swipe
 npm for petit-node
 
 test export function realtime
