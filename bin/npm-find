@@ -1,0 +1,58 @@
+#!run
+import FS from "@hoge1e3/fs";
+export async function main(name){
+    let p;
+    const asfile=(()=>{
+        let f=this.resolve(name,true);
+        if(!f.isDir()){
+            f=f.up();
+        }
+        this.cd(f);
+    });
+    if(name){
+        if(FS.SFile.is(name)||
+            FS.PathUtil.isAbsolutePath(name)){
+            asfile();
+        }else{
+            p=findNodeModule.call(this,name,this.cwd);
+            if(p){
+                return p;
+            }else{
+                asfile();
+            }
+        }
+    }
+    while(true){
+        if(isNpmRoot(this.cwd))return this.cwd;
+        if(!this.cwd.up()){
+            throw new Error("package.json not found");
+        }
+        this.cd("../");
+    }
+}
+function isNpmRoot(d){
+    if(!d.exists())return false;
+    const p=d.rel("package.json");
+    return (p.exists());
+}
+function findNodeModule(name,base){
+    for(let p=base;p;p=p.up()){
+        let n=p.rel("node_modules/");
+        if(n.exists()){
+            let p=n.rel(name+"/");
+            if(isNpmRoot(p)){
+                return p;
+            }
+        }
+    }
+    const np=this.get("NODE_PATH");
+    const nps=np?np.split(":"):[];
+    for(let n of nps){
+        let p=n.rel(name+"/");
+        if(isNpmRoot(p)){
+            return p;
+        }
+    }
+    return ;
+//    throw new Error(`${name} not found from ${base}`);
+}

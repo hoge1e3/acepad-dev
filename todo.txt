@@ -1,4 +1,7 @@
 multiline shell exec
+run from editor
+ #!
+ npm-test
 ok zureru after
 ok? ctrl+r
 ok ed
