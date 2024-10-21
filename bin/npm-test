@@ -17,7 +17,7 @@ export async function main(name){
     let po=p.obj();
     //this.pwd();
     //this.echo(p.scripts.test);
-    if(!p.scripts || !p.scripts.test){
+    if(!po.scripts || !po.scripts.test){
         throw new Error(`${p} has no test script`);
     }
     await this.exec(po.scripts.test);
