@@ -1,15 +1,8 @@
+state save
+ recent files
+ file pos save
 multiline shell exec
-run from editor
- #!
- npm-test
-ok zureru after
-ok? ctrl+r
-ok ed
-
-ok find with filename
-
-ok cp/mv
-ok wildcard
+config sh:
 
 override text editor with ace-editor
 widget on keypad <-what?
@@ -19,25 +12,11 @@ npm for petit-node
 
 test export function realtime
 inspect on editor realtime
-ok module update bug
- mod a
- mod b deps a
- mod c deps a, b
- when a is modified and run c:
-  c loads a and requests update a
-  a becomes "up2date"
-  c also loads b
-  check whether b is "up2date":
-   b is not modified
-   a is "up2date" <-oops!
-   => b is "up2date"!! 
    
-ok open parent folder 
 tab size
 font size
 auto indent scroll
 50% auto hide gutter
-state save
 folding
 replace
 magnify
@@ -84,3 +63,28 @@ ok zip upload
 ok sync
  ok file delta, deltadelta
 ok addPath
+ok run from editor
+ #!
+ npm-test
+ok zureru after
+ok? ctrl+r
+ok ed
+
+ok find with filename
+
+ok cp/mv
+ok wildcard
+ok module update bug
+ mod a
+ mod b deps a
+ mod c deps a, b
+ when a is modified and run c:
+  c loads a and requests update a
+  a becomes "up2date"
+  c also loads b
+  check whether b is "up2date":
+   b is not modified
+   a is "up2date" <-oops!
+   => b is "up2date"!! 
+
+ok open parent folder 
