@@ -1,5 +1,5 @@
 state save
- recent files
+ ok? recent files
  file pos save
 multiline shell exec
 config sh:
