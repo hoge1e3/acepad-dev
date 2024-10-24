@@ -1,8 +1,10 @@
 state save
  ok? recent files
+ list in sessions
  file pos save
 multiline shell exec
 config sh:
+suggest known word only 
 
 override text editor with ace-editor
 widget on keypad <-what?
@@ -30,16 +32,10 @@ menu
  current/last
  ok? avoid edit text
  ok bubbling up
-ok n-gram layered
 n-gram worker
 
 key layout
 key swipe
-ok diff
-ok shell completion
-ok widget minify
-ok multi editor
-ok autorepeat stop on alert
 
 logging
 del session on file del
@@ -49,10 +45,17 @@ Error: /jsmod/jsmod/: no such file or directory
 
 session local command
 session local menu
-ok find from nears
 node mods convert
 bookmark command
 []$ npm-init acepad-widget
+
+ok find from nears
+ok n-gram layered
+ok diff
+ok shell completion
+ok widget minify
+ok multi editor
+ok autorepeat stop on alert
 
 ok dedent/indent
 ok shell app with file this=sh
