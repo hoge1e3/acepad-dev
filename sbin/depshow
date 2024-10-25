@@ -9,5 +9,5 @@ export async function main(){
 
     this.cd("/show/");
     await this.sync();
-    this.bauth("/jsmod/depshow.sh");
+    this.bauth("/jsmod/docker/tasks/depshow.sh");
 }
