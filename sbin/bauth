@@ -37,7 +37,7 @@ export async function main(scriptFile){
             acepad:this.$acepad,
             init,
         });
-        console.log("ed",ed);
+        console.log("ed",ed.initHandler+"");
         ed.initHandler(t);
     }
     async function gcode(){

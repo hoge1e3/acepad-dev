@@ -1,11 +1,17 @@
 #!run
 
+function rmifex(p){
+    if(this.resolve(p).exists()){
+        this.rm(p,{r:1});
+    }
+}
 export async function main(){
-    this.rm("/show/node_modules/",{r:1});
-    this.cp("/jsmod/node_modules/","/show/node_modules/");
+    rmifex.call(this,"/show/node_modules/");
+    this.cp("/jsmod/node_modules/","/show/");
 
-    this.rm("/show/bin/",{r:1});
-    this.cp("/jsmod/bin/","/show/bin/");
+    
+    rmifex.call(this,"/show/bin/");
+    this.cp("/jsmod/bin/","/show/");
 
     this.cd("/show/");
     await this.sync();

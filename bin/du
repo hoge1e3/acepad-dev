@@ -1,0 +1,19 @@
+#!run
+
+export async function main(...args){
+    args=this.collectOptions(args);
+    const o=args.pop();
+    let dir=this.resolve(args.pop());
+    const sh=this;
+    const depth=o.d||10000;
+    function loop(dir,depth){
+        let s=0;
+        for(let f of dir.listFiles()){
+            if(f.isDir())s+=loop(f,depth-1);
+            else s+=f.size();
+        }
+        if(depth>=0)sh.echo(dir.path(),s);
+        return s;
+    }
+    loop(dir,depth);
+}

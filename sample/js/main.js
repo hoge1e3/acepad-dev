@@ -40,13 +40,13 @@ async function unzipURL(url, dest) {
 }
 async function unzipBlob(blob, dest) {
     status("unzipping blob ");
-    let zip=FS.get("/ram/setup.zip");
+    let zip=FS.get("/tmp/setup.zip");
     await zip.setBlob(blob);
     dest.mkdir();
     await FS.zip.unzip(zip,dest);
 }
 async function networkBoot(url){
-    const run=FS.get("/ram/run/");
+    const run=FS.get("/tmp/run/");
     await unzipURL(url, run);
     status("Boot start!");
     FS.os.boot(run);
