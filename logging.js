@@ -1,4 +1,6 @@
 const logdirpath="/log/";
+const thresh=10000;
+let alerted;
 export function add(sh,data){
     const logdir=sh.resolve(logdirpath);
     if(!logdir.exists())logdir.mkdir();
@@ -10,7 +12,11 @@ export function add(sh,data){
     data.time=new Date().getTime();
     logdata.push(data);
     logfile.obj(logdata);
-    
+    if(logdata.length>=thresh&&!alerted){
+        //console.log(logdata.length);
+        alert("dumplog");
+        alerted=true;
+    }
 }
 function moveToTmp(sh,logdir){
     

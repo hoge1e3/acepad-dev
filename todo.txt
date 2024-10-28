@@ -1,11 +1,13 @@
+samples
+fs.js
 state save
- ok? recent files
- list in sessions
+ ok recent files
+ ok list in sessions
+ sh in sessions
  file pos save
 multiline shell exec
 config sh:
 suggest known word only 
-
 override text editor with ace-editor
 widget on keypad <-what?
 widget on session list
@@ -16,7 +18,7 @@ test export function realtime
 inspect on editor realtime
    
 tab size
-font size
+font size pinch
 auto indent scroll
 50% auto hide gutter
 folding
