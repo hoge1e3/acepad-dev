@@ -1,5 +1,13 @@
 samples
+sessionF defaults samples
+sugeest in $home
+extract vars
+suggest known word only 
+F5 dir show bug
 fs.js
+key layout
+key swipe
+key swap
 state save
  ok recent files
  ok list in sessions
@@ -7,7 +15,6 @@ state save
  file pos save
 multiline shell exec
 config sh:
-suggest known word only 
 override text editor with ace-editor
 widget on keypad <-what?
 widget on session list
@@ -36,8 +43,6 @@ menu
  ok bubbling up
 n-gram worker
 
-key layout
-key swipe
 
 logging
 del session on file del
