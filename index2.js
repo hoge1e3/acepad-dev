@@ -9,7 +9,7 @@ export async function main(){
     sh.set("path",sh.getenv("path")||"");
     //sh.addPath(sh.resolve("bin/").path());
     let acepad=await ace.main.call(sh);
-    if(sh.hasCmd("filewatch")) sh.filewatch();
+    if(sh.hasCmd("filewatch")) sh.filewatch({addLog});
     sh["acepad-polyfiller.js"]();
     acepad.events.on("keyclick",({b})=>{
         if(acepad.getCurrentEditor().nolog)return ;

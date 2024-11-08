@@ -1,9 +1,10 @@
 //!run
 import {showWidget} from "acepad-widget";
-export async function main(){
+export async function main(o={}){
     let a=this.$acepad;
     setInterval(loop,1000);
     let al=0;
+    let sh=this;
     function loop(){
         let s=a.getCurrentEditor().session;
         let si=a.sessionInfo(s);
@@ -12,7 +13,12 @@ export async function main(){
         if(si.file.text()!==s.getValue()){
             al++;
             if(al==3){
-                if(!window.shown)alert("<div>not match "+si.file+"</div>");
+                if(!window.shown){
+                    if(o.addLog)o.addLog(sh,{
+                        error:"not match "+si.file
+                    });
+                    alert("<div>not match "+si.file+"</div>");
+                }
                 window.shown=1;
             }
             console.error("not match "+si.file   );

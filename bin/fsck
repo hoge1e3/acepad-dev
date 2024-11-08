@@ -1,0 +1,26 @@
+#!run
+import {PathUtil} from "@hoge1e3/fs";
+function hasEntry(p){
+    const pp=PathUtil.up(p);
+    if(!pp)return true;
+    const o=JSON.parse(localStorage[pp]);
+    return o[PathUtil.name(p)];
+}
+function fix(p){
+    if(hasEntry(p))return ;
+    const pp=PathUtil.up(p);
+    fix(pp);
+    const o=JSON.parse(localStorage[pp]);
+    o[PathUtil.name(p)]={
+        lastUpdate:new Date().getTime()
+    };
+    localStorage[pp]=JSON.stringify(o);
+}
+export async function main(){
+    for(let k in localStorage){
+        if(!k.startsWith("/"))continue;
+        if(!hasEntry(k)){
+            this.echo(k);
+        }
+    }
+}
