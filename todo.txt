@@ -11,8 +11,8 @@ key swap
 state save
  ok recent files
  ok list in sessions
- sh in sessions
- file pos save
+ sh hist in sessions
+ ok file pos save
 multiline shell exec
 config sh:
 override text editor with ace-editor
