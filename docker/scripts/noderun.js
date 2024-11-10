@@ -2,7 +2,7 @@ import FS from "@hoge1e3/fs-nw";
 import $ from "./jqp.js"; 
 import * as dotenv from "dotenv";
 async function r(){
-    dotenv.config({path:"~/jsmod/.env"});
+    dotenv.config({path:"~/.env"});
     FS.os={};
     globalThis.FS=FS;
     for(let k in process.env){
