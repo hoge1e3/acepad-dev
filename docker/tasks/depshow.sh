@@ -1,3 +1,5 @@
+cd
+basync acepad
 cd ~/public_html/gio/
 rm -rf acepad
 cp -r ~/acepad .

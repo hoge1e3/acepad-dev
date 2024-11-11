@@ -14,7 +14,7 @@ export async function main(scriptFile){
     const callback2=ba+"/?Login/curStatus&callback="+encodeURI(callback1);
     this.echo(callback2);
     const u=ba+"/?Teacher/login&callback="+encodeURI(callback2);
-    const w=window.open(callback2);//ba+"/a.php");
+    const w=window.open(callback2);
     const code=await gcode();
     //await timeout(1000);
     const u2=(w.location.href);
