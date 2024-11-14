@@ -1,5 +1,5 @@
 //!run
-import {init,commit,checkout,clone} from "acepad-sync";
+import {init,commit,checkout,clone,branch} from "acepad-sync";
 
 export async function main(cmd, ...args){
     const sh=this;
@@ -26,7 +26,10 @@ export async function main(cmd, ...args){
                 }
             }
             return;
+        case "branch":
+            return await branch(args.shift(),gd());
         default:
             sh.echo("sync init/clone/checkout/commit");
     }
 }
+
