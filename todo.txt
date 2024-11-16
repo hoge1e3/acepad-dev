@@ -10,6 +10,7 @@ key swipe
 key swap
 state save
  ok recent files
+  hierchal with cmd
  ok list in sessions
  sh hist in sessions
  ok file pos save
