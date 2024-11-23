@@ -1,0 +1,35 @@
+#!run
+
+export async function main(){
+    this.edit(this.resolve(import.meta.url));
+    const session=this.$acepad.getCurrentEditor().session;
+    session.addFold("args...", new Range(0, 13, 0, 18));
+    session.addFold("foo...", new Range(1, 10, 2, 10));
+    session.addFold("bar...", new Range(2, 20, 2, 25));
+}
+/*
+
+
+test
+test
+test
+test
+test
+test
+test
+test
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

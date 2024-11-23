@@ -1,5 +1,6 @@
+#!run 
 import doa from "./moda.js";
-export default function dob(){
+export function main(){
     alert("mod/modb?");
     doa();
 }

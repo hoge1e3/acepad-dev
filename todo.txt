@@ -21,7 +21,8 @@ widget on keypad <-what?
 widget on session list
 function key swipe
 npm for petit-node
-bug
+syntax error file/pos
+ok bug
  a imports b
  run a
  b has syntax error
