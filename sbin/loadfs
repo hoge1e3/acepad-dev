@@ -4,6 +4,6 @@ export async function main(){
     const fsm=await import("https://bitarrow3.eplang.jp/acepad/vfs.js");
     //console.log(fs);
     const fs=new fsm.FileSystem();
-    const c=fs.readFileSync("/jsmod/bin/loadfs","utf-8");
+    const c=fs.readFileSync("/jsmod/sbin/loadfs","utf-8");
     this.echo(c);
 }
