@@ -1,9 +1,28 @@
 #!run
-
+import _n from "./NativeFS.js";
+import FS from "@hoge1e3/fs";
 export async function main(){
     const fsm=await import("https://bitarrow3.eplang.jp/acepad/vfs.js");
     //console.log(fs);
     const fs=new fsm.FileSystem();
+    const NativeFS=_n(fs);
+    FS.mount("/n/",new NativeFS("/show/"));
+    this.cat("/n/index.js");
+    this.ls("/n/");
+    this.echo(...fs.readdirSync("/jsmod/"));
     const c=fs.readFileSync("/jsmod/sbin/loadfs","utf-8");
-    this.echo(c);
+    //this.echo(c);
+}
+function isDir(path){
+    assert.is(arguments, [Absolute]);
+    if(P.isDir(path))return true;
+    var name = P.name(path);
+    var parent = P.up(path);
+    if (parent == null) return true;
+    var pinfo = this.getDirInfo(parent);
+    var res = pinfo[name];
+    if(res)return false;
+    var resd = pinfo[name+"/"];
+    if(res)return true;
+    return false;
 }
