@@ -4,7 +4,9 @@ export async function main(n){
     if(!n){
         throw new Error("cmd name");
     }
-    let d=this.resolve(import.meta.url).sibling(n);
+    
+    let d=this.resolve(this.$path.split(":").shift()).rel(n);
+    //resolve(import.meta.url);
     if(!d.exists()){
         d.text(`#!run
 

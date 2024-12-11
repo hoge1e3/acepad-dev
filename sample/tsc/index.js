@@ -17,6 +17,14 @@ function loadTypeScriptCompiler() {
   });
 }
 
+const sourceCode = `let x: number = 10;`;
+const sourceFile = ts.createSourceFile("example.ts", sourceCode, ts.ScriptTarget.Latest);
+ts.forEachChild(sourceFile, node => {
+  if (ts.isVariableStatement(node)) {
+    console.log("Variable Statement found:", node);
+  }
+});
+
 // 仮想ファイルシステムクラス
 class VirtualFileSystem {
   constructor(fileStructure) {

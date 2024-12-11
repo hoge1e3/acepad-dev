@@ -1,0 +1,21 @@
+#!run
+
+export async function main(){
+    let i=100000,s=0;
+    while(s<1){
+        s+=1/i;
+        i++;
+    }
+    this.echo(i);/*
+        if(s>=n){
+            n++;
+            this.echo(n,i,Math.log(i));
+        }
+        ss+=1/i;
+        if(ss>=1/1000){
+            await this.sleep(ss);
+            ss=0;
+        }
+        i++;
+    }*/
+}
