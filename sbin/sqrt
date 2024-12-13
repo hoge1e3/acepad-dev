@@ -1,0 +1,37 @@
+#!run
+
+export function sqrt(n){
+    if(n<=0)return 0;
+    let x;
+    for(x=1;x**2-n<0;x*=2);
+    let px;
+    do{
+        //if(c++>100)throw `${n} ${x}`;
+        px=x;
+        const b=(x**2-n)/(2*x);
+        x-=b;
+    }while(x<px);
+    return x;
+}
+let echo;
+export async function main(){
+    echo=this.echo.bind(this);
+    test(0);
+    test(0.25);
+    test(0.5);
+    test(2);
+    test(5);
+    test(9);
+    test(25);
+    test(50);
+    test(100);
+    test(1000);
+    test(10000);
+    
+    
+    
+}
+function test(n){
+    const q=sqrt(n);
+    echo(q, q**2-n);
+}

@@ -1,0 +1,14 @@
+#!run
+import {sqrt} from "./sqrt";
+export async function main(){
+//    let w=sqrt(2)/2,h=sqrt(2)/2,n=4;
+    let w=1,h=0,n=2;
+    // w=(wid of triangle/2)**2 
+    let s2=sqrt(2);
+    for(let i=0;i<100;i++){
+        w=((1-h)**2+w)/4;
+        h=sqrt(1-w);
+        n*=2;
+        this.echo(sqrt(w)*n);
+    }
+}
