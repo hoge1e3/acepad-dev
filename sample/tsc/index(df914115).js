@@ -1,6 +1,6 @@
 #!run 
 // ブラウザ環境用のTypeScript仮想ファイルシステムとコンパイラ
-import {p} from "@hoge1e3/polyfiller";
+
 // TypeScriptコンパイラをCDNから読み込むためのスクリプトタグを動的に追加
 function loadTypeScriptCompiler() {
   return new Promise((resolve, reject) => {
@@ -10,12 +10,20 @@ function loadTypeScriptCompiler() {
     }
 
     const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/typescript/5.3.2/typescript.js';
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/typescript/5.3.2/typescript.min.js';
     script.onload = () => resolve(window.ts);
     script.onerror = reject;
     document.head.appendChild(script);
   });
 }
+
+const sourceCode = `let x: number = 10;`;
+const sourceFile = ts.createSourceFile("example.ts", sourceCode, ts.ScriptTarget.Latest);
+ts.forEachChild(sourceFile, node => {
+  if (ts.isVariableStatement(node)) {
+    console.log("Variable Statement found:", node);
+  }
+});
 
 // 仮想ファイルシステムクラス
 class VirtualFileSystem {
@@ -73,53 +81,19 @@ const ts = await loadTypeScriptCompiler();
 
   // カスタムコンパイラホストの作成
   console.log("opt",options);
-  const dir="/jsmod/sample/tsc/";
-  const host = p("host1231283721",{
-      "resolveModuleNameLiterals": p("0.18793379405229804",{
-      }),
-      "hasInvalidatedResolutions": p("0.2832245551874659",{
-      }),
-      "getCurrentDirectory": ()=>dir,
-      "getDefaultLibLocation": ()=>dir,
-      "trace": p("0.8895635217621469",{
-      }),
-      "onUnRecoverableConfigFileDiagnostic": p("0.5338845565487913",{
-      }),
-      "useCaseSensitiveFileNames": ()=>true,
-      "realpath": p("0.18934700024567053",{
-          "bind": p("0.5747861134426278",()=>{
-              return p("3223bbbb8312",{
-                  
-              });
-          }),
-      }),
-      "getDirectories": p("0.7157485895779427",{
-          "bind": p("0.13491815393519468",()=>{
-              return p("3223aaa8312",{
-                  
-              });
-          }),
-      }),
-      "directoryExists": p("0.30892341846040927",{
-          "bind": p("0.04478727945477101",()=>{
-              return p("328312",{
-                  
-              });
-          }),
-      }),
-  });//ts.createCompilerHost(options);
+  const host = ts.createCompilerHost(options);
 
-  /* ホストオブジェクトのメソッドをオーバーライド
+  // ホストオブジェクトのメソッドをオーバーライド
   host.readFile = fileSystem.readFile.bind(fileSystem);
   host.fileExists = fileSystem.fileExists.bind(fileSystem);
   host.getCurrentDirectory = fileSystem.getCurrentDirectory.bind(fileSystem);
   host.getDirectories = fileSystem.getDirectories.bind(fileSystem);
-*/
+
   // メモリ内の出力マップ
   const outputFiles = new Map();
-  /*host.writeFile = (fileName, contents) => {
+  host.writeFile = (fileName, contents) => {
     outputFiles.set(fileName, contents);
-  };*/
+  };
 
   // プログラムを作成してコンパイル
   const program = ts.createProgram(rootNames, options, host);
@@ -203,6 +177,7 @@ runTypeScriptCompilationDemo();
     
 }
 /*
+const program = ts.createProgram(options.fileNames, options.options, host);
 
 Passing a custom implementation of CompilerHost to createProgram fixed it for me (without one, TS tries to use ts.sys defaults, which is unavailable in browsers).
 https://github.com/microsoft/TypeScript/issues/35903
@@ -219,67 +194,4 @@ const compilerHost = {
             fileExists: ...,
             readFile: ...,
 };
-
-export interface System {
-    args: string[];
-    newLine: string;
-    useCaseSensitiveFileNames: boolean;
-    write(s: string): void;
-    writeOutputIsTTY?(): boolean;
-    getWidthOfTerminal?(): number;
-    readFile(path: string, encoding?: string): string | undefined;
-    getFileSize?(path: string): number;
-    writeFile(path: string, data: string, writeByteOrderMark?: boolean): void;
-
-    watchFile?(path: string, callback: FileWatcherCallback, pollingInterval?: number, options?: WatchOptions): FileWatcher;
-    watchDirectory?(path: string, callback: DirectoryWatcherCallback, recursive?: boolean, options?: WatchOptions): FileWatcher;
-    @internal
-    preferNonRecursiveWatch?: boolean;
-    resolvePath(path: string): string;
-    fileExists(path: string): boolean;
-    directoryExists(path: string): boolean;
-    createDirectory(path: string): void;
-    getExecutingFilePath(): string;
-    getCurrentDirectory(): string;
-    getDirectories(path: string): string[];
-    readDirectory(path: string, extensions?: readonly string[], exclude?: readonly string[], include?: readonly string[], depth?: number): string[];
-    getModifiedTime?(path: string): Date | undefined;
-    setModifiedTime?(path: string, time: Date): void;
-    deleteFile?(path: string): void;
-    // A good implementation is node.js' `crypto.createHash`. (https://nodejs.org/api/crypto.html#crypto_crypto_createhash_algorithm)
-    createHash?(data: string): string;
-    // This must be cryptographically secure. Only implement this method using `crypto.createHash("sha256")`.
-    createSHA256Hash?(data: string): string;
-    getMemoryUsage?(): number;
-    exit(exitCode?: number): void;
-    //@internal
-    enableCPUProfiler?(path: string, continuation: () => void): boolean;
-    //@internal
-    disableCPUProfiler?(continuation: () => void): boolean;
-    //@internal
-    cpuProfilingEnabled?(): boolean;
-    realpath?(path: string): string;
-    //@internal
-    getEnvironmentVariable(name: string): string;
-    //@internal
-    tryEnableSourceMapsForHost?(): void;
-    //@internal
-    getAccessibleFileSystemEntries?(path: string): FileSystemEntries;
-    //@internal
-    debugMode?: boolean;
-    setTimeout?(callback: (...args: any[]) => void, ms: number, ...args: any[]): any;
-    clearTimeout?(timeoutId: any): void;
-    clearScreen?(): void;
-    //@internal
-    setBlocking?(): void;
-    base64decode?(input: string): string;
-    base64encode?(input: string): string;
-    //@internal
-    require?(baseDir: string, moduleName: string): ModuleImportResult;
-    // For testing
-    //@internal
-    now?(): Date;
-    //@internal
-    storeSignatureInfo?: boolean;
-}
 */
