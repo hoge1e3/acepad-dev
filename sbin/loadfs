@@ -2,9 +2,15 @@
 import _n from "./NativeFS.js";
 import FS from "@hoge1e3/fs";
 export async function main(){
-    const fsm=await import("https://bitarrow3.eplang.jp/acepad/vfs.js");
+    const {fakeNodeEnvironment}=await import("https://unpkg.com/petit-fs@1.0.1/dist/index.js");
+    //"https://bitarrow3.eplang.jp/acepad/vfs.js");
     //console.log(fs);
-    const fs=new fsm.FileSystem();
+    fakeNodeEnvironment();
+    
+    const fs=require("fs");//new fsm.FileSystem();
+    await loadTypeScriptCompiler();
+    console.log(ts,fs);
+    return ;
     const NativeFS=_n(fs);
     FS.mount("/n/",new NativeFS("/show/"));
     this.cat("/n/index.js");
@@ -13,6 +19,21 @@ export async function main(){
     const c=fs.readFileSync("/jsmod/sbin/loadfs","utf-8");
     //this.echo(c);
 }
+function loadTypeScriptCompiler() {
+  return new Promise((resolve, reject) => {
+    if (window.ts) {
+      resolve(window.ts);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/typescript/5.3.2/typescript.min.js';
+    script.onload = () => resolve(window.ts);
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
 function watch(path,...opts){
     let sec=opts.shift();
     let options, listener;
