@@ -13,6 +13,41 @@ export async function main(){
     const c=fs.readFileSync("/jsmod/sbin/loadfs","utf-8");
     //this.echo(c);
 }
+function watch(path,...opts){
+    let sec=opts.shift();
+    let options, listener;
+    if(typeof sec==="function"){
+        listener=sec;
+        options={};
+    }else {
+        options=sec||{};
+        listener=opts.shift();
+    }
+    rfs.addObserver(this.path(),function (path, meta) {
+        listener(meta.eventType, path,meta );
+    });
+}
+function watchFile(path,...opts){
+    let sec=opts.shift();
+    let options, listener;
+    if(typeof sec==="function"){
+        listener=sec;
+        options={};
+    }else {
+        options=sec||{};
+        listener=opts.shift();
+    }
+    const inter=options.interval||5000;
+    let prev=fs.statSync(path);
+    function loop(){
+        const cur=fs.statSync(path);
+        if(cur.mtimeMs!==prev.mtimeMs){
+            listener(prev,cur);
+            prev=cur;
+        }
+    }
+    setInterval(loop,inter);
+}
 function isDir(path){
     assert.is(arguments, [Absolute]);
     if(P.isDir(path))return true;
@@ -23,6 +58,19 @@ function isDir(path){
     var res = pinfo[name];
     if(res)return false;
     var resd = pinfo[name+"/"];
+    if(resd)return true;
+    return false;
+}
+function exists(path){
+    assert.is(arguments, [Absolute]);
+    var name = P.name(path);
+    var parent = P.up(path);
+    if (parent == null) return true;
+    var pinfo = this.getDirInfo(parent);
+    var res = pinfo[name];
     if(res)return true;
+    if(P.isDir(path))return false;
+    var resd = pinfo[name+"/"];
+    if(resd)return true;
     return false;
 }
