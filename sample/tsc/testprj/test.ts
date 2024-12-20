@@ -4,5 +4,5 @@ const bar = 'bar'
 const piyo = <any>'piyo'
 
 function foo():string {
-  return 'foo'
+  return 'foobarbaz'
 }

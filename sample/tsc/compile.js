@@ -19,9 +19,10 @@ export function compileProject({ts,fs,path}, projectPath/*:string*/) {
   console.log("conf",parsedConfig);
   const outDir=parsedConfig.options.outDir;
     // Ensure output directory exists
+      console.log("mkdir1", outDir);
   if (!fs.existsSync(outDir)) {
-      console.log();
-    fs.mkdirSync(outDir, { recursive: true });
+      console.log("mkdir2", outDir);
+      fs.mkdirSync(outDir, { recursive: true });
   }
 
 
