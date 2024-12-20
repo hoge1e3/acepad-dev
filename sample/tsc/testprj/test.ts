@@ -1,6 +1,6 @@
 
 const hoge = 'hoge' as any
-const bar = 'bar'
+const bar = 'barr'
 const piyo = <any>'piyo'
 
 function foo():string {

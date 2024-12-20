@@ -1,6 +1,6 @@
 "use strict";
 const hoge = 'hoge';
-const bar = 'bar';
+const bar = 'barr';
 const piyo = 'piyo';
 function foo() {
     return 'foobarbaz';
