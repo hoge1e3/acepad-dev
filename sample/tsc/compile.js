@@ -17,26 +17,25 @@ export function compileProject({ts,fs,path}, projectPath/*:string*/) {
     path.dirname(configPath)
   );
   console.log("conf",parsedConfig);
-  const outDir=parsedConfig.options.outDir;
+  /*const outDir=parsedConfig.options.outDir;
     // Ensure output directory exists
       console.log("mkdir1", outDir);
   if (!fs.existsSync(outDir)) {
       console.log("mkdir2", outDir);
       fs.mkdirSync(outDir, { recursive: true });
-  }
+  }*/
 
 
   // Create the compiler host
   const compilerHost = ts.createCompilerHost(parsedConfig.options);
 
   // Modify the writeFile method to write to the specified output directory
-  const originalWriteFile = compilerHost.writeFile;
-  compilerHost.wrriteFile = (fileName, contents, writeByteOrderMark, onError, sourceFiles) => {
-    /*const relativePath = path.relative(projectPath, fileName);
-    const outputPath = path.join(outDir, relativePath);
-    console.log(projectPath,fileName,relativePath,outputPath);
-    */
-    console.log(fileName,contents);
+  /*const originalWriteFile = compilerHost.writeFile;
+  compilerHost.writeFile = (fileName, contents, writeByteOrderMark, onError, sourceFiles) => {
+    //const relativePath = path.relative(projectPath, fileName);
+    //const outputPath = path.join(outDir, relativePath);
+    //console.log(projectPath,fileName,relativePath,outputPath);
+    //console.log(fileName,contents);
     //return;
     const outputPath=fileName;//path.join(projectPath,fileName);
     // Ensure output directory exists
@@ -47,7 +46,7 @@ export function compileProject({ts,fs,path}, projectPath/*:string*/) {
 
     // Write the file
     originalWriteFile(outputPath, contents, writeByteOrderMark, onError, sourceFiles);
-  };
+  };*/
 
   // Create the program
   const program = ts.createProgram(parsedConfig.fileNames, parsedConfig.options, compilerHost);
