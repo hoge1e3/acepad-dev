@@ -9,7 +9,8 @@ export async function main(){
     
     const fs=require("fs");//new fsm.FileSystem();
     await loadTypeScriptCompiler();
-    console.log(ts,fs);
+    console.log(ts,fs,process);
+    this.echo(ts.isNodeLikeSystem+"");
     return ;
     const NativeFS=_n(fs);
     FS.mount("/n/",new NativeFS("/show/"));

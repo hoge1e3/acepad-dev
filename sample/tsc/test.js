@@ -17,6 +17,13 @@ function loadTypeScriptCompiler() {
   });
 }
 export async function main(){
+    for(let k in localStorage){
+        if(k.match(/^\/tmp/)){
+            this.echo(k);
+            delete localStorage[k];
+        }
+    }
+    return ;
 const ts=await loadTypeScriptCompiler();
 
 const sourceCode = `function greet() { console.log("Hello, world!"); }`;
