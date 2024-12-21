@@ -1,9 +1,9 @@
-"use strict";
+import { n } from "tmod";
 const hoge = 'hoge';
-const bar = 'barr';
+const bar = n;
 const piyo = 'piyo';
 function foo(d) {
-    d.getElementByIdDesu("#test");
-    return 'foobarbaz';
+    // d.getElementByIdDesu("#test");
+    return bar;
 }
 //# sourceMappingURL=test.js.map

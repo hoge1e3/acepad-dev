@@ -1,9 +1,9 @@
-
+import {n} from "tmod";
 const hoge = 'hoge' as any
-const bar = 'barr'
+const bar = n;
 const piyo = <any>'piyo'
 
 function foo(d:Document):string {
-    d.getElementByIdDesu("#test");
-  return 'foobarbaz'
+   // d.getElementByIdDesu("#test");
+  return bar;
 }
