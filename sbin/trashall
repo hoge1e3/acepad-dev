@@ -1,0 +1,18 @@
+#!run
+
+export async function main(){
+    for(let k in localStorage){
+        try{
+            if(!k.endsWith("/"))continue;
+            const o=JSON.parse(localStorage[k]);
+            for(let kk in o){
+                if(o[kk]&&o[kk].trashed){
+                    this.echo(k+kk);
+                    this.resolve(k+kk).removeWithoutTrash();
+                }
+            }
+        }catch(e){
+            this.echo(e);
+        }
+    }
+}

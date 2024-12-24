@@ -1,4 +1,4 @@
-//!run
+#!run
 
 export async function main(n){
     if(!n){
