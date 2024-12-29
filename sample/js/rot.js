@@ -14,7 +14,7 @@ export async function main(){
         let x=w/2;
         let y=h/2;
         ctx.fillStyle="white";
-        //ctx.clearRect(0,0,w,h);
+        ctx.clearRect(0,0,w,h);
         ctx.strokeStyle="black";
         ctx.beginPath();
         ctx.moveTo(x,y);
