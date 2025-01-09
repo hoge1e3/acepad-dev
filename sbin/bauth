@@ -9,7 +9,7 @@ const ws=FS.getEnv("ws");
 import {modeMap} from "acepad-files";
 import * as ed from "docker-terminal-editor";
 /*global $,URLSearchParams*/    
-export async function main(scriptFile){
+export async function main(scriptFile,{n:noalert}={}){
     const callback1=location.href+"?";
     const callback2=ba+"/?Login/curStatus&callback="+encodeURI(callback1);
     this.echo(callback2);
@@ -36,9 +36,11 @@ export async function main(scriptFile){
             ws,
             acepad:this.$acepad,
             init,
+            noalert,
         });
         console.log("ed",ed.initHandler+"");
         ed.initHandler(t);
+        return t;
     }
     async function gcode(){
         while(true){

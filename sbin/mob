@@ -5,11 +5,12 @@ export async function main(){
     let w=showWidget("<div>");
     while(1){
         let d=new Date();
-        let m=new Date(t(d)+32*86400*1000);
-        m1(m);
         let f=new Date();
         m1(f);
-        w.element.innerText=((t(d)-t(f))/(t(m)-t(f))*1000);
+        let m=new Date(t(f)+32*86400*1000);
+        m1(m);
+        w.element.innerHTML=((t(d)-t(f))/(t(m)-t(f))*1000)+
+        "<br>"+d;
         await sleep(10);
     }
 }
