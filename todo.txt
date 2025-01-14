@@ -1,3 +1,4 @@
+genAI
 samples
 sessionF defaults samples
 sugeest in $home
