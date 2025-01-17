@@ -1,4 +1,5 @@
 genAI
+BS autorepeat bug
 samples
 sessionF defaults samples
 sugeest in $home
