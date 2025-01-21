@@ -1,0 +1,61 @@
+#!run
+import * as fs from "fs";
+import * as path from "path";
+export async function main(){
+    // 使用例
+    //const t=nextfile("/tmp/");
+    //this.echo(t);
+    let currentFile = "/";//this.resolve(import.meta.url).path();
+    const exts=new Set();
+    for (let i=0;;i++){
+        currentFile = nextfile(currentFile);
+        if (!currentFile) break;
+        //this.echo(currentFile);
+        const ext=path.extname(currentFile);
+        if (path.basename(currentFile)==ext) continue;
+        exts.add(ext);
+        //await this.sleep(0.1);
+    }
+    this.echo(...exts);
+}
+function nextfile(file, skipFolder = false) {
+  file = path.resolve(file); // 絶対パスに変換
+
+  try {
+    // フォルダに入ることをスキップしない場合のみチェック
+    if (!skipFolder && fs.statSync(file).isDirectory()) {
+      // フォルダ内のエントリを取得してソート
+      const entries = fs.readdirSync(file).sort();
+      if (entries.length > 0) {
+        // フォルダ内の最初のエントリを返す
+        return path.join(file, entries[0]);
+      }
+    }
+
+    // 現在のファイルの親フォルダを取得
+    const folder = path.dirname(file);
+    const filename = path.basename(file);
+
+    // フォルダ内のエントリを取得してソート
+    const entries = fs.readdirSync(folder).sort();
+    console.log("ent",entries);
+    // 現在のファイルの次のエントリを探す
+    const index = entries.indexOf(filename);
+    if (index !== -1 && index + 1 < entries.length) {
+      return path.join(folder, entries[index + 1]);
+    }
+
+    // 次のエントリがない場合、親フォルダを探索
+    const parentFolder = path.dirname(folder);
+    if (parentFolder !== folder) { // 親フォルダがルートに達していないか確認
+      let nf=nextfile(folder, true);
+      if (nf) return nextfile(nf); // 親フォルダをスキップして再帰的に探索
+    }
+  } catch (err) {
+    console.error(`Error processing file: ${file}`, err);
+    return null;
+  }
+
+  // 次のファイルが見つからない場合
+  return null;
+}
