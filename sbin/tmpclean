@@ -1,0 +1,14 @@
+#!run
+
+export async function main() {
+    // Get all keys from localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        
+        // Check if the key starts with '/tmp'
+        if (key && key.startsWith('/tmp')) {
+            // Remove the item with the key
+            localStorage.removeItem(key);
+        }
+    }
+}
