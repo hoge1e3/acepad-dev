@@ -22,53 +22,49 @@ function unzip($zipfile, $dstdir) {
     }
     // Open the zip file
     $zip = new ZipArchive();
-    if ($zip->open($zipfile) === true) {
-        // Extract the contents of the zip file to the destination directory
-        if (!$zip->extractTo($dstdir)) {
-            $zip->close();
-            throw new Exception("Failed to extract zip file: $zipfile");
-        }
+    if ($zip->open($zipfile) !== true) {
+        throw new Exception("Failed to read zipy: $zipfile");
+    }
+    // Extract the contents of the zip file to the destination directory
+    if (!$zip->extractTo($dstdir)) {
         $zip->close();
-        // List of deleted files is stored in "$dstdir/.git/DELETED.json" as arry
-        // Delete these files 
-        // Path to the JSON file that contains the list of deleted files
-        $deletedFilesPath = "$dstdir/.git/DELETED.json";
-        
-        // Check if the JSON file exists
-        if (file_exists($deletedFilesPath)) {
-            // Read the JSON file
-            $deletedFilesContent = file_get_contents($deletedFilesPath);
-            // Decode the JSON content into an array
-            $deletedFiles = json_decode($deletedFilesContent, true);
-            // Check if the decoding was successful and the result is an array
-            if (is_array($deletedFiles)) {
-                foreach ($deletedFiles as $file) {
-                    // Construct the full file path
-                    $filePath = $dstdir . DIRECTORY_SEPARATOR . $file;
-        
-                    // Check if the file exists
-                    if (file_exists($filePath)) {
-                        // Attempt to delete the file
-                        if (!unlink($filePath)) {
-                            // Log or handle the failure to delete the file
-                            error_log("Failed to delete file: $filePath");
-                        }
-                    } else {
-                        // Log or handle the case where the file does not exist
-                        error_log("File not found: $filePath");
-                    }
-                }
-            } else {
-                // Log or handle the case where the JSON decoding failed
-                error_log("Invalid JSON format in $deletedFilesPath");
-            }
-        } else {
-            // Log or handle the case where the JSON file does not exist
-            error_log("Deleted files JSON not found: $deletedFilesPath");
+        throw new Exception("Failed to extract zip file: $zipfile");
+    }
+    $zip->close();
+    // List of deleted files is stored in "$dstdir/.git/DELETED.json" as arry
+    // Delete these files 
+    // Path to the JSON file that contains the list of deleted files
+    $deletedFilesPath = "$dstdir/.git/DELETED.json";
+            
+    // Check if the JSON file exists
+    if (!file_exists($deletedFilesPath)) {
+        return;
+        //throw new Exception("Deleted files JSON not found: $deletedFilesPath");
+    }
+    
+    // Read the JSON file
+    $deletedFilesContent = file_get_contents($deletedFilesPath);
+    
+    // Decode the JSON content into an array
+    $deletedFiles = json_decode($deletedFilesContent, true);
+    
+    if (!is_array($deletedFiles)) {
+        throw new Exception("Invalid JSON format in $deletedFilesPath");
+    }
+    
+    foreach ($deletedFiles as $file) {
+        // Construct the full file path
+        $filePath = $dstdir . DIRECTORY_SEPARATOR . $file;
+    
+        // Check if the file exists
+        if (!file_exists($filePath)) {
+            throw new Exception("File not found: $filePath");
         }
-        
-    } else {
-        throw new Exception("Unable to open zip file: $zipfile");
+    
+        // Attempt to delete the file
+        if (!unlink($filePath)) {
+            throw new Exception("Failed to delete file: $filePath");
+        }
     }
     return true; // Extraction successful
 }
