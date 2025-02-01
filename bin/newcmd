@@ -1,13 +1,19 @@
 #!run
 
-export async function main(n){
-    if(!n){
+export async function main(n) {
+    if (!n) {
         throw new Error("cmd name");
     }
+    const paths = this.$path.split(":");
+    const cwd = this.cwd.path();
     
-    let d=this.resolve(this.$path.split(":").shift()).rel(n);
-    //resolve(import.meta.url);
-    if(!d.exists()){
+    // get a path from paths when it contains cwd 
+    // otherwise paths[0]
+    let path = paths.find(p => cwd.includes(p)) 
+        || paths[0];
+
+    let d = this.resolve(path).rel(n);
+    if (!d.exists()) {
         d.text(`#!run
 
 export async function main(){

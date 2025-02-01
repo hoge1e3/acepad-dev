@@ -1,0 +1,38 @@
+#!run
+import {trial,debugSession} from "acepad-debug";
+
+export async function main(){
+    const sh=this;
+    const acepad=sh.$acepad;
+    const si=acepad.sessionInfo(
+        acepad.getMainEditor().session);
+    if(si.file){
+        const nsh=sh.clone();
+        nsh.cd(si.file.isDir()?
+            si.file:si.file.up());
+        let cmd=nsh.hasExecutableCommand(si.file);
+        if(!cmd){
+            for(let p=si.file.up();p;p=p.up()){
+                const f=(p.rel(".runMenu"));
+                if(f.exists()){
+                    nsh.cd(p);
+                    cmd=`./.runMenu ${si.file.path()}`;
+                    break;
+                }
+            }
+        }
+        if(!cmd){
+            const d=nsh["npm-find"](si.file);
+            if(d){
+                cmd="npm-test";
+            }
+        }
+        if(cmd){
+            //console.log("pwd",nsh.pwd());
+            const ds=debugSession(nsh,cmd);
+            //acepad.changeSession(ds);//
+            return ;
+        }
+    }
+    alert("No run command for "+si.name);
+}

@@ -1,3 +1,5 @@
+newcmd runMenu
+p5.js
 fixAI
 genAI
 BS autorepeat bug
