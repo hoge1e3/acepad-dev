@@ -1,0 +1,10 @@
+#!run
+import {showWidget,showIframe} from "acepad-widget";
+
+export async function main(file){
+    await this.sync();
+    const {webSocket,widget}=await this.bauth("sy.sh",{n:true});
+    await new Promise((s)=>webSocket.addEventListener("close",s));
+    widget.close();
+    showIframe(this.$PHP_PROJECT+"/hoge.php");
+}
