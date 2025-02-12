@@ -14,7 +14,7 @@ export async function main(name){
             FS.PathUtil.isAbsolutePath(name)){
             asfile();
         }else{
-            p=findNodeModule.call(this,name,this.cwd);
+            p=findNodeModule.call(this,name,this.getcwd());
             if(p){
                 return p;
             }else{
@@ -23,8 +23,8 @@ export async function main(name){
         }
     }
     while(true){
-        if(isNpmRoot(this.cwd))return this.cwd;
-        if(!this.cwd.up()){
+        if(isNpmRoot(this.getcwd()))return this.getcwd();
+        if(!this.getcwd().up()){
             throw new Error("package.json not found");
         }
         this.cd("../");

@@ -4,9 +4,14 @@ import "https://cdn.plot.ly/plotly-2.29.1.min.js";
 import * as aw from "acepad-widget";
 import {on} from "@hoge1e3/interruption";
 import {p} from "@hoge1e3/polyfiller";
+import assert from "assert";
 //import {test} from "./test.jsx";
 //import {Mode} from "acepad-mode-shell";
 export async function main(options){
+    console.log(assert);
+    console.log(assert.ok);
+    assert.ok("test");
+    assert.ok(false, "fail");
     let f=this.resolve(__dirname).rel("playground");
     if(options && options.e) {
         this.edit(f);
@@ -25,11 +30,11 @@ async function loop1(){
         
     }
 }
-async function loop1(){
+/*async function loop1(){
     for(let i=0;i<1<<20;i++){
         
     }
-}
+}*/
 async function old(){
     //on("interrupt",()=>this.echo("inter"));
     this.echo(Object.keys(aw).join(", "));

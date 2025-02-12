@@ -1,0 +1,125 @@
+//!run
+import "https://cdn.plot.ly/plotly-2.29.1.min.js";
+//import {showWidget,showIframe} from "acepad-widget";
+import * as aw from "acepad-widget";
+import {on} from "@hoge1e3/interruption";
+import {p} from "@hoge1e3/polyfiller";
+//import {test} from "./test.jsx";
+//import {Mode} from "acepad-mode-shell";
+export async function main(options){
+    let f=this.resolve(__dirname).rel("playground");
+    if(options && options.e) {
+        this.edit(f);
+        return;
+    }
+    window.p1=p("321",{
+        "ho": p("0.2023467592349557",{
+            
+        }),
+    });
+    
+    return ;
+}
+async function loop1(){
+    for(let i=0;i<1<<20;i++){
+        
+    }
+}
+async function loop1(){
+    for(let i=0;i<1<<20;i++){
+        
+    }
+}
+async function old(){
+    //on("interrupt",()=>this.echo("inter"));
+    this.echo(Object.keys(aw).join(", "));
+    for(let k in aw)this.echo(k);
+    return ;
+//    showIframe("index.html");
+    const u=import.meta.url+"";
+    this.echo(this.resolve(u)+"");
+    
+    return ;
+    const a=this.$acepad;
+    function             stripPrompt(line){
+            return line.replace(/^.*[:\$%]\s*/,"");
+        }
+    a.getMainEditor().session.setMode(new Mode(this,{
+        getContext(editor,session,pos,prefix){
+            const line=session.getLine(pos.row);
+            let picked=stripPrompt(line);
+            let c=pos.column-(line.length-picked.length);
+            let secondArg=picked.substring(0, c-prefix.length).match(/\s$/);
+            if(secondArg)return "file";
+            else return "command";
+        }
+    }));
+    //console.log(test);
+    //f.up().watch((...args)=>console.log(...args));
+    return ;
+    
+    
+    let w=showWidget("<div>");
+    Plotly.newPlot(w.element, [{ y: [1, 2, 3] }]);
+    return ;
+
+    this.echo(await retp(this));
+    return ;
+    let p=document;
+    for(let i=0;i<5;i++){
+        console.log(i,p);
+        p=Object.getPrototypeOf(p) ;
+        if(!p)break;
+    }
+    this.echo(__dirname);
+    return;
+    this.resolve("modb.js").appendText("\n///def");
+    let acepad=this.$acepad;
+    let session=acepad.createSession({
+        name: "hoge",
+        text:"aaa",
+        commands: {
+            return(e) {
+                let line=acepad.currentLine();
+                acepad.goLineEnd();
+                if(line.match(/off/)){
+                        acepad.detachCommands(cmd);
+
+                }
+                acepad.print("\nYou typed: "+line+"\n");
+            }
+        },
+    });
+    
+    let cmd={
+        "ctrl-y":(editor)=>{
+            let i=acepad.sessionInfo(editor.session);
+            console.log("si",i);
+            acepad.changeSession(session);
+            
+            acepad.print(i.file);
+        },
+        "ctrl-t":()=>{
+            setInterval(()=>{
+                let l=acepad.locate;
+                l.save(()=>{
+                    l.bottom();
+                    acepad.print("hoge\n");
+                });
+            },1000);
+        }
+    };
+    acepad.attachCommands(cmd);
+    this.echo("ctrl-y");
+    /*this.$hoge="play";
+    this.echo("lets play");
+    this.ls();
+    this.echo(this.ls);
+    this.echo(this.get("hoge"));*/
+}
+async function retp(sh){
+    await sh.sleep(1);
+    sh.echo(2);
+    return sh.sleep(1).then((e)=>5);
+}
+

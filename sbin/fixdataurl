@@ -1,0 +1,44 @@
+#!run
+import {Content} from "@hoge1e3/sfile";
+export async function main(){
+    for(let f of this.resolve("/jsmod/").recursive()){
+        if(!localStorage[f.path()].startsWith("data:"))continue;
+        const c=f.getContent();
+        await this.sleep(0.01);
+        if(isText(c)){
+            this.echo(f.path());
+            f.text(c.toPlainText());
+            //break;
+        }
+    }
+}
+function isText(c1){
+    try{
+        const a1=c1.toBin({type:ArrayBuffer});
+        const c2=Content.plainText(c1.toPlainText());
+        const a2=c2.toBin({type:ArrayBuffer});
+        return isSameArrayBuffer(a1,a2);
+    }catch(e){
+        return false;
+    }
+}
+function isSameArrayBuffer(a, b) {
+    if (!(a instanceof ArrayBuffer) || !(b instanceof ArrayBuffer)) {
+        throw new TypeError("Both arguments must be ArrayBuffer instances.");
+    }
+    
+    if (a.byteLength !== b.byteLength) {
+        return false;
+    }
+
+    const viewA = new Uint8Array(a);
+    const viewB = new Uint8Array(b);
+
+    for (let i = 0; i < viewA.length; i++) {
+        if (viewA[i] !== viewB[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}

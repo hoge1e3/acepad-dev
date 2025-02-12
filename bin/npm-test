@@ -3,13 +3,13 @@
 export async function main(name){
     let p;
     if(name){
-        p=findNodeModule(name,this.cwd);
+        p=findNodeModule(name,this.getcwd());
         this.cd(p);
     }
     while(true){
         p=this.resolve("package.json");
         if(p.exists())break;
-        if(!this.cwd.up()){
+        if(!this.getcwd().up()){
             throw new Error("package.json not found");
         }
         this.cd("../");

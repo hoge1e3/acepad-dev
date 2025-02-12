@@ -21,7 +21,7 @@ async function main(){
         (await loadModule(path)).init();   
         sh.set("acepad",window.acepad);
         await sh.findword();
-        let {openFile}=await loadModule("acepad-files",sh.cwd);
+        let {openFile}=await loadModule("acepad-files",sh.getcwd());
         openFile(sh,"./");
         debugSession(sh);
         acepad.attachCommands({

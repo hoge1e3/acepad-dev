@@ -1,0 +1,29 @@
+#!run
+
+export async function main(){
+    showPopup("test");
+}
+function showPopup(message) {
+    // Create a popup container
+    const popup = document.createElement("div");
+    popup.style.position = "fixed";
+    popup.style.top = "20%"; // Position near the top of the screen
+    popup.style.left = "10%"; // Center horizontally with padding
+    popup.style.width = "80%"; // Take 80% of screen width
+    popup.style.padding = "10px";
+    popup.style.backgroundColor = "#ce4";
+    popup.style.color = "#008";
+    popup.style.textAlign = "center";
+    popup.style.borderRadius = "10px";
+    popup.style.zIndex = "1000";
+    popup.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
+    popup.innerText = message;
+
+    // Append the popup to the body
+    document.body.appendChild(popup);
+
+    // Automatically remove the popup after 3 seconds
+    setTimeout(() => {
+        document.body.removeChild(popup);
+    }, 3000);
+}

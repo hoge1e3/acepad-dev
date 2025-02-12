@@ -1,0 +1,22 @@
+#!run
+import {assert} from "chai";
+function assert2(expr, message) {
+  if(!Boolean(expr)) {
+    throw new Error(message || 'unknown assertion error');
+  }
+}
+
+export async function main(){
+    let s=performance.now();
+    const a=assert.ok;
+    for (let i=0;i<10000;i++) {
+        a(i==i);
+    }
+    this.echo(performance.now()-s);
+    s=performance.now();
+
+    for (let i=0;i<10000;i++) {
+        assert2(i==i);
+    }
+    this.echo(performance.now()-s);
+}
