@@ -1,0 +1,15 @@
+#!run
+
+export async function main(){
+    for(let f of this.resolve("/tmp/").recursive()){
+        
+    }
+}
+    
+function removeComment(jssrc) {
+    // Remove /* ... */ multi-line comments
+    // Remove // single-line comments
+    return jssrc.replace(/\/\*([^*]|\*+[^/])*\*+\//g, '') // Multi-line comments
+                .replace(/\/\/[^\n\r]*/g, '');    // Single-line comments
+}
+    
