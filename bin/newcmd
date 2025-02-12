@@ -5,11 +5,11 @@ export async function main(n) {
         throw new Error("cmd name");
     }
     const paths = this.$path.split(":");
-    const cwd = this.cwd.path();
+    const _cwd = this.getcwd().path();
     
-    // get a path from paths when it contains cwd 
+    // get a path from paths when it contains _cwd 
     // otherwise paths[0]
-    let path = paths.find(p => cwd.includes(p)) 
+    let path = paths.find(p => _cwd.includes(p)) 
         || paths[0];
 
     let d = this.resolve(path).rel(n);

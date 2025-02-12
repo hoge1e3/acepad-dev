@@ -4,8 +4,8 @@ export async function main(){
     const sh=this.clone();
     sh.cd("node_modules/");
     this.echo(sh===this);
-    sh.cwd="aaaa";
-    this.echo(sh.cwd);
-    this.echo(this.cwd);
+    sh.cd("/");
+    this.echo(sh.getcwd());
+    this.echo(this.getcwd());
     
 }

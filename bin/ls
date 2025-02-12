@@ -1,6 +1,6 @@
 //!run
 export function main(dir){
-    	if (!dir) dir=this.cwd;
+    	if (!dir) dir=this.getcwd();
     	else dir=this.resolve(dir, true);
         return dir.ls().forEach((n)=>this.echo(n));
     }

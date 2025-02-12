@@ -5,7 +5,7 @@ import * as dotenv from "acepad-dotenv";
 import {main as sug} from "acepad-suggest";
 export async function main(){
     sh.cd(sh.resolve(import.meta.url).up());
-    sh.$home=sh.cwd.path();
+    sh.$home=sh.getcwd().path();
  
     dotenv.configUp(sh.resolve("./"));
     sh.set("path",sh.getenv("path")||"");
