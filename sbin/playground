@@ -8,15 +8,25 @@ import assert from "assert";
 //import {test} from "./test.jsx";
 //import {Mode} from "acepad-mode-shell";
 export async function main(options){
-    console.log(assert);
-    console.log(assert.ok);
-    assert.ok("test");
-    assert.ok(false, "fail");
-    let f=this.resolve(__dirname).rel("playground");
+    let f=this.resolve(import.meta.url).rel("playground");
     if(options && options.e) {
         this.edit(f);
         return;
     }
+    const cmd="python \r/jsmod/node_modules/acepad-samples/samples/test.py";
+    cmd.replace(/^\s*(\S+)(\s.*)?$/,(_,c,a)=>{
+        alert(c);
+            //console.log("{"+c+"}");
+            if(sh.hasCmd(c)){
+                res=c+(a||"");
+            }
+        });
+        
+    console.log(loadedModules());
+    console.log(assert);
+    console.log(assert.ok);
+    assert.ok("test");
+    assert.ok(false, "fail");
     window.p1=p("321",{
         "ho": p("0.2023467592349557",{
             

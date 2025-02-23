@@ -1,15 +1,10 @@
-newcmd runMenu
+mv existent/ new/ 
 p5.js
-fixAI
-genAI
 BS autorepeat bug
 samples
 sessionF defaults samples
 sugeest in $home
-extract vars
 suggest known word only 
-F5 dir show bug
-fs.js
 key layout
 key swipe
 key swap
@@ -26,13 +21,6 @@ widget on keypad
 widget on session list
 function key swipe
 npm for petit-node
-syntax error file/pos
-ok bug
- a imports b
- run a
- b has syntax error
- run a
- b unrecoverable
  
 test export function realtime
 inspect on editor realtime
@@ -68,6 +56,22 @@ session local menu
 node mods convert
 bookmark command
 []$ npm-init acepad-widget
+?F5 dir show bug
+
+-------------ok---------
+ok syntax error file/pos
+ok bug
+ a imports b
+ run a
+ b has syntax error
+ run a
+ b unrecoverable
+
+ok newcmd runMenu
+?extract vars
+ok fs.js
+ok fixAI
+ok genAI
 
 ok find from nears
 ok n-gram layered
