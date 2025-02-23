@@ -3,16 +3,19 @@ import "https://cdn.plot.ly/plotly-2.29.1.min.js";
 //import {showWidget,showIframe} from "acepad-widget";
 import * as aw from "acepad-widget";
 import {on} from "@hoge1e3/interruption";
+
+import {loadedModules} from "petit-node";
 import {p} from "@hoge1e3/polyfiller";
 import assert from "assert";
 //import {test} from "./test.jsx";
 //import {Mode} from "acepad-mode-shell";
 export async function main(options){
-    let f=this.resolve(import.meta.url).rel("playground");
+    let f=this.resolve(import.meta.url);//.rel("playground");
     if(options && options.e) {
         this.edit(f);
         return;
     }
+    console.log(...loadedModules());
     const cmd="python \r/jsmod/node_modules/acepad-samples/samples/test.py";
     cmd.replace(/^\s*(\S+)(\s.*)?$/,(_,c,a)=>{
         alert(c);
