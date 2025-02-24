@@ -1,5 +1,5 @@
 #!run
-import {canvas,raf,rnd} from "acepad-canvas";
+import {canvas,raf,rnd} from "@acepad/canvas";
 export async function main(){
     let {w,h,ctx}=canvas();
     let p=[0];

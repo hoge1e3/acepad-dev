@@ -1,4 +1,4 @@
-import {FS} from "acepad-os";
+import {FS} from "@acepad/os";
 export function test(){
     alert(FS.get(__dirname).rel("modb.js").text());
 }

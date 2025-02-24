@@ -1,5 +1,5 @@
 //!run
-import {sh} from "acepad-shell";
+import {sh} from "@acepad/shell";
 export async function main(name){
     let n=findNodeModuleRoot(this.resolve("."));
     n=n.rel(name+"/");

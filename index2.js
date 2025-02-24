@@ -1,8 +1,8 @@
-import {sh} from "acepad-os-jsm";
-import * as ace from "acepad-with-fs";
+import {sh} from "@acepad/os-jsm";
+import * as ace from "@acepad/with-fs";
 import {add as addLog} from "./logging.js";
-import * as dotenv from "acepad-dotenv";
-import {main as sug} from "acepad-suggest";
+import * as dotenv from "@acepad/dotenv";
+import {main as sug} from "@acepad/suggest";
 export async function main(){
     sh.cd(sh.resolve(import.meta.url).up());
     sh.$home=sh.getcwd().path();

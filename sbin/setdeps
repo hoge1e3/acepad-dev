@@ -1,5 +1,5 @@
 //!run
-import {importModule} from "acepad-os";
+import {importModule} from "@acepad/os";
 import {Class} from "@hoge1e3/recursive-safe";
 let sh;
 function p(...a){

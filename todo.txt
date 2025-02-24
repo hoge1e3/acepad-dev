@@ -57,7 +57,7 @@ session local command
 session local menu
 node mods convert
 bookmark command
-[]$ npm-init acepad-widget
+[]$ npm-init @acepad/widget
 ?F5 dir show bug
 
 -------------ok---------

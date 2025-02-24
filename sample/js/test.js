@@ -1,7 +1,7 @@
 import o from "observable";
-import * as $ from "acepad-ajax";
-import {file2data} from "acepad-store-file";
-import {init,checkout} from "acepad-store";
+import * as $ from "@acepad/ajax";
+import {file2data} from "@acepad/store-file";
+import {init,checkout} from "@acepad/store";
 
 
 export async function main(){

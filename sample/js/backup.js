@@ -1,5 +1,5 @@
-import {file2data,data2file} from "acepad-store-file";
-import {init,checkout} from "acepad-store";
+import {file2data,data2file} from "@acepad/store-file";
+import {init,checkout} from "@acepad/store";
 
 export async function main(cmd){
     let c=await checkout("backup-1234");

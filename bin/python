@@ -1,6 +1,6 @@
 #!run
 /*global $,$B*/
-import {addPath, execFile, setOut} from "acepad-python";
+import {addPath, execFile, setOut} from "@acepad/python";
 export async function main(file){
     addPath(this.resolve("./"));
     setOut({

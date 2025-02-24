@@ -1,6 +1,6 @@
 //!run
 /* global $*/
-import {showWidget} from "acepad-widget";
+import {showWidget} from "@acepad/widget";
 const raf=()=>new Promise(requestAnimationFrame); 
 export async function main(){
     let wid=showWidget("<canvas>");

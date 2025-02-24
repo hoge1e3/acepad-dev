@@ -1,6 +1,6 @@
 //!run
 import {match} from "textmatcher";
-import {run} from "acepad-find";
+import {run} from "@acepad/find";
 export async function main(){
     let sh=this;
     let a=this.$acepad;

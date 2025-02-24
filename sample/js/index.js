@@ -1,15 +1,15 @@
-import {FS,loadModule} from "acepad-os";
-import {open} from "acepad-browser";
-import {trial,debugSession} from "acepad-debug";
-import {sh} from "acepad-os-jsm";
+import {FS,loadModule} from "@acepad/os";
+import {open} from "@acepad/browser";
+import {trial,debugSession} from "@acepad/debug";
+import {sh} from "@acepad/os-jsm";
 import {initVConsole,showVConsole} from "show-vconsole";
 /*global $*/
 async function main(){
     alert(3);
-    document.querySelector("#acepad-with-fs").onclick=trial(async ()=>{
+    document.querySelector("#@acepad/with-fs").onclick=trial(async ()=>{
         sh.cd(__dirname);
         await initCmds();
-        (await sh.jsm("acepad-with-fs")).main.call(sh);
+        (await sh.jsm("@acepad/with-fs")).main.call(sh);
         
     });
     document.querySelector("#beta").onclick=trial(async ()=>{
@@ -21,7 +21,7 @@ async function main(){
         (await loadModule(path)).init();   
         sh.set("acepad",window.acepad);
         await sh.findword();
-        let {openFile}=await loadModule("acepad-files",sh.getcwd());
+        let {openFile}=await loadModule("@acepad/files",sh.getcwd());
         openFile(sh,"./");
         debugSession(sh);
         acepad.attachCommands({

@@ -9,7 +9,7 @@ async function r(){
         FS.setEnv(k,process.env[k]);
     }
     globalThis.$=$;
-    const {sh}=await import("acepad-shell");
+    const {sh}=await import("@acepad/shell");
     const modn=process.argv[2];
     const mod=await import(modn);
     if(!mod.main){

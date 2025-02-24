@@ -1,5 +1,5 @@
 import {appendNode} from "./dom.js";
-import {createModuleURL,createURL} from "acepad-os";
+import {createModuleURL,createURL} from "@acepad/os";
 export async function open(f){
     let p=new DOMParser();
     let html=f.text();

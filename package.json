@@ -2,7 +2,7 @@
     "main": "index2.js",
     "type": "module",
     "dependencies": {
-        "acepad-os-jsm": "^1.0.0",
-        "acepad-with-fs": "^1.0.0"
+        "@acepad/os-jsm": "^1.0.0",
+        "@acepad/with-fs": "^1.0.0"
     }
 }

@@ -1,6 +1,6 @@
 //!run
-import {showWidget,showIframe} from "acepad-widget";
-import {KeyPicker} from "acepad-keypicker";
+import {showWidget,showIframe} from "@acepad/widget";
+import {KeyPicker} from "@acepad/keypicker";
 import {events} from "@hoge1e3/polyfiller";
 /*global $*/
 export async function main(){

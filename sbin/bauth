@@ -1,12 +1,12 @@
 //!run
 import * as term from "docker-terminal";
-import {FS,loadModule} from "acepad-os";
+import {FS,loadModule} from "@acepad/os";
 const timeout=(t)=>new Promise(s=>setTimeout(s,t));
-import {showWidget} from "acepad-widget";
+import {showWidget} from "@acepad/widget";
 const ba=FS.getEnv("ba");//(host+"/bitarrow/www");
 const xterm=FS.getEnv("xterm");//`${host}/xterm/node_modules/@xterm/xterm`;
 const ws=FS.getEnv("ws");
-import {modeMap} from "acepad-files";
+import {modeMap} from "@acepad/files";
 import * as ed from "docker-terminal-editor";
 /*global $,URLSearchParams*/    
 export async function main(scriptFile,{n:noalert}={}){

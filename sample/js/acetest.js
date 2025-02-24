@@ -1,5 +1,5 @@
 import {open} from "./browser.js";
-import {FS,loadModule} from "acepad-os";
+import {FS,loadModule} from "@acepad/os";
 
 export let h=FS.get(__dirname);
 window.ld=async (path,method,...a)=>{

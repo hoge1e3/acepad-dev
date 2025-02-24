@@ -1,5 +1,5 @@
 #!run
-import {showIframe} from "acepad-widget";
+import {showIframe} from "@acepad/widget";
 export function main(){
     const ba=this.$ba;
     //this.echo(ba);

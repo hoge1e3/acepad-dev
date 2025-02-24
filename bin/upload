@@ -1,5 +1,5 @@
 //!run
-import {showWidget} from "acepad-widget";
+import {showWidget} from "@acepad/widget";
 /*global $*/
 export function main(dst){
     const sh=this;

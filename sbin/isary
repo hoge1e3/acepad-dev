@@ -1,5 +1,5 @@
 //!run
-import {showIframe} from "acepad-widget";
+import {showIframe} from "@acepad/widget";
 
 export async function main(){
     let f=showIframe(this.resolve("isary.html"));

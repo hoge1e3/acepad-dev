@@ -1,6 +1,6 @@
 //!run
-import {openFile} from "acepad-files";
-import {minifyAll} from "acepad-widget";
+import {openFile} from "@acepad/files";
+import {minifyAll} from "@acepad/widget";
 export async function main(file,o){
     try{
         const a=this.$acepad;

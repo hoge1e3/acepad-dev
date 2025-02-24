@@ -21,42 +21,42 @@ export async function main(){
 }
 /*
 * FS.PathUtil.isRelativePath
-/jsmod/node_modules/acepad-browser/dom.js
+/jsmod/node_modules/@acepad/browser/dom.js
 * FS.os
-/jsmod/node_modules/acepad-convert-stack/acepad-convert-stack.js
+/jsmod/node_modules/@acepad/convert-stack/@acepad/convert-stack.js
 * FS.get
-/jsmod/node_modules/acepad-files/pos.js
-/jsmod/node_modules/acepad-debug/acepad-debug.js
-/jsmod/node_modules/acepad-dotenv/acepad-dotenv.js
-/jsmod/node_modules/acepad-shell/hist.js
+/jsmod/node_modules/@acepad/files/pos.js
+/jsmod/node_modules/@acepad/debug/@acepad/debug.js
+/jsmod/node_modules/@acepad/dotenv/@acepad/dotenv.js
+/jsmod/node_modules/@acepad/shell/hist.js
 * FS.setEnv
-/jsmod/node_modules/acepad-dotenv/acepad-dotenv.js
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/dotenv/@acepad/dotenv.js
+/jsmod/node_modules/@acepad/shell/index.js
 * FS.PathUtil
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 * FS.getEnv
-/jsmod/node_modules/acepad-shell/index.js
-/jsmod/node_modules/acepad-widget/acepad-widget.js
+/jsmod/node_modules/@acepad/shell/index.js
+/jsmod/node_modules/@acepad/widget/@acepad/widget.js
 * FS.getRootFS
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 * availFSTypes
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 * FS.mount
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 * FS.unmount
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 * FS.SFile.is
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 * FS.PathUtil.directorify
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 * FS.resolve
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 * FS.zip.zip.apply
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 * FS.zip
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 * FS.zip.unzip.apply
-/jsmod/node_modules/acepad-shell/index.js
+/jsmod/node_modules/@acepad/shell/index.js
 
 
 

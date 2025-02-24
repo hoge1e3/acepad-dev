@@ -1,5 +1,5 @@
 //!run
-import * as a from "acepad-keysel";
+import * as a from "@acepad/keysel";
 export function main(...r){
     return a.main.apply(this,r);
 }
