@@ -1,5 +1,5 @@
 //!run
-import {init,commit,checkout,clone} from "acepad-sync";
+import {init,commit,checkout,clone} from "@acepad/sync";
 
 export async function main(cmd, ...args){
     const sh=this;

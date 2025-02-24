@@ -1,9 +1,9 @@
 //!run
 import {loadScriptTag} from "@hoge1e3/loadScript";
-import {showIframe} from "acepad-widget";
-import {$} from "acepad-widget-dialog";
+import {showIframe} from "@acepad/widget";
+import {$} from "@acepad/widget-dialog";
 import {equal,ok} from "assert";
-import {trial,debugSession} from "acepad-debug";
+import {trial,debugSession} from "@acepad/debug";
 let Compiler;
 let ides={
     
