@@ -2,7 +2,14 @@
 
 export async function main(){
     const s=performance.now();
-    const t=this.resolve(".").getDirTree();
+    const t=this.resolve(".").getDirTree({
+        excludes(f) {
+            if (f.path().includes("@hoge1e3")) {
+                console.log(f.path(), f.path().includes("psync"));
+            }
+            return f.path().includes("@hoge1e3") && !f.name().includes("psync");
+        }
+    });
     console.log(t);
     this.echo(performance.now()-s);
 }

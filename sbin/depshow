@@ -6,14 +6,14 @@ function rmifex(p){
     }
 }
 export async function main(){
-    rmifex.call(this,"/show/node_modules/");
-    this.cp("/jsmod/node_modules/","/show/");
+    const show="/show";
+    rmifex.call(this,show+"/node_modules/");
+    this.cp("/jsmod/node_modules/",show);
 
-    
-    rmifex.call(this,"/show/bin/");
-    this.cp("/jsmod/bin/","/show/");
+    rmifex.call(this,"/jsmod/show/bin/");
+    this.cp("/jsmod/bin/",show);
 
-    this.cd("/show/");
+    this.cd(show);
     await this.sync();
     this.bauth("/jsmod/docker/tasks/depshow.sh");
 }

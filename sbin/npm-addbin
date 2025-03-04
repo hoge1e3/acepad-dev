@@ -4,7 +4,7 @@ export async function main(){
     const npm=this.resolve("./");
     const pkf=npm.rel("package.json");
     const pk=pkf.obj();
-    const bin=npm.up().rel(".bin/");
+    const bin=npm.closest((f)=>f.name().match(/^node_modules/)).rel(".bin/");
     for(let k in pk.bin){
         const dst=bin.rel(k);
         const mod=npm.rel(pk.bin[k]);

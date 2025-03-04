@@ -1,0 +1,7 @@
+#!run
+
+export async function main(dir){
+    if(!dir)return ;
+    await this.zip(dir);
+    await this.rm(dir,{r:true});
+}

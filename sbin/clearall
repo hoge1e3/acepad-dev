@@ -1,0 +1,8 @@
+#!run
+
+export async function main(a){
+    if(a!=="really")return;
+    for(let k in localStorage){
+        delete localStorage[k];
+    }
+}

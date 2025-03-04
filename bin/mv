@@ -22,7 +22,7 @@ export async function main(...args){
             if(dst.exists()){
                 dst=dst.rel(src.name());
             }
-            dst.mkdir();
+            //dst.mkdir();
             await src.moveTo(dst);
         }else{
             dst=this.resolve(dst);

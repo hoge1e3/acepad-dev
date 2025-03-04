@@ -1,6 +1,9 @@
+hyper jump
+reload keypad
 todo item as boot icons/apps
  bookmark file pos
-mv existent/ new/ 
+ok mv existent/ new/ 
+ check sfile - it is spec of renameSync
 p5.js
 BS autorepeat bug
 samples

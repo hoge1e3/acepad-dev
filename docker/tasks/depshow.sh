@@ -2,7 +2,7 @@ cd
 basync acepad
 cd ~/public_html/gio/
 rm -rf acepad
-cp -r ~/acepad .
+cp -r ~/projects/acepad .
 
 cd ~/share/test/show
 sync checkout

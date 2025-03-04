@@ -3,7 +3,7 @@ import "https://cdn.plot.ly/plotly-2.29.1.min.js";
 //import {showWidget,showIframe} from "@acepad/widget";
 import * as aw from "@acepad/widget";
 import {on} from "@hoge1e3/interruption";
-
+import {convertStack} from "@acepad/os";
 import {loadedModules} from "petit-node";
 import {p} from "@hoge1e3/polyfiller";
 import assert from "assert";
@@ -15,6 +15,18 @@ export async function main(options){
         this.edit(f);
         return;
     }
+    
+    if(options?.err)options.a.b;
+    const niseError={message:"The error", stack:""};
+    for (let m of loadedModules()) {
+        if (!m.entry) continue;
+        niseError.stack+="@"+m.url+"\n";
+        if (niseError.stack.length>200) break;
+    }
+    console.log(niseError.stack);
+    convertStack(niseError, true);
+    console.log(niseError.stack);
+    return;
     console.log(...loadedModules());
     const cmd="python \r/jsmod/node_modules/@acepad/samples/samples/test.py";
     cmd.replace(/^\s*(\S+)(\s.*)?$/,(_,c,a)=>{

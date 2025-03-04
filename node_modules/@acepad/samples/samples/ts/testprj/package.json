@@ -1,0 +1,7 @@
+{
+    "main": "./js/index.js",
+    "scripts":{
+        "test": "tscrun js/index.js"
+    },
+    "type":"module"
+}
