@@ -1,5 +1,5 @@
 //!run
-import "https://cdn.plot.ly/plotly-2.29.1.min.js";
+//import "https://cdn.plot.ly/plotly-2.29.1.min.js";
 //import {showWidget,showIframe} from "@acepad/widget";
 import * as aw from "@acepad/widget";
 import {on} from "@hoge1e3/interruption";
@@ -15,6 +15,9 @@ export async function main(options){
         this.edit(f);
         return;
     }
+    const mv=this.resolve("../bin/mv").text();
+    this.echo(mv.includes("\r"), mv.includes("\n"));
+    return;
     
     if(options?.err)options.a.b;
     const niseError={message:"The error", stack:""};
