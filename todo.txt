@@ -1,3 +1,4 @@
+newcmd no arg /tmp/cmd/
 hyper jump
 reload keypad
 todo item as boot icons/apps

@@ -2,6 +2,7 @@
 export async function main(...args){
     args=this.collectOptions(args);
     const o=args.pop();
+    if(args.length==0)throw new Error("Missing argument");
     let dst=args.pop();
     if(args.length>1){
         dst=this.directorify(dst);
@@ -13,6 +14,7 @@ export async function main(...args){
             await f.copyTo(dst.rel(f.name()));
         }
     }else{
+        if(args.length==0)throw new Error("Missing argument");
         const src=this.resolve(args.pop());
         if(!src.exists()){
             throw new Error(`${src} is not existent.`);
