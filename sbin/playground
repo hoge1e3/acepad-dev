@@ -15,6 +15,22 @@ export async function main(options){
         this.edit(f);
         return;
     }
+    const c=await caches.open(__CACHE_NAME__);
+    for(let {url} of await c.keys()){
+        this.echo(url);
+    }
+    return ;
+    const sw=__serviceWorker__;
+    const url=location.href+"acepad/hoge.txt";
+    sw.postMessage({
+        url, body:"hoge", headers:{
+            "Content-Type":"text/plain"
+        }
+    });
+    this.echo("Go to",url);
+    await this.sleep(1);
+    window.open(url);
+    
     const mv=this.resolve("../bin/mv").text();
     this.echo(mv.includes("\r"), mv.includes("\n"));
     return;
