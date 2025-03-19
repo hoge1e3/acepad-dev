@@ -15,6 +15,8 @@ export async function main(options){
         this.edit(f);
         return;
     }
+    //const r=await fetch("https://cdn.jsdelivr.net/npm/petit-node@latest/dist/index.js");
+    
     const c=await caches.open(__CACHE_NAME__);
     for(let {url} of await c.keys()){
         this.echo(url);

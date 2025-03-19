@@ -1,0 +1,16 @@
+#!run
+
+export async function main(options={}){
+
+    const c=await caches.open(__CACHE_NAME__);
+    for(let req of await c.keys()){
+        if(options.clear){
+            c.delete(req);
+            this.echo("clear",req.url);
+        }else{
+            this.echo(req.url);
+        }
+    }
+    return ;
+
+}

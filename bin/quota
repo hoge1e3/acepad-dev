@@ -1,0 +1,11 @@
+#!run
+
+export async function main(limit=4500000){
+    let s=0;
+    for(let k in localStorage){
+        if(typeof localStorage[k]!=="string")continue;
+        s+=localStorage[k].length;
+    }
+    if(s>limit)alert("localStorage quota warning"+s);
+    return s;
+}

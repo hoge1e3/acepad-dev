@@ -19,8 +19,28 @@ function fix(p){
 export async function main(){
     for(let k in localStorage){
         if(!k.startsWith("/"))continue;
+        if(k.endsWith("/")){
+            try{
+            const o=JSON.parse(localStorage[k]);
+            let m;
+            for(let s in o){
+                if(!localStorage[k+s]){
+                    this.echo("-item+dirinfo",k+s);
+                    delete o[s];
+                    m=1;
+                }
+            }
+            if(m){
+                localStorage[k]=JSON.stringify(o);
+            }
+            }catch(e){
+                
+            }
+        }
         if(!hasEntry(k)){
-            this.echo(k);
+            this.echo("+item-dirinfo",k);
+            fix(k);
         }
     }
+    this.echo("complete");
 }

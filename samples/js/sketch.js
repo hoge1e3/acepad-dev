@@ -13,14 +13,13 @@ export function main(){
     const t=generator();
     const density=2;
     const bg="#fff";
-    let erase;
+    let mode="pen";
+    const modes=["pen", "erase", "stamp"];
     css(this.resolve("./sketch.css"));
-    const vps=[800,600];
-    const vpm=mul(vps,0.5);
-    const cs=mul(vps,density);//[width*density,height*density];
+    const cs=[1600,1200];//mul(vps,density);//[width*density,height*density];
     const d=showMenu();
 
-    const vp=w.print(t.div(
+    const vp=(t.div(
         {
             class: "sketch-viewport",
             ontouchstart,
@@ -33,16 +32,22 @@ export function main(){
             height:cs[1],
         })))
     );
+    w.print(vp);
+    //vp.addEventListener("touchstart",()=>console.log("touced"));
     const transformer=vp.querySelector(
         ".sketch-transformer");
     const c=vp.querySelector("canvas");
     
-    Object.assign(vp.style,{
+    /*Object.assign(vp.style,{
         left:`${0}px`,
         top:`${0}px`, 
         width:`${vps[0]}px`,
         height:`${vps[1]}px`,
-    });
+    });*/
+    const vpso=vp.getBoundingClientRect();
+    const vps=[vpso.width,vpso.height];
+    const vpm=mul(vps,0.5);
+    
     const ctx=c.getContext("2d");
     const hcs=mul(cs,0.5);
     const cofs=mul(sub(vps,cs),0.5);
@@ -59,50 +64,62 @@ export function main(){
     load(dir.rel(filename));
     ctx.globalAlpha=0.5;
     function showMenu(){
-        console.log("showMenu",filename);
+        //console.log("showMenu",filename);
         return w.print(t.div({
             id:"sketch-menu",
             class:"over-canvas",
         },
-        t.button({onclick:setPen},erase?"Erase":"Pen"),
+        ...modes.map(m=>
+        t.button({
+            onclick:()=>setMode(m),
+            class:mode===m?"selected":"",
+        },m)),
         t.span(filename),
         t.button({onclick:prev},"<<"),
         t.button({onclick:next},">>"),
+        t.button({onclick:rm},"rm"),
         ));
     }
-    function setPen(){
-        erase=!erase;
-        if(erase){
+    function setMode(m){
+        mode=m;
+        switch(mode){
+            case "erase":
             ctx.strokeStyle=bg;
             ctx.lineWidth=50/transform.scale;
-        }else{
+            break;
+            case "pen":
             ctx.strokeStyle="black";
             ctx.lineWidth=1;
+            break;
         }
         showMenu();
     }
     //let px,py;
-    let pinch;
+    let pinch0;
     let transform={scale:1,translate:[0,0]};
+    let transform0;
     let tcount=0;
-    let pivot;
+    //let pivot;
     function ontouchstart(e){
         tcount++;
-        console.log("ontouchstart");
-        const p0=client(e.touches[0]);
+        console.log("ontouchstart",e);
+        const vp0=t2vp(e.touches[0]);
+        console.log("vp0",vp0);
         if(e.touches.length>1){
-            const p1=client(e.touches[1]);
-            pinch={
-                d:dist(p1,p0),
-                m:mid(p1,p0)
+            const vp1=t2vp(e.touches[1]);
+            pinch0={
+                d:dist(vp1,vp0),
+                v:mid(vp1,vp0),
             };
-            pivot=conv(pinch.m,transform);
+            transform0=transform;
+            // pinch0.p = transform0^-1 * pinch0.v
+            pinch0.p=conv(pinch0.v,transform);
             e.stopPropagation();
             e.preventDefault();
             return ;
         }
         ctx.beginPath();
-        const [dx,dy]=conv(p0,transform);
+        const [dx,dy]=conv(vp0,transform);
         ctx.moveTo(dx,dy);
         e.stopPropagation();
         e.preventDefault();
@@ -110,32 +127,46 @@ export function main(){
         //[px,py]=[x,y];
     }
     function ontouchmove(e){
-        const p0=client(e.touches[0]);
-        if(e.touches.length>1&&pinch){
-            const p1=client(e.touches[1]);
-            const pinch2={
-                d:dist(p1,p0),
-                m:mid(p1,p0)
+        const vp0=t2vp(e.touches[0]);
+        if(e.touches.length>1&&pinch0){
+            const vp1=t2vp(e.touches[1]);
+            const pinch={
+                d:dist(vp1,vp0),
+                v:mid(vp1,vp0)
             };
-            transform.scale*=pinch2.d/pinch.d;
-            const pivot2=conv(pinch2.m,transform);
-            const m=sub(pivot2,pivot);//sub(pinch2.m, pinch.m);
-            //console.log(pinch,pinch2,mx,my);
-            transform.translate=add(
-                transform.translate,
-                mul(m,0.5));
-            //c.style.transform = `scale(${transform.scale}) translate(${transform.x}px,${transform.y}px)`;
+            const s0=transform0.scale;
+            const s=s0*pinch.d/pinch0.d;
+            const v=pinch.v;
+            const p=pinch0.p;
+            /*
+            pinch0.p = transform0^-1 * pinch0.v
+            pinch0.v = transform0 * pinch0.p
+
+            pinch.p = pinch0.p = transform0^-1 * pinch0.v
+                               = transform^-1 * pinch.v
+            pinch.v = transform * p   
+            v[0]    |s  0 T[0]|   p[0]
+            v[1] =  |0  s T[1]|   p[1]
+             1      |0  0  1  |    1
+            v[0]=s*p[0]+T[0]
+
+            T[0]=v[0]-s*p[0]
+            */
+            transform={
+                scale: s,
+                translate: [
+                    v[0]-s*p[0],
+                    v[1]-s*p[1],
+                ]
+            };
             transformer.style.transform = trstr(transform);
-            //` translate(${transform.translate[0]}px,${transform.translate[1]}px) scale(${transform.scale})`;
-            //console.log(`scale(${transform.scale}) translate(${transform.x},${transform.y})`);
-            pinch=pinch2;
             e.stopPropagation();
             e.preventDefault();
             return;
         }
-        if(pinch)return ;
+        if(pinch0)return ;
 
-        const [dx,dy]=conv(p0,transform);
+        const [dx,dy]=conv(vp0,transform);
         ctx.lineTo(dx,dy);
         ctx.stroke();
         ctx.beginPath();    
@@ -148,16 +179,21 @@ export function main(){
         console.log("tend",tcount,e.touches);
         //ctx.endPath();
         if(e.touches.length<=0){
-            pinch=null;
-            if(erase){
+            if(!pinch0){
+                save(dir.rel(filename));
+            }
+            pinch0=null;
+            transform0=null;
+            if(mode==="erase"){
                 ctx.strokeStyle=bg;
                 ctx.lineWidth=50/transform.scale;
             }
-            save(dir.rel(filename));
         }
     }
-    function client(e){
-        return sub([e.clientX,e.clientY],vpm);
+    function t2vp(t){
+        const rect=vp.getBoundingClientRect();
+        const ofs=[rect.left,rect.top];
+        return sub(sub([t.clientX,t.clientY],ofs),vpm);
     }
     async function prev(){
         const n=older()||filename;
@@ -176,6 +212,14 @@ export function main(){
         const n=newer()||filename;
         if(n===filename)return ;
         await load(dir.rel(n));
+    }
+    async function rm(){
+        if(confirm("del "+filename));
+        const n=newer();
+        const f=dir.rel(filename);
+        if(!f.exists())return ;
+        f.rm();
+        load(dir.rel(n));
     }
     function newer(){
         const f=files(dir);
@@ -222,6 +266,7 @@ function trstr(transform){
     return t+" "+s;
 }
 function conv(p,t){
+    // returns t^-1 * p 
     return mul(sub(p,t.translate),1/t.scale);
 }
 function mid(a,b){
