@@ -1,3 +1,25 @@
+acepad
+user-gesture
+dynamic-text-range
+petit-node
+petit-fs
+petit-ts
+@hoge1e3/events
+@hoge1e3/fs
+@hoge1e3/fs-nw
+@hoge1e3/rpc
+@hoge1e3/default-map
+@hoge1e3/counter
+@hoge1e3/object-id
+@hoge1e3/sfile
+@hoge1e3/fs2
+@hoge1e3/psync
+@hoge1e3/util
+@hoge1e3/assert
+@hoge1e3/keyset
+@hoge1e3/dependencies
+
+
 diff node_modules/acepad/config.js node_modules/acepad/config(e912af9a).js
 Conflict: node_modules/@acepad/samples/samples/js/fx.js
 Saved to fx(e912af9a).js

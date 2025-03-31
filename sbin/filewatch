@@ -5,6 +5,7 @@ export async function main(o={}){
     setInterval(loop,1000);
     let al=0;
     let sh=this;
+    let fix;
     function loop(){
         let s=a.getCurrentEditor().session;
         let si=a.sessionInfo(s);
@@ -12,6 +13,11 @@ export async function main(o={}){
         if(si.file.isDir())return ;
         if(si.file.text()!==s.getValue()){
             al++;
+            if(!fix)fix=si.file.text();
+            else if(fix!==si.file.text()){
+                al=0;
+                fix=null;
+            }
             if(al==3){
                 if(!window.shown){
                     if(o.addLog)o.addLog(sh,{
@@ -23,6 +29,7 @@ export async function main(o={}){
             }
             console.error("not match "+si.file   );
         }else {
+            fix=null;
             al=0;
         }
     }
