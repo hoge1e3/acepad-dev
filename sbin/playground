@@ -10,11 +10,15 @@ import assert from "assert";
 //import {test} from "./test.jsx";
 //import {Mode} from "@acepad/mode-shell";
 export async function main(options){
-    let f=this.resolve(import.meta.url);//.rel("playground");
-    if(options && options.e) {
+  
+  let f=this.resolve(import.meta.url);//.rel("playground");
+  if(options && options.e) {
         this.edit(f);
         return;
     }
+    this.$acepad.editor.session.setTabSize(2);
+    this.echo("set");
+    return ;
     //const r=await fetch("https://cdn.jsdelivr.net/npm/petit-node@latest/dist/index.js");
     
     const c=await caches.open(__CACHE_NAME__);

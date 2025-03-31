@@ -1,3 +1,11 @@
+diff node_modules/acepad/config.js node_modules/acepad/config(e912af9a).js
+Conflict: node_modules/@acepad/samples/samples/js/fx.js
+Saved to fx(e912af9a).js
+diff node_modules/@acepad/worker/console.js node_modules/@acepad/worker/console.jsconsole(e912af9a).js
+Conflict: sbin/playground
+Saved to playground(e912af9a)
+
+
 newcmd no arg /tmp/cmd/
 hyper jump
 reload keypad
