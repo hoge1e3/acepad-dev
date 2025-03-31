@@ -4,20 +4,33 @@
 import * as aw from "@acepad/widget";
 import {on} from "@hoge1e3/interruption";
 import {convertStack} from "@acepad/os";
-import {loadedModules} from "petit-node";
+import {loadedModules,FS} from "petit-node";
 import {p} from "@hoge1e3/polyfiller";
 import assert from "assert";
+import {foo,get} from "./mutable.js";
+import {findSessionByFile} from "@acepad/files";
 //import {test} from "./test.jsx";
 //import {Mode} from "@acepad/mode-shell";
 export async function main(options){
-  
+//    foo=5;
+  //  this.echo(get());
+  this.echo("f",findSessionByFile(this.$acepad,"/idb/jsmod/"));
+  this.echo(...FS.get("/jsmod/").ls());
+  return ;
   let f=this.resolve(import.meta.url);//.rel("playground");
   if(options && options.e) {
         this.edit(f);
         return;
     }
-    this.$acepad.editor.session.setTabSize(2);
-    this.echo("set");
+    this.$acepad.editor.session.setAnnotations([
+       {
+           row:23,column:5,text:"kesikaran",
+           type:"error",
+       } 
+    ]);
+    
+    //setTabSize(2);
+    //this.echo("set");
     return ;
     //const r=await fetch("https://cdn.jsdelivr.net/npm/petit-node@latest/dist/index.js");
     
