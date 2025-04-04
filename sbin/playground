@@ -11,17 +11,23 @@ import {foo,get} from "./mutable.js";
 import {findSessionByFile} from "@acepad/files";
 //import {test} from "./test.jsx";
 //import {Mode} from "@acepad/mode-shell";
+//import {foo} from "./mutable.js";
 export async function main(options){
 //    foo=5;
   //  this.echo(get());
-  this.echo("f",findSessionByFile(this.$acepad,"/idb/jsmod/"));
+ /* this.echo("f",findSessionByFile(this.$acepad,"/idb/jsmod/"));
   this.echo(...FS.get("/jsmod/").ls());
-  return ;
+  return ;*/
   let f=this.resolve(import.meta.url);//.rel("playground");
   if(options && options.e) {
         this.edit(f);
         return;
     }
+    this.echo(foo);
+    await this.sleep(0.5);
+    this.echo(foo);
+    
+    return ;
     this.$acepad.editor.session.setAnnotations([
        {
            row:23,column:5,text:"kesikaran",
