@@ -1,0 +1,6 @@
+#!run
+import {show} from "@acepad/widget";
+export function main(d){
+    this.$widget=this.$widget||show();
+    this.$widget.print(d);
+}

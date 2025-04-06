@@ -1,0 +1,7 @@
+#!run
+
+export async function main(){
+    const t=this.tags();
+    this.wprint(t.h1("fix via si"));
+    
+}

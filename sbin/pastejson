@@ -1,0 +1,20 @@
+#!run
+import {show} from "@acepad/widget";
+import {generator} from "@hoge1e3/dom";
+export async function main(){
+    const d=show();
+    //d.print();
+    const t=generator();
+    function prt(c=""){
+        d.print(t.div({id:"paste"},
+        t.textarea({rows:10,cols:80,oninput}),
+        t.br(),
+        t.textarea({rows:10,cols:80},c),
+        
+        ));
+    }
+    prt();
+    function oninput(){
+        prt(JSON.parse(this.value)["README.md"]);
+    }
+}

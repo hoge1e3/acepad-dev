@@ -1,0 +1,5 @@
+#!run
+import {generator} from "@hoge1e3/dom";
+export function main(){
+    return generator();
+}
