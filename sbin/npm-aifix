@@ -1,7 +1,109 @@
 #!run
-
+import {t} from "@hoge1e3/dom";
+import {show} from "@acepad/widget";
 export async function main(){
-    const t=this.tags();
-    this.wprint(t.h1("fix via si"));
-    
+    const w=show();
+    const sh=this;
+    const d=sh.cwd();
+    const miss=checkattrs(d);
+    const re=d.rel("README.md").exists();
+    if(miss.length==0&&re){
+        sh.echo("perfect");
+        return;
+    }
+    const pr=`
+The attached zip file is a npm package
+but there is some missing stuffs
+${miss.length==0?"":`*.The following attributes in package.json: ${[...miss].join(", ")}`}
+${!miss.has("types")?"":`* types.d.ts is missing`}
+${re?"":"* README.md is missing"}
+Analyse content of files(especially *.js file) and add missing stuffs
+The answer should be in JSON format 
+where the keys are pathes of changed files
+and their values are file content.
+`;
+    const a=(f,c)=>t.a({href:"javascript:;",onclick:f},c);
+    w.print(
+        t.div({id:"npm-aifix",style:"height:100%; overflow: scroll;"},
+            t.div("Prompt"),
+            t.div(t.textarea({
+                rows: 10,
+                cols: 80,
+            },pr)),
+            t.ol(
+                t.li(a(cp,"Copy prompt in above")),
+                t.li(a(dl,"Download project zip file")),
+                t.li(t.a({target:"ai", href:"https://chatgpt.com/"},"open GenAI"),
+                "and paste prompt and attach downloaded zip file."),
+                t.li(a(ps,"Paste result:")),
+            ),
+            /*t.div(t.textarea({
+                rows: 10,
+                cols: 80,
+                placeholder:"Paste returned answer in JSON",
+            })),*/
+    ));    
+    function cp(){
+        navigator.clipboard.writeText(pr);       
+    }
+    function dl(){
+        sh.zip(".");
+    }
+    async function ps(){
+        const s=await navigator.clipboard.readText();
+        const o=JSON.parse(s);
+        const pk=o["package.json"];
+        if(pk){
+            Object.assign(pk,d.rel("package.json").obj());
+        }
+        const keys=Object.keys(o);
+        let k,f;
+        const str=(s)=>typeof s==="string"?s:JSON.stringify(s,null,4);
+        const show=(_k)=>{
+            k=_k;
+            f=k&&d.rel(k);
+            w.print(
+                t.div({id:"npm-aifix",style:"height:100%; overflow: scroll;"},
+                    t.div("Result"),
+                    ...keys.map(k=>
+                        t.div(a(()=>{show(k)},k))),
+                    ...(f ? [
+                        t.div(t.button({
+                            onclick(){
+                                f.text(str(o[k]));
+                                console.log("saved",f,o[k]);
+                                keys.splice(keys.indexOf(k),1);
+                                show();
+                            },
+                        },`Accept ${k}`)),
+                        t.div(t.textarea({
+                            rows: 10,
+                            cols: 80,
+                        },str(o[k])))
+                    ] : []),
+                ));
+        };
+        show();
+    }
+    //sh.echo(pr);
+
+}
+const pkgattrs="main name type version dependencies types repository description license author keywords".
+split(" ");
+const optattrs="devDependencies files bin scripts".split(" ");
+function checkattrs(d){
+    const s=new Set();
+    const f=d.rel("package.json");
+    const o=f.obj();
+    for(let k of pkgattrs){
+        if(!(k in o)){
+            /*if(k in tmpl){
+                o[k]=tmpl[k];
+                f.obj(o);
+            }else{*/
+            s.add(k);
+            //}
+        }
+    }
+    return s;
 }
