@@ -1,0 +1,13 @@
+#!run
+
+export function main(f) {
+    f=this.resolve(f);
+    const nf=f.endsWith(".mg")? 
+        f.sibling(f.name().replace(/\.mg$/,"")): 
+        f.sibling(f.name()+".mg");
+    const bin=new Uint8Array(f.getBytes());
+    for (let i=0;i<bin.length;i++) {
+        bin[i]=bin[i]^(i&255);
+    }
+    nf.setBytes(bin);
+} 

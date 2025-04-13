@@ -1,0 +1,11 @@
+#!run
+
+export async function main(){
+    const t=this.cwd();
+    const tmp=this.resolve("/tmp/");
+    const dst=tmp.rel(t.truncSep());
+    await this.zip(t, dst);
+    await this.mangle(dst);
+    const mg=dst.sibling(dst.name()+".mg");
+    await this.dl(mg);
+}
