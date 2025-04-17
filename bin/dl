@@ -1,0 +1,7 @@
+#!run
+import {load} from "@acepad/npm-cdn";
+export async function main(f){
+    await load("file-saver/dist/FileSaver.js");
+    f=this.resolve(f);
+    saveAs(f.getBlob(),f.name());
+}

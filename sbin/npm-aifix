@@ -1,6 +1,13 @@
 #!run
 import {t} from "@hoge1e3/dom";
 import {show} from "@acepad/widget";
+function d2j(d){
+    const r={};
+    for(let f of d.recursive({excludes:["test/"]})){
+        r[f.relPath(d)]=f.ext()===".json"?f.obj():f.text();    
+    }
+    return r;
+}
 export async function main(){
     const w=show();
     const sh=this;
@@ -11,8 +18,12 @@ export async function main(){
         sh.echo("perfect");
         return;
     }
+//zip file is a npm package
     const pr=`
-The attached zip file is a npm package
+The following JSON represents file contents of npm package.
+----
+${JSON.stringify(d2j(d))}
+----
 but there is some missing stuffs
 ${miss.length==0?"":`*.The following attributes in package.json: ${[...miss].join(", ")}`}
 ${!miss.has("types")?"":`* types.d.ts is missing`}
@@ -52,10 +63,16 @@ and their values are file content.
     async function ps(){
         const s=await navigator.clipboard.readText();
         const o=JSON.parse(s);
+        const pk=o["package.json"];
+        if(pk){
+            Object.assign(pk,d.rel("package.json").obj());
+        }
         const keys=Object.keys(o);
+        let k,f;
         const str=(s)=>typeof s==="string"?s:JSON.stringify(s,null,4);
-        const show=(k)=>{
-            const f=k&&d.rel(k);
+        const show=(_k)=>{
+            k=_k;
+            f=k&&d.rel(k);
             w.print(
                 t.div({id:"npm-aifix",style:"height:100%; overflow: scroll;"},
                     t.div("Result"),
