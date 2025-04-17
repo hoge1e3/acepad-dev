@@ -1,13 +1,32 @@
 #!run
-
+import Random from "@hoge1e3/random";
 export function main(f) {
     f=this.resolve(f);
     const nf=f.endsWith(".mg")? 
         f.sibling(f.name().replace(/\.mg$/,"")): 
         f.sibling(f.name()+".mg");
     const bin=new Uint8Array(f.getBytes());
-    for (let i=0;i<bin.length;i++) {
-        bin[i]=bin[i]^(i&255);
+    const r=new Random(10);
+    seedbywd(r,process.env.mangler||"x");
+    for(let j=0;j<2;j++){
+        for (let i=0;i<bin.length;i++) {
+            let m=r.next();
+            m=(m>>8)&255;
+            if(i<10){
+                console.log("mg",j,i,m);
+            }
+            bin[i]=bin[i]^(m);
+        }
     }
+    
+    /*for (let i=0;i<bin.length;i++) {
+        bin[i]=bin[i]^(i&255);
+    }*/
     nf.setBytes(bin);
 } 
+export function seedbywd(r,s){
+    for(let i=0;i<s.length;i++){
+        r.x^= s.charCodeAt(i)*(i+1);
+        r.next();
+    }
+}
