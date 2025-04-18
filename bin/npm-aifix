@@ -4,20 +4,22 @@ import {show} from "@acepad/widget";
 function d2j(d){
     const r={};
     for(let f of d.recursive({excludes:["test/"]})){
+        if(f.endsWith(".js.map"))continue;
         r[f.relPath(d)]=f.ext()===".json"?f.obj():f.text();    
     }
     return r;
 }
 export async function main(){
-    const w=show();
     const sh=this;
     const d=sh.cwd();
     const miss=checkattrs(d);
     const re=d.rel("README.md").exists();
-    if(miss.length==0&&re){
+    if([...miss].length==0&&re){
         sh.echo("perfect");
         return;
     }
+    const w=show();
+    console.log("miss",miss)
 //zip file is a npm package
     const pr=`
 The following JSON represents file contents of npm package.
