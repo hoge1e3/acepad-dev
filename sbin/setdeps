@@ -1,6 +1,6 @@
 //!run
 import {importModule} from "@acepad/os";
-import {Class} from "@hoge1e3/recursive-safe";
+//import {Class} from "@hoge1e3/recursive-safe";
 let sh;
 function p(...a){
     sh.echo(...a);
@@ -33,20 +33,20 @@ async function getDepsPkg(pa){
     const m=pa.sibling(pao.main);
     await importModule(m);
     const depp=new Set();
-    const D=Class({
-        argKey({args:[f]}){
-            return f.path();
-        },
-        loop(f){
-            for(let e of getDeps(f)){
-                p(e.path());
-                const pf=belongingPkg(e);
-                if(pf.equals(pa))this.loop(e);
-                else depp.add(pf);
-            }
-        },
-    });
-    new D().loop(m);
+    const v=new Set();
+    function     loop(f){
+        if(v.has(f.path())){
+            throw new Error("circlular "+f);
+        }
+        v.add(f.path());
+        for(let e of getDeps(f)){
+            p(e.path());
+            const pf=belongingPkg(e);
+            if(pf.equals(pa))loop(e);
+            else depp.add(pf);
+        }
+    }
+    loop(m);
     return depp;
 }
 function belongingPkg(f){

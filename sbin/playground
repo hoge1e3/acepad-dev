@@ -2,7 +2,7 @@
 //import "https://cdn.plot.ly/plotly-2.29.1.min.js";
 //import {showWidget,showIframe} from "@acepad/widget";
 import * as aw from "@acepad/widget";
-import {on} from "@hoge1e3/interruption";
+import {on} from "@hoge1e3/on-resume";
 import {convertStack} from "@acepad/os";
 import {loadedModules,FS} from "petit-node";
 import {p} from "@hoge1e3/polyfiller";
