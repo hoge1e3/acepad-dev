@@ -1,5 +1,5 @@
 #!run
-
+import {unlinkSync} from "fs";
 export async function main(...args) {
     args=this.collectOptions(args);
     const options=args.pop();
@@ -7,7 +7,11 @@ export async function main(...args) {
     let sum=0;
     for(let file of files){
         file=this.resolve(file, true);
+        if(file.isLink()){
+            unlinkSync(file.path());
+        }else{
         sum+=file.rm(options);
+        }
     }
     return sum;
 

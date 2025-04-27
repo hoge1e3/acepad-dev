@@ -3,8 +3,8 @@
 //import {showWidget,showIframe} from "@acepad/widget";
 import * as aw from "@acepad/widget";
 import {on} from "@hoge1e3/on-resume";
-import {convertStack} from "@acepad/os";
-import {loadedModules,FS} from "petit-node";
+import {convertStack,FS,importModule} from "@acepad/os";
+import {loadedModules} from "petit-node";
 import {p} from "@hoge1e3/polyfiller";
 import assert from "assert";
 import {foo,get} from "./mutable.js";
@@ -13,11 +13,14 @@ import {findSessionByFile} from "@acepad/files";
 //import {Mode} from "@acepad/mode-shell";
 //import {foo} from "./mutable.js";
 export async function main(options){
+    this.echo(...FS.get("/").ls());
+    return;
 //    foo=5;
   //  this.echo(get());
  /* this.echo("f",findSessionByFile(this.$acepad,"/idb/jsmod/"));
   this.echo(...FS.get("/jsmod/").ls());
   return ;*/
+  
   let f=this.resolve(import.meta.url);//.rel("playground");
   if(options && options.e) {
         this.edit(f);

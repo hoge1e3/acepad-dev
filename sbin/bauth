@@ -1,6 +1,6 @@
 #!run
 import * as term from "docker-terminal";
-import {FS,loadModule} from "@acepad/os";
+import {FS} from "@acepad/os";
 const timeout=(t)=>new Promise(s=>setTimeout(s,t));
 import {showWidget} from "@acepad/widget";
 const ba=FS.getEnv("ba");
