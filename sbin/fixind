@@ -1,0 +1,35 @@
+#!run
+
+export async function main(){
+  const e=this.$acepad.getCurrentEditor();
+  e.setValue(convind(e.getValue()));
+}
+function convind(s) {
+  const lines = s.split('\n');
+  const result = [];
+  let level = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+  
+    if (i === 0) {
+      // First line, no previous context
+      result.push(' '.repeat(level * 2) + line.trimStart());
+      continue;
+    }
+  
+    // Compare indentation of current and previous line
+    const prevIndent = lines[i - 1].match(/^ */)[0].length;
+    const currIndent = line.match(/^ */)[0].length;
+    
+    const diff = Math.sign(currIndent - prevIndent); // -1, 0, or 1
+    level += diff;
+  
+    // Ensure level stays non-negative
+    if (level < 0) level = 0;
+  
+    result.push(' '.repeat(level * 2) + line.trimStart());
+  }
+
+  return result.join('\n');
+}

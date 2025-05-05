@@ -52,7 +52,7 @@ state save
  ok file pos save
 multiline shell exec
 config sh:
-override text editor with ace-editor
+ok override text editor with ace-editor
 widget on keypad 
 widget on session list
 function key swipe

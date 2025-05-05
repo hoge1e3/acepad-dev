@@ -6,7 +6,9 @@ to start the environment for rescue, and then
 modify or delete this file. 
 */
 export function config(acepad){
-    editor(acepad);
-    shortcut(acepad);
-    keyboard(acepad);
+    acepad.setConfig({
+      editor:{
+          tabSize:2,
+      }
+    });
 }
