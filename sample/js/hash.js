@@ -1,4 +1,4 @@
-import * as $ from "@acepad/ajax";
+import * as $ from "@hoge1e3/ajax";
 
 const url="hash.php";
 export async function put(data) { 
