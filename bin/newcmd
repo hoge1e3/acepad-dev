@@ -1,24 +1,59 @@
 #!run
 
 export async function main(n) {
-    if (!n) {
-        throw new Error("cmd name");
+  /*if (!n) {
+      throw new Error("cmd name");
+  }*/
+  const paths = this.$path.split(":");
+  const _cwd = this.getcwd().path();
+  
+  // get a path from paths when it contains _cwd 
+  // otherwise paths[0]
+  let path = paths.find(p => _cwd.includes(p)) 
+      || paths[0];
+  const tmpbin=this.resolve(this.$tmpbin||"/tmp/bin/");
+  //const tmpbin=tmp.rel("bin/");
+  if(!tmpbin.exists()){
+    tmpbin.mkdir();
+    const nd=this.resolve(this.$home).rel("node_modules/");
+    if(nd.exists()){
+      tmpbin.rel("node_modules/").link(nd);
     }
-    const paths = this.$path.split(":");
-    const _cwd = this.getcwd().path();
-    
-    // get a path from paths when it contains _cwd 
-    // otherwise paths[0]
-    let path = paths.find(p => _cwd.includes(p)) 
-        || paths[0];
-
-    let d = this.resolve(path).rel(n);
-    if (!d.exists()) {
-        d.text(`#!run
+  }
+  clean(tmpbin);
+  let d = n?this.resolve(path).rel(n):
+    tmpbin.rel(createFilename());
+  if (!d.exists()) {
+      d.text(`#!run
 
 export async function main(){
 
 }`);
     }
     this.edit(d);
+}
+function clean(dir){
+  let dur=86400*1000;
+  const now=new Date().getTime();
+  for(let f of dir.listFiles()){
+    if(!f.name().match(/^[\d_]+\.js$/))continue;
+    if(now-f.lastUpdate()>dur){
+      f.rm();
+    }
+  }
+}
+function createFilename() {
+    // Get current date and time
+    let now = new Date();
+    
+    // Format components with leading zeros if necessary
+    let yyyy = now.getFullYear();
+    let MM = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    let dd = String(now.getDate()).padStart(2, '0');
+    let HH = String(now.getHours()).padStart(2, '0');
+    let mm = String(now.getMinutes()).padStart(2, '0');
+    let ss = String(now.getSeconds()).padStart(2, '0');
+
+    // Construct the filename
+    return `${yyyy}_${MM}${dd}_${HH}${mm}${ss}.js`;
 }

@@ -1,6 +1,6 @@
 #!run
 import {showWidget} from "@acepad/widget";
-import sleep from "@hoge1e3/sleep";
+import {sleep} from "@hoge1e3/timeout";
 export async function main(){
     let w=showWidget("<div>");
     while(1){
