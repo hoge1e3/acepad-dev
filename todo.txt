@@ -8,6 +8,7 @@ ok file tree no close
 separate widget zone and editor
 extract selection to var
 file tree recents
+pnode package.json parse error
 
 reload keypad
 todo item as boot icons/apps

@@ -6,18 +6,18 @@ import {main as sug} from "@acepad/suggest";
 export async function main(){
     sh.cd(sh.resolve(import.meta.url).up());
     sh.$home=sh.getcwd().path();
- 
     dotenv.configUp(sh.resolve("./"));
     sh.set("path",sh.getenv("path")||"");
-    //sh.addPath(sh.resolve("bin/").path());
     let acepad=await ace.main.call(sh);
-    if(sh.hasCmd("filewatch")) sh.filewatch({addLog});
-    sh["acepad-polyfiller.js"]();
-    acepad.events.on("keyclick",({b})=>{
-        if(acepad.getCurrentEditor().nolog)return ;
-        addLog(sh,{text:b.innerText});
-        //console.log("k",b.innerText);
-    });
+    if (process.env.ACEPAD_DEBUG) {
+        if(sh.hasCmd("filewatch")) sh.filewatch({addLog});
+    }
+    if (process.env.ACEPAD_LOGGING) {
+        acepad.events.on("keyclick",({b})=>{
+            if(acepad.getCurrentEditor().nolog)return ;
+            addLog(sh,{text:b.innerText});
+        });
+    }
     sug.call(sh);
 }
 main().then((s)=>0,(e)=>alert(e.stack));
