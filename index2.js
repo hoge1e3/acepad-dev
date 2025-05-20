@@ -3,6 +3,7 @@ import * as ace from "@acepad/with-fs";
 import {add as addLog} from "./logging.js";
 import * as dotenv from "@acepad/dotenv";
 import {main as sug} from "@acepad/suggest";
+import * as pNode from "petit-node";
 export async function main(){
     sh.cd(sh.resolve(import.meta.url).up());
     sh.$home=sh.getcwd().path();
@@ -19,5 +20,7 @@ export async function main(){
         });
     }
     sug.call(sh);
+    setTimeout(()=>
+    console.log("pNode.version",pNode.version),1500);
 }
 main().then((s)=>0,(e)=>alert(e.stack));
