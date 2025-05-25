@@ -2,6 +2,7 @@ ok find line no bug
 ok newcmd no arg bin/tmp
  ok clean at 1day
 hyper jump
+full text search lib
 //todo by comment
 autoexec.js
 ok file tree no close
