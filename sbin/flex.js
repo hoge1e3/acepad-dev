@@ -2,10 +2,15 @@
 //import { Index, Document } from "https://cdn.jsdelivr.net/gh/nextapps-de/flexsearch@0.8.1/dist/flexsearch.light.module.min.js";
 import {dir} from "@acepad/here";
 import {sleep} from "@hoge1e3/timeout";
+import {t} from "@hoge1e3/dom";
 import { Index, Document,IndexedDB } from "https://cdn.jsdelivr.net/gh/nextapps-de/flexsearch@0.8.2/dist/flexsearch.bundle.module.min.js";
 //"https://cdn.jsdelivr.net/gh/nextapps-de/flexsearch@0.8.2/dist/flexsearch.compact.module.min.js";
+function refInput(r,attr={}){
+  const d=t("input",{...attr,value:r.value});
+  d.addEventListener();
+}
 export async function main(){
-  const d=dir(import.meta.url);
+  const d=this.resolve(this.$home);//dir(import.meta.url);
   // create a document index
   const index = new Document({
       document: {
@@ -26,8 +31,8 @@ export async function main(){
   const db = new IndexedDB("acepad-search");
   // mount and await before transfering data
   await index.mount(db);
-  /*await index.clear();
-  await addAll(index,d);*/
+  //await index.clear();
+  await addAll(index,d);
   //this.echo(await index.contains(0));
   // add documents to the index
   /*await index.add({ 
@@ -41,10 +46,14 @@ export async function main(){
   });
   console.log("r",r);*/
   console.log("search");
-  r=await index.search("test", { 
+  const t=Date.now();
+  r=await index.search("hoge1e3 ref", { 
     index: "content",
-    enrich:true,
+    //enrich:true,
+    merge:true,
   });
+  
+  console.log("t",Date.now()-t);
   console.log("r2",r);
   //console.log("get",await index.get("/home/test.txt"));
   return;
@@ -53,14 +62,15 @@ async function addAll(index,d){
   for(let f of d.recursive({excludes(f){
     return f.name()===".sync/"||f.name()===".git/";
   }})){
-    console.log("add",f.path());
+    //console.log("add",f.path());
     await add(index,f);
-    await sleep(1);
   }
 }
 async function add(index,f){
   const doc=await index.get(f.path());
   if(doc&&doc.timestamp===f.lastUpdate())return ;
+  console.log("upd",f.path(),doc);
+    await sleep(1);
   await index[doc?"update":"add"]({
     id:f.path(),
     timestamp: f.lastUpdate(),
