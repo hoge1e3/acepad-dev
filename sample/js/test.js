@@ -1,5 +1,5 @@
 import o from "observable";
-import * as $ from "@acepad/ajax";
+import * as $ from "@hoge1e3/ajax";
 import {file2data} from "@acepad/store-file";
 import {init,checkout} from "@acepad/store";
 

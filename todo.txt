@@ -1,35 +1,16 @@
-acepad
-user-gesture
-dynamic-text-range
-petit-node
-petit-fs
-petit-ts
-@hoge1e3/events
-@hoge1e3/fs
-@hoge1e3/fs-nw
-@hoge1e3/rpc
-@hoge1e3/default-map
-@hoge1e3/counter
-@hoge1e3/object-id
-@hoge1e3/sfile
-@hoge1e3/fs2
-@hoge1e3/psync
-@hoge1e3/util
-@hoge1e3/assert
-@hoge1e3/keyset
-@hoge1e3/dependencies
-
-
-diff node_modules/acepad/config.js node_modules/acepad/config(e912af9a).js
-Conflict: node_modules/@acepad/samples/samples/js/fx.js
-Saved to fx(e912af9a).js
-diff node_modules/@acepad/worker/console.js node_modules/@acepad/worker/console.jsconsole(e912af9a).js
-Conflict: sbin/playground
-Saved to playground(e912af9a)
-
-
-newcmd no arg /tmp/cmd/
+ok find line no bug
+ok newcmd no arg bin/tmp
+ ok clean at 1day
 hyper jump
+full text search lib
+//todo by comment
+autoexec.js
+ok file tree no close
+separate widget zone and editor
+extract selection to var
+file tree recents
+pnode package.json parse error
+
 reload keypad
 todo item as boot icons/apps
  bookmark file pos
@@ -38,7 +19,7 @@ ok mv existent/ new/
 p5.js
 BS autorepeat bug
 samples
-sessionF defaults samples
+ok? sessionF defaults samples
 sugeest in $home
 suggest known word only 
 key layout
@@ -52,7 +33,7 @@ state save
  ok file pos save
 multiline shell exec
 config sh:
-override text editor with ace-editor
+ok override text editor with ace-editor
 widget on keypad 
 widget on session list
 function key swipe

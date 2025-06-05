@@ -3,8 +3,6 @@ import _n from "./NativeFS.js";
 import FS from "@hoge1e3/fs";
 export async function main(){
     const {fakeNodeEnvironment}=await import("https://unpkg.com/petit-fs@1.0.1/dist/index.js");
-    //"https://bitarrow3.eplang.jp/acepad/vfs.js");
-    //console.log(fs);
     fakeNodeEnvironment();
     
     const fs=require("fs");//new fsm.FileSystem();

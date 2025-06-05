@@ -3,8 +3,8 @@
 //import {showWidget,showIframe} from "@acepad/widget";
 import * as aw from "@acepad/widget";
 import {on} from "@hoge1e3/on-resume";
-import {convertStack} from "@acepad/os";
-import {loadedModules,FS} from "petit-node";
+import {convertStack,FS,importModule} from "@acepad/os";
+import {loadedModules} from "petit-node";
 import {p} from "@hoge1e3/polyfiller";
 import assert from "assert";
 import {foo,get} from "./mutable.js";
@@ -12,176 +12,183 @@ import {findSessionByFile} from "@acepad/files";
 //import {test} from "./test.jsx";
 //import {Mode} from "@acepad/mode-shell";
 //import {foo} from "./mutable.js";
+class A{
+  test(){
+    
+  }
+}
 export async function main(options){
-//    foo=5;
-  //  this.echo(get());
- /* this.echo("f",findSessionByFile(this.$acepad,"/idb/jsmod/"));
-  this.echo(...FS.get("/jsmod/").ls());
-  return ;*/
   let f=this.resolve(import.meta.url);//.rel("playground");
   if(options && options.e) {
-        this.edit(f);
-        return;
-    }
-    this.echo(foo);
-    await this.sleep(0.5);
-    this.echo(foo);
-    
-    return ;
-    this.$acepad.editor.session.setAnnotations([
-       {
-           row:23,column:5,text:"kesikaran",
-           type:"error",
-       } 
-    ]);
-    
-    //setTabSize(2);
-    //this.echo("set");
-    return ;
-    //const r=await fetch("https://cdn.jsdelivr.net/npm/petit-node@latest/dist/index.js");
-    
-    const c=await caches.open(__CACHE_NAME__);
-    for(let {url} of await c.keys()){
-        this.echo(url);
-    }
-    return ;
-    const sw=__serviceWorker__;
-    const url=location.href+"acepad/hoge.txt";
-    sw.postMessage({
-        url, body:"hoge", headers:{
-            "Content-Type":"text/plain"
-        }
-    });
-    this.echo("Go to",url);
-    await this.sleep(1);
-    window.open(url);
-    
-    const mv=this.resolve("../bin/mv").text();
-    this.echo(mv.includes("\r"), mv.includes("\n"));
+    this.edit(f);
     return;
-    
-    if(options?.err)options.a.b;
-    const niseError={message:"The error", stack:""};
-    for (let m of loadedModules()) {
-        if (!m.entry) continue;
-        niseError.stack+="@"+m.url+"\n";
-        if (niseError.stack.length>200) break;
+  }
+  this.echo(process);
+  this.echo(A.prototype.test+"");
+  this.echo(...Object.keys(A.prototype));
+  return ;
+  //return  alert("playground");
+  this.echo(...FS.get("/").ls());
+  
+  this.echo(foo);
+  await this.sleep(0.5);
+  this.echo(foo);
+  
+  return ;
+  this.$acepad.editor.session.setAnnotations([
+    {
+      row:23,column:5,text:"kesikaran",
+      type:"error",
+    } 
+  ]);
+  
+  //setTabSize(2);
+  //this.echo("set");
+  return ;
+  //const r=await fetch("https://cdn.jsdelivr.net/npm/petit-node@latest/dist/index.js");
+  
+  const c=await caches.open(__CACHE_NAME__);
+  for(let {url} of await c.keys()){
+    this.echo(url);
+  }
+  return ;
+  const sw=__serviceWorker__;
+  const url=location.href+"acepad/hoge.txt";
+  sw.postMessage({
+    url, body:"hoge", headers:{
+      "Content-Type":"text/plain"
     }
-    console.log(niseError.stack);
-    convertStack(niseError, true);
-    console.log(niseError.stack);
-    return;
-    console.log(...loadedModules());
-    const cmd="python \r/jsmod/node_modules/@acepad/samples/samples/test.py";
-    cmd.replace(/^\s*(\S+)(\s.*)?$/,(_,c,a)=>{
-        alert(c);
-            //console.log("{"+c+"}");
-            if(sh.hasCmd(c)){
-                res=c+(a||"");
-            }
-        });
-        
-    console.log(loadedModules());
-    console.log(assert);
-    console.log(assert.ok);
-    assert.ok("test");
-    assert.ok(false, "fail");
-    window.p1=p("321",{
-        "ho": p("0.2023467592349557",{
-            
-        }),
+  });
+  this.echo("Go to",url);
+  await this.sleep(1);
+  window.open(url);
+  
+  const mv=this.resolve("../bin/mv").text();
+  this.echo(mv.includes("\r"), mv.includes("\n"));
+  return;
+  
+  if(options?.err)options.a.b;
+  const niseError={message:"The error", stack:""};
+  for (let m of loadedModules()) {
+    if (!m.entry) continue;
+    niseError.stack+="@"+m.url+"\n";
+    if (niseError.stack.length>200) break;
+  }
+  console.log(niseError.stack);
+  convertStack(niseError, true);
+  console.log(niseError.stack);
+  return;
+  console.log(...loadedModules());
+  const cmd="python \r/jsmod/node_modules/@acepad/samples/samples/test.py";
+  cmd.replace(/^\s*(\S+)(\s.*)?$/,(_,c,a)=>{
+    alert(c);
+      //console.log("{"+c+"}");
+      if(sh.hasCmd(c)){
+        res=c+(a||"");
+      }
     });
     
-    return ;
+  console.log(loadedModules());
+  console.log(assert);
+  console.log(assert.ok);
+  assert.ok("test");
+  assert.ok(false, "fail");
+  window.p1=p("321",{
+    "ho": p("0.2023467592349557",{
+      
+    }),
+  });
+  
+  return ;
 }
 async function loop1(){
-    for(let i=0;i<1<<20;i++){
-        
-    }
+  for(let i=0;i<1<<20;i++){
+    
+  }
 }
 /*async function loop1(){
-    for(let i=0;i<1<<20;i++){
-        
-    }
+  for(let i=0;i<1<<20;i++){
+    
+  }
 }*/
 async function old(){
-    //on("interrupt",()=>this.echo("inter"));
-    this.echo(Object.keys(aw).join(", "));
-    for(let k in aw)this.echo(k);
-    return ;
+  //on("interrupt",()=>this.echo("inter"));
+  this.echo(Object.keys(aw).join(", "));
+  for(let k in aw)this.echo(k);
+  return ;
 //    showIframe("index.html");
-    const u=import.meta.url+"";
-    this.echo(this.resolve(u)+"");
-    
-    return ;
-    const a=this.$acepad;
-    function             stripPrompt(line){
-            return line.replace(/^.*[:\$%]\s*/,"");
-        }
-    a.getMainEditor().session.setMode(new Mode(this,{
-        getContext(editor,session,pos,prefix){
-            const line=session.getLine(pos.row);
-            let picked=stripPrompt(line);
-            let c=pos.column-(line.length-picked.length);
-            let secondArg=picked.substring(0, c-prefix.length).match(/\s$/);
-            if(secondArg)return "file";
-            else return "command";
-        }
-    }));
-    //console.log(test);
-    //f.up().watch((...args)=>console.log(...args));
-    return ;
-    
-    
-    let w=showWidget("<div>");
-    Plotly.newPlot(w.element, [{ y: [1, 2, 3] }]);
-    return ;
+  const u=import.meta.url+"";
+  this.echo(this.resolve(u)+"");
+  
+  return ;
+  const a=this.$acepad;
+  function             stripPrompt(line){
+    return line.replace(/^.*[:\$%]\s*/,"");
+  }
+a.getMainEditor().session.setMode(new Mode(this,{
+  getContext(editor,session,pos,prefix){
+    const line=session.getLine(pos.row);
+    let picked=stripPrompt(line);
+    let c=pos.column-(line.length-picked.length);
+    let secondArg=picked.substring(0, c-prefix.length).match(/\s$/);
+    if(secondArg)return "file";
+    else return "command";
+  }
+}));
+//console.log(test);
+//f.up().watch((...args)=>console.log(...args));
+return ;
 
-    this.echo(await retp(this));
-    return ;
-    let p=document;
-    for(let i=0;i<5;i++){
-        console.log(i,p);
-        p=Object.getPrototypeOf(p) ;
-        if(!p)break;
-    }
-    this.echo(__dirname);
-    return;
-    this.resolve("modb.js").appendText("\n///def");
-    let acepad=this.$acepad;
-    let session=acepad.createSession({
-        name: "hoge",
-        text:"aaa",
-        commands: {
-            return(e) {
-                let line=acepad.currentLine();
-                acepad.goLineEnd();
-                if(line.match(/off/)){
-                        acepad.detachCommands(cmd);
 
-                }
-                acepad.print("\nYou typed: "+line+"\n");
-            }
-        },
+let w=showWidget("<div>");
+Plotly.newPlot(w.element, [{ y: [1, 2, 3] }]);
+return ;
+
+  this.echo(await retp(this));
+  return ;
+  let p=document;
+  for(let i=0;i<5;i++){
+    console.log(i,p);
+    p=Object.getPrototypeOf(p) ;
+    if(!p)break;
+  }
+  this.echo(__dirname);
+  return;
+  this.resolve("modb.js").appendText("\n///def");
+  let acepad=this.$acepad;
+  let session=acepad.createSession({
+    name: "hoge",
+    text:"aaa",
+    commands: {
+      return(e) {
+        let line=acepad.currentLine();
+        acepad.goLineEnd();
+        if(line.match(/off/)){
+          acepad.detachCommands(cmd);
+        
+          }
+          acepad.print("\nYou typed: "+line+"\n");
+        }
+      },
     });
     
     let cmd={
-        "ctrl-y":(editor)=>{
-            let i=acepad.sessionInfo(editor.session);
-            console.log("si",i);
-            acepad.changeSession(session);
-            
-            acepad.print(i.file);
-        },
-        "ctrl-t":()=>{
-            setInterval(()=>{
-                let l=acepad.locate;
-                l.save(()=>{
-                    l.bottom();
-                    acepad.print("hoge\n");
-                });
-            },1000);
-        }
+      "ctrl-y":(editor)=>{
+        let i=acepad.sessionInfo(editor.session);
+        console.log("si",i);
+        acepad.changeSession(session);
+        
+        acepad.print(i.file);
+      },
+      "ctrl-t":()=>{
+        setInterval(()=>{
+          let l=acepad.locate;
+          l.save(()=>{
+            l.bottom();
+            acepad.print("hoge\n");
+          });
+        },1000);
+      }
     };
     acepad.attachCommands(cmd);
     this.echo("ctrl-y");
@@ -190,10 +197,11 @@ async function old(){
     this.ls();
     this.echo(this.ls);
     this.echo(this.get("hoge"));*/
-}
-async function retp(sh){
+  }
+  async function retp(sh){
     await sh.sleep(1);
     sh.echo(2);
     return sh.sleep(1).then((e)=>5);
-}
-
+  }
+  
+  
