@@ -1,11 +1,8 @@
-ok find line no bug
-ok newcmd no arg bin/tmp
- ok clean at 1day
+suggest in flexsearch
 hyper jump
-full text search lib
 //todo by comment
 autoexec.js
-ok file tree no close
+singleton dialog
 separate widget zone and editor
 extract selection to var
 file tree recents
@@ -76,6 +73,12 @@ bookmark command
 ?F5 dir show bug
 
 -------------ok---------
+ok find line no bug
+ok newcmd no arg bin/tmp
+ ok clean at 1day
+ok full text search lib
+ok file tree no close
+
 ok syntax error file/pos
 ok bug
  a imports b
