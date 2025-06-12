@@ -1,7 +1,5 @@
-editor-overlay
-
+suggest in flexsearch
 hyper jump
-full text search lib
 //todo by comment
 autoexec.js
 singleton dialog
@@ -78,7 +76,9 @@ bookmark command
 ok find line no bug
 ok newcmd no arg bin/tmp
  ok clean at 1day
+ok full text search lib
 ok file tree no close
+
 ok syntax error file/pos
 ok bug
  a imports b
