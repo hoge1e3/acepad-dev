@@ -1,0 +1,8 @@
+#!run
+
+export function main(){
+  let a=this.$acepad;
+  let si=a.sessionInfo(a.getMainEditor().session);
+//this.echo(si.file);
+  return si.file;
+}

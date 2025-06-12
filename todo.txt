@@ -5,6 +5,7 @@ hyper jump
 full text search lib
 //todo by comment
 autoexec.js
+singleton dialog
 ok file tree no close
 separate widget zone and editor
 extract selection to var
