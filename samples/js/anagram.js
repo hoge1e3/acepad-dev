@@ -11,7 +11,7 @@ function *perm(s){
   }
 }
 export async function main(){
-  for(let e of perm(prompt())){
+  for(let e of perm(prompt("input your name"))){
     this.echo(e);
     await this.sleep(1/1000);
   }
