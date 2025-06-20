@@ -1,5 +1,5 @@
 #!run
 
 export async function main(){
-console.log(process.env.boot);
+return 8640+3520+1650
 }

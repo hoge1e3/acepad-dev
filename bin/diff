@@ -1,5 +1,7 @@
 //!run
-let url="https://unpkg.com/difflib@0.2.4/dist/difflib-browser.js";
+const cdn=process.env.cdn_url||"https://cdn.jsdelivr.net/npm/";//"https://unpkg.com/"
+
+let url=cdn+"difflib@0.2.4/dist/difflib-browser.js";
 /*global difflib*/
 export async function main(f1,f2){
     await $.getScript(url);

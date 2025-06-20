@@ -9,6 +9,8 @@ export async function main(){
     sh.$home=sh.getcwd().path();
     dotenv.configUp(sh.resolve("./"));
     sh.set("path",sh.getenv("path")||"");
+    //const s=await submenu();
+    //console.log("submenu",s);
     let acepad=await ace.main.call(sh);
     if (process.env.ACEPAD_DEBUG) {
         if(sh.hasCmd("filewatch")) sh.filewatch({addLog});
@@ -22,5 +24,13 @@ export async function main(){
     sug.call(sh);
     setTimeout(()=>
     console.log("pNode.version",pNode.version),1500);
+}
+async function submenu(){
+  const b=globalThis.pNodeBootLoader;
+  if (!b) return;
+  //console.log(b.prefetchScript);
+  const s=b.getSelectedSubmenu();
+  if (!s) return;
+  return await s;
 }
 main().then((s)=>0,(e)=>alert(e.stack));

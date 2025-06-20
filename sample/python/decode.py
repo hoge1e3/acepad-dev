@@ -12,5 +12,4 @@ def fetch_and_process_url(url):
         file.write(decoded_data)
     print("File saved successfully as 'decoded_file'")
 url = input("Enter the URL: ")
-fetch_and_process_url("https://edit.tonyu.jp/acepad/hash.php?id="+url)
-#25c63671221de9b29a98aac7864d636c802084e21be9ab52b309471cabd0262b")
+fetch_and_process_url(env.store_url+"?id="+url)

@@ -6,6 +6,7 @@ export async function main(...args) {
     let files=args;
     let sum=0;
     for(let file of files){
+      if(file==="/")throw new Error("/ is danger");
         file=this.resolve(file, true);
         if(file.isLink()){
             unlinkSync(file.path());
