@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+<script>WebSite={runType:'singleHTML', useEditButton:false};</script>
+<link rel="stylesheet" href="https://edit.tonyu.jp//css/runtime.css"/><script src="https://edit.tonyu.jp/images/base.png.js"></script>
+<script src="https://edit.tonyu.jp/images/Sample.png.js"></script>
+<script src="https://edit.tonyu.jp/images/neko.png.js"></script>
+<script src="https://edit.tonyu.jp/images/mapchip.png.js"></script>
+<script src="https://edit.tonyu.jp/js/lib/jquery-1.12.1.js" type="text/javascript"></script>
+<script src="https://edit.tonyu.jp/js/g2/runScript_concat.min.js" type="text/javascript"></script>
+<script src="https://edit.tonyu.jp/js/runtime/detectUnsupported.js"></script><script language='text/tonyu' type='text/tonyu' data-filename='Car.tonyu' data-lastupdate='1750734305404' >extends Actor3D;
+
+p=$pat_neko;
+//print(x,y,z);
+pad=new APad;
+scaleX=3;
+vz=0;
+vx=0;
+while(true){
+    moveBy{forward:vz,right:vx};
+    if (onRoad) {
+        //onRoad.alpha=rnd(256);
+        y+=((onRoad.y-100)-y)*0.1;
+        courceOut=abs(onRoad.x-x)-$rw*onRoad.scaleX/2;
+        if (courceOut>0) {
+            p=$pat_neko+8;
+            vz*=0.9;
+        } else {
+            p=$pat_neko;
+
+        }
+        if (courceOut>400) {
+            vx=vz=0;
+            while(abs(x-onRoad.x)>10) {
+                x+=sgn(onRoad.x-x)*10;
+                update();
+            }
+        }
+    }
+    //z-=pad.vy*5;
+    vx+=pad.vx*vz/10;
+    vx*=0.9;
+    vz+=-pad.vy;
+    //print(vx,vz);
+    vz*=0.97;
+    
+    update();
+}
+\roadDist(r){
+    return abs(r.z-z);
+}</script>
+
+<script language='text/tonyu' type='text/tonyu' data-filename='Main.tonyu' data-lastupdate='1750734277212' >
+
+/*x=$screenWidth/2;
+y=$screenHeight/2;
+p=$road;*/
+$car=null;
+for (let i=0;i<50;i++) {
+    r=new Road{x:0, y:300-sin(i*4)*100, z:i*50+100,
+        scaleX:2,id:i,
+    };
+    if (!$car) $car=new Car{x:r.x, y:r.y-200, z:r.z};
+}
+new RoadGen;
+back=new Actor3D{
+    width=$screenWidth*20,
+    height=$screenHeight*10,
+    x=$screenWidth/2,
+    fillStyle="green",
+};
+while(true) {
+    $camera3D.x=$car.x;
+    $camera3D.y=$car.y-200;
+    $camera3D.z=$car.z-400;
+    //moveBy{forward:10};   
+    y=1000;
+    maxr=null;
+    $car.onRoad=null;
+    for (let r of $mainLayer3D.all(Road)) {
+        let cd=$car.roadDist(r);
+        if (!$car.onRoad || cd<$car.roadDist($car.onRoad)) {
+            $car.onRoad=r;
+        }
+        let pt=rel2d(r);
+        if (pt && pt.y<y) {
+            maxr=r;
+            y=pt.y;    
+        }
+        if (!pt || pt.z<0) r.die();
+    }
+    for (let r of $mainLayer3D.all(Obs)) {
+        let pt=rel2d(r);
+        if (!pt || pt.z<0) r.die();
+    }
+    if (maxr) {
+        //print(maxr.id);//maxr.alpha=0;//255-maxr.alpha;
+        back.y=maxr.y+back.height/2-50;
+        back.x=maxr.x;
+        back.z=maxr.z;
+    } else {
+        print("No road!");
+    }
+    //pt=$mainLayer3D.world2screen(r);
+    update();
+}
+\rel2d(r) {
+    let pt3=$camera3D.transform.inverse.childToSibling(r);
+    let pt=$camera3D.to2D(pt3);
+    if (!pt) return pt;
+    //print(pt3.x, pt3.y, pt3.z, pt.x,pt.y);
+    pt.x+=$screenWidth/2;
+    pt.y+=$screenHeight/2;
+    return pt;
+}</script>
+
+<script language='text/tonyu' type='text/tonyu' data-filename='Obs.tonyu' data-lastupdate='1750733236141' >extends Actor3D;</script>
+
+<script language='text/tonyu' type='text/tonyu' data-filename='Road.tonyu' data-lastupdate='1750507131000' >extends Actor3D;
+p=$road;
+</script>
+
+<script language='text/tonyu' type='text/tonyu' data-filename='RoadGen.tonyu' data-lastupdate='1750733714259' >extends Actor3D;
+z=ofsz=2500;
+x=0;
+y=300;
+c=0;
+xc=0;
+yc=0;
+while(true) {
+    if ($camera3D.z>z-ofsz) {
+        r=new Road{x, y, z, scaleX:2,};
+        z+=50;
+        x+=sin(xc)*50;
+        y+=cos(yc)*10;
+        xc+=rnd()*5;
+        yc+=rnd()*3;
+        if (c%5==0) {
+            new Obs{x:x-700,y: y-100,z, p:$pat_mapchip+2,scaleX:4, scaleY:8};
+            new Obs{x:x+700,y:y-100,z, p:$pat_mapchip+2,scaleX:4, scaleY:8};
+        }
+        c++;
+    }
+    update();
+    
+}</script>
+
+<script language='text/tonyu' type='text/tonyu' data-filename='Setup.tonyu' data-lastupdate='1750732093017' >
+$rw=500;
+panel=new Panel;
+panel.resize($rw,50);
+panel.fillStyle="gray";
+panel.fillRect(0,0,panel.width,panel.height);
+//panel.fillStyle="gray";
+//panel.fillRect(panel.width/4,0,panel.width/2,panel.height);
+
+$road=panel.addPattern(0,0,panel.width,panel.height);
+
+
+loadPage(Main);</script>
+
+<script language='text/tonyu' type='text/tonyu' data-filename='res.json' data-lastupdate='1750734355587' >
+{
+    "images": [
+        {
+            "name": "$pat_base",
+            "url": "images/base.png",
+            "pwidth": 32,
+            "pheight": 32
+        },
+        {
+            "name": "$pat_sample",
+            "url": "images/Sample.png"
+        },
+        {
+            "name": "$pat_neko",
+            "url": "images/neko.png",
+            "pwidth": 32,
+            "pheight": 32,
+            "type": "wh"
+        },
+        {
+            "name": "$pat_mapchip",
+            "url": "images/mapchip.png",
+            "pwidth": 32,
+            "pheight": 32
+        }
+    ],
+    "sounds": []
+}</script>
+
+<script language='text/tonyu' type='text/tonyu' data-filename='options.json' data-lastupdate='1750734355660' >
+{
+    "compiler": {
+        "namespace": "user",
+        "defaultSuperClass": "kernel.Actor",
+        "dependingProjects": [
+            {
+                "namespace": "kernel"
+            }
+        ]
+    },
+    "run": {
+        "mainClass": "user.Setup",
+        "bootClass": "kernel.Boot",
+        "globals": {
+            "$defaultFPS": 60,
+            "$imageSmoothingDisabled": true,
+            "$soundLoadAndDecode": false
+        }
+    },
+    "plugins": {},
+    "kernelEditable": false,
+    "language": "tonyu",
+    "version": 1740040693405
+}</script>
+
+</head><body><div id='splash' style='position:relative; height: 100%;'>
+    <!--ここに，ロード中に表示する内容を記述できます。-->
+    <!--You can write here what you want to show while loading. -->
+    <div class='progress'>
+        <!-- ここにロード中の進捗が表示されます．表示したくない場合はこのdiv要素を削除してください。 -->
+        <!-- This shows progress. If you don't want to show, remove this element. -->
+    </div>
+    <div class='unsupported' style="display:none;">
+        <!-- ここに非対応ブラウザ向けメッセージが表示されます．表示したくない場合はこのdiv要素を削除してください。 -->
+        <!-- This shows message for unsupported browsers. If you don't want to show, remove this element. -->
+        <p>お使いのブラウザではこのプログラムは動作しません．他のブラウザをお試しください．</p>
+        <p>The program does not run in this browser. Try another browser.</p>
+    </div>
+</div>
+<!--
+Open this site when editing this game:
+https://edit.tonyu.jp/index.html?importFromHTML=1
+--></body></html>

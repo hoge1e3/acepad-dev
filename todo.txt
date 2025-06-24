@@ -1,4 +1,4 @@
-built in menu
+built in menu/recent pin
  newcmd
  flexsearch
  filetree
