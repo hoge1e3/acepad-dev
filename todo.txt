@@ -1,3 +1,11 @@
+built in menu/recent pin
+ newcmd
+ flexsearch
+ filetree
+ sketch
+ sync
+ bauth
+ todo.txt
 suggest in flexsearch
 hyper jump
 //todo by comment

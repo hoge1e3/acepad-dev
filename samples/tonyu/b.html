@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+<script data-filename='Main.tonyu' language='text/tonyu' type='text/tonyu' data-lastupdate='1750481076066' >
+$o=new Actor{x:200,y:200,p:12};
+$x=new Actor{x:400,y:200,p:14};
+$y=new Actor{x:200,y:0,p:16};
+$Screen.setBGColor("black");
+oxy={o:$o,x:$x,y:$y};
+$oxys=[oxy];
+for(let i=0;i<10;i++){
+  oxy={
+    o:new P{oxy,k:"o"},
+    x:new P{oxy,k:"x"},
+    y:new P{oxy,k:"y"},
+  };
+  $oxys.push(oxy);
+  updateEx(20);
+}
+oxy1=$oxys[1];
+while(true){
+  let c=0,s=0;
+  let ce=oxy1.o.position.add(
+    oxy1.x.position).add(
+      oxy1.y.position).div(3);
+  let a=0;
+  for(let e of all(P)){
+    a+=e.position.dist(ce);
+    
+    //if(!e.screenOut())c++;
+    s++;
+  }
+  //print(a,s,100/a/s);
+  //if(c==s){
+  $panel.context.globalAlpha=10/(a/s);
+  $panel.strokeStyle="red";
+  $panel.drawLine(
+    oxy1.o.x,oxy1.o.y,
+    oxy1.x.x,oxy1.x.y,
+    "white"
+  );
+  $panel.strokeStyle="lime";
+  $panel.drawLine(
+    oxy1.o.x,oxy1.o.y,
+    oxy1.y.x,oxy1.y.y,
+    "white"
+  );
+  $panel.strokeStyle="cyan";
+  $panel.drawLine(
+    oxy1.x.x,oxy1.x.y,
+    oxy1.y.x,oxy1.y.y,
+    "white"
+  );
+  //}
+  update();
+}
+
+</script>
+<script data-filename='P.tonyu' language='text/tonyu' type='text/tonyu' data-lastupdate='1750481076066' >
+let oxy;
+let k;
+scaleX=oxy[k].scaleX*0.8;
+p=oxy[k].p;
+fx=rnd();
+fy=rnd();
+vx=rndFloat(0.01,0.02);
+vy=rndFloat(0.01,0.02);
+while(true){
+  if(oxy===$oxys[0]){
+    fx+=vx;
+    fy+=vy;
+    if(fx<=-1||fx>=1) vx=-vx;
+    if(fy<=-1||fy>=1) vy=-vy;
+  }else{
+    fx=$oxys[1][k].fx;
+    fy=$oxys[1][k].fy;
+  }
+  let o=oxy.o.position;
+    position.set(
+    o.add(
+      oxy.x.position.sub(o).mul(fx)
+    ).add(
+      oxy.y.position.sub(o).mul(fy)
+    ));
+
+  update();
+}
+
+
+</script>
+
+<script language='text/tonyu' type='text/tonyu' data-filename='res.json' data-lastupdate='1750481082997' >
+{
+    "images": [
+        {
+            "name": "$pat_base",
+            "url": "images/base.png",
+            "pwidth": 32,
+            "pheight": 32
+        },
+        {
+            "name": "$pat_sample",
+            "url": "images/Sample.png"
+        },
+        {
+            "name": "$pat_neko",
+            "url": "images/neko.png",
+            "pwidth": 32,
+            "pheight": 32
+        },
+        {
+            "name": "$pat_mapchip",
+            "url": "images/mapchip.png",
+            "pwidth": 32,
+            "pheight": 32
+        }
+    ],
+    "sounds": []
+}</script>
+
+<script language='text/tonyu' type='text/tonyu' data-filename='options.json' data-lastupdate='1750481083046' >
+{
+    "compiler": {
+        "namespace": "user",
+        "defaultSuperClass": "kernel.Actor",
+        "dependingProjects": [
+            {
+                "namespace": "kernel"
+            }
+        ]
+    },
+    "run": {
+        "mainClass": "user.Main",
+        "bootClass": "kernel.Boot",
+        "globals": {
+            "$defaultFPS": 60,
+            "$imageSmoothingDisabled": true,
+            "$soundLoadAndDecode": false
+        }
+    },
+    "plugins": {},
+    "kernelEditable": false,
+    "language": "tonyu",
+    "version": 1740040693405
+}</script>
+
+</head>
+<body><div id='splash' style='position:relative; height: 100%;'>
+    <!--ここに，ロード中に表示する内容を記述できます。-->
+    <!--You can write here what you want to show while loading. -->
+    <div class='progress'>
+        <!-- ここにロード中の進捗が表示されます．表示したくない場合はこのdiv要素を削除してください。 -->
+        <!-- This shows progress. If you don't want to show, remove this element. -->
+    </div>
+    <div class='unsupported' style="display:none;">
+        <!-- ここに非対応ブラウザ向けメッセージが表示されます．表示したくない場合はこのdiv要素を削除してください。 -->
+        <!-- This shows message for unsupported browsers. If you don't want to show, remove this element. -->
+        <p>お使いのブラウザではこのプログラムは動作しません．他のブラウザをお試しください．</p>
+        <p>The program does not run in this browser. Try another browser.</p>
+    </div>
+</div>
+<script>
+WebSite={
+  runType:'singleHTML', 
+  useEditButton:false,
+  onCompileError(e){
+    alert(e.message);
+  },
+  onStart({Tonyu}){
+    Tonyu.onRuntimeError=(e)=>{
+      try{
+        parent.console.log("tonyu rte",e);
+        
+      }catch(ee){
+        alert(e.message);
+      }
+    };
+  }
+};</script>
+<link rel="stylesheet" href="https://edit.tonyu.jp//css/runtime.css"/>
+<script src="https://edit.tonyu.jp/images/base.png.js"></script>
+<script src="https://edit.tonyu.jp/images/Sample.png.js"></script>
+<script src="https://edit.tonyu.jp/images/neko.png.js"></script>
+<script src="https://edit.tonyu.jp/images/mapchip.png.js"></script>
+<script src="https://edit.tonyu.jp/js/lib/jquery-1.12.1.js" type="text/javascript"></script>
+<script src="https://edit.tonyu.jp/js/runtime/detectUnsupported.js"></script>
+<script src="https://edit.tonyu.jp/js/g2/runScript_concat.min.js" type="text/javascript"></script>
+
+<!--
+Open this site when editing this game:
+https://edit.tonyu.jp/index.html?importFromHTML=1
+--></body></html>
