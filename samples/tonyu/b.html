@@ -25,36 +25,54 @@ while(true){
       oxy1.y.position).div(3);
   let a=0;
   for(let e of all(P)){
-    a+=e.position.dist(ce);
-    
+    //a+=e.position.dist(ce);
+    a+=in3(e.position,
+    oxy1.x.position,
+    oxy1.y.position,
+    oxy1.o.position,
+    )?1:0;
     //if(!e.screenOut())c++;
     s++;
   }
   //print(a,s,100/a/s);
-  //if(c==s){
-  $panel.context.globalAlpha=10/(a/s);
-  $panel.strokeStyle="red";
-  $panel.drawLine(
-    oxy1.o.x,oxy1.o.y,
-    oxy1.x.x,oxy1.x.y,
-    "white"
-  );
-  $panel.strokeStyle="lime";
-  $panel.drawLine(
-    oxy1.o.x,oxy1.o.y,
-    oxy1.y.x,oxy1.y.y,
-    "white"
-  );
-  $panel.strokeStyle="cyan";
-  $panel.drawLine(
-    oxy1.x.x,oxy1.x.y,
-    oxy1.y.x,oxy1.y.y,
-    "white"
-  );
-  //}
+  //if(a>=s){
+    
+    $panel.context.globalAlpha=0.1*(a/s);
+    $panel.strokeStyle="red";
+    $panel.drawLine(
+      oxy1.o.x,oxy1.o.y,
+      oxy1.x.x,oxy1.x.y,
+      "white"
+    );
+    $panel.strokeStyle="lime";
+    $panel.drawLine(
+      oxy1.o.x,oxy1.o.y,
+      oxy1.y.x,oxy1.y.y,
+      "white"
+    );
+    $panel.strokeStyle="cyan";
+    $panel.drawLine(
+      oxy1.x.x,oxy1.x.y,
+      oxy1.y.x,oxy1.y.y,
+      "white"
+    );
+ // }
   update();
 }
+function in3(p, a, b, c){
+ function sign(p1, p2, p3) {
+  return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
+ }
 
+ let d1 = sign(p, a, b);
+ let d2 = sign(p, b, c);
+ let d3 = sign(p, c, a);
+
+ let has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+ let has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+ return !(has_neg && has_pos); // true if all same sign or zero
+}
 </script>
 <script data-filename='P.tonyu' language='text/tonyu' type='text/tonyu' data-lastupdate='1750481076066' >
 let oxy;
