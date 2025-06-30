@@ -6,6 +6,7 @@ built in menu/recent pin
  sync
  bauth
  todo.txt
+pixel editor
 suggest in flexsearch
 hyper jump
 //todo by comment

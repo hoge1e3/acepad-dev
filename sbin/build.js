@@ -1,4 +1,6 @@
 #!run
+import {file} from "@acepad/here";
+
 import * as pNode from "petit-node";
 //import {test}  from "./test.cjs";
 export async function main(){
@@ -51,7 +53,8 @@ export async function main(){
       const sa=rep.split(Re).map((s)=>
         s.startsWith(Di)?
           s.substring(Di.length)-0:s);
-      buf+=`es(${q(m.path)},${q(sa)});\n`;
+      const ts=file(m.path).lastUpdate();
+      buf+=`es(${q(m.path)},${ts},${q(sa)});\n`;
       console.log(m2id.get(m),m.path, sa);
     }
     //console.log(m2id.get(m),m);
@@ -83,8 +86,7 @@ function replaceAll(s,f, t) {
 function tmpl(){
 let ld=[];
 let a=pNode.loadedModules();
-function es(path,a){
-//             saveAs(new Blob([content], { type: "application/zip" }), dir.name().replace(/[\/\\]$/, "") + ".zip");
+function es(path,timestamp,a){
  const g=a.map((s)=>
   typeof s==="string"?s:ld[s].url
  ).join("");
