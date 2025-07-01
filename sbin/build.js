@@ -45,8 +45,6 @@ export async function main(){
       let rep=m.generatedCode;
       for(let d of m.dependencies){
         rep=replaceAll(rep,d.url,Re+Di+m2id.get(d)+Re);
-        
-        
       }
       rep=rep.replace(/\bimport\s*\.\s*meta\s*\.\s*url\b/g,
       q(m.path));
@@ -59,7 +57,7 @@ export async function main(){
     }
     //console.log(m2id.get(m),m);
   }
-  this.resolve("/quick.js").text(
+  this.getRoot().rel("quick.js").text(
   replaceAll((tmpl+""),"//insert",buf)+
   "tmpl();"
   );
@@ -67,35 +65,39 @@ export async function main(){
   //this.echo(buf);
   //console.log(test(50));
 }
-function replaceAll(s,f, t) {
-  
-    let result = '';
-    let i = 0;
-    while (true) {
-      const j = s.indexOf(f, i);
-      if (j === -1) {
-        result += s.slice(i);
-        break;
-      }
-      result += s.slice(i, j) + t;
-      i = j + f.length;
+function replaceAll(s,f, t) {  
+  let result = '';
+  let i = 0;
+  while (true) {
+    const j = s.indexOf(f, i);
+    if (j === -1) {
+      result += s.slice(i);
+      break;
     }
-    return result;
-
+    result += s.slice(i, j) + t;
+    i = j + f.length;
+  }
+  return result;
 }
 function tmpl(){
 let ld=[];
-let a=pNode.loadedModules();
+let aliases=pNode.loadedModules();
 function es(path,timestamp,a){
- const g=a.map((s)=>
-  typeof s==="string"?s:ld[s].url
- ).join("");
-  const b=new Blob([g],{type:"text/javascript"});
+  const dependencies=[];
+  const dep=(s)=>{
+    dependencies.push(ld[s]);
+    return ld[s].url;
+  };
+  const g=a.map((s)=>
+    typeof s==="string"?s:dep(s)
+  ).join("");
+  ld.push(pNode.addPrecompiledCJSModule(path, timestamp, g, dependencies));
+  /*const b=new Blob([g],{type:"text/javascript"});
   const url = URL.createObjectURL(b);
-  ld.push({url});
+  ld.push({url});*/
 }
 function b(path){
-  const url=a.getByPath(path).url;
+  const url=aliases.getByPath(path).url;
   ld.push({url});
 }
 //insert
