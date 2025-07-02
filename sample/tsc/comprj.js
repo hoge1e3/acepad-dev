@@ -2,7 +2,8 @@
 import {initTypescript} from "https://unpkg.com/petit-ts/dist/index.js";
 import {fs, path, process, require} from "https://unpkg.com/petit-fs/dist/index.js";
 import {compileFile,compileProject} from "./compile.js";
-import {PathUtil} from "@hoge1e3/fs";
+import {FS} from "petit-node";
+const PathUtil=FS.PathUtil;
 // Mount RAM disk on /tmp/
 fs.mountSync("/tmp/","ram");
 // Expand typescript lib files to /tmp/ts/

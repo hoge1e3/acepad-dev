@@ -1,5 +1,6 @@
 #!run
-import FS from "@hoge1e3/fs";
+import {FS} from "petit-node";
+//const PathUtil=FS.PathUtil;
 export async function main(name){
     let p;
     const asfile=(()=>{
