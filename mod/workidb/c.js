@@ -1,7 +1,7 @@
 #!run
 import * as worker from "@acepad/worker";
 import * as assert from "assert";
-import {wrap} from "@hoge1e3/splashscreen";
+import {wrap} from "@acepad/splashscreen";
 import pNode from "petit-node";
 import {KeyValueStore} from "./kvs.js";
 export async function main(){
