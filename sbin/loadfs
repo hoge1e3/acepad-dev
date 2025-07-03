@@ -1,6 +1,4 @@
 #!run
-import _n from "./NativeFS.js";
-import FS from "@hoge1e3/fs";
 export async function main(){
     const {fakeNodeEnvironment}=await import("https://unpkg.com/petit-fs@1.0.1/dist/index.js");
     fakeNodeEnvironment();
@@ -10,13 +8,14 @@ export async function main(){
     console.log(ts,fs,process);
     this.echo(ts.isNodeLikeSystem+"");
     return ;
-    const NativeFS=_n(fs);
+    /*const NativeFS=_n(fs);
     FS.mount("/n/",new NativeFS("/show/"));
     this.cat("/n/index.js");
     this.ls("/n/");
     this.echo(...fs.readdirSync("/jsmod/"));
     const c=fs.readFileSync("/jsmod/sbin/loadfs","utf-8");
-    //this.echo(c);
+    */
+   //this.echo(c);
 }
 function loadTypeScriptCompiler() {
   return new Promise((resolve, reject) => {
