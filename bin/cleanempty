@@ -1,0 +1,23 @@
+#!run
+
+export function main(dir=".") {
+    dir=this.resolve(dir);
+    if (isEmpty(dir)) {
+        this.echo(dir+" is empty");
+        this.rm(dir,{r:1});
+    } else {
+        for (let s of dir.listFiles()) {
+            if (isEmpty(s)) {
+                this.echo("cleanempty "+s);
+            }
+        }
+    }
+}
+function isEmpty(dir) {
+    if (!dir.isDir()) return false;
+    for (let f of dir.listFiles()) {
+        if (!f.isDir()) return false;
+        if (!isEmpty(f)) return false;
+    }
+    return true;
+}
