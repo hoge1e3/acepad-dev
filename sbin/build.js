@@ -4,31 +4,19 @@ import {file} from "@acepad/here";
 import * as pNode from "petit-node";
 //import {test}  from "./test.cjs";
 export async function main(){
-  const target="/jsmod/index2.js";
+  const target="/idb/jsmod/index2.js";
   const a=pNode.loadedModules();
   let mod=a.getByPath(target);
   console.log("pn",a.getByPath("petit-node"));
-  /*;
-  
-  for (let m of a) {
-    if (m.path===target) entry=m;
-      
-  }*/
   if (!mod) {
     throw new Error(`module for ${target} not found`);
   }
-  //console.log(entry);
-  /*for (const d of mod.dependencies) {
-    console.log(d.url, d.path);
-  }*/
   let mods=[];
   let m2id=new WeakMap();
   function getId(mod) {
     if(m2id.has(mod))return m2id.get(mod);
     for (const d of mod.dependencies) {
       getId(d);
-      
-      //console.log(d.url, d.path);
     }
     m2id.set(mod,mods.length);
     mods.push(mod);
@@ -61,9 +49,6 @@ export async function main(){
   replaceAll((tmpl+""),"//insert",buf)+
   "tmpl();"
   );
-  //(this.resolve("/quick.js").text());
-  //this.echo(buf);
-  //console.log(test(50));
 }
 function replaceAll(s,f, t) {  
   let result = '';
@@ -91,7 +76,7 @@ function es(path,timestamp,a){
   const g=a.map((s)=>
     typeof s==="string"?s:dep(s)
   ).join("");
-  ld.push(pNode.addPrecompiledCJSModule(path, timestamp, g, dependencies));
+  ld.push(pNode.addPrecompiledESModule(path, timestamp, g, dependencies));
   /*const b=new Blob([g],{type:"text/javascript"});
   const url = URL.createObjectURL(b);
   ld.push({url});*/
