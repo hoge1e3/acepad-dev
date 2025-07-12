@@ -18,6 +18,7 @@ export async function main(){
   const tr=(m)=>{
     const s=new Set();
     for(let d of m.dependencies){
+      if(!d.path.includes("node_modules/acepad/"))continue;
       for(let dd of tr(d))s.add(dd);
       s.add(d);
     }
@@ -30,6 +31,27 @@ export async function main(){
     [...tr(ns[i])].map(n).
     forEach(i=>s[i]=(i%10)+"");
     this.echo((i+"").padStart(2,"0"), s.join(""),ns[i].path);
+  }
+  const detatch=(p)=>{
+    const detatched=tr(p);
+    detatched.add(p);
+    //console.log("detatched",detatched);
+    const border=new Set();
+    for(let i=0;i<ns.length;i++){
+      if(detatched.has(ns[i]))continue;
+      for(let d of ns[i].dependencies){
+        if(detatched.has(d)){
+          border.add(d);
+          //this.echo(ns[i].path, d.path);
+        }
+      }
+    }
+    return [detatched,border];
+  };
+  for(let i=0;i<ns.length;i++){
+    const p=ns[i];
+    const [d,b]=detatch(p);
+    this.echo(p.path,d.size,b.size);
   }
   /*console.log([...a].filter(
     ({path})=>path.match(/main.js/)).
