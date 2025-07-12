@@ -57,3 +57,8 @@ export async function main(){
     ({path})=>path.match(/main.js/)).
     map(({path})=>path));*/
 }
+/*
+入れ物と中身を分ける
+例えば、コマンドを追加する処理の定義と具体的なコマンドは分ける
+設定を管理する部分とデフォルトの設定内容は分ける
+*/
