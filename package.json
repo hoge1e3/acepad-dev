@@ -1,5 +1,5 @@
 {
-    "main": "index2.js",
+    "main": "index.js",
     "type": "module",
     "dependencies": {
         "@acepad/os-jsm": "^1.0.0",

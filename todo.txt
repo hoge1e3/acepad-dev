@@ -1,3 +1,4 @@
+main exports objects 
 c2 a0 (UTF-8 NBSP) to 20 (and squash double cr)
 built in menu/recent pin
  newcmd

@@ -1,0 +1,4 @@
+#!run
+export function main(f){
+  this.webpage(f);  
+}
