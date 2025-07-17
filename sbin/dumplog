@@ -2,7 +2,7 @@
 
 export async function main(){
     this.cd("/log/");
-    let id=await this.sync("commit");
+    let id=await this.gsync();
     this.echo(id);
     let log=this.resolve("keyclick.json");
     this.echo("log size was",log.size());
