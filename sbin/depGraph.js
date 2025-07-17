@@ -1,5 +1,4 @@
 #!run
-
 import {show} from "@acepad/widget";
 import {t} from "@hoge1e3/dom";
 import {loadedModules,importModule} from "petit-node";

@@ -1,10 +1,11 @@
 //!run
 import {match} from "textmatcher";
 import {run} from "@acepad/find";
+import * as local from "ace-local-commands";
 export async function main(){
     let sh=this;
     let a=this.$acepad;
-    a.attachCommands({
+    local.addGlobalCommands(a.getMainEditor(),{
         find:{
             bindKey:"ctrl-f",
             exec(){
