@@ -11,7 +11,8 @@ export async function main(n) {
   // otherwise paths[0]
   let path = paths.find(p => _cwd.includes(p)) 
       || paths[0];
-  const tmpbin=this.resolve(this.$tmpbin||"/tmp/bin/");
+  const tmpbin=this.resolve(this.$tmpbin||
+    (this.$home?`${this.$home}/sbin/tmp/`:"/tmp/bin/"));
   //const tmpbin=tmp.rel("bin/");
   if(!tmpbin.exists()){
     tmpbin.mkdir();

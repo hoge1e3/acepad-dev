@@ -28,9 +28,7 @@ export async function main(){
             }
         }
         if(cmd){
-            //console.log("pwd",nsh.pwd());
             const ds=debugSession(nsh,cmd);
-            //acepad.changeSession(ds);//
             return ;
         }
     }
