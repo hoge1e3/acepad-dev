@@ -1,28 +1,28 @@
 #!run
-import {trial,debugSession} from "@acepad/debug";
+import {debugSession} from "@acepad/debug";
+import {sessionInfo} from "@acepad/sessions";
 
 export async function main(){
     const sh=this;
     const acepad=sh.$acepad;
-    const si=acepad.sessionInfo(
-        acepad.getMainEditor().session);
-    if(si.file){
+    const session=acepad.getMainEditor().session;
+    const {file, name}=sessionInfo(session);
+    if(file){
         const nsh=sh.clone();
-        nsh.cd(si.file.isDir()?
-            si.file:si.file.up());
-        let cmd=nsh.hasExecutableCommand(si.file);
+        nsh.cd(file.isDir()?file:file.up());
+        let cmd=nsh.hasExecutableCommand(file);
         if(!cmd){
-            for(let p=si.file.up();p;p=p.up()){
+            for(let p=file.up();p;p=p.up()){
                 const f=(p.rel(".runMenu"));
                 if(f.exists()){
                     nsh.cd(p);
-                    cmd=`./.runMenu ${si.file.path()}`;
+                    cmd=`./.runMenu ${file.path()}`;
                     break;
                 }
             }
         }
         if(!cmd){
-            const d=nsh["npm-find"](si.file);
+            const d=nsh["npm-find"](file);
             if(d){
                 cmd="npm-test";
             }
@@ -34,5 +34,5 @@ export async function main(){
             return ;
         }
     }
-    alert("No run command for "+si.name);
+    alert(`No run command for session '${name}'.`);
 }

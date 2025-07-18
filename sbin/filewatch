@@ -1,5 +1,7 @@
 //!run
 import {showWidget} from "@acepad/widget";
+import {current as curfile} from "@acepad/files";
+
 export async function main(o={}){
     let a=this.$acepad;
     setInterval(loop,1000);
@@ -8,26 +10,26 @@ export async function main(o={}){
     let fix;
     function loop(){
         let s=a.getCurrentEditor().session;
-        let si=a.sessionInfo(s);
-        if(!si.file)return ;
-        if(si.file.isDir())return ;
-        if(si.file.text()!==s.getValue()){
+        const file=curfile(sh);
+        if(!file)return ;
+        if(file.isDir())return ;
+        if(file.text()!==s.getValue()){
             al++;
-            if(!fix)fix=si.file.text();
-            else if(fix!==si.file.text()){
+            if(!fix)fix=file.text();
+            else if(fix!==file.text()){
                 al=0;
                 fix=null;
             }
             if(al==3){
                 if(!window.shown){
                     if(o.addLog)o.addLog(sh,{
-                        error:"not match "+si.file
+                        error:"not match "+file
                     });
-                    alert("<div>not match "+si.file+"</div>");
+                    alert("<div>not match "+file+"</div>");
                 }
                 window.shown=1;
             }
-            console.error("not match "+si.file   );
+            console.error("not match "+file   );
         }else {
             fix=null;
             al=0;
