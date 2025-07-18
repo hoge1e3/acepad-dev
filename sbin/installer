@@ -1,12 +1,13 @@
 //!run
 import {match} from "textmatcher";
+import {createSession} from "@acepad/sessions";
 export async function main(){
     const dst=this.resolve("/acepad/");
     
 }
 async function sel(options){
     let a=this.$acepad;
-    a.createSession({
+    createSession({
         commands:{
             return(e){
                 let line=a.currentLine();
