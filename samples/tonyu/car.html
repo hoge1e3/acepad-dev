@@ -1,24 +1,46 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-<script>WebSite={runType:'singleHTML', useEditButton:false};</script>
+<script>WebSite={runType:'singleHTML', 
+useEditButton:false};</script>
+<script>
+WebSite={
+  runType:'singleHTML', 
+  useEditButton:false,
+  onCompileError(e){
+    alert(e.message);
+  },
+  onStart({Tonyu}){
+    Tonyu.onRuntimeError=(e)=>{
+      try{
+        parent.console.log("tonyu rte",e);
+        
+      }catch(ee){
+        alert(e.message);
+      }
+    };
+  }
+};</script>
+
 <link rel="stylesheet" href="https://edit.tonyu.jp//css/runtime.css"/><script src="https://edit.tonyu.jp/images/base.png.js"></script>
 <script src="https://edit.tonyu.jp/images/Sample.png.js"></script>
 <script src="https://edit.tonyu.jp/images/neko.png.js"></script>
 <script src="https://edit.tonyu.jp/images/mapchip.png.js"></script>
 <script src="https://edit.tonyu.jp/js/lib/jquery-1.12.1.js" type="text/javascript"></script>
-<script src="https://edit.tonyu.jp/js/runtime/detectUnsupported.js"></script><script language='text/tonyu' type='text/tonyu' data-filename='Car.tonyu' data-lastupdate='1751162862935' >extends Actor3D;
+<script src="https://edit.tonyu.jp/js/runtime/detectUnsupported.js"></script>
+<script language='text/tonyu' type='text/tonyu' data-filename='Car.tonyu' data-lastupdate='1752829224000' >extends Actor3D;
 
+sz=40;
 p={
     draw:\(ctx) {
         ctx.save();
         ctx.fillStyle="white";
-        ctx.fillRect(-10,-10,20,20);
+        ctx.fillRect(-sz/2,-sz/2,sz,sz);
         ctx.fillStyle="green";
         ctx.lineWidth=1;
-        ctx.font="10px monospaced";
+        ctx.font=sz+"px monospaced";
         ctx.textBaseline="top";
-        ctx.fillText(t||"あ",0,0);
+        ctx.fillText(t||"あ",-sz/2,-sz/2);
         ctx.restore();
     }
 };
@@ -64,16 +86,32 @@ while(true){
             alpha=255;
         }
         if (enemy) {
-            pad.vy=-0.5;
+            pad.vy=-0.4;
             if (courceOut>-100 && courceOut<=0) pad.vy=0;
             if (onRoad.x+ofs>x) pad.vx=1;
             else pad.vx=-1;
+        } else {
+            let e=within(Car, 50);
+            if (e) {
+                vz=0;
+            }
+            if (onRoad.check) {
+                print(onRoad.check);
+                new Mesg{x:$screenWidth/2, y:100,
+                    size:25,text: (onRoad.check=="ng"?"不":"")+"正解!\n"+
+                onRoad.problem.replace(/[「『]/g,(n)=>"\n"+n)};
+                if (onRoad.check=="ok") {
+                  $time+=45;
+                  $score++;
+                }
+                onRoad.check=null;
+            }
         }
     }
     vx+=pad.vx*vz/10;
-    vz+=-pad.vy;
+    vz+=-pad.vy*1.2;
     vx*=0.9;
-    vz*=0.97;
+    vz*=0.98;
     update();
 }
 \roadDist(r){
@@ -90,11 +128,12 @@ while(true){
     }
 }</script>
 
-<script language='text/tonyu' type='text/tonyu' data-filename='Main.tonyu' data-lastupdate='1751163115759' >
+<script language='text/tonyu' type='text/tonyu' data-filename='Main.tonyu' data-lastupdate='1752825519000' >
 
 /*x=$screenWidth/2;
 y=$screenHeight/2;
 p=$road;*/
+$score=0;
 $car=null;
 for (let i=0;i<$roadn;i++) {
     r=new Road{x:0, y:300-sin(i*4)*100, z:i*$pitchz+100,
@@ -102,6 +141,8 @@ for (let i=0;i<$roadn;i++) {
     };
     if (!$car) $car=new Car{x:r.x, y:r.y-200, z:r.z};
 }
+$time=60;
+new Label{x:100,y:50,size:30, template:"Time $time"};
 /*for (let i=0;i<$problem.length;i++) {
     $enemy=new Car{x:$car.x, y:$car.y, z: $car.z+200+600*(i), enemy:true, t:$problem[i]};
 }*/
@@ -112,7 +153,7 @@ back=new Actor3D{
     x=$screenWidth/2,
     fillStyle="green",
 };
-while(true) {
+while($time>=0) {
     $camera3D.x=$car.x;
     $camera3D.y=$car.y-200;
     $camera3D.z=$car.z-400;
@@ -141,9 +182,34 @@ while(true) {
     } else {
         print("No road!");
     }
+    if ($frameCount%60==0) $time--;
     //pt=$mainLayer3D.world2screen(r);
     update();
 }
+new Label{x:$screenWidth/2, y:$screenHeight/2, size:30, text:"Game Over"};
+mesg=`Score=${$score}`;
+/*new Button{top:$screenHeight-150, text:"Hard",
+    onClick:\{$hard=1;
+    loadPage(Main);},fillStyle="orange",
+    key:"h",
+};*/
+new Button{top:$screenHeight-100, text:"Replay",
+    onClick:\{$hard=0;
+    loadPage(Main);},
+    key:"z",
+};
+btn=new Button{top:$screenHeight-200, text:"Share",
+    onClick:\{tweet();},
+    key:"s",
+};
+
+\tweet() {
+    btn.die();
+    //let mesg="";
+    $WebPage.openSharePost(`【${$title}】 ${mesg}`, $url, "ahoge,tonyu2");
+}
+
+
 \rel2d(r) {
     let pt3=$camera3D.transform.inverse.childToSibling(r);
     let pt=$camera3D.to2D(pt3);
@@ -154,7 +220,12 @@ while(true) {
     return pt;
 }</script>
 
-<script language='text/tonyu' type='text/tonyu' data-filename='Mus.tonyu' data-lastupdate='1751336442000' >/*
+<script language='text/tonyu' type='text/tonyu' data-filename='Mesg.tonyu' data-lastupdate='1752829169000' >extends Label;
+
+updateEx(300);
+die();</script>
+
+<script language='text/tonyu' type='text/tonyu' data-filename='Mus.tonyu' data-lastupdate='1751336442104' >/*
 1-2[l16]
 
 1[o4 l16
@@ -191,13 +262,13 @@ while(true) {
 
 */</script>
 
-<script language='text/tonyu' type='text/tonyu' data-filename='Obs.tonyu' data-lastupdate='1750733236000' >extends Actor3D;</script>
+<script language='text/tonyu' type='text/tonyu' data-filename='Obs.tonyu' data-lastupdate='1750733236141' >extends Actor3D;</script>
 
-<script language='text/tonyu' type='text/tonyu' data-filename='Road.tonyu' data-lastupdate='1750507131660' >extends Actor3D;
+<script language='text/tonyu' type='text/tonyu' data-filename='Road.tonyu' data-lastupdate='1750507131000' >extends Actor3D;
 p=$road;
 </script>
 
-<script language='text/tonyu' type='text/tonyu' data-filename='RoadGen.tonyu' data-lastupdate='1751250548898' >extends Actor3D;
+<script language='text/tonyu' type='text/tonyu' data-filename='RoadGen.tonyu' data-lastupdate='1752828678000' >extends Actor3D;
 z=ofsz=$pitchz*$roadn;
 x=0;
 y=300;
@@ -256,6 +327,8 @@ while(true) {
                     r.check="ok";
                     l.check="ng";
                 }
+                r.problem=l.problem=$problem+"\n→合うと"+($ans=="〇"?"る":"らん");
+                $setup.pickProblem();
                 genEnemies();
                 return;
             }
@@ -268,14 +341,15 @@ while(true) {
     for (let i=0;i<$problem.length;i++) {
         new Car{x, y, z: z+100+600*(i), enemy:true, t:$problem[i]};
     }
-}</script>
+}
+</script>
 
-<script language='text/tonyu' type='text/tonyu' data-filename='Setup.tonyu' data-lastupdate='1751093739223' >
+<script language='text/tonyu' type='text/tonyu' data-filename='Setup.tonyu' data-lastupdate='1752827335000' >
 $rw=500;
 $pitchz=100;
 $rh=50;
 $roadn=50;
-$sectionLen=20000;
+$sectionLen=60000;
 panel=new Panel;
 panel.resize($rw,$rh);
 panel.fillStyle="gray";
@@ -284,13 +358,110 @@ panel.fillRect(0,0,panel.width,panel.height);
 //panel.fillRect(panel.width/4,0,panel.width/2,panel.height);
 
 $road=panel.addPattern(0,0,panel.width,panel.height);
+$setup=this;
+//new Setup2;
+$title="Autoran";
+$url="https://www.tonyu.jp/project/viewProject.cgi?mainkey=970&";
 
-$problem="にほんでいちばんは〇である";
-$ans="〇";
+$problem="あほげーの会長はnecoaoである";
+$ans="×";
+themes=`ぬいぐるみ
+白黒
+船
+スナック
+ホテル
+ひまわり
+樽
+探偵
+体操
+56
+キラキラ
+デカ
+桜
+TWIN
+耳
+新聞
+キャンセル
+ドーナツ
+にわとり
+ピース
+サラダ
+ファッション
+X
+半分
+グリーン
+エレベーター
+いか
+ダイエット`.split("\n");
+pickProblem();
+loadPage(Main);
 
-loadPage(Main);</script>
+\pickProblem(){
+    let i=rnd(themes.length);
+    let j=(i+floor(themes.length/4)+rnd(floor(themes.length/2)))%themes.length;
+    let maeato="前後"[rnd(2)];
+    $problem=`あほげーのテーマ「${themes[i]}」は「${themes[j]}」より${maeato}に開催された。`;
+    if (i<j) {
+        // iは後
+        $ans=(maeato=="後"?"〇":"×");
+    } else{
+        $ans=(maeato=="前"?"〇":"×");
+    }
+}</script>
+<script language='text/tonyu' type='text/tonyu' data-filename='Setup2.tonyu' data-lastupdate='1752827335000' >
+$title="Autoran";
+$url="https://www.tonyu.jp/project/viewProject.cgi?mainkey=970&";
 
-<script language='text/tonyu' type='text/tonyu' data-filename='res.json' data-lastupdate='1752633306382' >
+$WebPage.openSharePost=\(mesg, url, tag, options){
+    options=options||{};
+    // l=sw/2-w/2
+    // w=sw-l*2
+    //  =sw-(sw/2-w/2)*2
+    //  =sw-sw+w=w
+    let left=(
+    options.left!=null ? options.left :
+    options.width!=null ? $screenWidth/2-options.width/2 :
+    50);
+    let width=(
+    options.width!=null ? options.width :
+    options.left!=null ? $screenWidth-options.left*2:
+    $screenWidth-100);
+    let top=(
+    options.top!=null ? options.top :
+    options.height!=null ? $screenHeight/2-options.height/2 
+    : 50);
+    let height=(
+    options.height!=null ? options.height :
+    options.top!=null ? $screenHeight-options.top*2:
+    $screenHeight-100);
+    let rows=options.rows||5;
+        
+    
+    if(typeof tag==="string")tag=tag.split(",");
+    let hashify=(s)=>s.replace(/^#?/,"#");
+    let m=`${mesg} ${url} ${tag.map(hashify).join(" ")}`;
+    let h=new HTMLUI{
+        content:["div",{
+            style:"background: white;"
+            //style:"position:relative; width: 500px; height: 300px"
+        },
+        ["textarea",{style: "width:100%;",rows, name:"mesg"},m],
+        ["div",
+        ["button",{style: "width:50%;",onclick:copy},"Copy"],
+        ["button",{style: "width:50%;",onclick:close},"Close"],
+        ]
+        ],
+        left,top,width,height,
+    };  
+    function copy() {
+        h.copyToClipboard("mesg");
+    }
+    function close(){
+        h.die();
+    }
+};
+</script>
+<script language='text/tonyu' type='text/tonyu' data-filename='res.json' data-lastupdate='1752829927488' >
 {
     "images": [
         {
@@ -320,7 +491,7 @@ loadPage(Main);</script>
     "sounds": []
 }</script>
 
-<script language='text/tonyu' type='text/tonyu' data-filename='options.json' data-lastupdate='1752633306432' >
+<script language='text/tonyu' type='text/tonyu' data-filename='options.json' data-lastupdate='1752829927660' >
 {
     "compiler": {
         "namespace": "user",
@@ -346,189 +517,10 @@ loadPage(Main);</script>
     "version": 1740040693405
 }</script>
 
-<script language='text/tonyu' type='text/tonyu' data-dataurl='true' data-filename='ahoge.xlsx' data-wrap='80' data-lastupdate='1751251784242' >data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,UE\
-sDBBQABgAIAAAAIQCeLGxvawEAABAFAAATAAgCW0NvbnRlbnRfVHlwZXNdLnhtbCCiBAIooAACAAAAAA\
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACslMFOwzAMhu9IvEOVK2qzcUAIrdthwBEmMR4gJO4aLU\
-2iOBvb2+NmY0KorELrpVEb+/+/uHYms11jsi0E1M6WbFyMWAZWOqXtqmTvy+f8nmUYhVXCOAsl2wOy2f\
-T6arLce8CMsi2WrI7RP3COsoZGYOE8WNqpXGhEpNew4l7ItVgBvx2N7rh0NoKNeWw12HTyCJXYmJg97e\
-jzgSSAQZbND4GtV8mE90ZLEYmUb6365ZIfHQrKTDFYa483hMF4p0O787fBMe+VShO0gmwhQnwRDWHwne\
-GfLqw/nFsX50U6KF1VaQnKyU1DFSjQBxAKa4DYmCKtRSO0/eY+45+CkadlPDBIe74k3MMR6X8DT8/LEZ\
-JMjyHGvQEcuuxJtM+5FgHUWww0GYMD/NTu4ZDCyHlNLTJwEU665/ypbxfBeaQJDvB/gO8RbbNzT0IQoo\
-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
+
+<script language='text/tonyu' type='text/tonyu' data-dataurl='true' data-filename='static/problems.csv' data-wrap='80' data-lastupdate='1752825793000' >data:application/octet-stream;base64,gqCC2YKwgVuCzJHmglCJ8YLMg2WBW4N9gs2BdYNBg4u\
+Db4Nng42DWIF2gsWCoILpCYFaDQqCoILZgrCBW4LMl/CR44LMg2WBW4N9gsWBdYNQgVuDTIF2gs2Rto3\
+dgreC6QmBfg0K
 </script>
 
 </head><body><div id='splash' style='position:relative; height: 100%;'>
@@ -545,8 +537,8 @@ AkAABkb2NQcm9wcy9hcHAueG1sUEsFBgAAAAALAAsAvgIAAMMnAAAAAA==
         <p>The program does not run in this browser. Try another browser.</p>
     </div>
 </div>
-<script src="https://edit.tonyu.jp/js/g2/runScript_concat.min.js" type="text/javascript"></script>
 
+<script src="https://edit.tonyu.jp/js/g2/runScript_concat.min.js" type="text/javascript"></script>
 <!--
 Open this site when editing this game:
 https://edit.tonyu.jp/index.html?importFromHTML=1

@@ -17,7 +17,7 @@ export async function main(){
   const tr=(m)=>{
     const s=new Set();
     for(let d of m.dependencies){
-      if(!d.path.includes("node_modules/acepad/"))continue;
+      //if(!d.path.includes("node_modules/acepad/"))continue;
       for(let dd of tr(d))s.add(dd);
       s.add(d);
     }
