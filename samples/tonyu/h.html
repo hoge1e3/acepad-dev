@@ -2,6 +2,24 @@
 <html><head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 <script>WebSite={runType:'singleHTML', useEditButton:false};</script>
+<script>
+WebSite={
+  runType:'singleHTML', 
+  useEditButton:false,
+  onCompileError(e){
+    alert(e.message);
+  },
+  onStart({Tonyu}){
+    Tonyu.onRuntimeError=(e)=>{
+      try{
+        parent.console.log("tonyu rte",e);
+        
+      }catch(ee){
+        alert(e.message);
+      }
+    };
+  }
+};</script>
 <link rel="stylesheet" href="https://edit.tonyu.jp//css/runtime.css"/><script src="https://edit.tonyu.jp/images/base.png.js"></script>
 <script src="https://edit.tonyu.jp/images/Sample.png.js"></script>
 <script src="https://edit.tonyu.jp/images/neko.png.js"></script>
@@ -9,11 +27,17 @@
 <script src="https://edit.tonyu.jp/js/lib/jquery-1.12.1.js" type="text/javascript"></script>
 <script src="https://edit.tonyu.jp/js/runtime/detectUnsupported.js"></script><script language='text/tonyu' type='text/tonyu' data-filename='Bullet.tonyu' data-lastupdate='1752831830415' >extends Actor3D;
 
-radius=100;
+if(enemy){
+  p=$pat_neko+45;
+  scaleX=5;
+}else{
 alpha=200;
+radius=100;
+
 fillStyle=enemy? "yellow":"white";
 scaleX=0.5;
 scaleY=1;
+}
 while(abs($camera3D.z+300-z)<1000) {
     position.addX(v);
     rotation+=10;
@@ -21,6 +45,9 @@ while(abs($camera3D.z+300-z)<1000) {
         let e=within(Enemy,150);
         if (e) {
             e.die();
+            $score++;
+            die();
+            
         }
     } else {
         if (within($car,150)) {
@@ -33,19 +60,6 @@ die();</script>
 
 <script language='text/tonyu' type='text/tonyu' data-filename='Car.tonyu' data-lastupdate='1752831227116' >extends Actor3D;
 
-/*p={
-    draw:\(ctx) {
-        ctx.save();
-        ctx.fillStyle="white";
-        ctx.fillRect(-10,-10,20,20);
-        ctx.fillStyle="green";
-        ctx.lineWidth=1;
-        ctx.font="10px monospaced";
-        ctx.textBaseline="top";
-        ctx.fillText(t||"あ",0,0);
-        ctx.restore();
-    }
-};*/
 p=$pat_neko+5;
 //print(x,y,z);
 if (!enemy) {
@@ -75,6 +89,10 @@ while(true){
         p=$pat_neko+8;
         let t=timeStop();
         vy=0;
+        for(let i=0;i<20;i++){
+          $camera3D.position.addX(0,0,i%2?-50:50);
+          updateEx(3);
+        }
         while(y<-200+$rg) {
             y+=vy;
             vy+=0.1;
@@ -82,6 +100,7 @@ while(true){
         }
         t.release();
         inv=120;
+        $time-=10;
         miss=0;
     }
     x+=pad.vx*10;
@@ -115,7 +134,7 @@ while(true){
 <script language='text/tonyu' type='text/tonyu' data-filename='Enemy.tonyu' data-lastupdate='1752831687504' >extends Actor3D;
 
 p=$pat_fridge;
-
+c=0;
 //a=new Vec3;
 for( let i=0;i<300;i++) {
     //print(floor(x),floor(y),floor(z));
@@ -124,9 +143,12 @@ for( let i=0;i<300;i++) {
     v.addX(a);
     position.addX(v);
     if (i>=150 && rnd(50)==0) {
+      p=$pat_fridge+1;
+      c=30;
         new Bullet{position: position.clone(),
-        v:new Vec3(0,0,-10),enemy:true};
+        v:new Vec3(0,0,-5),enemy:true};
     }
+    if(c>0)c--;else p=$pat_fridge;
     update();
 }
 while(true){
@@ -141,6 +163,8 @@ while(true){
 /*x=$screenWidth/2;
 y=$screenHeight/2;
 p=$road;*/
+$score=0;
+$time=90;
 $car=null;
 for (let i=0;i<$roadn;i++) {
     r=new Road{x:0, y:300-sin(i*4)*100, z:i*$pitchz+100,
@@ -162,7 +186,9 @@ back=new Actor3D{
 $sound.playBGM($se_main);
 dd=$camera3D.direction.clone();
 epat=2;
-while(true) {
+new Label{x:100,y:50,size:30,template:"Score $score Time $time"};
+while($time>=0) {
+  if($frameCount%60==0)$time--;
     //$camera3D.x=$car.x;
     //$camera3D.y=$car.y-200;
     $camera3D.z=$car.z-400;
@@ -219,6 +245,25 @@ while(true) {
     //pt=$mainLayer3D.world2screen(r);
     update();
 }
+
+new Label{x:$screenWidth/2, y:$screenHeight/2, size:30, text:"Game Over"};
+mesg=`Score=${$score}`;
+/*new Button{top:$screenHeight-150, text:"Hard",
+    onClick:\{$hard=1;
+    loadPage(Main);},fillStyle="orange",
+    key:"h",
+};*/
+$sound.stopBGM();
+new Button{top:$screenHeight-100, text:"Replay",
+    onClick:\{$hard=0;
+    loadPage(Main);},
+    key:"z",
+};
+btn=new Button{top:$screenHeight-200, text:"Share",
+    onClick:\{tweet();},
+    key:"s",
+};
+
 \rel2d(r) {
     let pt3=$camera3D.transform.inverse.childToSibling(r);
     let pt=$camera3D.to2D(pt3);
@@ -227,7 +272,15 @@ while(true) {
     pt.x+=$screenWidth/2;
     pt.y+=$screenHeight/2;
     return pt;
-}</script>
+}
+\tweet() {
+    btn.die();
+    //let mesg="";
+    $WebPage.openSharePost(`【${$title}】 ${mesg}`, $url, "ahoge,tonyu2");
+}
+
+
+</script>
 
 <script language='text/tonyu' type='text/tonyu' data-filename='Mus.tonyu' data-lastupdate='1751334599020' >/*
 https://www.tonyu.jp/MezonetJS/
