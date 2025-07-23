@@ -140,7 +140,7 @@ export async function main(){
 }
 async function addAll(index,d){
   for(let f of d.recursive({excludes(f){
-    return f.name()===".sync/"||f.name()===".git/";
+    return f.name()===".gsync/"||f.name()===".sync/"||f.name()===".git/";
   }})){
     //console.log("add",f.path());
     await add(index,f);
