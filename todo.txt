@@ -1,3 +1,5 @@
+build
+rename var
 main exports objects 
 c2 a0 (UTF-8 NBSP) to 20 (and squash double cr)
 built in menu/recent pin
@@ -8,13 +10,15 @@ built in menu/recent pin
  sync
  bauth
  todo.txt
+flex find with filename
+~ <-$home
 pixel editor
 suggest in flexsearch
 hyper jump
 //todo by comment
 autoexec.js
 singleton dialog
-separate widget zone and editor
+ok separate widget zone and editor
 extract selection to var
 file tree recents
 pnode package.json parse error
@@ -128,7 +132,6 @@ ok zureru after
 ok? ctrl+r
 ok ed
 
-ok find with filename
 
 ok cp/mv
 ok wildcard
