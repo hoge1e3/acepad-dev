@@ -2,8 +2,9 @@
 
 export async function main(){
 process.env.newkeypad=true;
-await this.sleep(3);
-//te
-process.env.newkeypad=false;
+//await tShifthis.sleep(10);
+//test Shift
+//Shift 
+//process.env.newkeypad=false;
 
 }

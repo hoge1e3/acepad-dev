@@ -10,7 +10,7 @@ built in menu/recent pin
  sync
  bauth
  todo.txt
-flex find with filename
+ok flex find with filename
 ~ <-$home
 pixel editor
 suggest in flexsearch
