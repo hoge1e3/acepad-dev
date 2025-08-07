@@ -1,0 +1,24 @@
+#!run
+import {FS} from "petit-node";
+import * as p from "path";
+export async function main(path="/idb/run/.gsync/objects/00/"){
+  for (let f of FS.getRootFS().fstab()) {
+    console.log(f);
+    if (path.startsWith(f.mountPoint)) {
+      const d=f.getDirInfo(path);
+        console.log("dinfo",d);
+      for (let i in d) {
+        const j=p.join(path,i);
+        if (!f.storage.itemExists(j)) {
+          this.echo(i, "is not exists. removed from entry");
+          delete d[i];
+        }
+      }
+      console.log("new dinfo",d);
+      f.putDirInfo(path, d, true);
+      //f.storage.setItem(path, JSON.stringify(d));
+      break;
+    }
+  }
+  
+}
