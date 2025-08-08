@@ -11,6 +11,7 @@ export async function main(){
     sh.set("path",sh.getenv("path")||"");
     //const s=await submenu();
     //console.log("submenu",s);
+    Error.stackTraceLimit = 100;
     let acepad=await ace.main.call(sh);
     if (process.env.ACEPAD_DEBUG) {
         if(sh.hasCmd("filewatch")) sh.filewatch({addLog});

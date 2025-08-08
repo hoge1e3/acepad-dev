@@ -1,21 +1,29 @@
 #!run
 import {FS} from "petit-node";
 import * as p from "path";
-export async function main(path="/idb/run/.gsync/objects/00/"){
+export async function main(path="."){
+  path=this.resolve(path).path();
   for (let f of FS.getRootFS().fstab()) {
     console.log(f);
     if (path.startsWith(f.mountPoint)) {
+      let sum=0,ng=0;
       const d=f.getDirInfo(path);
-        console.log("dinfo",d);
+      console.log("dinfo",d);
       for (let i in d) {
         const j=p.join(path,i);
-        if (!f.storage.itemExists(j)) {
+        const ex=f.storage.itemExists(j);
+        if (!ex) {
           this.echo(i, "is not exists. removed from entry");
           delete d[i];
+          ng++;
         }
+        sum++;
       }
-      console.log("new dinfo",d);
-      f.putDirInfo(path, d, true);
+      if (ng>0) {
+        console.log("new dinfo",d);
+        f.putDirInfo(path, d, true);
+      }
+      this.echo(sum," items scanned. ",ng, "items deleted");
       //f.storage.setItem(path, JSON.stringify(d));
       break;
     }
