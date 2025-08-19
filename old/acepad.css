@@ -49,16 +49,17 @@ body {
     right: 0;
     bottom: var(--keypad-height);
     left: 0;
+    overflow: scroll;
 }
 #editor-overlay { 
     position: absolute;
     top: 0;
     right: 0;
     bottom: var(--keypad-height);
-    left: 0;
+    left: 50%;
     z-index: 100000;
-    //background-color:cyan;
-    //opacity:50%;
+    background-color:cyan;
+    opacity:50%;
     pointer-events: none;
 }
 #editor-overlay * { 

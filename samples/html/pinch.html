@@ -1,0 +1,203 @@
+<!-- iframe.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Iframe - Custom Pinch Zoom</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    touch-action: none; /* ブラウザのデフォルトズームを無効化 */
+    background: #fff;
+  }
+  #content {
+    transform-origin: 0 0;
+    background: white;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+  }
+  .big-text {
+    font-size: 2em;
+    background: yellow;
+    padding: 0.5em;
+    margin-bottom: 1em;
+  }
+</style>
+</head>
+<body>
+<div id="content">
+  <h1>iframe内ピンチズーム（自前実装）</h1>
+  <div class="big-text">2本指でピンチイン／アウトしてみてください</div>
+  <p>
+    このズームは CSS transform を使った自前実装です。<br>
+    iOS Safari や Android でも安定して動きます。
+  </p>
+</div>
+
+<script>
+(function(){
+  const content = document.getElementById('content');
+  let transformer=content;
+  let scale = 1;
+  let lastDistance = null;
+
+  function getDistance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+/*
+  document.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      lastDistance = getDistance(e.touches);
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchmove', e => {
+    if (e.touches.length === 2 && lastDistance !== null) {
+      e.preventDefault();
+      const newDistance = getDistance(e.touches);
+      const delta = newDistance / lastDistance;
+      scale *= delta;
+      if (scale < 0.5) scale = 0.5;
+      if (scale > 3) scale = 3;
+      content.style.transform = `scale(${scale})`;
+      lastDistance = newDistance;
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchend', e => {
+    if (e.touches.length < 2) {
+      lastDistance = null;
+    }
+  });*/
+  document.addEventListener('touchstart',ontouchstart);
+  document.addEventListener('touchmove',ontouchmove);
+  document.addEventListener('touchend',ontouchend);
+  
+  
+  function offset(t){
+        const rect=vp.getBoundingClientRect();
+        const ofs=[rect.left,rect.top];
+        return sub([t.clientX,t.clientY],ofs);
+  }
+  function t2vp(t){
+    return [t.clientX,t.clientY];
+        return sub(offset(t),vpm);
+  }
+  let transform0,pinch0;
+  let transform={translate:[0,0],scale:1};
+  let tcount=0;
+  function ontouchstart(e){
+    tcount++;
+    console.log("ontouchstart",e);
+    const vp0=t2vp(e.touches[0]);
+    console.log("vp0",vp0);
+    if(e.touches.length>1){
+        const vp1=t2vp(e.touches[1]);
+        pinch0={
+            d:dist(vp1,vp0),
+            v:mid(vp1,vp0),
+        };
+        transform0=transform;
+        // pinch0.p = transform0^-1 * pinch0.v
+        pinch0.p=conv(pinch0.v,transform);
+        e.stopPropagation();
+        e.preventDefault();
+        return ;
+    }
+    e.stopPropagation();
+    e.preventDefault();
+        
+    //[px,py]=[x,y];
+  }
+  function ontouchmove(e){
+      const vp0=t2vp(e.touches[0]);
+      if(e.touches.length>1&&pinch0){
+          const vp1=t2vp(e.touches[1]);
+          const pinch={
+              d:dist(vp1,vp0),
+              v:mid(vp1,vp0)
+          };
+          const s0=transform0.scale;
+          const s=s0*pinch.d/pinch0.d;
+          const v=pinch.v;
+          const p=pinch0.p;
+          /*
+          pinch0.p = transform0^-1 * pinch0.v
+          pinch0.v = transform0 * pinch0.p
+
+          pinch.p = pinch0.p = transform0^-1 * pinch0.v
+                             = transform^-1 * pinch.v
+          pinch.v = transform * p   
+          v[0]    |s  0 T[0]|   p[0]
+          v[1] =  |0  s T[1]|   p[1]
+           1      |0  0  1  |    1
+          v[0]=s*p[0]+T[0]
+
+          T[0]=v[0]-s*p[0]
+          */
+          transform={
+              scale: s,
+              translate: [
+                  v[0]-s*p[0],
+                  v[1]-s*p[1],
+              ]
+          };
+          transformer.style.transform = trstr(transform);
+          e.stopPropagation();
+          e.preventDefault();
+          return;
+      }
+      if(pinch0)return ;
+      e.stopPropagation();
+      e.preventDefault();
+  }
+  function ontouchend(e){
+      tcount--;
+      console.log("tend",tcount,e.touches);
+      //ctx.endPath();
+      if(e.touches.length<=0){
+          if(!pinch0){
+          }
+          pinch0=null;
+          transform0=null;
+      }
+  }
+function trstr(transform){
+    const t=`translate(${transform.translate[0]}px,${transform.translate[1]}px)`;
+    const s=`scale(${transform.scale})`;
+    return t+" "+s;
+}
+function conv(p,t){
+    // returns t^-1 * p 
+    return mul(sub(p,t.translate),1/t.scale);
+}
+function mid(a,b){
+    return a.map((v,i)=>((v+b[i])/2));
+}
+function sub(a,b){
+    return a.map((v,i)=>(v-b[i]));
+}
+function add(a,b){
+    return a.map((v,i)=>(v+b[i]));
+}
+function mul(a,k){
+    return a.map(v=>v*k);
+}
+function dist(a,b){
+    const [x,y]=sub(a,b);
+    return Math.sqrt(x**2+y**2);
+}
+
+})();
+</script>
+<div style="height: 500px">test
+</div>
+</body>
+</html>

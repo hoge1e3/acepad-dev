@@ -1,9 +1,13 @@
 #!run
 import {showIframe} from "@acepad/widget";
-export function main(){
+export function main(file="index.html"){
     const ba=this.$ba;
     //this.echo(ba);
-    const file="index.html";
+    //const file="index.html";
+    if(file==="login"){
+      showIframe(ba);
+      return ;
+    }
     const url=`${ba}/a.php?r=jsl_edit&dir=${this.getcwd().path()}&autoexec=${file}`;
     this.echo(url);
     window.sendURL=(url)=>{
