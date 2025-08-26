@@ -29,7 +29,6 @@ export async function main(){
 async function submenu(){
   const b=globalThis.pNodeBootLoader;
   if (!b) return;
-  //console.log(b.prefetchScript);
   const s=b.getSelectedSubmenu();
   if (!s) return;
   return await s;
