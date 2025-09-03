@@ -1,19 +1,12 @@
 #!run
 
 export async function main(n) {
-  /*if (!n) {
-      throw new Error("cmd name");
-  }*/
   const paths = this.$path.split(":");
   const _cwd = this.getcwd().path();
   
-  // get a path from paths when it contains _cwd 
-  // otherwise paths[0]
-  let path = paths.find(p => _cwd.includes(p)) 
-      || paths[0];
+  let path = paths.find(p => _cwd.includes(p)) || paths[0];
   const tmpbin=this.resolve(this.$tmpbin||
     (this.$home?`${this.$home}/sbin/tmp/`:"/tmp/bin/"));
-  //const tmpbin=tmp.rel("bin/");
   if(!tmpbin.exists()){
     tmpbin.mkdir();
     const nd=this.resolve(this.$home).rel("node_modules/");
@@ -28,10 +21,10 @@ export async function main(n) {
       d.text(`#!run
 
 export async function main(){
-
+  return ;
 }`);
     }
-    this.edit(d);
+    this.edit(d,{row:4,column:9});
 }
 function clean(dir){
   let dur=86400*1000;
