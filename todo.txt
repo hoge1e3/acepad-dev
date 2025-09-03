@@ -1,4 +1,7 @@
-build
+ok? build
+ok flex add path
+ flexsearch -a
+file tree recents
 rename var
 main exports objects 
 c2 a0 (UTF-8 NBSP) to 20 (and squash double cr)
@@ -18,11 +21,10 @@ pixel editor
 suggest in flexsearch
 hyper jump
 //todo by comment
-autoexec.js
+? autoexec.js
 singleton dialog
 ok separate widget zone and editor
 extract selection to var
-file tree recents
 pnode package.json parse error
 
 reload keypad

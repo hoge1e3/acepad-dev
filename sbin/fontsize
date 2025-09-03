@@ -1,5 +1,7 @@
 #!run
 
 export async function main(sz=15){
-this.$acepad.getMainEditor().setFontSize(sz-0);
+  sz=sz-0;
+  if(sz<8)sz=8;
+  this.$acepad.getMainEditor().setFontSize(sz-0);
 }
