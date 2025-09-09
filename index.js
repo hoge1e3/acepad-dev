@@ -8,7 +8,9 @@ import {installBootMenu} from "@acepad/installer";
 export async function main(opt={}){
     sh.cd(sh.resolve(import.meta.url).up());
     sh.$home=sh.getcwd().path();
-    installBootMenu(sh,"home",sh.getcwd());
+    if (!sh.getcwd().path().startsWith("/tmp")){
+      installBootMenu(sh,"home",sh.getcwd(),{call:["main"]});
+    }
     dotenv.configUp(sh.resolve("./"));
     sh.set("path",sh.getenv("path")||"");
     //const s=await submenu();
