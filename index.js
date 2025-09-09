@@ -4,9 +4,11 @@ import {add as addLog} from "./logging.js";
 import * as dotenv from "@acepad/dotenv";
 import {main as sug} from "@acepad/suggest";
 import * as pNode from "petit-node";
-export async function main(){
+import {installBootMenu} from "@acepad/installer";
+export async function main(opt={}){
     sh.cd(sh.resolve(import.meta.url).up());
     sh.$home=sh.getcwd().path();
+    installBootMenu(sh,"home",sh.getcwd());
     dotenv.configUp(sh.resolve("./"));
     sh.set("path",sh.getenv("path")||"");
     //const s=await submenu();
@@ -25,6 +27,9 @@ export async function main(){
     sug.call(sh);
     setTimeout(()=>
     console.log("pNode.version",pNode.version),1500);
+    if(opt.cmd){
+      sh.exec(opt.cmd);
+    }
 }
 async function submenu(){
   const b=globalThis.pNodeBootLoader;
@@ -33,4 +38,12 @@ async function submenu(){
   if (!s) return;
   return await s;
 }
-main().then((s)=>0,(e)=>alert(e.stack));
+if(!globalThis.pNodeBootLoader?.version){
+  main().then((s)=>0,(e)=>alert(e.stack));
+}
+export function install(){
+  main({install:true});
+}
+export function test(x){
+  alert(x);
+}
