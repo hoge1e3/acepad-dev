@@ -1,6 +1,6 @@
 //!run
 import {debugSession} from "@acepad/debug";
-export async function main(){
-    let s=debugSession(this);
+export async function main(...cmd){
+    let s=debugSession(this,cmd);
     this.$acepad.getMainEditor().setSession(s);
 }
