@@ -1,3 +1,4 @@
+file list top sh: new: 
 ok? build
 ok flex add path
  flexsearch -a
