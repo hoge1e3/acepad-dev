@@ -1,13 +1,16 @@
-file list top sh: new: 
+gsync not ok on confli
+ok file list top sh: new: 
 ok? build
 ok flex add path
  flexsearch -a
 ok file tree recents
+ok font size config
 rename var
 restart filetree
 main exports objects 
 c2 a0 (UTF-8 NBSP) to 20 (and squash double cr)
-built in menu/recent pin
+pin command
+ok built in menu/recent
  newcmd
  flexsearch
  filetree
