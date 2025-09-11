@@ -1,5 +1,8 @@
 # Acepad
 
+## If you are reading this on github
+Go to [demo site](https://hoge1e3.github.io/)
+
 ## Recent File or Directory list
 - Press F1(function keys at right side of editor) to open the list
    - Automatically opens first when acepad is started. 
