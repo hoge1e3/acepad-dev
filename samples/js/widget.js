@@ -1,11 +1,30 @@
 #!run
-import {showWidget} from "@acepad/widget";
+import {refInput} from "@hoge1e3/ref-input";
+import {t} from "@hoge1e3/dom";
+import {ref} from "@hoge1e3/ref";
+import {show} from "@acepad/widget";
 export async function main(){
-    const w=showWidget();
-    const acepad=this.$acepad;
-    const editor=acepad.input();
-    console.log("edt",editor,editor.element);
-    w.element.appendChild(editor.container);
-    editor.session.setValue("aaaa");
-    this.echo("(press F1 to switch this session).");
-}
+  const w=show({overlay:true});    
+  const x=ref(3),y=ref(6);
+  function refresh(){
+    w.print(t.div({
+        id:"rtest",
+      },
+      refInput(x, t.input({id:"rinput-x"})),
+      "*2=",
+      refInput(y, t.input({id:"rinput-y"})),
+    ));
+  }
+  refresh();
+  x.on("change",({val})=>{
+    //console.log("x",x);
+    y.value=val*2;
+    refresh();
+  });
+  y.on("change",({val})=>{
+    //console.log("y",y);
+    x.value=val/2;
+    refresh();
+  });
+  
+}    
