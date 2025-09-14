@@ -1,10 +1,10 @@
 //!run
 import {showWidget,showIframe} from "@acepad/widget";
 import {open} from "@acepad/browser";
-export async function main(f){
+export async function main(f,opt={}){
     if(typeof f==="string" && f.match(/^https?:/)){
-        showIframe(f);
+        showIframe(f,opt);
     }else{
-        showIframe(this.resolve(f));
+        showIframe(this.resolve(f),opt);
     }
 }
