@@ -1,3 +1,4 @@
+jump to file flexsearch on filename match
 gsync not ok on confli
 ok file list top sh: new: 
 ok? build
