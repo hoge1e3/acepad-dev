@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
+<!--
+sh: webpage index.html -pNode 
+-->
 <head>
   <meta charset="UTF-8">
-  <title>ライフゲーム (OffscreenCanvas + Worker)</title>
+  <title>Game of Life (OffscreenCanvas + Worker)</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>ライフゲーム</h1>
   <canvas id="lifeCanvas" width="300" height="300"></canvas>
   <div class="controls">
-    <button id="startBtn">開始</button>
-    <button id="stopBtn">停止</button>
-    <button id="resetBtn">リセット</button>
+    <button id="startBtn">Start</button>
+    <button id="stopBtn">Stop</button>
+    <button id="resetBtn">Reset</button>
   </div>
   <script src="main.js" type="module"></script>
 </body>
