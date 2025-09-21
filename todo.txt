@@ -1,5 +1,7 @@
 jump to file flexsearch on filename match
 gsync not ok on confli
+object-path
+acepad instance finder
 ok file list top sh: new: 
 ok? build
 ok flex add path
