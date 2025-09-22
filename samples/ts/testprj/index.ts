@@ -10,7 +10,7 @@ import {bfunc} from "./lib/mylib.js";
 const bar = 21;
 
 function foo(d:HTMLElement):string {
-    //Uncomment this and try tsc again :-)
+    //Uncomment the next line and try tsc again :-)
     //d.getElementBy_oops_i_forgot("#test");
     return d.tagName;
 }
