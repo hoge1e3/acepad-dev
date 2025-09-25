@@ -1,65 +1,54 @@
-jump to file flexsearch on filename match
-gsync not ok on confli
-object-path
-acepad instance finder
-ok file list top sh: new: 
-ok? build
-ok flex add path
- flexsearch -a
-ok file tree recents
-ok font size config
+sort this
+extract selection to var
 rename var
-restart filetree
-main exports objects 
-c2 a0 (UTF-8 NBSP) to 20 (and squash double cr)
-pin command
-ok built in menu/recent
- newcmd
- flexsearch
- filetree
- sketch
- gsync
- bauth
- todo.txt
- settings
- npm-menu(new)
-ok flex find with filename
+
+pnode package.json parse error
+
+todo item as boot icons/apps
+ bookmark file pos
+
 ~ <-$home
+recent only 1 auto"select
+
+p5.js
+BS autorepeat bug
+samples
+sugeest in $home
+suggest known word only 
+
+reload keypad
+key layout
+key swipe
+key swap
+keypad resize
+
+ok pinch font size
+
 pixel editor
 suggest in flexsearch
 hyper jump
 //todo by comment
 ? autoexec.js
 singleton dialog
-ok separate widget zone and editor
-extract selection to var
-pnode package.json parse error
 
-reload keypad
-todo item as boot icons/apps
- bookmark file pos
-ok mv existent/ new/ 
- check sfile - it is spec of renameSync
-p5.js
-BS autorepeat bug
-samples
-ok? sessionF defaults samples
-sugeest in $home
-suggest known word only 
-key layout
-key swipe
-key swap
-state save
- ok recent files
-  hierchal with cmd
- ok list in sessions
- sh hist in sessions
- ok file pos save
 multiline shell exec
-config sh:
-ok override text editor with ace-editor
+
+restart filetree
+main exports objects 
+c2 a0 (UTF-8 NBSP) to 20 (and squash double cr)
+pin command
+
+fullbackup->recover
+tscserver
+ idb installer
+jump to file flexsearch on filename match
+gsync not ok on confli
+acepad instance finder
+
+? sessionF defaults samples
+?config sh:
+?widget on session list
 widget on keypad 
-widget on session list
 function key swipe
 npm for petit-node
  
@@ -77,14 +66,11 @@ console.error trace
 tonyu dev to publish
  dot pict
  smezonet
-keypad resize
 menu
  tree
  current/last
  ok? avoid edit text
  ok bubbling up
-n-gram worker
- build modules
 
 logging
 del session on file del
@@ -100,6 +86,41 @@ bookmark command
 ?F5 dir show bug
 
 -------------ok---------
+ok override text editor with ace-editor
+
+ok object-path
+ok file list top sh: new: 
+ok? build
+ok flex add path
+ ok flexsearch -a
+ok file tree recents
+ok font size config
+ok built in menu/recent
+ newcmd
+ flexsearch
+ filetree
+ sketch
+ gsync
+ bauth
+ todo.txt
+ settings
+ npm-menu(new)
+
+ok flex find with filename
+ok separate widget zone and editor
+ok mv existent/ new/ 
+ check sfile - it is spec of renameSync
+
+ok state save
+ ok recent files
+  hierchal with cmd
+ ok list in sessions
+ sh hist in sessions
+ ok file pos save
+
+ok n-gram worker
+ build modules
+
 ok find line no bug
 ok newcmd no arg bin/tmp
  ok clean at 1day
