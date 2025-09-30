@@ -1,0 +1,34 @@
+#!run
+import {getFS} from "petit-node";
+import {Counter} from "@hoge1e3/counter";
+
+export async function main(){
+  if(!this._e("/keylog")) {
+    await getFS().mountAsync("/keylog","idb",{
+      dbName: "keylog",
+      storeName: "kvStore"
+    });
+  }
+  //this.upload();
+  const h=this.resolve("/keylog/");
+  const f=h.rel("all-1.json");
+  const o=f.obj();
+  const keys=new Counter();
+  let p;
+  for(let e of o){
+    //console.log(e);break;
+    //text time;
+    if(!e.text)continue;
+    if(p==e.text)continue;
+    p=e.text;
+    const c=keys.add(e.text);
+    //if(c>100) return e.text;
+  }
+  const k=[...keys].length;
+  const a=o.length;
+  for(let [n,cc] of keys.ascend()){
+//    if(n.match(/[^\d\w]/)||cc>5000)this.echo(n,cc,cc/a*k);
+    if(n.match(/^.$/))this.echo(n,cc,cc/a*k);
+  //  if(cc>5000)break;
+  }
+}
