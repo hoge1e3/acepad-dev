@@ -18,7 +18,7 @@ export function*primes(){
   yield*found;
   let idx=1;
   found[0]=1;//sentinel
-    let p=found[found.length-1]+2;
+  let p=found[found.length-1]+2;
   while(true){
     while(found[idx]**2<=p)idx++;
     //found[idx]>sqrt p

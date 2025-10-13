@@ -8,7 +8,8 @@ todo item as boot icons/apps
  bookmark file pos
 
 ~ <-$home
-recent only 1 auto"select
+recent only 1-> auto select
+
 
 p5.js
 BS autorepeat bug
