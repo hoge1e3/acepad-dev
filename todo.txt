@@ -3,6 +3,7 @@ extract selection to var
 rename var
 
 pnode package.json parse error
+build pnode in pnode
 
 todo item as boot icons/apps
  bookmark file pos
@@ -26,6 +27,7 @@ keypad resize
 ok pinch font size
 
 pixel editor
+ ok command
 suggest in flexsearch
 hyper jump
 //todo by comment
