@@ -2,6 +2,8 @@ sort this
 extract selection to var
 rename var
 
+auto sync
+
 pnode package.json parse error
 build pnode in pnode
 
