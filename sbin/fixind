@@ -1,5 +1,7 @@
 #!run
-
+/*
+acepad-cmd -k=ctrl-q fixind fixind
+*/
 export async function main(){
   const e=this.$acepad.getCurrentEditor();
   e.setValue(convind(e.getValue()));
