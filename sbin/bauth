@@ -9,63 +9,63 @@ const ws=FS.getEnv("ws");
 import {modeMap} from "@acepad/files";
 import * as ed from "docker-terminal-editor";
 /*global $,URLSearchParams*/    
-export async function main(scriptFile,{n:noalert}={}){
-    const callback1=location.href+"?";
-    this.echo("callback1",callback1);
-    const callback2=ba+"/?Login/curStatus&callback="+encodeURI(callback1);
-    this.echo("callback2",callback2);
-    const u=ba+"/?Teacher/login&callback="+encodeURI(callback2);
-    const w=window.open(callback2);
-    const code=await gcode();
-    //await timeout(1000);
-    const u2=(w.location.href);
-    w.close();
-    this.echo(code.teacher);
+export async function main(scriptFile,
+  {n:noalert,h:headless}={}){
+  const callback1=location.href+"?";
+  this.echo("callback1",callback1);
+  const callback2=ba+"/?Login/curStatus&callback="+encodeURI(callback1);
+  this.echo("callback2",callback2);
+  const u=ba+"/?Teacher/login&callback="+encodeURI(callback2);
+  const w=window.open(callback2);
+  const code=await gcode();
+  //await timeout(1000);
+  const u2=(w.location.href);
+  w.close();
+  this.echo(code.teacher);
 
-    if(!code.teacher){
-        const w=window.open(ba+"/a.php");
-        this.echo("try again");   
-    }else{
-        let init="";
-        if(scriptFile){
-            scriptFile=this.resolve(scriptFile);
-            init="\n"+scriptFile.text();
-        }
-        const t=await term.create({
-            pass:JSON.stringify(code),
-            xterm,
-            ws,
-            acepad:this.$acepad,
-            init,
-            noalert,
-        });
-        console.log("ed",ed.initHandler+"");
-        ed.initHandler(t);
-        return t;
+  if(!code.teacher){
+    const w=window.open(ba+"/a.php");
+    this.echo("try again");   
+  }else{
+    let init="";
+    if(scriptFile){
+      scriptFile=this.resolve(scriptFile);
+      init="\n"+scriptFile.text();
     }
-    async function gcode(){
-        while(true){
-            await timeout(100);
-            const u=get();
-            //st.text(u);
-            console.log("gcode",u);
-            if(u.match(/code=/)){
-                break;
-            }
-        }
-        
-        const url = new URL(get());
-        const params1 = new URLSearchParams(url.search);
-        const code=JSON.parse(params1.get("code"));
-        return code;
+    const t=await term.create({
+      pass:JSON.stringify(code),
+      xterm,
+      ws,
+      acepad:this.$acepad,
+      init,
+      noalert,
+      headless,
+    });
+    console.log("ed",ed.initHandler+"");
+    if(!headless)ed.initHandler(t);
+    return t;
+  }
+  async function gcode(){
+    while(true){
+      await timeout(100);
+      const u=get();
+      //st.text(u);
+      console.log("gcode",u);
+      if(u.match(/code=/)){
+        break;
+      }
     }
-
-    function get(){
-        try{
-            return w.location.href;
-        }catch(e){
-            return "";
-        }
+    
+    const url = new URL(get());
+    const params1 = new URLSearchParams(url.search);
+    const code=JSON.parse(params1.get("code"));
+    return code;
+  }
+  function get(){
+    try{
+      return w.location.href;
+    }catch(e){
+      return "";
     }
-
+  }
 }

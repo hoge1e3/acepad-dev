@@ -1,0 +1,6 @@
+#!run
+
+export async function main(n) {
+  const d=this.which(n);
+  this.edit(d,{row:4,column:9});
+}

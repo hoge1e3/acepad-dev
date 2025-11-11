@@ -16,6 +16,7 @@ export async function main(){
   }
   let mods=[];
   let m2id=new WeakMap();
+  //id=number
   function getId(mod) {
     if(m2id.has(mod))return m2id.get(mod);
     for (const d of mod.dependencies) {
@@ -69,12 +70,8 @@ function es(path,timestamp,a){
     typeof s==="string"?s:dep(s)
   ).join("");
   ld.push(pNode.addPrecompiledESModule(path, timestamp, g, dependencies));
-  /*const b=new Blob([g],{type:"text/javascript"});
-  const url = URL.createObjectURL(b);
-  ld.push({url});*/
 }
 function b(path){
- // const url=.url;
   ld.push(aliases.getByPath(path));
 }
 //insert
@@ -94,4 +91,11 @@ function replaceAll(s,f, t) {
     i = j + f.length;
   }
   return result;
+}
+async function compile(path) {
+  const ent=pNode.resolveEntry(path);
+  const compiler=pNode.ESModuleCompiler.create();
+  const compiled=await compiler.compile(ent);
+  //let u=compiled.url;
+  return compiled;
 }
