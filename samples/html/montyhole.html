@@ -1,0 +1,235 @@
+<!doctype html>
+
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>モンティホール問題 シミュレーター</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#38bdf8;--muted:#94a3b8}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#031124 0%, #071021 60%);}
+    .wrap{max-width:980px;margin:28px auto;padding:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,.6)}
+    h1{margin:0 0 12px;font-size:20px}
+    .controls{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+    .btn{background:var(--accent);color:#04263a;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+    .btn.secondary{background:transparent;color:var(--accent);border:1px solid rgba(56,189,248,.15)}
+    .mode{color:var(--muted);margin-left:8px}
+    .board{display:flex;justify-content:space-between;margin-top:18px}
+    .box{width:30%;padding:14px;border-radius:12px;background:#07142a;text-align:center;position:relative;cursor:pointer;user-select:none;transition:transform .15s ease, box-shadow .12s ease}
+    .box:hover{transform:translateY(-6px)}
+    .box.locked{cursor:default}
+    .lid{height:90px;border-radius:8px;background:linear-gradient(180deg,#0c2340,#06203a);display:flex;align-items:center;justify-content:center;font-size:28px;color:#a9d8f3}
+    .content{margin-top:12px;font-size:14px;color:var(--muted)}
+    .open .lid{background:linear-gradient(180deg,#11323f,#0b2431);box-shadow:inset 0 -6px 20px rgba(0,0,0,.4)}
+    .prize{font-weight:700;color:#fff}
+    .stats{margin-top:16px;display:flex;gap:16px;color:var(--muted);flex-wrap:wrap}
+    .panel{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;min-width:160px}
+    .small{font-size:13px}
+    .simulate-controls{display:flex;gap:10px;align-items:center}
+    .fast{opacity:.9}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>モンティホール問題 シミュレーター</h1>
+    <div class="controls">
+      <button id="resetBtn" class="btn secondary">リセット</button>
+      <button id="playModeBtn" class="btn">プレイモード</button>
+      <button id="simModeBtn" class="btn secondary">シミュレーションモード</button>
+      <div class="mode" id="modeLabel">モード: プレイ</div>
+    </div><div id="playArea">
+  <div class="board" id="board">
+    <!-- boxes injected here -->
+  </div>
+  <div class="board" id="changeSel">
+    <button id="change">Change</button>
+    <button id="keep">Keep</button>
+  </div>
+
+  <div class="stats">
+    <div class="panel"><div class="small">選択中の箱: <span id="selectedLabel">なし</span></div></div>
+    <div class="panel"><div class="small">ホストが開けた箱: <span id="openedLabel">なし</span></div></div>
+    <div class="panel"><div class="small">プレイ結果: <span id="resultLabel">-</span></div></div>
+  </div>
+</div>
+
+<div id="simArea" style="display:none;margin-top:14px">
+  <div class="simulate-controls">
+    <label><input type="radio" name="simChoice" value="switch" checked> 箱を変更する</label>
+    <label><input type="radio" name="simChoice" value="stay"> 変更しない</label>
+    <button id="runSim" class="btn">100回 実行</button>
+    <div class="panel small">進行: <span id="simProgress">0 / 100</span></div>
+    <div class="panel small">勝ち数: <span id="simWins">0</span></div>
+  </div>
+</div>
+
+<footer>操作: 箱をクリック→司会者が外れ箱を開ける→「変更する」か「しない」ボタンで決定。シミュレーションは100回自動で実行します。</footer>
+
+  </div>  <script>
+    // シンプルなモンティホール実装
+    const boardEl = document.getElementById('board');
+    const selectedLabel = document.getElementById('selectedLabel');
+    const openedLabel = document.getElementById('openedLabel');
+    const resultLabel = document.getElementById('resultLabel');
+    const modeLabel = document.getElementById('modeLabel');
+    const playModeBtn = document.getElementById('playModeBtn');
+    const simModeBtn = document.getElementById('simModeBtn');
+    const playArea = document.getElementById('playArea');
+    const simArea = document.getElementById('simArea');
+
+    const resetBtn = document.getElementById('resetBtn');
+
+    let boxes = []; // {el, index, isPrize, isOpen, isSelected}
+    let prizeIndex = -1;
+    let stage = 'pick'; // pick -> hostOpened -> decision -> revealed
+
+    function createBoxes(){
+      boardEl.innerHTML = '';
+      boxes = [];
+      for(let i=0;i<3;i++){
+        const box = document.createElement('div');
+        box.className = 'box';
+        box.dataset.index = i;
+        box.innerHTML = `<div class="lid">Box ${i+1}</div><div class="content">?</div>`;
+        box.addEventListener('click', ()=>onBoxClick(i));
+        boxes.push({el:box,index:i,isPrize:false,isOpen:false,isSelected:false});
+        boardEl.appendChild(box);
+      }
+    }
+
+    function startNewPlay(){
+      stage='pick';
+      prizeIndex = Math.floor(Math.random()*3);
+      boxes.forEach(b=>{b.isPrize = (b.index===prizeIndex);b.isOpen=false;b.isSelected=false; b.el.classList.remove('open','locked'); b.el.querySelector('.content').textContent='?';});
+      selectedLabel.textContent='なし';
+      openedLabel.textContent='なし';
+      resultLabel.textContent='-';
+    }
+
+    function onBoxClick(i){
+      if(stage!=='pick') return;
+      boxes.forEach(b=>{b.isSelected=false; b.el.classList.remove('locked')});
+      const b = boxes[i];
+      b.isSelected = true; b.el.classList.add('locked');
+      selectedLabel.textContent = `Box ${i+1}`;
+      // host opens a wrong box that is neither the selected nor the prize
+      setTimeout(()=>hostOpen(i), 350);
+    }
+
+    function hostOpen(playerChoice){
+      // choose a box to open: not player's choice and not prize
+      const candidates = boxes.filter(b=>b.index!==playerChoice && !b.isPrize);
+      const toOpen = candidates[Math.floor(Math.random()*candidates.length)];
+      toOpen.isOpen = true; toOpen.el.classList.add('open');
+      toOpen.el.querySelector('.content').textContent = 'ヤギ';
+      openedLabel.textContent = `Box ${toOpen.index+1}`;
+      stage='hostOpened';
+      // show decision buttons
+      showDecisionUI(playerChoice, toOpen.index);
+    }
+
+    function showDecisionUI(playerChoice, openedIdx){
+      // create simple confirm UI near the footer using window.confirm for simplicity
+      //const change = confirm('箱を変更しますか？（OK = 変更する, キャンセル = 変更しない）');
+      const cb=document.querySelector("#change");
+      cb.addEventListener("click",()=>{
+        finalizeDecision(playerChoice, openedIdx, true);
+      },{once:true});
+      const kb=document.querySelector("#keep");
+      kb.addEventListener("click",()=>{
+        finalizeDecision(playerChoice, openedIdx, false);
+      },{once:true});
+    }
+
+    function finalizeDecision(playerChoice, openedIdx, change){
+      let finalChoice = playerChoice;
+      if(change){
+        // switch to the other unopened box
+        const other = boxes.find(b=>b.index!==playerChoice && b.index!==openedIdx);
+        finalChoice = other.index;
+      }
+      // reveal
+      reveal(finalChoice);
+    }
+
+    function reveal(finalChoice){
+      boxes.forEach(b=>{
+        if(!b.isOpen){
+          b.isOpen = true; b.el.classList.add('open');
+          b.el.querySelector('.content').textContent = b.isPrize ? '車' : 'ヤギ';
+        }
+      });
+      const win = boxes.find(b=>b.index===finalChoice).isPrize;
+      resultLabel.textContent = win ? '当たり！（車）' : 'はずれ（ヤギ）';
+      stage='revealed';
+    }
+
+    // --- Simulation mode ---
+    const runSimBtn = document.getElementById('runSim');
+    const simProgress = document.getElementById('simProgress');
+    const simWins = document.getElementById('simWins');
+
+    runSimBtn.addEventListener('click', ()=>{
+      const choice = document.querySelector('input[name=simChoice]:checked').value; // 'switch' or 'stay'
+      runSimulation(choice, 100);
+    });
+
+    function runSimulation(mode, trials){
+      runSimBtn.disabled = true;
+      let wins = 0;
+      let i = 0;
+      simProgress.textContent = `0 / ${trials}`;
+      simWins.textContent = '0';
+
+      // animate quickly: iterate with small delay so user sees progress
+      function step(){
+        if(i>=trials){
+          runSimBtn.disabled = false; return;
+        }
+        // single trial
+        const prize = Math.floor(Math.random()*3);
+        const player = Math.floor(Math.random()*3);
+        // host opens one non-prize and not player's
+        const candidates = [0,1,2].filter(x=>x!==player && x!==prize);
+        const opened = candidates[Math.floor(Math.random()*candidates.length)];
+        let final = player;
+        if(mode==='switch'){
+          final = [0,1,2].find(x=>x!==player && x!==opened);
+        }
+        if(final===prize) wins++;
+        i++;
+        // update UI quickly but not every iteration to avoid slowdowns
+        if(i%1===0){ // show every step
+          simProgress.textContent = `${i} / ${trials}`;
+          simWins.textContent = `${wins}`;
+        }
+        // small timeout for animation effect (fast)
+        setTimeout(step, 8);
+      }
+      step();
+    }
+
+    // --- mode switching and reset ---
+    playModeBtn.addEventListener('click', ()=>{setMode('play')});
+    simModeBtn.addEventListener('click', ()=>{setMode('sim')});
+    resetBtn.addEventListener('click', ()=>{startNewPlay();});
+
+    function setMode(m){
+      if(m==='play'){
+        playArea.style.display='block'; simArea.style.display='none';
+        modeLabel.textContent='モード: プレイ';
+        playModeBtn.classList.add('btn'); simModeBtn.classList.remove('btn');
+        playModeBtn.classList.remove('secondary'); simModeBtn.classList.add('secondary');
+      } else {
+        playArea.style.display='none'; simArea.style.display='block';
+        modeLabel.textContent='モード: シミュレーション';
+        playModeBtn.classList.remove('btn'); simModeBtn.classList.add('btn');
+        playModeBtn.classList.add('secondary'); simModeBtn.classList.remove('secondary');
+      }
+    }
+
+    // init
+    createBoxes(); startNewPlay();
+  </script></body>
+</html>

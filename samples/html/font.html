@@ -1,0 +1,131 @@
+<body>
+  
+  Pixel font test
+</body>
+<script src="https://cdn.jsdelivr.net/npm/opentype.js@latest/dist/opentype.js"></script>
+<script>
+(async () => {
+
+  // ===== ピクセルパターン定義 =====
+  const glyphs = {
+    'A': [
+      "001000",
+      "010100",
+      "100010",
+      "111110",
+      "100010",
+      "100010",
+      "100010",
+      "000000",
+    ],
+    'B': [
+      "111100",
+      "100010",
+      "100010",
+      "111100",
+      "100010",
+      "100010",
+      "111100",
+      "000000",
+    ],
+    'C': [
+      "011100",
+      "100010",
+      "100000",
+      "100000",
+      "100000",
+      "100010",
+      "011100",
+      "000000",
+    ]
+
+  };
+
+  const PIXEL_SIZE = 50;   // 1ドットの大きさ
+  const EM_SIZE = 1000;    // フォントのunitsPerEm
+  const GLYPH_MARGIN = 50; // 文字の左右余白
+  const ASCENT = 800, DESCENT = 200;
+
+  // ===== ピクセル配列 → opentype.jsパス生成 =====
+  function makeGlyphPath(bitmap) {
+    const path = new opentype.Path();
+    const rows = bitmap.length;
+    const cols = bitmap[0].length;
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        if (bitmap[y][x] === '1') {
+          const x0 = x * PIXEL_SIZE;
+          const y0 = (rows - 1 - y) * PIXEL_SIZE;
+          const x1 = x0 + PIXEL_SIZE;
+          const y1 = y0 + PIXEL_SIZE;
+          path.moveTo(x0, y0);
+          path.lineTo(x1, y0);
+          path.lineTo(x1, y1);
+          path.lineTo(x0, y1);
+          path.closePath();
+        }
+      }
+    }
+    return { path, advanceWidth: cols * PIXEL_SIZE + GLYPH_MARGIN };
+  }
+const notdefGlyph = new opentype.Glyph({
+    name: '.notdef',
+    advanceWidth: 650,
+    path: new opentype.Path()
+});
+  // ===== フォントオブジェクトを構築 =====
+  const glyphs2=[notdefGlyph];
+
+  for (const [char, bitmap] of Object.entries(glyphs)) {
+    const { path, advanceWidth } = makeGlyphPath(bitmap);
+    const glyph = new opentype.Glyph({
+      name: char,
+      unicode: char.charCodeAt(0),
+      advanceWidth,
+      path
+    });
+    console.log(char, glyph);
+    glyphs2.push(glyph);
+  }
+  const font = new opentype.Font({
+    familyName: 'PixelFontJS',
+    styleName: 'Regular',
+    unitsPerEm: EM_SIZE,
+    ascender: ASCENT,
+    descender: -DESCENT,
+    glyphs:glyphs2
+  });
+
+
+  // ===== フォントをバイナリ化 → Blob URL生成 =====
+  const fontData = font.toArrayBuffer();
+  const blob = new Blob([fontData], { type: 'font/ttf' });
+  const blobURL = URL.createObjectURL(blob);
+
+  // ===== @font-faceを登録 =====
+  const fontName = 'PixelFontJS';
+  const style = document.createElement('style');
+  style.textContent = `
+    @font-face {
+      font-family: '${fontName}';
+      src: url('${blobURL}') format('truetype');
+    }
+    .pixel-text {
+      font-family: '${fontName}';
+      font-size: 48px;
+      image-rendering: pixelated;
+      -webkit-font-smoothing: none;
+      font-smooth: never;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ===== ページに表示 =====
+  const div = document.createElement('div');
+  div.className = 'pixel-text';
+  div.textContent = 'ABABCAB';
+  document.body.appendChild(div);
+
+  console.log("✅ PixelFontJS loaded!", blobURL);
+})();
+</script>

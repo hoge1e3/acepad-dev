@@ -1,16 +1,20 @@
 #!run
 export async function main(){
   let c=2;
+  let pp;
   for(let p of primes()){
+    if(p-pp==2){
+    this.echo(pp,p);
     await this.sleep(0.1);
-    this.echo(p);
-    if(!check(p))throw new Error(p+" is not prime");
+    }
+    pp=p;
+    /*if(!check(p))throw new Error(p+" is not prime");
     while(c<p){
       if(check(c))throw new Error(c+" is prime");
       this.echo("!",c);
       c++;
     }
-    c=p+1;
+    c=p+1;*/
   }
 }
 export function*primes(){
@@ -18,7 +22,7 @@ export function*primes(){
   yield*found;
   let idx=1;
   found[0]=1;//sentinel
-    let p=found[found.length-1]+2;
+  let p=found[found.length-1]+2;
   while(true){
     while(found[idx]**2<=p)idx++;
     //found[idx]>sqrt p
