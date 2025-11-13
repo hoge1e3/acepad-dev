@@ -1,11 +1,14 @@
 01234567012345670123456701234567
 ok bauth headless
-lazy mount
+ok lazy mount
+ fstab
 compile pnode and build
-replace
+interactive replace
 oops file<path<root
-indent snap
+ok? indent snap
 argpatser
+gsync message/date 
+gsync push to .git
 
 ok editcmd
 sort this
