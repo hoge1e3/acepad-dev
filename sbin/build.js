@@ -102,7 +102,7 @@ function replaceAll(s,f, t) {
   return result;
 }
 async function compile(path) {
-  const ent=pNode.resolveEntry(path);
+  const ent=pNode.resolveEntry("ES", path);
   const compiler=pNode.ESModuleCompiler.create();
   const compiled=await compiler.compile(ent);
   //let u=compiled.url;
