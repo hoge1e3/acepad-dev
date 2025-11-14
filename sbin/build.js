@@ -11,12 +11,12 @@ export async function main(dst="built.js"){
   return build(target,dst);
 }
 export async function build(target,dst){
-  try{
+  //try{
   const a=pNode.loadedModules();
   let mod=await compile(target);
-  }catch(e){
+  /*}catch(e){
     console.error(e.original)
-  }
+  }*/
   console.log("pn",a.getByPath("petit-node"));
   if (!mod) {
     throw new Error(`module for ${target} not found`);
