@@ -3,19 +3,27 @@ import {file} from "@acepad/here";
 
 import * as pNode from "petit-node";
 //import {test}  from "./test.cjs";
-export async function main(){
-  const home=this.resolve(this.$home);
+export async function main(dst="built.js"){
+  dst=this.resolve(dst);
+  const home=this.resolve(".");
   const mp=home.rel("package.json").obj().main;
-  
   const target=home.rel(mp).path();
+  return build(target,dst);
+}
+export async function build(target,dst){
+  //try{
   const a=pNode.loadedModules();
-  let mod=a.getByPath(target);
+  let mod=await compile(target);
+  /*}catch(e){
+    console.error(e.original)
+  }*/
   console.log("pn",a.getByPath("petit-node"));
   if (!mod) {
     throw new Error(`module for ${target} not found`);
   }
   let mods=[];
   let m2id=new WeakMap();
+  //id=number
   function getId(mod) {
     if(m2id.has(mod))return m2id.get(mod);
     for (const d of mod.dependencies) {
@@ -36,7 +44,8 @@ export async function main(){
     }else{
       let rep=m.generatedCode;
       for(let d of m.dependencies){
-        rep=replaceAll(rep,d.url,Re+Di+m2id.get(d)+Re);
+        rep=replaceAll(rep,d.url,
+          Re+Di+m2id.get(d)+Re);
       }
       /*rep=rep.replace(/\bimport\s*\.\s*meta\s*\.\s*url\b/g,
       q(m.path));*/
@@ -49,9 +58,10 @@ export async function main(){
     }
     //console.log(m2id.get(m),m);
   }
-  this.getRoot().rel("quick.js").text(
-  replaceAll((tmpl+""),"//insert",buf)+
-  "tmpl();"
+  dst.text(
+    replaceAll((tmpl+""),
+    "//insert",buf)+
+    "tmpl();"
   );
 }
 function tmpl(){
@@ -69,12 +79,8 @@ function es(path,timestamp,a){
     typeof s==="string"?s:dep(s)
   ).join("");
   ld.push(pNode.addPrecompiledESModule(path, timestamp, g, dependencies));
-  /*const b=new Blob([g],{type:"text/javascript"});
-  const url = URL.createObjectURL(b);
-  ld.push({url});*/
 }
 function b(path){
- // const url=.url;
   ld.push(aliases.getByPath(path));
 }
 //insert
@@ -94,4 +100,11 @@ function replaceAll(s,f, t) {
     i = j + f.length;
   }
   return result;
+}
+async function compile(path) {
+  const ent=pNode.resolveEntry("ES", path);
+  const compiler=pNode.ESModuleCompiler.create();
+  const compiled=await compiler.compile(ent);
+  //let u=compiled.url;
+  return compiled;
 }

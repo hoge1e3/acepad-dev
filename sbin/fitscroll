@@ -1,34 +1,48 @@
 #!run
 
-export async function main(acepad){
+export async function main(){
   const G=40;
   const r=acepad.editor.renderer;
   let x=r.getScrollLeft(),y=r.getScrollTop();
   const c=r.container;
-  let touching=false;
+  let touching;
   c.addEventListener("touchstart",()=>{
+    //x=r.getScrollLeft();
     y=r.getScrollTop();
     touching=performance.now();
+    console.log("st");
   });
   c.addEventListener("touchend",()=>{
     const elepsed=performance.now()-touching;
     touching=false;
     let _x=r.getScrollLeft(),_y=r.getScrollTop();
-    if (elepsed>300) {
-      x=_x;
+    if (elepsed>300 
+      /*Math.abs(x-_x)>G/2*/) {
+      x+=(_x-x)*1;//(Math.round(_x/G)*G);//aaaaaaaa
     }    
+    //console.log("end");
   });
   setInterval(()=>{
     if (!touching){
       let _x=r.getScrollLeft(),_y=r.getScrollTop();
       r.scrollToX(
       x*0.1+_x*0.9);//
-      if (x>100) {
-        r.setShowGutter(false);
-      } else {
-        r.setShowGutter(true);
-      }
     }
   },10);
- 
+  return ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
