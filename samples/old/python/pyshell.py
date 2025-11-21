@@ -1,0 +1,14 @@
+
+def main dir -d=999999:
+  scan $dir $d
+def scan dir depth:
+  if == $depth 0:
+    return 0
+  s=0
+  for file in $dir:
+    if -d $file:
+      s+=scan $file +(depth-1)
+    else:
+      t=-s $file
+      s+=$t  
+  s

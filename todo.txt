@@ -1,8 +1,8 @@
 01234567012345670123456701234567
-ok bauth headless
-ok lazy mount
- ok fstab
 reset fstab
+same fstab on worker
+rootfs fstab sort
+full restore
 ram disk+worker <-> browser
 compile pnode and build
 interactive replace
@@ -107,6 +107,9 @@ bookmark command
 ?F5 dir show bug
 
 -------------ok---------
+ok bauth headless
+ok lazy mount
+ ok fstab
 ok override text editor with ace-editor
 
 ok object-path

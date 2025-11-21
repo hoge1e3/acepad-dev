@@ -1,11 +1,13 @@
+#!run
 import * as menu from "@acepad/menu";
 import * as assert from "assert";
-export async function main(){
+export async function main(f){
   const m=menu.Menu(
     this.$acepad.getMainEditor());
-  const m1=m.add("12345",()=>{
-    const e=this.$acepad.getMainEditor();
-    m1.text(m1.text()-1);
+  const m1=m.add("value",()=>{
+     //m1.text();
     
   });
+  setInterval(()=>
+  m1.text(f()),16);
 }    
