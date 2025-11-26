@@ -1,0 +1,7 @@
+#!run
+import {Menu} from "@acepad/menu"
+
+export async function main(d){
+  let menu=Menu(this.$acepad.getMainEditor());
+  
+}

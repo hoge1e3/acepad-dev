@@ -1,8 +1,11 @@
 01234567012345670123456701234567
 reset fstab
 same fstab on worker
-rootfs fstab sort
+ok rootfs fstab sort
+ abolish rootfs resolvefs
 full restore
+export addurl pnode
+ to get cjs url
 ram disk+worker <-> browser
 compile pnode and build
 interactive replace

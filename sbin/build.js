@@ -44,6 +44,10 @@ export async function build(target,dst){
     }else{
       let rep=m.generatedCode;
       for(let d of m.dependencies){
+        if(!d.url){
+          console.log(d);
+          throw new Error(`${d.path}(from ${m.path}) no url`);
+        }
         rep=replaceAll(rep,d.url,
           Re+Di+m2id.get(d)+Re);
       }
