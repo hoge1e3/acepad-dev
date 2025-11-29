@@ -16,17 +16,13 @@ import MutablePromise from "mutable-promise";
  */
 export function init(home) {
     /**
-     * @param {string} path 
+     * @param {string} relPath 
      * @returns {SFile}
      */
-    function resolve(path) {
-        path=path.replace(/\\/g,"/");
+    function resolve(relPath) {
+        relPath=relPath.replace(/\\/g,"/");
         //console.log("resolving",path,path.startsWith("/"));
-        if (path.startsWith("/")) {
-            return home.clone(path);
-        } else {
-            return home.rel(path);
-        }
+        return home.rel(relPath);
     }
     const mp=new MutablePromise();
     const ws = new WebSocket("ws://localhost:8080");
@@ -46,23 +42,24 @@ export function init(home) {
     ws.addEventListener("message", e => {
         const _data = JSON.parse(e.data);
         if (_data.type === "update") {
-            const { path, info } = _data;
-            const cur = readFile(path);
+            const { path: relPath, info } = _data;
+            const cur = readFile(relPath);
             if (!cur || info.mtime > cur.mtime) {
-                writeFile(path, info, true);
-                log("updated from server: " + path);
+                writeFile(relPath, info, true);
+                log("updated from server: " + relPath);
             }
         } else if (_data.type === "delete") {
-            const { path } = _data;
-            deleteFile(path, true);
-            log("deleted from server: " + path);
+            const { path:relPath } = _data;
+            deleteFile(relPath, true);
+            log("deleted from server: " + relPath);
         }
     });
     startWatch();
     mp.resolve(void 0);
     function startWatch(){
         home.watch((type, file)=>{
-            const path=file.path();//relPath(home);
+            const fullPath=file.path();//relPath(home);
+            const relPath=file.relPath(home);
             //console.log(type,path, home.path(), file.path());
             if (file.isDir()) return;
             setTimeout(()=>{
@@ -70,17 +67,17 @@ export function init(home) {
                     if (file.exists()) {
                         ws.send(JSON.stringify({
                             type: "update",
-                            path,
-                            info: readFile(path),
+                            path: relPath,
+                            info: readFile(relPath),
                         }));
                     } else {
-                        if (path.match(/\b\.gsync\b/)) {
-                            alert("Suspicious file deletion! "+path);
+                        if (relPath.match(/\b\.gsync\b/)) {
+                            alert("Suspicious file deletion! "+fullPath);
                             return;
                         }
                         ws.send(JSON.stringify({
                             type: "delete",
-                            path
+                            path: relPath
                         }));
                     }
                 }catch(e) {
@@ -92,29 +89,29 @@ export function init(home) {
 
     /**
      * 
-     * @param {string} path 
+     * @param {string} relPath 
      * @returns 
      */
-    function readFile(path) {
-        const f=resolve(path);
+    function readFile(relPath) {
+        const f=resolve(relPath);
         return f.exists() ? {mtime: f.lastUpdate(), content:f.dataURL()} : null ;// files[path] || null;
     }
     /**
      * 
-     * @param {string} path 
+     * @param {string} relPath 
      * @param {WSFileInfo} info 
      * @param {boolean} nosend 
      * @returns 
      */
-    function writeFile(path, info, nosend) {
-        const f=resolve(path);
+    function writeFile(relPath, info, nosend) {
+        const f=resolve(relPath);
         //console.log("path-info",path, info);
         f.dataURL(info.content);
         //files[path] = info;
         if (nosend) return;
         ws.send(JSON.stringify({
             type: "update",
-            path,
+            path: relPath,
             info
         }));
     }
