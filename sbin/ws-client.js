@@ -1,3 +1,4 @@
+#!run
 //@ts-check
 /** 
  * @typedef { import("./types.ts").SFile } SFile
@@ -9,6 +10,9 @@
  */
 
 import MutablePromise from "mutable-promise";
+export function main(){
+    init(this.resolve("/idb/pnode-ws"));
+}
 /**
  * 
  * @param {SFile} home 
