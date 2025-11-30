@@ -1,10 +1,10 @@
 01234567012345670123456701234567
-reset fstab
+ok reset fstab
 same fstab on worker
 ok rootfs fstab sort
  abolish rootfs resolvefs
-full restore
-export addurl pnode
+ok full restore
+X export addurl pnode
  to get cjs url
 ram disk+worker <-> browser
 compile pnode and build
@@ -13,7 +13,7 @@ ok file<path<root
 session on same file name
 ok? indent snap
 argparser
-gsync message/date 
+gsync message
 gsync push to .git
 
 ok editcmd
