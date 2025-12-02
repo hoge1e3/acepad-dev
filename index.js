@@ -23,7 +23,12 @@ export async function main(opt={}){
     if (process.env.ACEPAD_LOGGING) {
         acepad.events.on("keyclick",({b})=>{
             if(acepad.getCurrentEditor().nolog)return ;
-            addLog(sh,{text:b.innerText});
+            //console.log(b.classList.contains("guide"));
+            addLog(sh,{
+              text:b.innerText,
+              ...(b.classList.contains("guide")?
+                {guide:true}:{})
+            });
         });
     }
     sug.call(sh);
