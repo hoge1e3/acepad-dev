@@ -1,4 +1,7 @@
 01234567012345670123456701234567
+gsync
+ lock
+ name/key from ENVVAR/localStorage
 ok reset fstab
 same fstab on worker
 ok rootfs fstab sort
