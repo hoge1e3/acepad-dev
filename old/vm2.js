@@ -1,42 +1,65 @@
-
-const builtins={
-  self(){
-    const f=this.frame;
-    const s=f.stack;
-    s.push(this);
-  }
-
-};
+//self never contain functions
 export class Thread{
-  newFrame(closure,args=[]){
-    this.frame={
-      parent:this.frame,
-      stack:args.slice(),
+  self(self){
+    const f=self.frame;
+    const s=f.stack;
+    s.push(self);
+  }
+  get(self,{n}){
+    const s=self.frame.stack;
+    n=n||s.pop(self);
+    const o=s.pop(self);
+    s.push(o[n]);
+  }
+  set(self,{n,v}){
+    const s=self.frame.stack;
+    n=n||s.pop(self);
+    v=v||s.pop(self);
+    const o=s.pop(self);
+    s.push(o[n]=v);
+  }
+  enter(self,inst){
+    let {
+      closure,stack,
+    }=inst;
+    stack=stack||[];
+    self.frame={
+      parent:self.frame,
+      stack:(stack).slice(),
       code:closure.code,
       pc:0,
       bind:{
-        args,
         __parent:closure.bind,
       },
     };
   }
-  step(){
-    const f=this.frame;
+  step(self){
+    const f=self.frame;
     const c=f.code[f.pc++];
     if(!c){
-      this.frame=
-      this.frame.parent;
+      this.exit(self);
       return ;
     }
-    this.proc(c);
+    this.proc(self,c);
   }
-  proc(code){
+  exit(self){
+    self.frame=
+    self.frame.parent;
+  }
+  proc(self,inst){
     const op=
-      typeof code==="string"?
-        code:code.op;
-    const f=builtins[op];
-    if(f)return f.call(this, code);
-    const c=this[op];
-    if(c)this.newFrame(c,[code]);
+      typeof inst==="string"?
+        inst:inst.op;
+    const f=this[op];
+    if(f)return f.call(this, inst);
+    const closure=self[op];
+    if(closure){
+      this.enter(self,{
+        ...inst,
+        closure,
+      });
+      return ;
+    }
+    this.enter(self,inst);
   }
 }
