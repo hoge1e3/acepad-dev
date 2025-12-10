@@ -1,4 +1,7 @@
 01234567012345670123456701234567
+gsync
+ lock
+ name/key from ENVVAR/localStorage
 ok reset fstab
 same fstab on worker
 ok rootfs fstab sort
@@ -7,7 +10,9 @@ ok full restore
 X export addurl pnode
  to get cjs url
 ram disk+worker <-> browser
-compile pnode and build
+build pnode in pnode
+ compile pnode and build
+ run webpack
 interactive replace
 ok file<path<root
 session on same file name
@@ -24,7 +29,6 @@ rename var
 auto sync
 
 pnode package.json parse error
-build pnode in pnode
 
 todo item as boot icons/apps
  bookmark file pos
