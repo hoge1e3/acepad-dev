@@ -1,9 +1,13 @@
 01234567012345670123456701234567
 gsync
- lock
- name/key from ENVVAR/localStorage
-ok reset fstab
+  gsync message
+  gsync push to .git
+  lock
+  name/key from ENVVAR/localStorage
+  do not follow symlinks
+  open git config at '\config': not found (os error 2)
 same fstab on worker
+ok reset fstab
 ok rootfs fstab sort
  abolish rootfs resolvefs
 ok full restore
@@ -18,8 +22,6 @@ ok file<path<root
 session on same file name
 ok? indent snap
 argparser
-gsync message
-gsync push to .git
 
 ok editcmd
 sort this

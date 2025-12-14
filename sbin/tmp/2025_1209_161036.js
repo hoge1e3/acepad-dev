@@ -1,11 +1,12 @@
 #!run
+import hoge from "./hoge.cjs";
 
 export async function main(){
-  const base="/idb/pnode-ws";
+  //const base="/idb/pnode-ws";
   /*const webpack = pNode.require(
     "webpack",base);*/
   for (let [p,v] of pNode.loadedModules().byPath) {
-    if (p.match(/webpack.*index.js/) ){
+    if (p.match(/hoge.cjs/) ){
       loop(v,{});
     }
   } 
