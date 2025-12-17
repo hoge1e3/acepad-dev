@@ -1,10 +1,10 @@
 01234567012345670123456701234567
 gsync
+  name/key from ENVVAR/localStorage
   gsync message
   gsync push to .git
   lock
-  name/key from ENVVAR/localStorage
-  do not follow symlinks
+  ok do not follow symlinks
   open git config at '\config': not found (os error 2)
 same fstab on worker
 ok reset fstab
@@ -16,7 +16,7 @@ X export addurl pnode
 ram disk+worker <-> browser
 build pnode in pnode
  compile pnode and build
- run webpack
+ ok run webpack
 interactive replace
 ok file<path<root
 session on same file name
