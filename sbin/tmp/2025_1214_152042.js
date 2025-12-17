@@ -16,13 +16,17 @@ export async function main(){
 
 export async function main2(){
   const blob = new Blob(
-    ["/*alert('Hello from Blob!');*/ export default 123;"],
+    ["alert('Hello from Blob!'); export default 123;"],
     { type: "text/javascript" }
   );
+
+  // SW スコープ内である必要がある
+  const virtualPath = "virtual/blob.js";
+  
   navigator.serviceWorker.ready.then(reg => {
     reg.active.postMessage({
       type: "REGISTER_BLOB",
-      url: "http://localhost:3000/pnode-bootkit/virtual/blob.js",
+      path: virtualPath,
       blob
     });
   });
