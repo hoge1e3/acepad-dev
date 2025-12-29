@@ -1,5 +1,5 @@
 #!run
-alert("hoge");
+
 export async function main(){
-  return ;
+  return ""+process.env.PNODE_URL;
 }

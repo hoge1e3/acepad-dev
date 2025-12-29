@@ -1,5 +1,6 @@
 #!run
-alert("hoge");
+import {
 export async function main(){
+  
   return ;
 }
