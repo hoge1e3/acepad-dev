@@ -31,7 +31,7 @@ export async function main(opt={}){
             });
         });
     }
-    sug.call(sh);
+    //sug.call(sh);
     setTimeout(()=>
     console.log("pNode.version",pNode.version),1500);
     if(opt.cmd){
