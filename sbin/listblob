@@ -1,0 +1,26 @@
+#!run
+
+export async function main(){
+  return await new Promise(async(resolve)=>{
+    const w= navigator.serviceWorker;
+    const reg= await w.ready;
+    const s=reg.active;
+    const h=({data})=>{
+      if(data.type!="response")return ;
+      if(data.for!="list_blob")return ;
+      
+      console.log("urls",
+      resolve(
+        data.urls.filter(
+        (u)=>u.includes("/gen/"))));
+      w.removeEventListener(
+        "message",h);
+    };
+    w.addEventListener(
+      "message",h);
+    s.postMessage({
+      type:"list_blob"
+    });
+      
+  });
+}
