@@ -53,9 +53,9 @@ export function init(home) {
                 log("updated from server: " + relPath);
             }
         } else if (_data.type === "delete") {
-            const { path:relPath } = _data;
+            /*const { path:relPath } = _data;
             deleteFile(relPath, true);
-            log("deleted from server: " + relPath);
+            log("deleted from server: " + relPath);*/
         }
     });
     startWatch();
@@ -75,14 +75,14 @@ export function init(home) {
                             info: readFile(relPath),
                         }));
                     } else {
-                        if (relPath.match(/\b\.gsync\b/)) {
+                        /*if (relPath.match(/\b\.gsync\b/)) {
                             alert("Suspicious file deletion! "+fullPath);
                             return;
                         }
                         ws.send(JSON.stringify({
                             type: "delete",
                             path: relPath
-                        }));
+                        }));*/
                     }
                 }catch(e) {
                     alert(e);
@@ -90,7 +90,7 @@ export function init(home) {
             },100);
         });
     }
-
+//
     /**
      * 
      * @param {string} relPath 
