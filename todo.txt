@@ -6,6 +6,9 @@ gsync
   lock
   ok do not follow symlinks
   open git config at '\config': not found (os error 2)
+autogutt
+  ok to cmd
+  function key opaque
 same fstab on worker
 ok reset fstab
 ok rootfs fstab sort

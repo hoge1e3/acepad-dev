@@ -1,0 +1,14 @@
+#!run
+
+export async function main(){
+  /* css is set for body:
+  body {
+    touch-action: none;
+    --keypad-height: 45%;
+    --keypad-width: 40%;
+  }
+  change variable --keypad-height into 10%
+  */
+  document.body.style.setProperty('--keypad-height', '10%');
+  return ;
+}

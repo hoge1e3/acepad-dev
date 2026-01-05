@@ -2,7 +2,6 @@ import {sh} from "@acepad/os-jsm";
 import * as ace from "@acepad/with-fs";
 import {add as addLog} from "./logging.js";
 import * as dotenv from "@acepad/dotenv";
-import {main as sug} from "@acepad/suggest";
 import * as pNode from "petit-node";
 import {installBootMenu} from "@acepad/installer";
 export async function main(opt={}){
@@ -31,11 +30,14 @@ export async function main(opt={}){
             });
         });
     }
-    sug.call(sh);
+    //sug.call(sh);
     setTimeout(()=>
     console.log("pNode.version",pNode.version),1500);
     if(opt.cmd){
       sh.exec(opt.cmd);
+    }
+    if (process.env.GSYNC_RUN_ON_BOOT) {
+      sh.gsync("newer");     
     }
 }
 async function submenu(){
