@@ -1,0 +1,6 @@
+#!run
+
+export async function main(off){
+  return location.href=
+  off?"index.html":"index-sw.html";
+}
