@@ -1,5 +1,6 @@
 01234567012345670123456701234567
 gsync
+  re-download with object timestamp
   name/key from ENVVAR/localStorage
   gsync message
   gsync push to .git
