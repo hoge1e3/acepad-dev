@@ -1,15 +1,31 @@
 #!run
 
-export function main(dir=".") {
-    dir=this.resolve(dir);
+export function main(...a) {
+  let dir;
+  if (typeof a[0]==="string"){
+    dir=this.resolve(a.shift());
+  } else {
+    dir=this.resolve(".");
+  }  
+  let options=a.shift()||{};
     if (isEmpty(dir)) {
-        this.echo(dir+" is empty");
+        this.echo(dir+" is removed");
         this.rm(dir,{r:1});
     } else {
-        for (let s of dir.listFiles()) {
-            if (isEmpty(s)) {
-                this.echo("cleanempty "+s);
-            }
+        traverse.call(this,dir, options);
+    }
+}
+function traverse(dir,options) {
+    for (let s of dir.listFiles()) {
+        if (isEmpty(s)) {
+          if (options.f) {
+            this.echo(s+" is removed");
+            this.rm(s,{r:1});
+          }else{
+            this.echo("cleanempty "+s);
+          }
+        } else if(options.r && s.isDir()) {
+          traverse.call(this,s,options);
         }
     }
 }

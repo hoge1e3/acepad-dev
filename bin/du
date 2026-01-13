@@ -9,6 +9,7 @@ export async function main(...args){
     function loop(dir,depth){
         let s=0;
         for(let f of dir.listFiles()){
+          if (f.isLink()) continue;
             if(f.isDir())s+=loop(f,depth-1);
             else s+=f.size();
         }
