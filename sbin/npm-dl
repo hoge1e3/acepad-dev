@@ -1,0 +1,81 @@
+#!run
+import {promises as fs} from 'fs';
+import * as path from 'path';
+import { createWriteStream } from 'fs';
+import { pipeline } from 'stream/promises';
+import * as zlib from 'zlib';
+import * as tar from 'tar';
+
+// restore-node-modules.js
+// usage: node restore-node-modules.js path/to/package-lock.json
+// Node.js >=18 (fetch, fs/promises)
+
+
+const lockPath = 'package-lock.json';
+
+function isRootPackage(name) {
+  return !name.includes('node_modules');
+}
+let rootDir;
+function packagePathToDir(pkgPath) {
+  // "node_modules/a/node_modules/b" -> "node_modules/a/node_modules/b"
+  return path.join(rootDir, pkgPath);
+}
+
+async function ensureDir(p) {
+  await fs.mkdir(p, { recursive: true });
+}
+
+async function download(url, dest) {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`download failed: ${url} ${res.status}`);
+  }
+  await pipeline(res.body, createWriteStream(dest));
+}
+
+async function extractTgz(tgzPath, destDir) {
+  await tar.x({
+    file: tgzPath,
+    cwd: destDir,
+    strip: 1, // remove "package/" prefix
+  });
+}
+
+async function installPackage(pkgPath, meta) {
+  if (!meta.resolved || !meta.integrity) return;
+
+  const installDir = packagePathToDir(pkgPath);
+  await ensureDir(installDir);
+
+  const tgzName = path.basename(meta.resolved);
+  const tgzPath = path.join(installDir, tgzName);
+
+  console.log('install', pkgPath, meta.version);
+
+  await download(meta.resolved, tgzPath);
+  await extractTgz(tgzPath, installDir);
+  await fs.unlink(tgzPath);
+}
+
+export async function main() {
+  rootDir = this.resolve(".").path();
+  const nodeModulesDir = path.join(rootDir, 'node_modules');
+
+  const lock = JSON.parse(await fs.readFile(lockPath, 'utf8'));
+
+  if (!lock.packages) {
+    throw new Error('lockfileVersion >= 2 required');
+  }
+
+  await ensureDir(nodeModulesDir);
+
+  // package-lock.json v2+ の packages セクションをそのまま再現
+  for (const [pkgPath, meta] of Object.entries(lock.packages)) {
+    if (pkgPath === '') continue; // root
+    await installPackage(pkgPath, meta);
+  }
+
+  console.log('done');
+}
+
