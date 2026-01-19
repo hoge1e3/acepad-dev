@@ -1,4 +1,6 @@
 01234567012345670123456701234567
+.acepad-menu
+newcmd location
 gsync
   re-download with object timestamp
   name/key from ENVVAR/localStorage
@@ -10,7 +12,12 @@ gsync
 autogutt
   ok to cmd
   function key opaque
-same fstab on worker
+tscserver
+ kesikaran
+ code completion
+ ?idb installer
+
+ok same fstab on worker
 ok reset fstab
 ok rootfs fstab sort
  abolish rootfs resolvefs
@@ -18,8 +25,8 @@ ok full restore
 X export addurl pnode
  to get cjs url
 ram disk+worker <-> browser
-build pnode in pnode
- compile pnode and build
+ok build pnode in pnode
+ ok compile pnode and build
  ok run webpack
 interactive replace
 ok file<path<root
@@ -73,8 +80,6 @@ c2 a0 (UTF-8 NBSP) to 20 (and squash double cr)
 pin command
 
 fullbackup->recover
-tscserver
- idb installer
 jump to file flexsearch on filename match
 gsync not ok on confli
 acepad instance finder
