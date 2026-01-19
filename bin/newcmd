@@ -4,7 +4,8 @@ export async function main(n) {
   const paths = this.$path.split(":");
   const _cwd = this.getcwd().path();
   
-  let path = paths.find(p => _cwd.includes(p)) || paths[0];
+  let path = paths.find(p => _cwd.includes(p)) ||
+  paths[paths.length-1];
   const tmpbin=this.resolve(this.$tmpbin||
     (this.$home?`${this.$home}/sbin/tmp/`:"/tmp/bin/"));
   if(!tmpbin.exists()){
