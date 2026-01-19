@@ -1,0 +1,6 @@
+#!run
+
+export async function main(){
+  const f=this.resolve("./.acepad-menu");
+  return ;
+}
