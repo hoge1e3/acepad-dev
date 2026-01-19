@@ -1,0 +1,9 @@
+#!run
+
+export async function main(...a){
+  try{
+    return this.exec(...a);
+  }catch(e){
+    return e;
+  }
+}
