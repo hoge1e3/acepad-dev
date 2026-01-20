@@ -39,6 +39,7 @@ export async function main(opt={}){
     if (process.env.GSYNC_RUN_ON_BOOT) {
       sh.gsync("newer");     
     }
+    sh.try("wcart-menu");
 }
 async function submenu(){
   const b=globalThis.pNodeBootLoader;
