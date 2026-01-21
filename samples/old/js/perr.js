@@ -1,3 +1,0 @@
-#!run 
-import test
-
