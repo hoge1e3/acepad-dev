@@ -2,7 +2,11 @@
 Node.js-like Programming Environment for Smartphones.
 
 ## If you are reading this on GitHub
-Go to [demo site](https://hoge1e3.github.io/acepad/) and select 'Install/resue'.
+Go to [demo site](https://hoge1e3.github.io/acepad/):
+- select 'petit-node'.
+- select 'Install/Rescue'.
+- At first time, Select either 'Use physical keyboard' or 'Use screen keyboard'.
+- At next visit, you can also launch via shortcut icon 'home'
 
 ## Recent File or Directory List
 - Press F1 (function keys at the right side of the editor) to open the list  
@@ -82,3 +86,7 @@ Function keys are shown at the right side of the edit area. If the editor text o
 - F10: N/A
 - F11: Show console
 - F12: Reload (go to first page; the contents of `/tmp` are cleared)
+
+# Sample programs
+
+See /idb/run/samples/
