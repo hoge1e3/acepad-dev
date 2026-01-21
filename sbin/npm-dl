@@ -3,8 +3,9 @@ import {promises as fs} from 'fs';
 import * as path from 'path';
 import { createWriteStream } from 'fs';
 import { pipeline } from 'stream/promises';
-import * as zlib from 'zlib';
-import * as tar from 'tar';
+import {tarEncode, tarDecode} from "@hoge1e3/tar";
+//import * as zlib from 'zlib';
+//import * as tar from 'tar';
 
 // restore-node-modules.js
 // usage: node restore-node-modules.js path/to/package-lock.json
@@ -35,11 +36,17 @@ async function download(url, dest) {
 }
 
 async function extractTgz(tgzPath, destDir) {
-  await tar.x({
+  const buf=await fs.readFile(tgzPath);
+  const files=await tarDecode(buf, true);
+  for (let file of files) {
+    const dst=path.join(destDir, file.name);
+    await fs.writeFile(dst, await file.arrayBuffer());
+  }
+  /*await tar.x({
     file: tgzPath,
     cwd: destDir,
     strip: 1, // remove "package/" prefix
-  });
+  });*/
 }
 
 async function installPackage(pkgPath, meta) {
