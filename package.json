@@ -2,7 +2,16 @@
     "main": "index.js",
     "type": "module",
     "dependencies": {
+        "mutable-promise": "^1.0.0",
+        "@hoge1e3/loadScript": "^1.0.0",
+        "@hoge1e3/timeout": "^1.0.0",
+        "@hoge1e3/dom": "^1.0.0",
+        "@acepad/overlay": "^1.0.0",
         "@acepad/os-jsm": "^1.0.0",
-        "@acepad/with-fs": "^1.0.0"
+        "@acepad/worker": "^1.0.0",
+        "@acepad/with-fs": "^1.0.0",
+        "@acepad/dotenv":  "^1.0.0",
+        "@acepad/installer": "^1.0.0",
+        "@acepad/here": "^1.0.0"
     }
 }
