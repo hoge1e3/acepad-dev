@@ -1,0 +1,22 @@
+<body></body>
+<!-- menuframe.html should hosted statically in webcartridge, since generate iframe contents cannot refer serviceworker -->
+<!--iframe src="http://localhost/gio/acepad/menuframe.html" sandbox="allow-scripts"></iframe-->
+<Script>
+const i=document.createElement("iframe");
+i.setAttribute("sandbox","allow-scripts");
+i.setAttribute("src",(new URL("menuframe.html",parent.location.href)).toString());
+document.body.appendChild(i);
+//document.querySelector("iframe");
+addEventListener("message",(e)=>{
+    console.log("A",e);
+    document.body.appendChild(document.createTextNode(e.data+""));
+});
+//i.addEventListener("message",(e)=>console.log("B",e));
+setTimeout(()=>i.contentWindow.postMessage({
+type:"eval", script:`
+document.body.innerHTML='fugafugo';
+//parent.document.body.innerHTML='fugafugo';
+document.body.onclick=()=>parent.postMessage("Q","*");
+`},"*"),1000);
+console.log("Aaa");
+</Script>

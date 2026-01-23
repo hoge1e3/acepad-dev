@@ -2,7 +2,7 @@
 import {showWidget} from "@acepad/widget";
 import {sleep} from "@hoge1e3/timeout";
 export async function main(){
-    let w=showWidget("<div>");
+    let w=showWidget();
     while(1){
         let d=new Date();
         let f=new Date();

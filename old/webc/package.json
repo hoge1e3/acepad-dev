@@ -1,0 +1,15 @@
+{
+  "menus": {
+    "home": {
+      "icontext":"🏠",
+      "main": "./preinstalled/petit-node.js",
+      "autostart":"home"
+    },
+    "todo": {
+      "icontext":"✅",
+      "main": "./preinstalled/petit-node.js",
+      "autostart":"todo"
+    }
+
+  }
+}
