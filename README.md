@@ -70,6 +70,7 @@ Go to [demo site](https://hoge1e3.github.io/acepad/):
       await this.rm({r:true}, "/tmp/");
    }
    ~~~
+- See [@acepad/shell](https://www.npmjs.com/package/@acepad/shell) for details.
 
 ## List of Function Keys 
 Function keys are shown at the right side of the edit area. If the editor text overlaps them, they become opaque.
