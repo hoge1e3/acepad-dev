@@ -1,7 +1,13 @@
 01234567012345670123456701234567
 .acepad-menu
-newcmd location
+webc autostart trusted
+pin
+minibuffer
+ enter to enter minibuffer
+acepad color
+ok newcmd location
 gsync
+  progress
   re-download with object timestamp
   name/key from ENVVAR/localStorage
   gsync message

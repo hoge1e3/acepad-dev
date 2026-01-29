@@ -1,0 +1,8 @@
+.ace_my-highlight {
+  color: red;
+  background: rgba(255, 0, 0, 0.4);
+}
+.ace_todo.ace_red {
+  color: red;
+  font-weight: bold;
+}
