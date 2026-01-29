@@ -1,6 +1,7 @@
 {
     "main": "index.js",
     "type": "module",
+    "description": "Acepad IDE.",
     "dependencies": {
         "mutable-promise": "^1.0.0",
         "@hoge1e3/loadScript": "^1.0.0",
