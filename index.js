@@ -22,13 +22,22 @@ export async function main(opt={}){
     if (process.env.ACEPAD_LOGGING) {
         acepad.events.on("keyclick",({b})=>{
             if(acepad.getCurrentEditor().nolog)return ;
-            //console.log(b.classList.contains("guide"));
+            //console.log(b,b.classList.contains("guide"));
             addLog(sh,{
               text:b.innerText,
               ...(b.classList.contains("guide")?
                 {guide:true}:{})
             });
         });
+         acepad.getMainEditor().
+      container.addEventListener(
+        "touchstart",()=>{
+          //console.log("touced")
+          addLog(sh,{
+            touched:1
+          });
+        });
+     
     }
     //sug.call(sh);
     setTimeout(()=>
