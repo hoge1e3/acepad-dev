@@ -1,10 +1,10 @@
 01234567012345670123456701234567
 .acepad-menu
 log
- completion
+ ok completion
  ok move by tap ok
  ok Fn 
- open file
+ ok open file
 webc autostart trusted
 pin
 minibuffer

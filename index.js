@@ -4,6 +4,7 @@ import {add as addLog} from "./logging.js";
 import * as dotenv from "@acepad/dotenv";
 import * as pNode from "petit-node";
 import {installBootMenu} from "@acepad/installer";
+import {sessionInfo} from "@acepad/sessions";
 export async function main(opt={}){
     sh.cd(sh.resolve(import.meta.url).up());
     sh.$home=sh.getcwd().path();
@@ -29,6 +30,24 @@ export async function main(opt={}){
                 {guide:true}:{})
             });
         });
+        acepad.events.on("complete",(e)=>{
+          addLog(sh,{
+            text:e.text,
+            complete:1
+            
+          });
+        });
+        acepad.getMainEditor().
+        on("changeSession", (e)=>{
+          const si=sessionInfo(e.session);
+          addLog(sh,{
+            name:si.name,
+            ...(
+              si.file?
+              {file:si.file+""}:{})
+          });
+        });
+    
          acepad.getMainEditor().
       container.addEventListener(
         "touchstart",()=>{

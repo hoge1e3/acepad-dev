@@ -1,0 +1,8 @@
+#!run
+// -n=name -i=icon cmd args...
+export async function main(...args){
+  const p=this.resolve("/package.json");
+  return this.collectOptions(args);
+  
+  return ;
+}
