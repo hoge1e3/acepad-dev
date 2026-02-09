@@ -1,5 +1,5 @@
 # Acepad
-Node.js-like Programming Environment for Web Browser/Smartphones.
+Node.js-like Programming Environment for Web Browser/Smartphones. Based on [petit-node](https://github.com/hoge1e3/petit-node/)
 
 ## If you are reading this on GitHub
 Go to [demo site](https://hoge1e3.github.io/acepad/):
