@@ -1,3 +1,5 @@
 export function test(x){
-  return x*2;
+ 
+this.show("boo");
+return x*2;
 }

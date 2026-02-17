@@ -13,7 +13,7 @@ export function main(dst){
                 let b=await readFile(this.files[0]);
                 let f=this.value.split(/[\\\/]/);
                 f=f.pop();
-                console.log(b,f);
+                //console.log(b,f);
                 if(!dst){
                     dst=sh.resolve(f);
                 }else{

@@ -1,5 +1,7 @@
 01234567012345670123456701234567
 .acepad-menu
+nissi
+
 pnode
  load lazy module
 log
