@@ -1,7 +1,8 @@
 01234567012345670123456701234567
 .acepad-menu
 nissi
-
+draft mode
+ diff mode
 pnode
  load lazy module
 log
