@@ -14,7 +14,7 @@ export async function main(){
     const wi=showWidget(c);
     await this.sleep(0.1);
     const ctx=c.getContext("2d");
-    const wk=await worker.createProxy(
+    const wk=await worker.createProxy2(
       this.resolve("mandel_worker.js"),
       {
         plot(y,v){

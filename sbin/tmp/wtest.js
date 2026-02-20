@@ -1,5 +1,4 @@
-export function test(x){
- 
-this.show("boo");
-return x*2;
+export async function test(x){
+  await this.show("boo"+x);
+  return x*2;
 }
