@@ -2,7 +2,7 @@
     "compilerOptions": {
       "sourceMap": true,
       "target": "ES6",
-      "lib": ["es2021","dom"],
+      "lib": ["es2021"],
       "module": "esnext",
       "moduleResolution": "node",
       "strict": true,

@@ -1,4 +1,5 @@
 #!run
+let xi=5;
 /*
 Press F7 to go folder
 and type
