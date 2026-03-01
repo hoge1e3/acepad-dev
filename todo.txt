@@ -1,23 +1,24 @@
 01234567012345670123456701234567
 .acepad-menu
+worker list/kill
 nissi
 draft mode
  diff mode
 pnode
- load lazy module
+ ok load lazy module
 log
  ok completion
  ok move by tap ok
  ok Fn 
  ok open file
-webc autostart trusted
+ok webc autostart trusted
 pin
 minibuffer
  enter to enter minibuffer
-acepad color
+ok acepad color
 ok newcmd location
 gsync
-  progress
+  ok progress
   re-download with object timestamp
   name/key from ENVVAR/localStorage
   gsync message
@@ -29,7 +30,7 @@ autogutt
   ok to cmd
   function key opaque
 tscserver
- kesikaran
+ ok kesikaran
  code completion
  ?idb installer
 
