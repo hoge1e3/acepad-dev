@@ -2,8 +2,9 @@
 import {init} from "@acepad/pgame";
 
 export async function main(){
-  const {r,c,m,cls,u,cv,ctx,abs,W,H,rnd,rm,dist,sta}=init();
+  const {g,r,c,m,cls,u,cv,ctx,abs,W,H,rnd,rm,dist,sta}=init();
   const es=[];
+  const plg=this.resolve("player.png");
   const pl={x:100,y:100,vx:0,vy:0,c:"red"};
   for(let i=0;!sta.closed;i++){
     cls();
@@ -21,8 +22,9 @@ export async function main(){
         rm(es,e);
       }
     }
-    c("cyan");
-    r(m);
+    /*c("cyan");
+    r(m);*/
+    g(m.x,m.y,plg);
     //c("red");
     r(pl);
     pl.x+=pl.vx;
