@@ -1,3 +1,6 @@
+/*
+webpage index.html -pNode 
+*/
 import {create} from "@acepad/worker";
 import {sibling} from "@acepad/here";
 import {sleep} from "@hoge1e3/timeout";
