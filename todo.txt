@@ -5,36 +5,38 @@ worker list/kill
 nissi
 draft mode
  diff mode
-pnode
- ok load lazy module
+pin
+float menu/avatar
+minibuffer
+ enter to enter minibuffer
+gsync
+  re-download with object timestamp
+  name/key from ENVVAR/localStorage
+  gsync message
+  gsync push to .git
+  lock
+  open git config at '\config': not found (os error 2)
+  ok progress
+  ok do not follow symlinks
+autogutt
+  ok to cmd
+  function key opaque
+tscserver
+ ok kesikaran
+ auto start(do not duplicate)
+ code completion
+ ?idb installer
+
 log
  ok completion
  ok move by tap ok
  ok Fn 
  ok open file
 ok webc autostart trusted
-pin
-minibuffer
- enter to enter minibuffer
+pnode
+ ok load lazy module
 ok acepad color
 ok newcmd location
-gsync
-  ok progress
-  re-download with object timestamp
-  name/key from ENVVAR/localStorage
-  gsync message
-  gsync push to .git
-  lock
-  ok do not follow symlinks
-  open git config at '\config': not found (os error 2)
-autogutt
-  ok to cmd
-  function key opaque
-tscserver
- ok kesikaran
- code completion
- ?idb installer
-
 ok same fstab on worker
 ok reset fstab
 ok rootfs fstab sort
