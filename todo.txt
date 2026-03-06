@@ -1,4 +1,5 @@
 01234567012345670123456701234567
+file widget duplicate why?
 .acepad-menu
 worker list/kill
 nissi
