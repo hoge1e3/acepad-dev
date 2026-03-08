@@ -1,14 +1,15 @@
 01234567012345670123456701234567
 file widget duplicate why?
+id()
 .acepad-menu
-ok worker list/kill
 nissi
 draft mode
  diff mode
 pin
 float menu/avatar
 minibuffer
- enter to enter minibuffer
+  enter to enter minibuffer
+split editor
 gsync
   re-download with object timestamp
   name/key from ENVVAR/localStorage
@@ -23,10 +24,12 @@ autogutt
   function key opaque
 tscserver
  ok kesikaran
- auto start(do not duplicate)
+ ok auto start(do not duplicate)
  code completion
- ?idb installer
+ install from npm
 
+ok worker list/kill
+shell list/kill
 log
  ok completion
  ok move by tap ok
