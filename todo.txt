@@ -1,7 +1,7 @@
 01234567012345670123456701234567
 file widget duplicate why?
 .acepad-menu
-worker list/kill
+ok worker list/kill
 nissi
 draft mode
  diff mode
