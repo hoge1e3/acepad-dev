@@ -4,11 +4,14 @@ let xi=5;
 Press F7 to go folder
 and type
 sh: tsc
-
 Then open js/index.js and press F5
+
+or 
+sh: tscworker 
+to auto compile
 */
 import {bfunc} from "./lib/mylib.js";
-const bar = 21;
+const bar:number = 21;
 
 function foo(d:HTMLElement):string {
     //Uncomment the next line and try tsc again :-)
