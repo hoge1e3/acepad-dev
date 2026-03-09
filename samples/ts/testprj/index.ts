@@ -1,20 +1,21 @@
 #!run
-let xi=5;
 /*
-Press F7 to go folder
-and type
-sh: tsc
-Then open js/index.js and press F5
+*.ts files are compiled
+  automatically 
 
-or 
-sh: tscworker 
-to auto compile
+This file is compiled into
+js/index.js
+(only if no error)
+Press F7 and ser js/index.js
 */
+// Try change "5" to 5 
+// and you CAN get error
+let x:string="5";
 import {bfunc} from "./lib/mylib.js";
 const bar:number = 21;
 
 function foo(d:HTMLElement):string {
-    //Uncomment the next line and try tsc again :-)
+    //Uncomment the next line :-)
     //d.getElementBy_oops_i_forgot("#test");
     return d.tagName;
 }

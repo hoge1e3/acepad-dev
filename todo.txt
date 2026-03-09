@@ -1,5 +1,6 @@
 01234567012345670123456701234567
 ok file widget duplicate why?
+run ts
 file widget 
  go to current
  width
@@ -12,7 +13,7 @@ minibuffer
   enter to enter minibuffer
 split editor
 gsync
-  volatile metainfo
+  fine timestamp
    store hash 
    (clears on update children)
   re-download with object timestamp
