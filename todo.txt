@@ -1,8 +1,9 @@
 01234567012345670123456701234567
-file widget duplicate why?
+ok file widget duplicate why?
+file widget 
+ go to current
+ width
 id()
-.acepad-menu
-nissi
 draft mode
  diff mode
 pin
@@ -11,6 +12,9 @@ minibuffer
   enter to enter minibuffer
 split editor
 gsync
+  volatile metainfo
+   store hash 
+   (clears on update children)
   re-download with object timestamp
   name/key from ENVVAR/localStorage
   gsync message
@@ -27,9 +31,16 @@ tscserver
  ok auto start(do not duplicate)
  code completion
  install from npm
+.acepad-menu
+nissi
+interactive replace
+~ <-$home
+recent only 1-> auto select
+show path within screen width
+run.js(this.$worker)->run.worker.js
+shell list/kill
 
 ok worker list/kill
-shell list/kill
 log
  ok completion
  ok move by tap ok
@@ -51,7 +62,6 @@ ram disk+worker <-> browser
 ok build pnode in pnode
  ok compile pnode and build
  ok run webpack
-interactive replace
 ok file<path<root
 session on same file name
 ok? indent snap
@@ -69,8 +79,6 @@ pnode package.json parse error
 todo item as boot icons/apps
  bookmark file pos
 
-~ <-$home
-recent only 1-> auto select
 
 
 p5.js
