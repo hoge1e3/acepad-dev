@@ -6,7 +6,8 @@
 This file is compiled into
 js/index.js
 (only if no error)
-Press F7 and ser js/index.js
+Press F7 and open js/index.js
+Then, F5 to run
 */
 // Try change "5" to 5 
 // and you CAN get error

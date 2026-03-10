@@ -1,1 +1,3 @@
-my file!
+export function my(){ 
+  return "file!";
+}
