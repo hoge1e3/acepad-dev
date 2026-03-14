@@ -1,0 +1,16 @@
+#!run
+import pNode from "petit-node";
+export async function main(wd="."){
+  const t=new Map();
+  const dev=pNode.getDeviceManager();
+  for (let fs of dev.df()) {
+    t.set(fs.mountPoint,fs); 
+  }
+  wd=this.resolve(wd);
+  for (let d=wd;d;d=d.up()) {
+    if (t.has(d.path())) {
+      return t.get(d.path());
+    }
+  }
+  return ;
+}

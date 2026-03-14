@@ -1,4 +1,4 @@
-#!run
+#!runts
 /*
 *.ts files are compiled
   automatically
@@ -6,8 +6,7 @@
 This file is compiled into
 js/index.js
 (only if no error)
-Press F7 and open js/index.js
-Then, F5 to run
+Press F5 to run(can be run from also *.ts file )
 */
 // Try change "5" to 5 
 // and you CAN get error

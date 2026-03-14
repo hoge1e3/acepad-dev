@@ -1,13 +1,15 @@
 01234567012345670123456701234567
 ok file widget duplicate why?
-run ts
+ok run ts
 file widget 
  go to current
  width
 id()
+gitignore search/ngram
 draft mode
  diff mode
 pin
+ overwrite check
 float menu/avatar
 minibuffer
   enter to enter minibuffer
