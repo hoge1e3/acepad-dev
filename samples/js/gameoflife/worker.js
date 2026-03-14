@@ -1,3 +1,8 @@
+/*
+How to run:
+Press F7 and open index.html
+Then Press F5
+*/
 let ctx;
 const width = 300;
 const height = 300;
@@ -6,7 +11,8 @@ let running = false;
 let intervalId = null;
 
 // 初期化
-function init() {
+export function init(canvas) {
+  if(canvas)ctx = canvas.getContext("2d");
   current = new Uint8Array(width * height);
   next = new Uint8Array(width * height);
 
@@ -75,9 +81,22 @@ function loop() {
   step();
   draw();
 }
-
+export function start(){
+  if (!running) {
+      running = true;
+      intervalId = setInterval(loop, 50); // 20fps
+  }
+}
+export function stop(){
+  running = false;
+  if (intervalId) clearInterval(intervalId);
+}
+export function reset(){
+    init();
+    draw();
+}
 // メッセージ処理
-onmessage = (e) => {
+let _onmessage = (e) => {
   //console.log("data");
   if (e.data.canvas) {
     const canvas = e.data.canvas;
