@@ -5,7 +5,7 @@ file widget
  go to current
  width
 id()
-gitignore search/ngram
+ok gitignore search/ngram
 draft mode
  diff mode
 pin
@@ -258,3 +258,14 @@ ok module update bug
    => b is "up2date"!! 
 
 ok open parent folder 
+
+Error Error: [https://acepad.tonyu.jp/gsync/index.php: 7ed84ce0f6939b57]: 472a21c5f34fd0358b1716f5fd438b94688dfca1 is not found.
+    at DownloadableObjectStore.get (file:///idb/run/node_modules/@acepad/gsync/js/src/sync.js:170:19)
+    at async Repo.readObject (file:///idb/run/node_modules/@acepad/gsync/js/src/git.js:43:24)
+    at async Repo.readCommit (file:///idb/run/node_modules/@acepad/gsync/js/src/git.js:232:44)
+    at async Repo.findMergeBase (file:///idb/run/node_modules/@acepad/gsync/js/src/git.js:351:32)
+    at async sync (file:///idb/run/node_modules/@acepad/gsync/js/src/cmd.js:278:28)
+    at async syncWithRetry (file:///idb/run/node_modules/@acepad/gsync/js/src/cmd.js:241:17)
+    at async Module.main (file:///idb/run/node_modules/@acepad/gsync/js/src/cmd.js:47:24)
+    at async Proxy.main (file:///idb/run/node_modules/.bin/gsync:6:15)
+    at async Proxy.<anonymous> (file:///idb/run/node_modules/@acepad/os-jsm/acepad-os-jsm.js:23:16)

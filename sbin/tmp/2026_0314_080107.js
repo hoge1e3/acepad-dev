@@ -2,7 +2,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import ignore from "ignore";
-import pNode 
+import pNode from "petit-node";
 const excludes={".gsync":1,".sync":1,".git":1};
 
 function* traverseNotIgnored(dir, ig = ignore()) {
@@ -28,11 +28,10 @@ function* traverseNotIgnored(dir, ig = ignore()) {
   }
 }
 export async function main(){
-  for(let f of traverseNotIgnored(this.$home)){ 
-    this.echo(f)
-    
+  for(let f of traverseHere("/idb/pnode-ws")){ 
+    this.echo(f);
   }
-  return 
+  return ;
   const ig=ignore();
   const h=this.resolve(this.$home).rel("node_modules");
   //console.log(h)
@@ -49,14 +48,39 @@ export async function traverseHere(f){
     df().map(d=>
     trs(d.mountPoint));
   await fs.promises.readdir(f.path());
-  return f.recursive({
-    includeDir:true,
-    excludes(f){
-      return excludes.hasOwnProperty(
-        f.truncSep())||
-        df.includes(trs(f.path()));
-    },
-  });
+  return traverseNotIgnored(f.path());
+
+  function* traverseNotIgnored(dir, ig = ignore()) {
+    // also check .gitignore in subfolder
+    const gitignore = path.join(dir, ".gitignore");
+    let localIg = ig;
+    if (fs.existsSync(gitignore)) {
+      const rules = fs.readFileSync(gitignore, "utf8");
+      localIg = ignore().add(ig).add(rules);
+    }
+    for (const name of fs.readdirSync(dir)) {
+      const full = path.join(dir, name);
+      if(excludes.hasOwnProperty(name)||
+        df.includes(trs(full)))continue;
+      const rel = name;
+      if (localIg.ignores(rel)) continue;
+      const st = fs.statSync(full);
+      if (st.isDirectory()) {
+        yield* traverseNotIgnored(full, localIg);
+      } else {
+        yield full;
+      }
+    }
+  }
+}
+export async function traverseHere(f){
+  const trs=(s)=>s.replace(/\/$/,"");
+  const df=pNode.
+    getDeviceManager().
+    df().map(d=>
+    trs(d.mountPoint));
+  await fs.promises.readdir(f.path());
+  return traverseNotIgnored(f.path());
 
   function* traverseNotIgnored(dir, ig = ignore()) {
     // also check .gitignore in subfolder
