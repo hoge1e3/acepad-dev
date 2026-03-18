@@ -27,6 +27,13 @@ export async function main(){
                 cmd="npm-test";
             }
         }
+        if(cmd==="npm-test"&&file.ext()===".html"){
+          if(!(
+            await nsh[cmd]({t:true})
+            )){
+            return this.webpage(file);
+          }
+        }
         if(cmd){
             const ds=debugSession(nsh,cmd);
             return ;

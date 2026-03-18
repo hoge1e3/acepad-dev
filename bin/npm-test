@@ -1,6 +1,7 @@
 //!run
 
-export async function main(name){
+export async function main(...a){
+  const [opt,name]=this.collectOptions(a);
     let p;
     if(name){
         p=findNodeModule(name,this.getcwd());
@@ -18,8 +19,10 @@ export async function main(name){
     //this.pwd();
     //this.echo(p.scripts.test);
     if(!po.scripts || !po.scripts.test){
+        if(opt.t)return false;
         throw new Error(`${p} has no test script`);
     }
+        if(opt.t)return true;
     await this.exec(po.scripts.test);
     this.echo("passed");
 }

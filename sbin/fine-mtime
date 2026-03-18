@@ -1,0 +1,29 @@
+#!run
+import pNode from "petit-node";
+export async function main(d="."){
+  function fsOf(wd){
+    const t=new Map();
+    for (let fs of dev.df()) {
+      t.set(fs.mountPoint,fs); 
+    }
+    for (let d=wd;d;d=d.up()) {
+      if (t.has(d.path())) {
+        return t.get(d.path());
+      }
+    }
+  }
+  const n=performance.now();
+  const dev=pNode.getDeviceManager();
+  const wd=this.resolve(d);
+  const lsfs=fsOf(wd);
+  let path=wd.path();
+  path=path.replace(/\/$/,"");
+  lsfs.setFineMtime(path);
+  /*for (let e of wd.listFiles()) {
+    let path=e.path();
+    path=path.replace(/\/$/,"");
+    const fmt=await lsfs.setFineMtime(path);
+    console.log("fineMtime",fmt, path);
+  }*/
+  return "setFineMtime took "+(performance.now()-n)+"msec.";
+}
