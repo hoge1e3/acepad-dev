@@ -23,8 +23,8 @@ export async function main(...a){
         throw new Error(`${p} has no test script`);
     }
         if(opt.t)return true;
-    await this.exec(po.scripts.test);
-    this.echo("passed");
+    const r=await this.exec(po.scripts.test);
+    this.echo(r);//"passed");
 }
 function findNodeModule(name,base){
     for(let p=base;p;p=p.up()){
