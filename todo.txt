@@ -1,6 +1,7 @@
 01234567012345670123456701234567
+bootloader splash screen?
 flex folder jump
-cp->paste
+(cb/ct)->paste (file copy/cut/paste)
 todo app
 dynamic css
 ok file widget duplicate why?
