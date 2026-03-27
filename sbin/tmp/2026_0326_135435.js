@@ -1,5 +1,5 @@
 #!run
-//test
+//testdesu
 export async function main(){
   for (let f of pNode.getDeviceManager().df()){
       if (f.mountPoint==="/idb") {

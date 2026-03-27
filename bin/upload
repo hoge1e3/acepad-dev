@@ -8,6 +8,7 @@ export function main(dst){
         let w=showWidget(t.input({
             type:"file",
             oninput}));
+          console.log("w",w);
         async function oninput(e){
             w.close();
             try{
