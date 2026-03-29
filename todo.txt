@@ -1,4 +1,5 @@
 01234567012345670123456701234567
+change event from other worker
 bootloader splash screen?
 flex folder jump
 (cb/ct)->paste (file copy/cut/paste)
