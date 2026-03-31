@@ -10,7 +10,6 @@ export async function main(){
   return ;
 }
 
-
 export function watch(n,p){
   fs.watch(p,{},(...a)=>
   console.log(n,...a));
