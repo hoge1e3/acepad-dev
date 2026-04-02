@@ -1,9 +1,23 @@
 01234567012345670123456701234567
+category bt package
+ok change event from other worker
+bootloader splash screen?
+ -> on big mount
+ fsck idb recursive
+flex folder jump
+(cb/ct)->paste (file copy/cut/paste)
+@acepad/todo
+ expand subsub
+dynamic css
+@acepad/mcp
+ patch
 ok file widget duplicate why?
 ok run ts
-file widget 
+
+@acepad/filetree 
  go to current
- width
+ ok width
+ opaque
 id()
 ok gitignore search/ngram
 draft mode
@@ -113,7 +127,7 @@ main exports objects
 c2 a0 (UTF-8 NBSP) to 20 (and squash double cr)
 pin command
 
-fullbackup->recover
+ok fullbackup->recover
 jump to file flexsearch on filename match
 gsync not ok on confli
 acepad instance finder
@@ -122,6 +136,8 @@ acepad instance finder
 ?config sh:
 ?widget on session list
 widget on keypad 
+widget resize via title bar
+show title in title bar
 function key swipe
 npm for petit-node
  
@@ -138,6 +154,8 @@ magnify
 console.error trace
 tonyu dev to publish
  dot pict
+  ok 32x32
+  other size
  smezonet
 menu
  tree
