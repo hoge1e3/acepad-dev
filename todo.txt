@@ -1,34 +1,42 @@
 01234567012345670123456701234567
-category bt package
+category by package
 ok change event from other worker
-bootloader splash screen?
- -> on big mount
- fsck idb recursive
-flex folder jump
-(cb/ct)->paste (file copy/cut/paste)
+new-feature
+ hyper jump
+ (cb/ct)->paste (file copy/cut/paste)
+ dynamic css
+ draft mode
+  diff mode
+ minibuffer
+  enter to enter minibuffer
+ float menu/avatar
+ split editor
+ interactive replace
+ extract selection to var
+ rename var
+ test export function realtime
+ inspect on editor realtime
+petit-node
+ bootloader splash screen?
+  -> on big mount
+  fsck idb recursive
+@acepad/flex 
+ folder jump
 @acepad/todo
  expand subsub
-dynamic css
+ todo item as boot icons/apps
+ bookmark file pos
+@acepad/widget
+ cmd.js -> css
 @acepad/mcp
  patch
-ok file widget duplicate why?
-ok run ts
-
 @acepad/filetree 
  go to current
  ok width
  opaque
-id()
-ok gitignore search/ngram
-draft mode
- diff mode
 pin
  overwrite check
-float menu/avatar
-minibuffer
-  enter to enter minibuffer
-split editor
-gsync
+@hoge1e3/gsync
   fine timestamp
    store hash 
    (clears on update children)
@@ -43,79 +51,66 @@ gsync
 autogutt
   ok to cmd
   function key opaque
-tscserver
+@acepad/tsc
  ok kesikaran
  ok auto start(do not duplicate)
  code completion
  install from npm
 .acepad-menu
 nissi
-interactive replace
 ~ <-$home
 recent only 1-> auto select
 show path within screen width
 run.js(this.$worker)->run.worker.js
 shell list/kill
 
-ok worker list/kill
+@acepad/worker
+ ok worker list/kill
 log
  ok completion
  ok move by tap ok
  ok Fn 
  ok open file
-ok webc autostart trusted
-pnode
+petit-node
  ok load lazy module
-ok acepad color
-ok newcmd location
-ok same fstab on worker
-ok reset fstab
 ok rootfs fstab sort
  abolish rootfs resolvefs
-ok full restore
 X export addurl pnode
  to get cjs url
 ram disk+worker <-> browser
-ok build pnode in pnode
- ok compile pnode and build
- ok run webpack
-ok file<path<root
+
 session on same file name
 ok? indent snap
 argparser
 
 ok editcmd
 sort this
-extract selection to var
-rename var
 
 auto sync
 
 pnode package.json parse error
 
-todo item as boot icons/apps
- bookmark file pos
-
-
-
 p5.js
 BS autorepeat bug
 samples
-sugeest in $home
-suggest known word only 
+@acepad/suggest
+ sugeest in $home
+ suggest known word only 
 
-reload keypad
-key layout
-key swipe
-key swap
-keypad resize
+@acepad/keypad
+ reload keypad
+ key layout
+ key swipe
+ key swap
+ keypad resize
 
-ok pinch font size
-
-pixel editor
+@acepad/icon-editor
  ok command
-suggest in flexsearch
-hyper jump
+ ok 32x32
+ other size
+@acepad/flex
+ suggest keyword
+ jump to file on filename match
 //todo by comment
 ? autoexec.js
 singleton dialog
@@ -127,37 +122,34 @@ main exports objects
 c2 a0 (UTF-8 NBSP) to 20 (and squash double cr)
 pin command
 
-ok fullbackup->recover
-jump to file flexsearch on filename match
 gsync not ok on confli
 acepad instance finder
 
 ? sessionF defaults samples
 ?config sh:
 ?widget on session list
-widget on keypad 
-widget resize via title bar
-show title in title bar
+@acepad/widget
+ widget on keypad(custom key, game controller etc)
+ title bar
+  resize width
+  show title
 function key swipe
-npm for petit-node
- 
-test export function realtime
-inspect on editor realtime
+@acepad/npm
+ ok installSingle
+ install-deps
+
    
 tab size
 font size pinch
 auto indent scroll
 50% auto hide gutter
 folding
-replace
 magnify
 console.error trace
 tonyu dev to publish
- dot pict
-  ok 32x32
-  other size
+ @acepad/icon-editor
  smezonet
-menu
+@acepad/menu
  tree
  current/last
  ok? avoid edit text
@@ -169,14 +161,32 @@ del session on file del
 [jsmod/]$ ls
 Error: /jsmod/jsmod/: no such file or directory
 
-session local command
+session local command <-ok??
 session local menu
 node mods convert
-bookmark command
+bookmark command <-pin?
 []$ npm-init @acepad/widget
 ?F5 dir show bug
 
 -------------ok---------
+ok file widget duplicate why?
+ok run ts
+ok id()
+ok gitignore search/ngram
+
+ok webc autostart trusted
+ok acepad color
+ok newcmd location
+ok same fstab on worker
+ok reset fstab
+ok build pnode in pnode
+ ok compile pnode and build
+ ok run webpack
+ok file<path<root
+ok full restore
+
+ok pinch font size
+ok fullbackup->recover
 ok bauth headless
 ok lazy mount
  ok fstab
