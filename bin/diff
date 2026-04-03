@@ -3,13 +3,18 @@ const cdn=process.env.cdn_url||"https://cdn.jsdelivr.net/npm/";//"https://unpkg.
 
 let url=cdn+"difflib@0.2.4/dist/difflib-browser.js";
 /*global difflib*/
-export async function main(f1,f2){
-    await $.getScript(url);
-    f1=this.resolve(f1);
-    f2=this.resolve(f2);
-    
+export async function main(...args){
+  const a=this.collectOptions(args);
+  const o=a.pop();
+  let [f1,f2]=a;
+  await $.getScript(url);
+  f1=this.resolve(f1);
+  f2=this.resolve(f2);
+  if (o.patch) {
+    genPatch.call(this,f1,f2);
+  } else {
     calcDiff.call(this,f1,f2);
-    
+  }  
 }
 function pad(n,k){
     n="000000"+n;
@@ -19,6 +24,44 @@ const l10=Math.log(10);
 function maxk(a){
     return Math.ceil(
         Math.log(a+0.1)/l10);
+}
+
+function genPatch(f1,f2){
+  // generate as unified diff format
+  var base = f1.lines();
+  var newtxt = f2.lines();
+  var sm = new difflib.SequenceMatcher(null, base, newtxt);
+  var opcodes = sm.getOpcodes();
+  let sh = this;
+  let echo = sh.echo.bind(sh);
+  // header
+  this.echo("--- "+f1);
+  this.echo("+++ "+f2);
+  function range(start, end){
+    return (end - start === 1)
+      ? (start + 1)
+      : (start + 1) + "," + (end - start);
+  }
+  for (var i in opcodes){
+    var [tag, i1, i2, j1, j2] = opcodes[i];
+    if(tag === "equal") continue;
+    // hunk header
+    echo(
+      "@@ -" + range(i1, i2) +
+      " +" + range(j1, j2) +
+      " @@"
+    );
+    if(tag === "replace" || tag === "delete"){
+      for(let k = i1; k < i2; k++){
+        echo("-" + base[k]);
+      }
+    }
+    if(tag === "replace" || tag === "insert"){
+      for(let k = j1; k < j2; k++){
+        echo("+" + newtxt[k]);
+      }
+    }
+  }
 }
 function calcDiff(f1,f2){
   var base = f1.lines();
