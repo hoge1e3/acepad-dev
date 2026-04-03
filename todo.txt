@@ -1,4 +1,6 @@
 01234567012345670123456701234567
+@acepad/flex 
+ ok folder jump
 category by package
 ok change event from other worker
 new-feature
@@ -20,8 +22,6 @@ petit-node
  bootloader splash screen?
   -> on big mount
   fsck idb recursive
-@acepad/flex 
- folder jump
 @acepad/todo
  expand subsub
  todo item as boot icons/apps
