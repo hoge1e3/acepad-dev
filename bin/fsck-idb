@@ -2,8 +2,22 @@
 import {FS} from "petit-node";
 import * as p from "path";
 export async function main(path="."){
-  path=this.resolve(path).path();
-  for (let f of FS.getRootFS().fstab()) {
+  //path=this.resolve(path).path();
+  for (let d of this.resolve(path).recursive({includeDir:true})) {
+    try {
+      if (d.isDir()) {
+        await this.sleep(0);
+        await this.echo("Scan",d.path());
+        await fsck.call(this, d.path());
+      }
+    }catch(e) {
+      this.echo(e);
+    }
+  }
+} 
+export async function fsck(path) {
+  if (!path.endsWith("/"))path+="/";
+  for (let f of FS.getRootFS().df()) {
     console.log(f);
     if (path.startsWith(f.mountPoint)) {
       let sum=0,ng=0;
