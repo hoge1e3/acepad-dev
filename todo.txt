@@ -5,8 +5,8 @@ category by package
 ok change event from other worker
 new-feature
  ok hyper jump
+ squash into viewport
  (cb/ct)->paste (file copy/cut/paste)
- dynamic css
  draft mode
   diff mode
  minibuffer
@@ -17,6 +17,7 @@ new-feature
  extract selection to var
  rename var
  test export function realtime
+ dynamic css
  inspect on editor realtime
 petit-node
  unwatchFile
