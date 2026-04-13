@@ -20,7 +20,7 @@ new-feature
  dynamic css
  inspect on editor realtime
 petit-node
- unwatchFile
+ ok unwatchFile
  bootloader splash screen?
   -> on big mount
   fsck idb recursive
