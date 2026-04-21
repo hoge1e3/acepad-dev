@@ -1,0 +1,59 @@
+#!run
+/*
+acepad-cmd -k=ctrl-w jump jump
+*/
+import {sessionInfo} from "@acepad/sessions";
+
+import * as dom from "@hoge1e3/dom"
+//import pNode from "petit-node";
+export async function main(){
+  const e=this.$acepad.getCurrentEditor();
+  const s=e.session
+  const si=sessionInfo(s)
+  const f=si.file?.up()||this.$home
+  const p=findLiteral(s);
+  console.log(p)
+  if(!p)return ;
+  //console.log(pNode.resolveEntry+"")
+  const ent=pNode.resolveEntry("import",
+  
+  p.value.replace(/["']/g,""),f);
+  
+  return ent&&this.edit(ent.file);
+}
+function findLiteral(session) {
+  // session is ace editor session
+  // find string Literal at current caret position, if not found, return null
+
+  var cursor = session.selection.getCursor();
+  var line = session.getLine(cursor.row);
+  var col = cursor.column;
+
+  // Tokenize the current line and find token at cursor column
+  var tokens = session.getTokens(cursor.row);
+  var currentCol = 0;
+
+  for (var i = 0; i < tokens.length; i++) {
+    var token = tokens[i];
+    var tokenEnd = currentCol + token.value.length;
+
+    if (currentCol <= col && col <= tokenEnd) {
+      // Check if this token is a string literal type
+      if (token.type && token.type.indexOf("string") !== -1) {
+        return {
+          value: token.value,
+          row: cursor.row,
+          startCol: currentCol,
+          endCol: tokenEnd,
+          token: token
+        };
+      } else {
+        return null;
+      }
+    }
+
+    currentCol = tokenEnd;
+  }
+
+  return null;
+}

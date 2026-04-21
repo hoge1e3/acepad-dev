@@ -78,7 +78,7 @@ Function keys are shown at the right side of the edit area. If the editor text o
 - F1: List of recently opened files
 - F2: Shortcut for `newcmd` (create new script for debugging)
 - F3: Search files
-- F4: N/A
+- F4: jump to file from string literal
 - F5: Run program
 - F6: Refresh directory list
 - F7: Open parent directory

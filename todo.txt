@@ -4,7 +4,7 @@
 category by package
 ok change event from other worker
 new-feature
- hyper jump
+ ok hyper jump
  (cb/ct)->paste (file copy/cut/paste)
  dynamic css
  draft mode
@@ -19,15 +19,15 @@ new-feature
  test export function realtime
  inspect on editor realtime
 petit-node
+ unwatchFile
  bootloader splash screen?
   -> on big mount
   fsck idb recursive
 @acepad/todo
- expand subsub
  todo item as boot icons/apps
  bookmark file pos
 @acepad/widget
- cmd.js -> css
+ ok cmd.js -> css
 @acepad/mcp
  patch
 @acepad/filetree 
