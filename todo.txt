@@ -1,5 +1,6 @@
 01234567012345670123456701234567
-mutual ref 
+showGuide
+ok mutual ref 
 @acepad/flex 
  ok folder jump
 category by package
@@ -39,6 +40,7 @@ petit-node
 pin
  overwrite check
 @hoge1e3/gsync
+  conflict folder
   fine timestamp
    store hash 
    (clears on update children)
