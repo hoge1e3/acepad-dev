@@ -1,0 +1,27 @@
+import { Parser, ParserContext } from "./parser.js";
+export type OpType = "infixl" | "infixr" | "infix" | "prefix" | "postfix" | "trifixr" | "element";
+export declare function ExpressionParser(context: ParserContext, name?: string): {
+    element(e: Parser): void;
+    getElement(): Parser;
+    prefix(prio: number, pre: Parser): void;
+    postfix(prio: number, post: Parser): void;
+    infixl(prio: number, inf: Parser): void;
+    infixr(prio: number, inf: Parser): void;
+    infix(prio: number, inf: Parser): void;
+    trifixr(prio: number, tf1: Parser, tf2: Parser): void;
+    mkInfix(f: (left: any, op: any, right: any) => any): void;
+    mkInfixl(f: (left: any, op: any, right: any) => any): void;
+    mkInfixr(f: (left: any, op: any, right: any) => any): void;
+    mkPrefix(f: (op: any, right: any) => any): void;
+    mkPostfix(f: (left: any, op: any) => any): void;
+    mkTrifixr(f: (left: any, op: any, mid: any, op2: any, right: any) => any): void;
+    built: null | Parser;
+    build(): Parser;
+    mkInfix_def(left: any, op: any, right: any): any;
+    mkInfixl_def(left: any, op: any, right: any): any;
+    mkInfixr_def(left: any, op: any, right: any): any;
+    mkPrefix_def(op: any, right: any): any;
+    mkPostfix_def(left: any, op: any): any;
+    mkTrifixr_def(left: any, op1: any, mid: any, op2: any, right: any): any;
+    lazy(): Parser;
+};
