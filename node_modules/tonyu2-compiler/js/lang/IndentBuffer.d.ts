@@ -1,4 +1,4 @@
-import * as SourceMap from "source-map";
+import SourceMap from "source-map";
 import { Visitor } from "./Visitor.js";
 import { SFile } from "@hoge1e3/sfile";
 type SrcRCM = {

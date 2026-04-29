@@ -1,0 +1,10 @@
+{"compiler":{
+  "namespace":"user",
+  "_defaultSuperClass":"kernel.Actor",
+  "_dependingProjects":[
+    {"namespace":"kernel"}
+  ]},
+  "run":{
+    "mainClass":"user.Main",
+    "_bootClass":"kernel.Boot",
+    "globals":{"$defaultFPS":60,"$imageSmoothingDisabled":true,"$soundLoadAndDecode":false}},"plugins":{},"kernelEditable":false,"language":"tonyu","version":1740040693405}

@@ -1,5 +1,5 @@
 #!run
 
 export async function main(){
-  return era;
+  return await this.input();
 }
