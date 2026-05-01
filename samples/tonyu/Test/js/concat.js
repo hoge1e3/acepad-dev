@@ -10,12 +10,12 @@ Tonyu.klass.define({
       main :function _trc_Main_main() {
         var _this=this;
         
-        console.log(2+30);
+        console.log(2+40);
       },
       fiber$main :function* _trc_Main_f_main(_thread) {
         var _this=this;
         
-        console.log(2+30);
+        console.log(2+40);
         
       },
       __dummy: false

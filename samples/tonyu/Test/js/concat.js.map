@@ -1,1 +1,1 @@
-{"version":3,"sources":["/idb/run/samples/tonyu/Test/Main.tonyu"],"names":[],"mappings":";;;;;;;;;;;;QACA,OAAO,CAAC,GAAG,CAAC,CAAC,CAAC;;;;;QAAd,OAAO,CAAC,GAAG,CAAC,CAAC,CAAC","sourcesContent":["native console;\nconsole.log(2+30);"]}
+{"version":3,"sources":["/idb/run/samples/tonyu/Test/Main.tonyu"],"names":[],"mappings":";;;;;;;;;;;;QACA,OAAO,CAAC,GAAG,CAAC,CAAC,CAAC;;;;;QAAd,OAAO,CAAC,GAAG,CAAC,CAAC,CAAC","sourcesContent":["native console;\nconsole.log(2+40);"]}
