@@ -2,6 +2,7 @@
     "compilerOptions": {
       // ソースマップを有効化
       "sourceMap": true,
+      "allowSyntheticDefaultImports":true,
       // TSはECMAScript 5に変換
       "target": "ES2022",
       "lib": ["es2022"],

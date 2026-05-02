@@ -4,3 +4,5 @@ acepad-dev.zip
 bin.zip
 .gsync
 .vscode
+node_modules/tonyu2-compiler
+node_modules/tonyu2-runtime

@@ -15,8 +15,7 @@
         "@acepad/installer": "^1.0.0",
         "@acepad/here": "^1.0.0"
     },
-    "workspace":[
-        "tonyu2-compiler",
-        "tonyu2-runtime"
+    "workspaces":[
+        "packages/*"
     ]
 }
