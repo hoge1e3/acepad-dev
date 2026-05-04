@@ -1,5 +1,4 @@
 01234567012345670123456701234567
-do not edit generate js
 ok input on filelist
 ok showGuide rect
 ok mutual ref 
