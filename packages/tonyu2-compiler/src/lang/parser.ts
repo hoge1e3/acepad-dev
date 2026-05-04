@@ -1,4 +1,4 @@
-import R from "../lib/R.js";
+import {R} from "tonyu2-runtime";
 import { RegExpLike } from "./NodeTypes.js";
 
 //const Parser=(function () {

@@ -1,7 +1,7 @@
 import { SFile } from "@hoge1e3/sfile";
-import { C_Meta } from "../lang/CompilerTypes.js";
+import { SrcMeta } from "./RuntimeTypes";
 
-function isCMeta(src:any): src is C_Meta{
+function isSrcMeta(src:any): src is SrcMeta{
 	return src?.src;
 }
 export function isTError(e:any): e is TError{
@@ -15,12 +15,12 @@ export type TError=Error&{
 		text():string,
 	},
 	pos:number, row:number, col:number, len:number,
-	klass?: C_Meta,
+	klass?: SrcMeta,
 	raise():void,
 }
-export default function TError(message:string, src: SFile|string|C_Meta, pos:number, len=0):TError {
+export default function TError(message:string, src: SFile|string|SrcMeta, pos:number, len=0):TError {
 	let rc;
-	let klass:C_Meta|null=null;
+	let klass:SrcMeta|null=null;
 	let srcFile:TError["src"];
 	//const extend=(dst,src)=>{for (var k in src) dst[k]=src[k];return dst;};
 	if (typeof src=="string") {
@@ -38,7 +38,7 @@ export default function TError(message:string, src: SFile|string|C_Meta, pos:num
 				throw this;
 			}
 		});
-	} else if (isCMeta(src)) {
+	} else if (isSrcMeta(src)) {
 		klass=src;
 		if (klass?.src?.tonyu) srcFile=klass.src.tonyu;
 		else srcFile={

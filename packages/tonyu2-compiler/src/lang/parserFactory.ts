@@ -5,8 +5,7 @@
 */
 
 //import * as Parser from "./parser";
-import TError from "../runtime/TError.js";
-import R from "../lib/R.js";
+import {R,TError} from "tonyu2-runtime";
 import {ExpressionParser} from "./ExpressionParser2.js";
 import Grammar from "./Grammar.js";
 import { addRange, ALL, getRange, ParsedNode, Parser, setRange, State, StringParser, Token, TokensParser } from "./parser.js";

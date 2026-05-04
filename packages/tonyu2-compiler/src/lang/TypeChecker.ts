@@ -1,12 +1,11 @@
 import * as cu from "./compiler.js";
-import R from "../lib/R.js";
+import {R,TError} from "tonyu2-runtime";
 import {context} from "./context.js";
 import { FuncDecl, ParamDecl, Postfix, TNode, VarAccess, VarDecl, Exprstmt, isCall, isMember, NewExpr, isArrayElem, Forin, BackquoteLiteral } from "./NodeTypes.js";
 //import Grammar from "./Grammar";
 import { SUBELEMENTS, Token } from "./parser.js";
 import {Visitor} from "./Visitor.js";
 import { AnnotatedType, Annotation, BuilderEnv, C_FieldInfo, C_Meta, FuncInfo, isArrayType, isMeta, isMethodType, isNativeClass } from "./CompilerTypes.js";
-import TError from "../runtime/TError.js";
 
 	//var ex={"[SUBELEMENTS]":1,pos:1,len:1};
 	const ScopeTypes=cu.ScopeTypes;

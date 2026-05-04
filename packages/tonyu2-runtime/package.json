@@ -2,7 +2,7 @@
   "name": "tonyu2-runtime",
   "version": "1.0.0",
   "description": "Runtime of Tonyu2, language for a game engine.",
-  "main": "index.js",
+  "main": "./js/index.js",
   "type": "module",
   "scripts": {
     "tsc": "npx tsc",

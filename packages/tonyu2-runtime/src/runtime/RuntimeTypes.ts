@@ -1,3 +1,5 @@
+import { SFile } from "@hoge1e3/sfile";
+
 export type MetaMap={[key: string]:Meta};
 export type ClassTreeRoot={[key:string]:ClassTree};
 export type ClassTree={[key:string]:ClassTree}|TonyuClass; // Tonyu.classes.user.Hoge  Tonyu.classes.kernel.Actor etc
@@ -66,7 +68,6 @@ export type FieldInfo={
 	klass:Meta,// not in DeclsInDefinition, add at klass definition
     name:string,// not  in DeclsInDefinition, add at klass definition
 } & FieldInfoInDefinition;
-
 export type Meta={
 	func: TonyuShimClass,
 	fullName:string, shortName:string, namespace:string,
@@ -82,4 +83,34 @@ export type Meta={
     directives: {field_strict?:boolean},
     node: Program, nodeTimestamp:number,
 	annotation?: object,*/
+};
+export type SrcMeta={
+	src?: {tonyu?:SFile, js?:SFile|string, map?: string},
+}&Meta;
+export type RuntimeOptions={
+	bootClass: string,
+};
+export type ProjectOptions={
+	compiler: CompilerOptions,
+	run: RuntimeOptions,
+};
+export type DependencySpec={
+	namespace?: string;
+	dir?: string,
+	url?: string,
+	outputFile?: SFile,
+}
+export type CompilerOptions={
+	namespace: string,
+	dependingProjects: DependencySpec[],
+	typeCheck?: boolean,
+	outputFile?: string,
+	//typeInference?: boolean,
+	defaultSuperClass?: string,
+	field_strict?: boolean,
+	external_waitable?: boolean,
+	diagnose?: boolean,
+	genAMD?: boolean,
+	noLoopCheck?: boolean,
+	compress?: boolean,
 };

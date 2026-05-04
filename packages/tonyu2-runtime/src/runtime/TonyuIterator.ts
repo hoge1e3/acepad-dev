@@ -1,5 +1,3 @@
-//define(["Klass"], function (Klass) {
-//var Klass=require("../lib/Klass");
 const SYMIT=Symbol.iterator;
 interface ITonyuIterator {
 	set: any;

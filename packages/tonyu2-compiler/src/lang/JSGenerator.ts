@@ -9,7 +9,7 @@ import { Annotation, C_Meta, BuilderEnv, FuncInfo, GenOptions, AnnotatedType, Na
 import { ArgList, ArrowFuncExpr, Arylit, BackquoteLiteral, BackquoteText, Break, Call, Case, Catch, Compound, Continue, Default, Do, DotExpr, Exprstmt, For, Forin, FuncDecl, FuncDeclHead, FuncExpr, If, IfWait, Infix, isArrowFuncExpr, JsonElem, NewExpr, NonArrowFuncExpr, NormalFor, Objlit, ObjlitArg, ParamDecl, ParamDecls, ParenExpr, Postfix, Prefix, Return, Scall, Stmt, SuperExpr, Switch, Throw, TNode, Trifix, Try, VarAccess, VarDecl, VarsDecl, While } from "./NodeTypes.js";
 import { Empty, Token } from "./parser.js";
 import { isBlockScopeDeclprefix, isNonBlockScopeDeclprefix } from "./compiler.js";
-import R from "../lib/R.js";
+import {R} from "tonyu2-runtime";
 
 //export=(cu as any).JSGenerator=(function () {
 // TonyuソースファイルをJavascriptに変換する

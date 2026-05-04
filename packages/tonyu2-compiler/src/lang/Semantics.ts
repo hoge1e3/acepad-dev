@@ -1,6 +1,6 @@
-import Tonyu from "../runtime/TonyuRuntime.js";
+import Tonyu from "../../../tonyu2-runtime/src/runtime/TonyuRuntime.js";
 import R from "../lib/R.js";
-import TError from "../runtime/TError.js";
+import TError from "../../../tonyu2-runtime/src/runtime/TError.js";
 import { isTonyu1 } from "./tonyu1.js";
 import * as ObjectMatcher from "./ObjectMatcher.js";
 const OM:any=ObjectMatcher;
@@ -12,7 +12,7 @@ import {Visitor} from "./Visitor.js";
 import {context} from "./context.js";
 import { SUBELEMENTS, Token } from "./parser.js";
 import {Catch, Exprstmt, Forin, FuncDecl, FuncExpr, isPostfix, isVarAccess, NativeDecl, TNode, Program, Stmt, VarDecl, TypeExpr, VarAccess, Objlit, JsonElem, Compound, ParamDecl, Do, Switch, While, For, IfWait, Try, Return, Break, Continue, Postfix, Infix, VarsDecl, NamedTypeExpr, ArrayTypeExpr, isNamedTypeExpr, isArrayTypeExpr, Case, StmtList, UnionTypeExpr, isUnionTypeExpr, isArrowFuncExpr, ArrowFuncExpr, NonArrowFuncExpr} from "./NodeTypes.js";
-import { FieldInfo, Meta } from "../runtime/RuntimeTypes.js";
+import { FieldInfo,} from "../../../tonyu2-runtime/src/runtime/RuntimeTypes.js";
 import { AnnotatedType, Annotation, ArrayType, ArrowFuncInfo, BuilderEnv, C_Decls, C_Meta, FuncInfo, Locals, Methods, NamedType, NonArrowFuncInfo, UnionType, isNonArrowFuncInfo, isUnionType } from "./CompilerTypes.js";
 import { isBlockScopeDeclprefix, isNonBlockScopeDeclprefix, packAnnotation } from "./compiler.js";
 import { SFile } from "@hoge1e3/sfile";

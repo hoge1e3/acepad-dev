@@ -1,4 +1,4 @@
-import StringBuilder from "../lib/StringBuilder.js";
+import {StringBuilder} from "tonyu2-runtime";
 import * as SourceMap from "source-map";
 import { Visitor } from "./Visitor.js";
 import { SFile } from "@hoge1e3/sfile";

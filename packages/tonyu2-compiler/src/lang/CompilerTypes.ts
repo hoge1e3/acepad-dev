@@ -1,8 +1,8 @@
-import { SFile } from "@hoge1e3/sfile";
-import { Constructor, FieldInfo, Meta } from "../runtime/RuntimeTypes.js";
+import { Constructor, FieldInfo, ProjectOptions, SrcMeta } from "tonyu2-runtime";
 import { ScopeInfo } from "./compiler.js";
 import { IndentBuffer } from "./IndentBuffer.js";
-import { Catch, Expr, Expression, Forin, FuncDecl, FuncDeclHead, ParamDecl, Program, Stmt, SuperExpr, TNode, VarDecl } from "./NodeTypes.js";
+import { Expr, Expression, FuncDecl, FuncDeclHead, 
+	ParamDecl, Program, Stmt, SuperExpr, TNode, VarDecl } from "./NodeTypes.js";
 import { Token } from "./parser.js";
 
 export type C_MetaMap={[key: string]:C_Meta};
@@ -24,15 +24,16 @@ export type BuilderEnv={
 	aliases: Aliases,
 	//amdPaths: string[],
 };
+export type BuilderContextDef={
+	destinations?: Destinations,
+};
+/*
 export type RuntimeOptions={
 	bootClass: string,
 };
 export type ProjectOptions={
 	compiler: CompilerOptions,
 	run: RuntimeOptions,
-};
-export type BuilderContextDef={
-	destinations?: Destinations,
 };
 export type DependencySpec={
 	namespace?: string;
@@ -54,6 +55,7 @@ export type CompilerOptions={
 	noLoopCheck?: boolean,
 	compress?: boolean,
 };
+*/
 export type Destinations=FileDest|MemoryDest;
 type FileDest={
 	file: any,
@@ -91,11 +93,11 @@ export type C_Decls={
 	amds: {[key:string]: C_AmdInfo},
 	softRefClasses: {[key:string]: ScopeInfo}
 }
-export type C_Meta=Meta & {
+export type C_Meta=SrcMeta & {
 	decls: C_Decls,
 	superclass: C_Meta|null,
 	includes: C_Meta[],
-	src?: {tonyu?:SFile, js?:SFile|string, map?: string},
+	//src?: {tonyu?:SFile, js?:SFile|string, map?: string},
     hasSemanticError?: boolean,
     jsNotUpToDate: boolean|undefined,
     directives: {

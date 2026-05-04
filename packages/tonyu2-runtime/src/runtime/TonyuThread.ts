@@ -1,5 +1,3 @@
-//	var Klass=require("../lib/Klass");
-
 import { TonyuMethod } from "./RuntimeTypes.js";
 import R from "../lib/R.js";
 

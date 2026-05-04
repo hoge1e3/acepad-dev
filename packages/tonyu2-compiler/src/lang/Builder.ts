@@ -1,14 +1,11 @@
-import Tonyu from "../runtime/TonyuRuntime.js";
-import TError from "../runtime/TError.js";
-import R from "../lib/R.js";
+import {Tonyu,TError,R, Meta} from "tonyu2-runtime";
 import { isTonyu1 } from "./tonyu1.js";
 import * as JSGenerator from "./JSGenerator.js";
 import {IndentBuffer} from "./IndentBuffer.js";
 import * as Semantics from "./Semantics.js";
-import { SourceFiles, SourceFile, sourceFiles } from "./SourceFiles.js";
+import { SourceFile, sourceFiles } from "./SourceFiles.js";
 import { checkExpr, checkTypeDecl } from "./TypeChecker.js";
-import { Meta, MetaMap } from "../runtime/RuntimeTypes.js";
-import { BuilderContext, BuilderContextDef, BuilderEnv, CompilerOptions, C_Meta, C_MetaMap, Destinations, GenOptions, isFileDest, isMemoryDest } from "./CompilerTypes.js";
+import { BuilderContext, BuilderContextDef, BuilderEnv, C_Meta, C_MetaMap, Destinations, GenOptions, isFileDest, isMemoryDest } from "./CompilerTypes.js";
 import { DirBasedTonyuProject } from "../project/projectTypes.js";
 import { SFile } from "@hoge1e3/sfile";
 
