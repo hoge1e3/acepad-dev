@@ -1,6 +1,7 @@
 01234567012345670123456701234567
+do not edit generate js
 ok input on filelist
-showGuide rect
+ok ?showGuide rect
 ok mutual ref 
 @acepad/flex 
  ok folder jump
