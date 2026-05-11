@@ -1,10 +1,11 @@
 01234567012345670123456701234567
-do not edit generate js
+ok do not edit generate js
 ok input on filelist
 ok showGuide rect
 ok mutual ref 
 @acepad/flex 
  ok folder jump
+ definition first
 category by package
 ok change event from other worker
 new-feature
