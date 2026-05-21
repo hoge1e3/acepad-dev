@@ -10,7 +10,9 @@ export async function main(...args){
   await $.getScript(url);
   f1=this.resolve(f1);
   f2=this.resolve(f2);
-  if (o.patch) {
+  if(o.merge){
+    merge.call(this,f1,f2,o.merge);
+  } else if (o.patch) {
     genPatch.call(this,f1,f2);
   } else {
     calcDiff.call(this,f1,f2);
@@ -62,6 +64,51 @@ function genPatch(f1,f2){
       }
     }
   }
+}
+function merge(f1, f2, mf) {
+  if (typeof mf === "boolean") {
+    mf = genMname(f1, f2);
+  }
+  mf = this.resolve(mf);
+  const f1t = f1.lines();
+  const f2t = f2.lines();
+
+  var sm = new difflib.SequenceMatcher(null, f1t, f2t);
+  var opcodes = sm.getOpcodes();
+  let lines = [];
+
+  for (var i in opcodes) {
+    var [tag, i1, i2, j1, j2] = opcodes[i];
+    if (tag === "equal") {
+      for (let k = i1; k < i2; k++) lines.push(f1t[k]);
+    } else {
+      lines.push("<<<<<<< " + f1);
+      for (let k = i1; k < i2; k++) lines.push(f1t[k]);
+      lines.push("=======");
+      for (let k = j1; k < j2; k++) lines.push(f2t[k]);
+      lines.push(">>>>>>> " + f2);
+    }
+  }
+
+  mf.text(lines.join("\n"));
+  this.edit(mf);
+  this.echo("cp",mf,f1);
+  this.echo("rm",mf,f2);
+}
+function genMname(from, to) {
+  const trf = from.truncExt();  // e.g. "test(ver01)"
+  const trt = to.truncExt();    // e.g. "test(ver02)"
+  const ext = from.ext();       // e.g. ".js"
+
+  // Find common prefix between the two truncated names
+  let i = 0;
+  while (i < trf.length && i < trt.length && trf[i] === trt[i]) i++;
+  const common = trf.substring(0, i); // e.g. "test"
+
+  const suffixF = trf.substring(i); // e.g. "(ver01)" or ""
+  const suffixT = trt.substring(i); // e.g. "(ver02)" or ""
+
+  return common + suffixF + "_to_" + suffixT + ext;
 }
 function calcDiff(f1,f2){
   var base = f1.lines();
