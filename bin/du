@@ -7,14 +7,20 @@ export async function main(...args){
     const sh=this;
     const depth=o.d||10000;
     function loop(dir,depth){
-        let s=0;
+        let s=0,c=1;
         for(let f of dir.listFiles()){
           if (f.isLink()) continue;
-            if(f.isDir())s+=loop(f,depth-1);
-            else s+=f.size();
+            if(f.isDir()){
+              const [s2,c2]=loop(f,depth-1);
+              c+=c2;
+              s+=s2;
+            }else {
+              s+=f.size();
+              c++;
+            }
         }
-        if(depth>=0)sh.echo(dir.path(),s);
-        return s;
+        if(depth>=0)sh.echo(dir.path(),c,s);
+        return [s,c];
     }
     loop(dir,depth);
 }
