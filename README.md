@@ -1,6 +1,8 @@
 # Acepad
 Node.js-like Programming Environment for Web Browser/Smartphones. Based on [petit-node](https://github.com/hoge1e3/petit-node/)
 
+<img width="324" height="702" alt="image" src="https://github.com/user-attachments/assets/0588e7d4-acdf-4d7b-8f02-b20f821a325c" />
+
 ## If you are reading this on GitHub
 Go to [demo site](https://hoge1e3.github.io/acepad/):
 - select 'petit-node'.
