@@ -1,0 +1,274 @@
+:root {
+    color-scheme: dark;
+    --bg: #0b1120;
+    --panel: #162033;
+    --screen: #09101b;
+    --screen-glow: rgba(89, 155, 254, 0.12);
+    --key-light: #eef1f7;
+    --key-dark: #b7bcc7;
+    --key-edge: #78829a;
+    --accent: #ffc34d;
+    --accent-strong: #49c8ff;
+    --shadow: rgba(0,0,0,0.32);
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    appearance: none;
+    font: inherit;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    touch-action: none;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: radial-gradient(circle at top, #1b2b44 0%, #090d16 42%, #060812 100%);
+    color: #eef4ff;
+}
+
+.acepad {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.calculator-shell {
+    width: min(1120px, 100%);
+    max-width: 1120px;
+    aspect-ratio: 16 / 10;
+}
+
+.calculator-bezel {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 2.4rem;
+    background: linear-gradient(180deg, #182139 0%, #101824 42%, #09101b 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 32px 90px rgba(0,0,0,0.4);
+    overflow: hidden;
+}
+
+.screen-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 1.4rem;
+    background: rgba(255,255,255,0.05);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.status-lights {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.status-lights span {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    background: #20314c;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+}
+
+.status-lights span:nth-child(1) { background: #ff6f65; }
+.status-lights span:nth-child(2) { background: #ffd36d; }
+.status-lights span:nth-child(3) { background: #4ce0c1; }
+
+.screen-logo {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #d7e8ff;
+}
+
+.screen-frame {
+    position: relative;
+    border-radius: 2rem;
+    background: linear-gradient(180deg, #111820 0%, #121a25 40%, #0b1119 100%);
+    padding: 1rem;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), inset 0 18px 40px rgba(17,35,59,0.16);
+    overflow: hidden;
+}
+
+.editor {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.6rem;
+    background: #070c16;
+    overflow: hidden;
+}
+
+#editor-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 100000;
+    pointer-events: none;
+}
+
+.ace_editor {
+    background-color: #070c16;
+    color: #e0e8ff;
+}
+
+#keypad {
+    display: grid;
+    gap: 0.9rem;
+    padding: 1rem;
+    border-radius: 2rem;
+    background: linear-gradient(180deg, rgba(19,29,44,0.96), rgba(14,20,29,0.96));
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 12px 30px rgba(0,0,0,0.24);
+}
+
+.row {
+    display: flex;
+    gap: 0.7rem;
+    align-items: stretch;
+}
+
+.row.justify {
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.row .mask {
+    display: flex;
+    gap: 0.7rem;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+}
+
+#keypad button {
+    flex: 1 1 0;
+    min-width: 3.6rem;
+    min-height: 3.9rem;
+    padding: 0 0.9rem;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    color: #111827;
+    background: linear-gradient(180deg, #f3f5fa 0%, #d9dce7 100%);
+    box-shadow: 0 9px 0 rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.9);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+#keypad button:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.16);
+}
+
+#keypad button.wide {
+    min-width: 5.2rem;
+}
+
+#keypad button.chr {
+    background: linear-gradient(180deg, #eef1f7 0%, #cfd5df 100%);
+}
+
+#keypad button.wide.chr {
+    background: linear-gradient(180deg, #e6ebf2 0%, #c0c6d1 100%);
+}
+
+#keypad button.autorepeat,
+#keypad button.shift,
+#keypad button.ctrl,
+#keypad button[data-command],
+#keypad button.selButton {
+    background: linear-gradient(180deg, #4a5b7b 0%, #2a3950 100%);
+    color: #eef5ff;
+    box-shadow: 0 8px 0 rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+#keypad button.autorepeat:active,
+#keypad button.shift:active,
+#keypad button.ctrl:active,
+#keypad button[data-command]:active,
+#keypad button.selButton:active {
+    background: linear-gradient(180deg, #2f4c7c 0%, #1b2a44 100%);
+}
+
+#keypad.lock-shift button {
+    background: #ffd952;
+    color: #1c1721;
+}
+
+#keypad button.chr.wide {
+    min-width: 5rem;
+}
+
+.suggest-outer {
+    flex: 1 1 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.4rem;
+    padding: 1rem 1.1rem;
+    background: linear-gradient(180deg, #19233a 0%, #121923 100%);
+    color: #a6bbff;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    min-height: 4rem;
+}
+
+.suggest-inner {
+    width: 100%;
+    text-align: center;
+}
+
+@media screen and (max-width: 980px) {
+    .calculator-shell { aspect-ratio: auto; }
+}
+
+@media screen and (max-width: 760px) {
+    .calculator-bezel { gap: 0.85rem; padding: 0.85rem; }
+    #keypad { padding: 0.85rem; gap: 0.75rem; }
+    .row { gap: 0.5rem; }
+    #keypad button { min-height: 3.3rem; font-size: 0.9rem; }
+}
+
+@media screen and (max-height: 520px) {
+    #keypad button { min-height: 3rem; }
+}
+
+#menucontainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: var(--keypad-height);
+    left: 0;
+}
+
+#menucontainer button {
+    position: absolute;
+    z-index: 300000;
+}
+
+.tip {
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    display: none;
+    z-index: 300001;
+    font-size: 40px;
+    background-color: #08f;
+    padding: 0.6rem 1rem;
+    border-radius: 1rem;
+    color: #fff;
+}

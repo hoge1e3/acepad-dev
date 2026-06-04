@@ -1,0 +1,38 @@
+#!run
+import {debugSession} from "@acepad/debug";
+import * as local from "ace-local-commands";
+import {current as curfile} from "@acepad/files";
+
+/**
+ acepad-cmd [-k=bindKey] ace-cmd shell-cmd args...
+ */
+export function main(...args){
+  args=this.collectOptions(args);
+  const o=args.pop();
+  if(!args.length){
+    this.echo("acepad-cmd [-k=bindKey] ace-cmd shell-cmd args...");
+  }
+  const bindKey=o.k?{bindKey:o.k}:{};
+  const a=this.$acepad;
+  const [key,...cmd]=args;
+  if(cmd.length==0){
+    cmd.unshift(key);
+  }
+  const sh=this;
+  //console.log("acepad-cmd",key,cmd,bindKey);
+  local.addGlobalCommands(a.getMainEditor(),{
+    [key]:{
+      ...bindKey,
+      exec(){
+        const file=curfile(sh);
+        const ssh=sh.clone();
+        if(file){
+          ssh.cd(file.up());
+        }
+        console.log("$acepad-cmd",ssh.getcwd(),cmd);
+        debugSession(ssh,cmd.slice());
+        //ssh.evalCommand(cmd.slice());
+      }
+    }
+  });
+}
