@@ -6,7 +6,7 @@
         "acepad-cmd": "acepad-cmd.js"
     },
     "main": "acepad-with-fs.js",
-    "name": "@acepad/with-fs",
+    "name": "@acepad/with-fs2",
     "type": "module",
     "version": "1.0.0",
     "dependencies": {
