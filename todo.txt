@@ -1,12 +1,9 @@
 01234567012345670123456701234567
-ok do not edit generate js
-ok input on filelist
-ok showGuide rect
-ok mutual ref 
 @acepad/flex 
  ok folder jump
- definition first
-category by package
+ wip definition first
+this file
+ wip category by package
 ok change event from other worker
 new-feature
  ok hyper jump
@@ -44,6 +41,7 @@ pin
  overwrite check
 @hoge1e3/gsync
   ok conflict folder
+  stage into index
   fine timestamp
    store hash 
    (clears on update children)
@@ -59,8 +57,6 @@ autogutt
   ok to cmd
   function key opaque
 @acepad/tsc
- ok kesikaran
- ok auto start(do not duplicate)
  code completion
  install from npm
 .acepad-menu
@@ -112,9 +108,7 @@ samples
  keypad resize
 
 @acepad/icon-editor
- ok command
- ok 32x32
- other size
+ other than 32x32 size
 @acepad/flex
  suggest keyword
  jump to file on filename match
@@ -176,6 +170,19 @@ bookmark command <-pin?
 ?F5 dir show bug
 
 -------------ok---------
+@acepad/icon-editor
+ ok command
+ ok 32x32
+
+@acepad/tsc
+ ok kesikaran
+ ok auto start(do not duplicate)
+
+ok do not edit generate js
+ok input on filelist
+ok showGuide rect
+ok mutual ref 
+
 ok file widget duplicate why?
 ok run ts
 ok id()
