@@ -1,0 +1,21 @@
+{
+  "name": "@hoge1e3/roma",
+  "version": "1.0.0",
+  "description": "Convert Romaji to Kana",
+  "main": "dist/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "node js/test/test.js",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "hoge1e3",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist"
+  ]
+}
