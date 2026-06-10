@@ -1,14 +1,15 @@
 #!run
 import {showWidget} from "@acepad/widget";
+import {t} from "@hoge1e3/dom";
 const raf=()=>new Promise(requestAnimationFrame); 
 export async function main(){
-    let wid=showWidget("<canvas>");
+    let wid=showWidget(t.canvas());
     let cv=wid.element;
     let ctx=cv.getContext("2d");
     let w=cv.width;
     let h=cv.height;
-    cv.setAttribute("width", w);
-    cv.setAttribute("height", h);
+    //cv.setAttribute("width", w);
+    //cv.setAttribute("height", h);
     while(true){
         let y=h/2;
         for (let i=0;i<w;i++) {
