@@ -2,6 +2,8 @@
 @acepad/flex 
  ok folder jump
  wip definition first
+@acepad/with-fs
+ css var(color) editor
 this file
  wip category by package
 ok change event from other worker

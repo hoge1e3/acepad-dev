@@ -1,15 +1,12 @@
-//!run
-/* global $*/
+#!run
 import {showWidget} from "@acepad/widget";
 const raf=()=>new Promise(requestAnimationFrame); 
 export async function main(){
     let wid=showWidget("<canvas>");
-    /*let c=$("<canvas>").css({
-        width:"100%",height:"100%"}).appendTo(w.element);*/
     let cv=wid.element;
     let ctx=cv.getContext("2d");
-    let w= $(cv).width();
-    let h= $(cv).height();
+    let w=cv.width;
+    let h=cv.height;
     cv.setAttribute("width", w);
     cv.setAttribute("height", h);
     while(true){
@@ -17,7 +14,8 @@ export async function main(){
         for (let i=0;i<w;i++) {
             ctx.fillRect(i,y,1,1);
             y+=(Math.random()*h<y?1:-1);
-            //if(y>h){y=h;vy=-vy*0.9;}
+            if(y>h){y=h;}
+            if(y<0){y=0;}
         }
         await raf();
     }

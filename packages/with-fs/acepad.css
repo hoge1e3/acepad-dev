@@ -143,7 +143,9 @@ body {
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
+.justify {
+    display: flex;
+}
 .row .mask {
     display: flex;
     gap: 0.7rem;
