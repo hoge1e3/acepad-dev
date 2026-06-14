@@ -11,6 +11,7 @@ export async function main(){
   plots(w.element,[
     (x)=>x**2,
     (x)=>Math.sin(x),
+    (x)=>Math.log(x),
   ],{
     title:"Graph sample"
   });

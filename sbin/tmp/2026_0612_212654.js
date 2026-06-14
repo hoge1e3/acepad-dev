@@ -1,5 +1,6 @@
 #!run
 
 export async function main(){
-  return "   ".trim();
+
+  return ;
 }
