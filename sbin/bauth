@@ -10,7 +10,7 @@ import {modeMap} from "@acepad/files";
 import * as ed from "docker-terminal-editor";
 /*global $,URLSearchParams*/    
 export async function main(scriptFile,
-  {n:noalert,h:headless}={}){
+  {n:noalert,h:headless,c:command}={}){
   const callback1=location.href+"?";
   this.echo("callback1",callback1);
   const callback2=ba+"/?Login/curStatus&callback="+encodeURI(callback1);
@@ -31,6 +31,9 @@ export async function main(scriptFile,
     if(scriptFile){
       scriptFile=this.resolve(scriptFile);
       init="\n"+scriptFile.text();
+    }
+    if(command){
+      init+="\n"+command;
     }
     const t=await term.create({
       pass:JSON.stringify(code),
