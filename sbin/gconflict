@@ -3,19 +3,35 @@
 export async function main(){
   const home=this.resolve(
     this.$home);
-  const conf=home.rel(
+  let conf=home.rel(
       ".gsync-conflicts/");
-  for(let f of conf.recursive()){
-    const t=f.truncExt();
-    const d=f.up().relPath(conf);
-    const e=f.ext();
-    const m=/(.*)(\([0-9a-f]+\))$/.
-    exec(t);
-    if(!m)continue;
-    const b=home.rel(d).rel(m[1]+e);
-    //this.echo(d,m[1],m[2],e);
-    if(!b)continue;
-    this.echo("diff","-merge",b,f)
+  
+  let scanDir;
+  if(!conf.exists()){
+    // conf not exists: scan current dir recursively
+    // and find conflict files (e.g. test(abcd0123).js is a conflict of test.js)
+    scanDir=this.cwd();
+  } else {
+    scanDir=conf;
   }
-  return ;
+
+  for(let f of scanDir.recursive()){
+    const t=f.truncExt();
+    const e=f.ext();
+    const m=/(.*)(\([0-9a-f]+\))$/.exec(t);
+    if(!m)continue;
+
+    let b;
+    if(conf.exists()){
+      const d=f.up().relPath(conf);
+      b=home.rel(d).rel(m[1]+e);
+    } else {
+      // conflict file resides in same folder as original
+      b=f.up().rel(m[1]+e);
+    }
+
+    if(!b)continue;
+    this.echo("diff","-merge",b,f);
+  }
+  return;
 }
