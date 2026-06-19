@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "npx tsc",
-    "test": "node js/test/test.js",
+    "test": "node js/test/test-node.js",
     "prepublishOnly": "npm run build"
   },
   "author": "hoge1e3",
