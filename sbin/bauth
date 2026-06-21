@@ -9,8 +9,13 @@ const ws=FS.getEnv("ws");
 import {modeMap} from "@acepad/files";
 import * as ed from "docker-terminal-editor";
 /*global $,URLSearchParams*/    
-export async function main(scriptFile,
-  {n:noalert,h:headless,c:command}={}){
+export async function main(/*scriptFile,
+  {n:noalert,h:headless,c:command}={}*/
+  ...a){
+  const [
+    {n:noalert,h:headless,c:command},
+    scriptFile
+  ]=this.pickOptions(a);
   const callback1=location.href+"?";
   this.echo("callback1",callback1);
   const callback2=ba+"/?Login/curStatus&callback="+encodeURI(callback1);
@@ -28,12 +33,11 @@ export async function main(scriptFile,
     this.echo("try again");   
   }else{
     let init="";
-    if(scriptFile){
-      scriptFile=this.resolve(scriptFile);
-      init="\n"+scriptFile.text();
-    }
     if(command){
       init+="\n"+command;
+    }else if(scriptFile){
+      scriptFile=this.resolve(scriptFile);
+      init="\n"+scriptFile.text();
     }
     const t=await term.create({
       pass:JSON.stringify(code),
