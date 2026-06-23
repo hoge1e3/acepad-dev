@@ -1,7 +1,11 @@
 01234567012345670123456701234567
+ok sbin/tmp/arc
+import symlink package fail
+romaji
+ input japanese
 @acepad/flex 
  ok folder jump
- wip definition first
+ ok(by opencode) definition first
 @acepad/with-fs
  css var(color) editor
 this file
@@ -25,6 +29,7 @@ new-feature
  inspect on editor realtime
 petit-node
  ok unwatchFile
+ factory reset fails (done before not completely commited)
  bootloader splash screen?
   -> on big mount
   fsck idb recursive

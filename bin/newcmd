@@ -28,12 +28,17 @@ export async function main(){
     this.edit(d,{row:4,column:9});
 }
 function clean(dir){
+  // fix: instead of rm , create arc/ folder and mv 
   let dur=86400*1000;
   const now=new Date().getTime();
+  const arc=dir.rel("arc/");
+  if(!arc.exists()){
+    arc.mkdir();
+  }
   for(let f of dir.listFiles()){
     if(!f.name().match(/^[\d_]+\.js$/))continue;
     if(now-f.lastUpdate()>dur){
-      f.rm();
+      f.moveTo(arc.rel(f.name()));
     }
   }
 }
