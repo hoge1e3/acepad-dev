@@ -18,7 +18,7 @@ export async function main(){
   const ent=pNode.resolveEntry("import",
   
   p.value.replace(/["']/g,""),f);
-  
+  console.log("edit",ent)
   return ent&&this.edit(ent.file);
 }
 function findLiteral(session) {
