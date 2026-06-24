@@ -2,7 +2,7 @@
 
 export async function main(...a){
   const [o,n]=this.pickOptions(a);
-  const c=(o.s?
+  const c=((o.s||o.n)?
   `screen -S ${n}\n`:
   `screen -r ${n}\n`
   );

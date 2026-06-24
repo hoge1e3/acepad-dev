@@ -1,10 +1,10 @@
 #!run
-import * as r from "@hoge1e3/roma";
+import {romajiToKatakana} from "@hoge1e3/roma";
 export async function main(){
     const editor=this.$acepad.getMainEditor();
   const c=editor.container;
   const session=editor.session;
-
+// nihongoppoi string
   return this.watch(()=>{
     try{
       const r=session.getSelection().getRange().start;
@@ -15,8 +15,9 @@ export async function main(){
       }
       const it=session.doc.positionToIndex(rt);
       const line= session.getValue().
-      substring(it,i)
-      
+        substring(it,i)
+      return romajiToKatakana(
+      line);
     }catch(e){
       return e;
     }
