@@ -1,5 +1,7 @@
 01234567012345670123456701234567
 ok sbin/tmp/arc
+bauth copy console
+ editor
 import symlink package fail
 romaji
  input japanese
@@ -47,6 +49,8 @@ petit-node
 pin
  overwrite check
 @hoge1e3/gsync
+  diff
+  overwrite with branch
   ok conflict folder
   stage into index
   fine timestamp
