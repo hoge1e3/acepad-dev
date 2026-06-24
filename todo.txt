@@ -1,4 +1,21 @@
 01234567012345670123456701234567
+@hoge1e3/gsync
+  reset_hard
+   overwrite with branch
+  diff
+  ok conflict folder
+  stage into index
+  fine timestamp
+   store hash 
+   (clears on update children)
+  re-download with object timestamp
+  name/key from ENVVAR/localStorage
+  gsync message
+  gsync push to .git
+  lock
+  open git config at '\config': not found (os error 2)
+  ok progress
+  ok do not follow symlinks
 ok sbin/tmp/arc
 bauth copy console
  editor
@@ -48,22 +65,6 @@ petit-node
  opaque
 pin
  overwrite check
-@hoge1e3/gsync
-  diff
-  overwrite with branch
-  ok conflict folder
-  stage into index
-  fine timestamp
-   store hash 
-   (clears on update children)
-  re-download with object timestamp
-  name/key from ENVVAR/localStorage
-  gsync message
-  gsync push to .git
-  lock
-  open git config at '\config': not found (os error 2)
-  ok progress
-  ok do not follow symlinks
 autogutt
   ok to cmd
   function key opaque
