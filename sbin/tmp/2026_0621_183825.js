@@ -1,5 +1,5 @@
 #!run
-import {romajiToKatakana} from "@hoge1e3/roma";
+import {romajiToKatakanaAdvanced} from "@hoge1e3/roma";
 export async function main(){
     const editor=this.$acepad.getMainEditor();
   const c=editor.container;
@@ -16,7 +16,7 @@ export async function main(){
       const it=session.doc.positionToIndex(rt);
       const line= session.getValue().
         substring(it,i)
-      return romajiToKatakana(
+      return romajiToKatakanaAdvanced(
       line);
     }catch(e){
       return e;

@@ -2,7 +2,7 @@
   "name": "@hoge1e3/roma",
   "version": "1.0.0",
   "description": "Convert Romaji to Kana",
-  "main": "./js/src/index.js",
+  "main": "./js/src/indexh.js",
   "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {

@@ -1,84 +1,84 @@
 
 /*
 fixit:
-子音2個でッ
+子音2個でっ
 例
-yappari　→ ヤッパリ
+yappari　→ やっぱり
 */
 /**
- * ローマ字からカタカナへの変換マッピング
+ * ローマ字からひらがなへの変換mapping
  */
 const romaToKana: Record<string, string> = {
     // 基本的な母音
-    'a': 'ア', 'i': 'イ', 'u': 'ウ', 'e': 'エ', 'o': 'オ',
+    'a': 'あ', 'i': 'い', 'u': 'う', 'e': 'え', 'o': 'お',
     
-    // カ行
-    'ka': 'カ', 'ki': 'キ', 'ku': 'ク', 'ke': 'ケ', 'ko': 'コ',
-    'ga': 'ガ', 'gi': 'ギ', 'gu': 'グ', 'ge': 'ゲ', 'go': 'ゴ',
+    // か行
+    'ka': 'か', 'ki': 'き', 'ku': 'く', 'ke': 'け', 'ko': 'こ',
+    'ga': 'が', 'gi': 'ぎ', 'gu': 'ぐ', 'ge': 'げ', 'go': 'ご',
     
-    // サ行
-    'sa': 'サ', 'shi': 'シ', 'su': 'ス', 'se': 'セ', 'so': 'ソ',
-    'za': 'ザ', 'ji': 'ジ', 'zi': 'ジ', 'zu': 'ズ', 'ze': 'ゼ', 'zo': 'ゾ',
+    // さ行
+    'sa': 'さ', 'si': 'し','shi': 'し', 'su': 'す', 'se': 'せ', 'so': 'そ',
+    'za': 'ざ', 'ji': 'じ', 'zi': 'じ', 'zu': 'ず', 'ze': 'ぜ', 'zo': 'ぞ',
     
-    // タ行
-    'ta': 'タ', 'ti': 'チ', 'chi': 'チ', 'tsu': 'ツ', 'tu': 'ツ', 'te': 'テ', 'to': 'ト',
-    'da': 'ダ', 'di': 'ディ', 'du': 'ドゥ', 'de': 'デ', 'do': 'ド',
+    // た行
+    'ta': 'た', 'ti': 'ち', 'chi': 'ち', 'tsu': 'つ', 'tu': 'つ', 'te': 'て', 'to': 'と',
+    'da': 'だ', 'di': 'でぃ', 'du': 'どぅ', 'de': 'で', 'do': 'ど',
     
-    // ナ行
-    'na': 'ナ', 'ni': 'ニ', 'nu': 'ヌ', 'ne': 'ネ', 'no': 'ノ',
+    // な行
+    'na': 'な', 'ni': 'に', 'nu': 'ぬ', 'ne': 'ね', 'no': 'の',
     
-    // ハ行
-    'ha': 'ハ', 'hi': 'ヒ', 'hu': 'フ','fu': 'フ', 'he': 'ヘ', 'ho': 'ホ',
-    'ba': 'バ', 'bi': 'ビ', 'bu': 'ブ', 'be': 'ベ', 'bo': 'ボ',
-    'pa': 'パ', 'pi': 'ピ', 'pu': 'プ', 'pe': 'ペ', 'po': 'ポ',
+    // は行
+    'ha': 'は', 'hi': 'ひ', 'hu': 'ふ','fu': 'ふ', 'he': 'へ', 'ho': 'ほ',
+    'ba': 'ば', 'bi': 'び', 'bu': 'ぶ', 'be': 'べ', 'bo': 'ぼ',
+    'pa': 'ぱ', 'pi': 'ぴ', 'pu': 'ぷ', 'pe': 'ぺ', 'po': 'ぽ',
     
-    // マ行
-    'ma': 'マ', 'mi': 'ミ', 'mu': 'ム', 'me': 'メ', 'mo': 'モ',
+    // ま行
+    'ma': 'ま', 'mi': 'み', 'mu': 'む', 'me': 'め', 'mo': 'も',
     
-    // ヤ行
-    'ya': 'ヤ', 'yu': 'ユ', 'yo': 'ヨ',
+    // や行
+    'ya': 'や', 'yu': 'ゆ', 'yo': 'よ',
     
-    // ラ行
-    'ra': 'ラ', 'ri': 'リ', 'ru': 'ル', 're': 'レ', 'ro': 'ロ',
+    // ら行
+    'ra': 'ら', 'ri': 'り', 'ru': 'る', 're': 'れ', 'ro': 'ろ',
     
-    // ワ行
-    'wa': 'ワ', 'wo': 'ヲ', 'n': 'ン',
+    // わ行
+    'wa': 'わ', 'wo': 'を', 'n': 'ん',
     
     // 拗音
-    'kya': 'キャ', 'kyu': 'キュ', 'kyo': 'キョ',
-    'gya': 'ギャ', 'gyu': 'ギュ', 'gyo': 'ギョ',
-    'sha': 'シャ', 'shu': 'シュ', 'sho': 'ショ',
-    'ja': 'ジャ', 'ju': 'ジュ', 'jo': 'ジョ',
-    'cha': 'チャ', 'chu': 'チュ', 'cho': 'チョ',
-    'nya': 'ニャ', 'nyu': 'ニュ', 'nyo': 'ニョ',
-    'hya': 'ヒャ', 'hyu': 'ヒュ', 'hyo': 'ヒョ',
-    'bya': 'ビャ', 'byu': 'ビュ', 'byo': 'ビョ',
-    'pya': 'ピャ', 'pyu': 'ピュ', 'pyo': 'ピョ',
-    'mya': 'ミャ', 'myu': 'ミュ', 'myo': 'ミョ',
-    'rya': 'リャ', 'ryu': 'リュ', 'ryo': 'リョ',
+    'kya': 'きゃ', 'kyu': 'きゅ', 'kyo': 'きょ',
+    'gya': 'ぎゃ', 'gyu': 'ぎゅ', 'gyo': 'ぎょ',
+    'sha': 'しゃ', 'shu': 'しゅ', 'sho': 'しょ',
+    'ja': 'じゃ', 'ju': 'じゅ', 'jo': 'じょ',
+    'cha': 'ちゃ', 'chu': 'ちゅ', 'cho': 'ちょ',
+    'nya': 'にゃ', 'nyu': 'にゅ', 'nyo': 'にょ',
+    'hya': 'ひゃ', 'hyu': 'ひゅ', 'hyo': 'ひょ',
+    'bya': 'びゃ', 'byu': 'びゅ', 'byo': 'びょ',
+    'pya': 'ぴゃ', 'pyu': 'ぴゅ', 'pyo': 'ぴょ',
+    'mya': 'みゃ', 'myu': 'みゅ', 'myo': 'みょ',
+    'rya': 'りゃ', 'ryu': 'りゅ', 'ryo': 'りょ',
     
     // 小さい文字
-    'la': 'ァ', 'li': 'ィ', 'lu': 'ゥ', 'le': 'ェ', 'lo': 'ォ',
-    'lya': 'ャ', 'lyu': 'ュ', 'lyo': 'ョ',
-    'ltsu': 'ッ',
+    'la': 'ぁ', 'li': 'ぃ', 'lu': 'ぅ', 'le': 'ぇ', 'lo': 'ぉ',
+    'lya': 'ゃ', 'lyu': 'ゅ', 'lyo': 'ょ',
+    'ltsu': 'っ',
     
     // 特殊な組み合わせ
-    'nn': 'ン',
-    'tchi': 'ッチ',
-    'xtsu': 'ッ',
-    'xn': 'ン',
+    'nn': 'ん',
+    'tchi': 'っち',
+    'xtsu': 'っ',
+    'xn': 'ん',
     
     // 外来語用
-    'fa': 'ファ', 'fi': 'フィ', 'fe': 'フェ', 'fo': 'フォ',
-    'va': 'ヴァ', 'vi': 'ヴィ', 'vu': 'ヴ', 've': 'ヴェ', 'vo': 'ヴォ',
-    'wi': 'ウィ', 'we': 'ウェ',
-    'kwa': 'クァ', 'kwi': 'クィ', 'kwe': 'クェ', 'kwo': 'クォ'
+    'fa': 'ふぁ', 'fi': 'ふぃ', 'fe': 'ふぇ', 'fo': 'ふぉ',
+    'va': 'ゔぁ', 'vi': 'ゔぃ', 'vu': 'ゔ', 've': 'ゔぇ', 'vo': 'ゔぉ',
+    'wi': 'うぃ', 'we': 'うぇ',
+    'kwa': 'くぁ', 'kwi': 'くぃ', 'kwe': 'くぇ', 'kwo': 'くぉ'
   };
   
   /**
-   * ローマ字の文字列をカタカナに変換する
+   * ローマ字の文字列をひらがなに変換する
    * @param romaji - 変換するローマ字の文字列
-   * @returns カタカナの文字列
+   * @returns ひらがなの文字列
    */
   export function romajiToKatakana(romaji: string): string {
     if (!romaji) return '';
@@ -124,7 +124,7 @@ const romaToKana: Record<string, string> = {
         continue;
       }
       
-      // マッチしない場合、そのまま追加
+      // matchしない場合、そのまま追加
       if (!matched) {
         result += pattern1;
         i += 1;
@@ -135,10 +135,10 @@ const romaToKana: Record<string, string> = {
   }
   
   /**
-   * ローマ字の文字列をカタカナに変換する（より高度なバージョン）
-   * 「っ」の扱いやその他の特殊ケースを含む
+   * ローマ字の文字列をひらがなに変換する（より高度なばーじょん）
+   * 「っ」の扱いやその他の特殊caseを含む
    * @param romaji - 変換するローマ字の文字列
-   * @returns カタカナの文字列
+   * @returns ひらがなの文字列
    */
   export function romajiToKatakanaAdvanced(romaji: string): string {
     if (!romaji) return '';
@@ -147,7 +147,7 @@ const romaToKana: Record<string, string> = {
     romaji = romaji.toLowerCase();
     
     // 重複子音を「っ」に変換する準備
-    romaji = romaji.replace(/([kstcgzjdbfphmyrw])\1/g, "xtsu$1");
+    //romaji = romaji.replace(/([kstcgzjdbfphmyrw])\1/g, "xtsu$1");
     
     let result = '';
     let i = 0;
@@ -155,7 +155,12 @@ const romaToKana: Record<string, string> = {
     while (i < romaji.length) {
       // 最長一致を試みる
       let matched = false;
-      
+      if(romaji.substring(i,i+2).match(
+        /^([kstcgzjdbfphmyrw])\1/)){
+        i++;
+        result+="っ";
+        continue
+      }
       // 4文字のパターン (一部の拗音用)
       if (i + 4 <= romaji.length) {
         const pattern4 = romaji.substring(i, i + 4);
@@ -198,7 +203,7 @@ const romaToKana: Record<string, string> = {
         continue;
       }
       
-      // マッチしない場合、そのまま追加
+      // matchしない場合、そのまま追加
       if (!matched) {
         result += pattern1;
         i += 1;
@@ -208,7 +213,7 @@ const romaToKana: Record<string, string> = {
     return result;
   }
   
-  // エクスポートするAPI
+  // えくすぽーとするAPI
   export default {
     romajiToKatakana,
     romajiToKatakanaAdvanced
