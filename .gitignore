@@ -8,3 +8,6 @@ node_modules/tonyu2-compiler
 node_modules/tonyu2-runtime
 *.js.map
 node_modules/@acepad/gsync/.tsbuildinfo
+/graph.dot
+/graph.svg
+.dependency-cruiser.cjs

@@ -17,5 +17,8 @@
     },
     "workspaces":[
         "packages/*"
-    ]
+    ],
+    "scripts": {
+        "graph": "npx depcruise petit-node/src --output-type dot > graph.dot && dot -T svg graph.dot > graph.svg"
+    }
 }
