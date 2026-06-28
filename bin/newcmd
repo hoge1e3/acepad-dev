@@ -38,7 +38,9 @@ function clean(dir){
   for(let f of dir.listFiles()){
     if(!f.name().match(/^[\d_]+\.js$/))continue;
     if(now-f.lastUpdate()>dur){
-      f.moveTo(arc.rel(f.name()));
+      const dst=arc.rel(f.name());
+      if(!dst.exists())f.moveTo(dst);
+      else f.rm();      
     }
   }
 }
