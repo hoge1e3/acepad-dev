@@ -1,6 +1,7 @@
 #!run
 import * as menu from "@acepad/menu";
 import * as assert from "assert";
+import {update} from "@hoge1e3/dom-updater";
 export async function main(f){
   const m=menu.Menu(
     this.$acepad.getMainEditor());
@@ -8,12 +9,24 @@ export async function main(f){
      //m1.text();
     
   });
+  let dst;
+  const set=(val)=>{
+    if(val instanceof Element){
+      if(dst)update(
+        dst,val);
+      else {
+        m1.element.appendChild(val);
+        dst=val;
+      }
+    }else{
+      m1.text(val);
+    }
+  };
   if(typeof f!=="function"){
     f.on("change",({val})=>{
-      m1.text(val);
+      set(val);
     });
-    m1.text(f.value);
-    
+    set(f.value);
   }else{
     setInterval(()=>
     m1.text(f()),16);
