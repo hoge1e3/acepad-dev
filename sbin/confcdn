@@ -1,0 +1,11 @@
+#!run
+import pNode from "petit-node";
+export async function main(){
+  pNode.configureCDN("difflib",{
+    global:"difflib",
+    url: "https://cdn.jsdelivr.net/npm/difflib@0.2.4/dist/difflib-browser.js",
+  });
+  /*const d=await pNode.importModule("difflib",this.resolve().path());
+  console.log(d);*/
+  return ;
+}
