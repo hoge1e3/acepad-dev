@@ -8,6 +8,14 @@ export async function main(f){
      //m1.text();
     
   });
-  setInterval(()=>
-  m1.text(f()),16);
+  if(typeof f!=="function"){
+    f.on("change",({val})=>{
+      m1.text(val);
+    });
+    m1.text(f.value);
+    
+  }else{
+    setInterval(()=>
+    m1.text(f()),16);
+  }
 }    
