@@ -140,8 +140,11 @@ const romaToKana: Record<string, string> = {
    * @param romaji - 変換するローマ字の文字列
    * @returns ひらがなの文字列
    */
-  export function romajiToKatakanaAdvanced(romaji: string): string {
-    if (!romaji) return '';
+  export function romajiToKatakanaAdvanced(romaji: string): {
+      i:number,
+      s:string,
+    }[] {
+    //if (!romaji) return '';
     
     // 小文字に変換して処理を簡単にする
     romaji = romaji.toLowerCase();
@@ -151,21 +154,30 @@ const romaToKana: Record<string, string> = {
     
     let result = '';
     let i = 0;
-    
+    let resulta=[] as {
+      i:number,
+      s:string,
+    }[];
+    function add(s:string){
+      result+=s;
+      resulta.push({
+        i,s
+      })
+    }
     while (i < romaji.length) {
       // 最長一致を試みる
       let matched = false;
       if(romaji.substring(i,i+2).match(
         /^([kstcgzjdbfphmyrw])\1/)){
+        add("っ");
         i++;
-        result+="っ";
         continue
       }
       // 4文字のパターン (一部の拗音用)
       if (i + 4 <= romaji.length) {
         const pattern4 = romaji.substring(i, i + 4);
         if (romaToKana[pattern4]) {
-          result += romaToKana[pattern4];
+          add(romaToKana[pattern4]);
           i += 4;
           matched = true;
           continue;
@@ -176,7 +188,7 @@ const romaToKana: Record<string, string> = {
       if (i + 3 <= romaji.length) {
         const pattern3 = romaji.substring(i, i + 3);
         if (romaToKana[pattern3]) {
-          result += romaToKana[pattern3];
+          add(romaToKana[pattern3]);
           i += 3;
           matched = true;
           continue;
@@ -187,7 +199,7 @@ const romaToKana: Record<string, string> = {
       if (i + 2 <= romaji.length) {
         const pattern2 = romaji.substring(i, i + 2);
         if (romaToKana[pattern2]) {
-          result += romaToKana[pattern2];
+          add(romaToKana[pattern2]);
           i += 2;
           matched = true;
           continue;
@@ -197,7 +209,7 @@ const romaToKana: Record<string, string> = {
       // 1文字のパターン
       const pattern1 = romaji.substring(i, i + 1);
       if (romaToKana[pattern1]) {
-        result += romaToKana[pattern1];
+        add(romaToKana[pattern1]);
         i += 1;
         matched = true;
         continue;
@@ -205,12 +217,12 @@ const romaToKana: Record<string, string> = {
       
       // matchしない場合、そのまま追加
       if (!matched) {
-        result += pattern1;
+        add(pattern1);
         i += 1;
       }
     }
     
-    return result;
+    return resulta;
   }
   
   // えくすぽーとするAPI

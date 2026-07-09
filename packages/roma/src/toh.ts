@@ -1,7 +1,7 @@
 #!runts
 import {katakanaToHiragana}
 from "./index.js"
-export function main(){
+export function main(this:any){
   const s=this.resolve("index.ts").text();
   const h= katakanaToHiragana(s).
   replaceAll("かたかな","ひらがな").
