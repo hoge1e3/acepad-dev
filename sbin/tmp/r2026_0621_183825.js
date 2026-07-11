@@ -15,6 +15,7 @@ export async function main(){
     r.start.column-=del;
     session.getSelection().setRange(r);
     editor.onTextInput(sur);
+    editor.focus();
   }
   editor.renderer.on("afterRender", 
   async() => {
@@ -27,10 +28,19 @@ export async function main(){
         row:r.row
       };
       const it=session.doc.positionToIndex(rt);
-      const line= session.getValue().
+      let value=session.getValue();
+      if(!inNaturalLang(value,i)){
+        re.value=t.div();
+      return;
+      }
+      let line= value.
         substring(it,i);
+      let nohirac=false;
+      const lasta=/[\w\-]+$/.exec(line);
+      if(lasta)line=lasta[0];
+      else nohirac=true;
       const h=await getCands(romajiToKatakanaAdvanced(
-      line),line);
+      line),line,nohirac);
       console.log(h)
       re.value=t.div(...h.map(e=>
         t.button({
@@ -54,16 +64,16 @@ export async function main(){
   });
   re.on("change",({val})=>{
     console.log(val);
-  })
-  "jidouteki ni henkan"
-// 日本語ppoi string
+  });
+  "自動的に変換";
+// 日本語っぽい string
   return this.watch(re);
-  async function getCands(k,orig){
+  async function getCands(k,orig,nohirac){
     let buf="",kanas=[],c=[];
     for(let j=k.length-1;
     j>=0;j--){
       const {s,i}=k[j];
-      if(!/[\u3041-\u3096]+$/
+      if(!/[\u3041-\u3096ー]+$/
       .exec(s))break;
       buf=s+buf;
       kanas.push({kana:buf,delLen:orig.length-i});
@@ -72,7 +82,7 @@ export async function main(){
     let max=10;
     for(let {kana,delLen} of kanas){
       const ke=(await kdic.get(kana));
-      c.push({surface:kana,delLen});
+      if(!nohirac)c.push({surface:kana,delLen});
       if (!ke) continue;
       for (let kee of ke) {
         c.push({surface:kee.surface,delLen});
@@ -85,13 +95,49 @@ export async function main(){
 
 }
 function getHiragana(s){
-  const m=/[\u3041-\u3096]+$/.exec(s);
+  const m=/[\u3041-\u3096ー]+$/.exec(s);
   return m&&m[0];
 }
-/*
+function inNaturalLang(s, pos) {
+  //jsのソースsのpos文字目は
+  //コメントまたは文字列リテラル内か
+  let i = 0;
+  let state = "code"; // "code" | "sq" | "dq" | "tpl" | "line" | "block"
+  while (i < pos && i < s.length) {
+    const c = s[i];
+    const c2 = s[i + 1];
+    if (state === "code") {
+      if (c === "/" && c2 === "/") { state = "line"; i += 2; continue; }
+      if (c === "/" && c2 === "*") { state = "block"; i += 2; continue; }
+      if (c === "'") { state = "sq"; i++; continue; }
+      if (c === '"') { state = "dq"; i++; continue; }
+      if (c === "`") { state = "tpl"; i++; continue; }
+      i++;
+    } else if (state === "line") {
+      if (c === "\n") state = "code";
+      i++;
+    } else if (state === "block") {
+      if (c === "*" && c2 === "/") { state = "code"; i += 2; continue; }
+      i++;
+    } else if (state === "sq" || state === "dq" || state === "tpl") {
+      if (c === "\\") { i += 2; continue; } // escape
+      if ((state === "sq" && c === "'") ||
+          (state === "dq" && c === '"') ||
+          (state === "tpl" && c === "`")) {
+        state = "code";
+      }
+      i++;
+    }
+  }
+  return state !== "code";
+}/*
+生成aiにpuronputo
+select文
 書き込む
-入力dekita
-ikutukano kouho kara 
-sentaku dekiru
-getHiragana wo kaizousite
+日本語が入力できた
+凄いにゃあ
+いくつかの候補から 
+選択できる
+getHiraganaを改造して
+増加すると
 */

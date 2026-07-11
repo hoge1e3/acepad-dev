@@ -67,7 +67,7 @@ const romaToKana: Record<string, string> = {
     'tchi': 'っち',
     'xtsu': 'っ',
     'xn': 'ん',
-    
+    "-":"ー",
     // 外来語用
     'fa': 'ふぁ', 'fi': 'ふぃ', 'fe': 'ふぇ', 'fo': 'ふぉ',
     'va': 'ゔぁ', 'vi': 'ゔぃ', 'vu': 'ゔ', 've': 'ゔぇ', 'vo': 'ゔぉ',

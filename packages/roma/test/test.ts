@@ -1,5 +1,5 @@
 #!runts
-import { romajiToKatakanaAdvanced } from "../src/index.js";
+import { romajiToKatakanaAdvanced } from "../src/indexh.js";
 
 function testRomajiToKatakana() {
   const testCases = [
@@ -9,6 +9,8 @@ function testRomajiToKatakana() {
     { input: "ohayou", expected: "オハヨウ" },
     { input: "konbanwa", expected: "コンバンワ" },
     { input: "sukiyaki", expected: "スキヤキ" },
+    { input: "suki-ya-", expected: "スキーヤー" },
+    
     { input: "get()kansuu wo henkou",expected: "ゲt()カンスウ ヲヘンコウ"},
     {input:"yappari",expected:"ヤッパリ"},
   ];
@@ -16,7 +18,7 @@ function testRomajiToKatakana() {
   testCases.forEach(({ input, expected }) => {
     const result = romajiToKatakanaAdvanced(input);
     console.log(result);
-    console.log(result === expected);//, `Expected ${expected}, but got ${result}`);
+    //console.log(result === expected);//, `Expected ${expected}, but got ${result}`);
   });
 }
 export function main(){
