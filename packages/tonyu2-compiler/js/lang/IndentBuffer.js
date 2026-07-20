@@ -1,5 +1,5 @@
-import StringBuilder from "../lib/StringBuilder.js";
-import * as SourceMap from "source-map";
+import { StringBuilder } from "tonyu2-runtime";
+import SourceMap from "source-map";
 const Pos2RC = function (src) {
     var map = [];
     var pos = 0;

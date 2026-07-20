@@ -54,6 +54,7 @@ export type CompilerOptions={
 	genAMD?: boolean,
 	noLoopCheck?: boolean,
 	compress?: boolean,
+	esm?: boolean,
 };
 */
 export type Destinations=FileDest|MemoryDest;
@@ -207,6 +208,7 @@ export type TraceIndex={
 
 };
 export type GenOptions={
-	codeBuffer?: IndentBuffer,
+	esm: boolean,
+	codeBuffer: IndentBuffer,
 	traceIndex?: TraceIndex
 };

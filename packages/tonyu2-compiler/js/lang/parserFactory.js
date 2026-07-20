@@ -4,8 +4,7 @@
 *   - srcを解析して構文木を返す．構文エラーがあれば例外を投げる．
 */
 //import * as Parser from "./parser";
-import TError from "../runtime/TError.js";
-import R from "../lib/R.js";
+import { R, TError } from "tonyu2-runtime";
 import { ExpressionParser } from "./ExpressionParser2.js";
 import Grammar from "./Grammar.js";
 import { addRange, getRange, Parser, setRange, TokensParser } from "./parser.js";

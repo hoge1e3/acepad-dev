@@ -1,11 +1,9 @@
 import {Tonyu,DeclsInDefinition, Meta, TypeDigest,
 	 isArrayTypeDigest, isUnionTypeDigest} from "tonyu2-runtime";
-//import root from "../lib/root";
 import type { ParamDecl, TNode } from "./NodeTypes";
 import { AnnotatedType, Annotation, C_FieldInfo, 
 	C_Meta, FuncInfo, isMeta, isMethodType, isNativeClass, isUnionType, 
 	NativeClass, NodeAnnotation, NonArrowFuncInfo } from "./CompilerTypes.js";
-//import { DeclsInDefinition, Meta, TypeDigest, isArrayTypeDigest, isUnionTypeDigest } from "../../../tonyu2-runtime/src/runtime/RuntimeTypes.js";
 import { ParsedNode, Token } from "./parser.js";
 
 	/*import Tonyu = require("../runtime/TonyuRuntime");

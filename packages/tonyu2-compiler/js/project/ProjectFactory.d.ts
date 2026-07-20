@@ -1,4 +1,4 @@
-import { DependencySpec, ProjectOptions } from "../lang/CompilerTypes.js";
+import { DependencySpec, ProjectOptions } from "tonyu2-runtime";
 import { DirBasedCore, DirBasedOptions, IProject, IProjectCore } from "./projectTypes.js";
 export type DependencyResolver = (prj: IProject, spec: DependencySpec) => IProject | undefined;
 export type ProjectFunc = (params: any) => IProject;

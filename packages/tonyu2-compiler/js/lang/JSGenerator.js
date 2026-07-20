@@ -6,7 +6,7 @@ import * as cu from "./compiler.js";
 import { context } from "./context.js";
 import { isMethodType, isMeta, isNativeClass, isUnionType, isNonArrowFuncInfo, isArrowFuncInfo } from "./CompilerTypes.js";
 import { isBlockScopeDeclprefix, isNonBlockScopeDeclprefix } from "./compiler.js";
-import R from "../lib/R.js";
+import { R } from "tonyu2-runtime";
 //export=(cu as any).JSGenerator=(function () {
 // TonyuソースファイルをJavascriptに変換する
 const TH = "_thread", THIZ = "_this", ARGS = "_arguments", FIBPRE = "fiber$" /*F,RMPC="__pc", LASTPOS="$LASTPOS",CNTV="__cnt",CNTC=100*/; //G

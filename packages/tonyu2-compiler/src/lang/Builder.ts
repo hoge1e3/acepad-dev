@@ -80,7 +80,7 @@ function orderByInheritance(classes:C_MetaMap):C_Meta[] {/*ENVC*/
 
 // includes langMod, dirBase
 export default class Builder {
-    prj: any;
+    prj: DirBasedTonyuProject;
     env: BuilderEnv|undefined;
 	// Difference from TonyuProject
 	//    projectCompiler defines projects of Tonyu 'Language'.
@@ -111,7 +111,7 @@ export default class Builder {
         return isTonyu1(options);
     }
     getOptions() {return this.prj.getOptions();}
-    getOutputFile(...f:SFile[]) {return this.prj.getOutputFile(...f);}
+    getOutputFile(lang?:string) {return this.prj.getOutputFile(lang);}
     getNamespace():string {return this.prj.getNamespace();}
     getDir(){return this.prj.getDir();}
     getEXT(){return this.prj.getEXT();}
@@ -323,10 +323,12 @@ export default class Builder {
             } 
 		}
 		await this.showProgress("genJS");
+        const compilerOptions = env.options.compiler;
 		//throw "test break";
-		const buf = new IndentBuffer({ fixLazyLength: 6, compress: env.options.compiler.compress });
+		const buf = new IndentBuffer({ fixLazyLength: 6, compress: compilerOptions.compress });
 		buf.traceIndex = {};
 		await this.genJS(ord, {
+            esm: !!compilerOptions.esm,
 			codeBuffer: buf,
 			traceIndex: buf.traceIndex,
 		});
@@ -342,6 +344,10 @@ export default class Builder {
         const env=this.getEnv();
         if (!genOptions.codeBuffer) throw new Error("genOptions.codeBuffer is not set");
         // TODO: delete polyfill
+        if (genOptions.esm) {
+            genOptions.codeBuffer.printf(`import {Tonyu} from "tonyu2-runtime";%n`);
+
+        }
         genOptions.codeBuffer.printf("if(!Tonyu.load)Tonyu.load=(_,f)=>f();%n");
         //
         genOptions.codeBuffer.printf("Tonyu.load(%s, ()=>{%n", JSON.stringify(env.options));

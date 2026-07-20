@@ -4,7 +4,7 @@ import {sourceFiles} from "../lang/SourceFiles.js";
 import langMod from "../lang/langMod.js";
 import { DirBasedCore, DirBasedMod, DirBasedOptions, DirBasedTonyuProject, IProject, LangMod, LoadContext, URLBasedTonyuProject } from "./projectTypes.js";
 import { SFile } from "@hoge1e3/sfile";
-import { DependencySpec } from "../lang/CompilerTypes.js";
+import { DependencySpec } from "tonyu2-runtime";
 
 F.addType("compiled",(params:any)=> {
     if (params.namespace && params.url) return urlBased(params);

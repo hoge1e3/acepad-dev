@@ -3,7 +3,7 @@ import { IT, IT2 } from "./TonyuIterator.js";
 import { TonyuThread } from "./TonyuThread.js";
 import { ClassDefinition, ClassTreeRoot, Meta, TonyuClass, TonyuShimClass } from "./RuntimeTypes.js";
 import TError from "./TError.js";
-import { ProjectOptions } from "../lang/CompilerTypes.js";
+import { ProjectOptions } from "tonyu2-runtime";
 declare function thread(): TonyuThread;
 declare function timeout(t: number): Promise<unknown>;
 declare function addMeta(fn: string, m: Partial<Meta>): Meta;

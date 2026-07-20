@@ -3,7 +3,7 @@ import Builder from "./lang/Builder.js";
 import * as F from "./project/ProjectFactory.js";
 import langMod from "./lang/langMod.js";
 import * as compiledProject from "./project/CompiledProject.js";
-import Tonyu from "./runtime/TonyuRuntime.js";
+import { Tonyu } from "tonyu2-runtime";
 import pNode from "petit-node";
 //import * as R from "./lib/R";
 //const {sourceFiles} = SourceFiles;

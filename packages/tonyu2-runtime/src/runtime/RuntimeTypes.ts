@@ -113,4 +113,5 @@ export type CompilerOptions={
 	genAMD?: boolean,
 	noLoopCheck?: boolean,
 	compress?: boolean,
+	esm?: boolean,
 };

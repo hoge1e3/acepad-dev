@@ -2,7 +2,7 @@
 // This factory will be widely used, even BitArrow.
 
 import { SFile } from "@hoge1e3/sfile";
-import { DependencySpec, ProjectOptions } from "../lang/CompilerTypes.js";
+import { DependencySpec, ProjectOptions } from "tonyu2-runtime";
 import {FS } from "./FS.js";
 import * as path from "path";
 import { DirBasedCore, DirBasedMod, DirBasedOptions, IProject, IProjectCore } from "./projectTypes.js";

@@ -1,6 +1,4 @@
-import Tonyu from "../runtime/TonyuRuntime.js";
-import R from "../lib/R.js";
-import TError from "../runtime/TError.js";
+import { Tonyu, TError, R } from "tonyu2-runtime";
 import { isTonyu1 } from "./tonyu1.js";
 import * as ObjectMatcher from "./ObjectMatcher.js";
 const OM = ObjectMatcher;

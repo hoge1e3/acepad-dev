@@ -1,6 +1,6 @@
+import { DeclsInDefinition, TypeDigest } from "tonyu2-runtime";
 import type { ParamDecl, TNode } from "./NodeTypes";
 import { AnnotatedType, Annotation, C_FieldInfo, C_Meta, FuncInfo, NativeClass, NodeAnnotation, NonArrowFuncInfo } from "./CompilerTypes.js";
-import { DeclsInDefinition, TypeDigest } from "../runtime/RuntimeTypes.js";
 import { ParsedNode, Token } from "./parser.js";
 type valueOf<T> = T[keyof T];
 export declare function isBlockScopeDeclprefix(t: Token | null): boolean | null;

@@ -3,16 +3,16 @@ import { BuilderContext, BuilderContextDef, BuilderEnv, C_Meta, C_MetaMap, GenOp
 import { DirBasedTonyuProject } from "../project/projectTypes.js";
 import { SFile } from "@hoge1e3/sfile";
 export default class Builder {
-    prj: any;
+    prj: DirBasedTonyuProject;
     env: BuilderEnv | undefined;
     constructor(prj: DirBasedTonyuProject);
     isTonyu1(): any;
-    getOptions(): any;
-    getOutputFile(...f: SFile[]): any;
+    getOptions(): import("tonyu2-runtime").ProjectOptions;
+    getOutputFile(lang?: string): SFile;
     getNamespace(): string;
-    getDir(): any;
-    getEXT(): any;
-    sourceFiles(ns?: string): any;
+    getDir(): SFile;
+    getEXT(): string;
+    sourceFiles(ns?: string): Record<string, SFile>;
     loadDependingClasses(ctx: BuilderContext): Promise<void>;
     getEnv(): BuilderEnv;
     initCtx(ctx: BuilderContext | BuilderContextDef): BuilderContext;

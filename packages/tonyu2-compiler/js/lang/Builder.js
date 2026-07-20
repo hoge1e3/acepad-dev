@@ -1,6 +1,4 @@
-import Tonyu from "../runtime/TonyuRuntime.js";
-import TError from "../runtime/TError.js";
-import R from "../lib/R.js";
+import { Tonyu, TError, R } from "tonyu2-runtime";
 import { isTonyu1 } from "./tonyu1.js";
 import * as JSGenerator from "./JSGenerator.js";
 import { IndentBuffer } from "./IndentBuffer.js";
@@ -110,7 +108,7 @@ export default class Builder {
         return isTonyu1(options);
     }
     getOptions() { return this.prj.getOptions(); }
-    getOutputFile(...f) { return this.prj.getOutputFile(...f); }
+    getOutputFile(lang) { return this.prj.getOutputFile(lang); }
     getNamespace() { return this.prj.getNamespace(); }
     getDir() { return this.prj.getDir(); }
     getEXT() { return this.prj.getEXT(); }
@@ -329,10 +327,12 @@ export default class Builder {
             }
         }
         await this.showProgress("genJS");
+        const compilerOptions = env.options.compiler;
         //throw "test break";
-        const buf = new IndentBuffer({ fixLazyLength: 6, compress: env.options.compiler.compress });
+        const buf = new IndentBuffer({ fixLazyLength: 6, compress: compilerOptions.compress });
         buf.traceIndex = {};
         await this.genJS(ord, {
+            esm: !!compilerOptions.esm,
             codeBuffer: buf,
             traceIndex: buf.traceIndex,
         });
@@ -349,6 +349,9 @@ export default class Builder {
         if (!genOptions.codeBuffer)
             throw new Error("genOptions.codeBuffer is not set");
         // TODO: delete polyfill
+        if (genOptions.esm) {
+            genOptions.codeBuffer.printf(`import Tonyu from "tonyu2-runtime";%n`);
+        }
         genOptions.codeBuffer.printf("if(!Tonyu.load)Tonyu.load=(_,f)=>f();%n");
         //
         genOptions.codeBuffer.printf("Tonyu.load(%s, ()=>{%n", JSON.stringify(env.options));

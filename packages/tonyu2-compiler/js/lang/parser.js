@@ -1,4 +1,4 @@
-import R from "../lib/R.js";
+import { R } from "tonyu2-runtime";
 export const ALL = Symbol("ALL");
 export const SUBELEMENTS = Symbol("SUBELEMENTS");
 const options = { traceTap: false, optimizeFirst: true, profile: false,

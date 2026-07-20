@@ -1,5 +1,4 @@
-import { SFile } from "@hoge1e3/sfile";
-import { Constructor, FieldInfo, Meta } from "../runtime/RuntimeTypes.js";
+import { Constructor, FieldInfo, ProjectOptions, SrcMeta } from "tonyu2-runtime";
 import { ScopeInfo } from "./compiler.js";
 import { IndentBuffer } from "./IndentBuffer.js";
 import { Expr, Expression, FuncDecl, FuncDeclHead, ParamDecl, Program, Stmt, SuperExpr, TNode, VarDecl } from "./NodeTypes.js";
@@ -20,34 +19,8 @@ export type BuilderEnv = {
     classes: C_MetaMap;
     aliases: Aliases;
 };
-export type RuntimeOptions = {
-    bootClass: string;
-};
-export type ProjectOptions = {
-    compiler: CompilerOptions;
-    run: RuntimeOptions;
-};
 export type BuilderContextDef = {
     destinations?: Destinations;
-};
-export type DependencySpec = {
-    namespace?: string;
-    dir?: string;
-    url?: string;
-    outputFile?: SFile;
-};
-export type CompilerOptions = {
-    namespace: string;
-    dependingProjects: DependencySpec[];
-    typeCheck?: boolean;
-    outputFile?: string;
-    defaultSuperClass?: string;
-    field_strict?: boolean;
-    external_waitable?: boolean;
-    diagnose?: boolean;
-    genAMD?: boolean;
-    noLoopCheck?: boolean;
-    compress?: boolean;
 };
 export type Destinations = FileDest | MemoryDest;
 type FileDest = {
@@ -93,15 +66,10 @@ export type C_Decls = {
         [key: string]: ScopeInfo;
     };
 };
-export type C_Meta = Meta & {
+export type C_Meta = SrcMeta & {
     decls: C_Decls;
     superclass: C_Meta | null;
     includes: C_Meta[];
-    src?: {
-        tonyu?: SFile;
-        js?: SFile | string;
-        map?: string;
-    };
     hasSemanticError?: boolean;
     jsNotUpToDate: boolean | undefined;
     directives: {
@@ -218,7 +186,8 @@ export type Annotation = {
 };
 export type TraceIndex = {};
 export type GenOptions = {
-    codeBuffer?: IndentBuffer;
+    esm: boolean;
+    codeBuffer: IndentBuffer;
     traceIndex?: TraceIndex;
 };
 export {};

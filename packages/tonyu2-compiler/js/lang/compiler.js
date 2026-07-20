@@ -1,6 +1,5 @@
-import Tonyu from "../runtime/TonyuRuntime.js";
+import { Tonyu, isArrayTypeDigest, isUnionTypeDigest } from "tonyu2-runtime";
 import { isMeta, isMethodType, isNativeClass, isUnionType } from "./CompilerTypes.js";
-import { isArrayTypeDigest, isUnionTypeDigest } from "../runtime/RuntimeTypes.js";
 const NONBLOCKSCOPE_DECLPREFIX = "var";
 export function isBlockScopeDeclprefix(t) {
     return t && t.text !== NONBLOCKSCOPE_DECLPREFIX;
