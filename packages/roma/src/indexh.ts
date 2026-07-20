@@ -48,6 +48,7 @@ const romaToKana: Record<string, string> = {
     'kya': 'きゃ', 'kyu': 'きゅ', 'kyo': 'きょ',
     'gya': 'ぎゃ', 'gyu': 'ぎゅ', 'gyo': 'ぎょ',
     'sha': 'しゃ', 'shu': 'しゅ', 'sho': 'しょ',
+    'sya': 'しゃ', 'syu': 'しゅ', 'syo': 'しょ',
     'ja': 'じゃ', 'ju': 'じゅ', 'jo': 'じょ',
     'cha': 'ちゃ', 'chu': 'ちゅ', 'cho': 'ちょ',
     'nya': 'にゃ', 'nyu': 'にゅ', 'nyo': 'にょ',

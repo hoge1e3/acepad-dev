@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Crystal Sphere</title>
+<style>
+body{
+    font-family:sans-serif;
+    text-align:center;
+    background:#303040;
+}
+canvas{
+    background:#202028;
+    margin:20px;
+    border:1px solid #666;
+}
+button{
+    padding:8px 20px;
+    font-size:16px;
+}
+</style>
+</head>
+<body>
+
+<canvas id="canvas" width="60" height="60"></canvas><br>
+<button id="download">画像をダウンロード</button>
+
+<script>
+const SIZE = 60;
+const RADIUS = 30;
+const BASE_COLOR = "#66d0ff";
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function drawSphere(){
+
+    ctx.clearRect(0,0,SIZE,SIZE);
+
+    const cx = SIZE/2;
+    const cy = SIZE/2;
+
+    // 背景
+    /*ctx.fillStyle="#202028";
+    ctx.fillRect(0,0,SIZE,SIZE);
+*/
+    // 球本体
+    const g = ctx.createRadialGradient(
+        cx-RADIUS*0.35,
+        cy-RADIUS*0.45,
+        RADIUS*0.08,
+        cx,
+        cy,
+        RADIUS
+    );
+
+    g.addColorStop(0,"#ffffff");
+    g.addColorStop(0.10,"#ffffffcc");
+    g.addColorStop(0.25,BASE_COLOR);
+    g.addColorStop(0.75,"#3d8fc4");
+    g.addColorStop(1,"#0b1e35");
+
+    ctx.beginPath();
+    ctx.arc(cx,cy,RADIUS,0,Math.PI*2);
+    ctx.fillStyle=g;
+    ctx.fill();
+
+    // 外周の光
+    ctx.strokeStyle="rgba(255,255,255,0.5)";
+    ctx.lineWidth=2;
+    ctx.stroke();
+
+    // ガラスのハイライト
+    ctx.beginPath();
+    ctx.ellipse(
+        cx-RADIUS*0.35,
+        cy-RADIUS*0.45,
+        RADIUS*0.22,
+        RADIUS*0.12,
+        -0.7,
+        0,
+        Math.PI*2
+    );
+    ctx.fillStyle="rgba(255,255,255,0.85)";
+    ctx.fill();
+
+    // 細い反射
+    ctx.beginPath();
+    ctx.ellipse(
+        cx-RADIUS*0.18,
+        cy-RADIUS*0.12,
+        RADIUS*0.07,
+        RADIUS*0.32,
+        -0.55,
+        0,
+        Math.PI*2
+    );
+    ctx.fillStyle="rgba(255,255,255,0.18)";
+    ctx.fill();
+
+    // 下側の反射
+    const g2 = ctx.createRadialGradient(
+        cx+RADIUS*0.25,
+        cy+RADIUS*0.35,
+        0,
+        cx+RADIUS*0.25,
+        cy+RADIUS*0.35,
+        RADIUS*0.5
+    );
+
+    g2.addColorStop(0,"rgba(255,255,255,0.35)");
+    g2.addColorStop(1,"rgba(255,255,255,0)");
+
+    ctx.beginPath();
+    ctx.arc(cx,cy,RADIUS,0,Math.PI*2);
+    ctx.fillStyle=g2;
+    ctx.fill();
+
+    // 影
+    ctx.beginPath();
+    ctx.ellipse(
+        cx,
+        cy+RADIUS+18,
+        RADIUS*0.7,
+        RADIUS*0.18,
+        0,
+        0,
+        Math.PI*2
+    );
+
+    const shadow = ctx.createRadialGradient(
+        cx,
+        cy+RADIUS+18,
+        0,
+        cx,
+        cy+RADIUS+18,
+        RADIUS*0.8
+    );
+    shadow.addColorStop(0,"rgba(0,0,0,0.4)");
+    shadow.addColorStop(1,"rgba(0,0,0,0)");
+
+    ctx.fillStyle=shadow;
+    ctx.fill();
+}
+
+drawSphere();
+
+document.getElementById("download").onclick=()=>{
+    const a=document.createElement("a");
+    a.download="crystal_sphere.png";
+    a.href=canvas.toDataURL("image/png");
+    a.click();
+};
+</script>
+
+</body>
+</html>
