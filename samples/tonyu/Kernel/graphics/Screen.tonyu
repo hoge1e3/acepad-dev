@@ -1,0 +1,274 @@
+extends Panel;
+"field strict";
+let layers:Layer2D[];
+let _color;
+let camera;
+let _drawing:Boolean;
+let clearBG:Boolean;
+let index:Number;
+let multiLayerTouches: MultiLayerTouches;
+\new(opt){
+    layers=[];
+    _color="black";
+    camera={screen=this};
+    super(opt);
+}
+
+\drawLayers() {
+    if (!_drawing) {
+        if (!canvas) {
+            throw new Error("canvas is null");
+        }
+        _drawing=true;
+        if (clearBG) {
+            clearRect(0,0,width,height);
+        }
+        fillStyle=_color+"";
+        fillRect(0,0,width,height);
+        var c=getContext();
+        for (var i=layers.length-1;i>=0;i--) {
+            var l=layers[i];
+            l.draw(c);
+        }
+        _drawing=false;
+    }
+}
+\draw(ctx) {
+    drawLayers();
+    super.draw(ctx);
+}
+\addLayer() {
+    let a=new ArgParser(arguments);
+    let params=a.shiftOptions("layer","at","name");
+    let group=params.layer;
+    let at=params.at;
+    let name=params.name;
+    var layer;
+    if (group is ScreenLayer) {
+        if (!group.screen) {layer=group; layer.screen=this;}
+        else if (group.screen!==this) group=group.group;
+        else throw newError("alreadyAdded",group);
+    } 
+    if (group) name=name||group.name;
+    if (!layer) {
+        if (typeof group==="string" && !name) {
+            name=group;
+            group=null;
+        }
+        if (!group) {
+            group=new Sprites;
+            group.name=name;
+        }
+        assertIs(group,SpriteGroup);
+        // spx,spy  Screen pivot x,y
+        // wpx,wpy  World pivot x,y
+        layer=new Layer2D{
+            spx:0,spy:0,
+            wpx:0,wpy:0,rotation:0,scale:1,
+            group,screen:this,index:layers.length,
+            name,
+        };
+    } else {
+        name=name||layer.name;
+    }
+    if (name && findLayerIndex(name)>=0) {
+        throw newError("alreadyAdded",name);
+    }
+    if (findLayerIndex(layer)>=0) {
+        throw newError("alreadyAdded",group);
+    }
+    
+    if (!group.defaultLayerPath && defaultLayerPath) {
+        group.defaultLayerPath=defaultLayerPath.add(layer);
+    }
+    if (at==null) layers.push(layer);
+    else {
+        if (at<0) at=layers.length-at;
+        layers.splice(at,0,layer);
+    }
+    if (layers.length==1 && index==null) {
+        selectLayer(layer);
+    }
+    return layer;
+}
+\setDefaultLayer(l) {
+    let layer=findLayer(l);
+    if (layer is ScreenLayer) layer=layer.group;
+    if (!layer) {
+        if (l is ScreenLayer) layer=l.group;
+        else if (l is Sprites) layer=l;
+    }
+    if (!layer) {
+        throw newError("invalidLayer",l);
+    }
+    assertIs(layer, SpriteGroup);
+    $defaultLayer=layer;
+}
+\removeLayer(i) {
+    var r=findLayerIndex(i);
+    if (r<0) return;
+    layers.splice(r,1);
+}
+\selectLayer(i) {
+    var r=findLayerIndex(i);
+    if (r>=0) index=r;
+}
+\findLayerIndex(i) {
+    if (typeof i=="number") {
+        if (layers[i]) return i;
+    } else {
+        if (i is ScreenLayer) {
+            i=i.group;
+        }
+        for (var j=0; j<layers.length;j++) {
+            if (layers[j].group===i || layers[j].name===i) {
+                return j;
+            }
+        }
+    }
+    return -1;
+}
+\findLayer(key) {
+    var idx=findLayerIndex(key);
+    if (idx>=0) return layers[idx];
+    return null;
+}
+\setPivot(x,y) {
+    if (!layers[index]) throw newError("layerIsNotSet",index);
+    layers[index].spx=x;
+    layers[index].spy=y;
+}
+\scrollTo(x,y,scl,rot) {
+    layers[index].wpx=x;
+    layers[index].wpy=y;
+    if (typeof scl=="number") layers[index].scale=scl;
+    if (typeof rot=="number") layers[index].rotation=rot;
+}
+\scrollBy(dx,dy){
+    layers[index].wpx+=dx;
+    layers[index].wpy+=dy;
+}
+\canvas2buf(p) {
+    p.layer=layer;
+    return convert(p, this);
+}
+/*\resize(w,h) {
+    super.resize(w,h);
+    if (layoutManager && !layoutManager.isDead()) {
+        layoutManager.doLayout();
+    }
+}*/
+
+\convert(obj, fromLayer, toLayer) {
+    if (toLayer==null) {
+        toLayer=fromLayer;
+        fromLayer=obj.layer;
+    }
+    if (toLayer==null) toLayer=this;
+    if (fromLayer==null) fromLayer=this; //throw new Error("layer not set");
+    if (fromLayer is ScreenLayer) fromLayer=fromLayer.group;
+    if (toLayer is ScreenLayer) toLayer=toLayer.group;
+    if (fromLayer===toLayer) return obj;
+    let scr;
+    if (fromLayer===this) {
+        scr=obj;
+    } else if (fromLayer===layer) {
+        scr=super.convert(obj, layer, this);
+    } else {
+        let myfl=findLayer(fromLayer);
+        if (myfl) scr=myfl.world2screen(obj);
+        else {
+            throw newError("screenConvertFailed",fromLayer,toLayer);
+        }
+    }
+    if (toLayer===this) {
+        return scr;
+    } else if (toLayer===layer) {
+        return super.convert(scr, this, layer);
+    } else {
+        let mytl=findLayer(toLayer);
+        if (mytl) return mytl.screen2world(scr);
+        else {
+            throw newError("screenConvertFailed",fromLayer,toLayer);
+        }
+    }
+    /*let flp=(fromLayer is LayerPath? fromLayer : fromLayer.defaultLayerPath);
+    let tlp=(toLayer is LayerPath? toLayer : toLayer.defaultLayerPath);
+    if (flp && tlp) {
+        return flp.convert(obj, tlp);
+    }*/
+}
+\setBGColor(color){
+    this._color=color;
+}
+\all() {
+    var res=new TQuery{screen:this};
+    for (var l in layers) {
+        var q=l.group.all.apply(l.group,arguments);
+        res.push(q);
+    }
+    return res;
+}
+\saveAndClear(excludes:Array) {
+    var res=[];
+    excludes=excludes||$excludeFromAll.toArray();
+    for (var l of layers) {
+        res.push(l.group.saveAndClear(excludes));
+    }
+    return {
+        layers:res,
+        multiLayerTouches:multiLayerTouches&&multiLayerTouches.saveAndClear()
+    };
+}
+\restore(saved) {
+    var i=0;
+    for (var l of layers) {
+        l.group.restore(saved.layers[i]);
+        i++;
+    }
+    if(multiLayerTouches && saved.multiLayerTouches) {
+        multiLayerTouches.restore(saved.multiLayerTouches);
+    }
+}
+\touchedFingers(q:TQuery,options) {
+    //options: filter, layer
+    var res=[];
+    options=options||{};
+    for (var e of q) {
+        var r=e.getCrashRect();
+        for (var i=0;i<$touches.length;i++) {
+            var t=$touches[i];
+            if (t.touched==1) {
+                var p=convert(t,e.layer);
+                if (p.x>=r.x-r.width/2 && p.x<=r.x+r.width/2 &&
+                p.y>=r.y-r.height/2 && p.y<=r.y+r.height/2) {
+                    t.captured=e;
+                    res.push(t);
+                }
+            }
+        }
+    }
+    return res;
+}
+\getMultiLayerTouches() {
+    if (multiLayerTouches) return multiLayerTouches;
+    multiLayerTouches=new MultiLayerTouches{screen:this};
+    on("touch") \(e) {
+        let a=multiLayerTouches.findActor(e.shape);
+        let f:TouchFinger=e.finger;
+        if (a) {
+            f.layer=this;
+            e.actor=a;
+            let nlp=f.layerPath.withNeighborTarget(a.layer);
+            if (!(nlp is LayerPath)) {
+                throw newError("cannotGetNeighborTarget",f , a.layer);
+            }
+            f.layerPath=nlp;
+            a.fireEvent("touch",e);
+        } else {
+            //f.layer=this;
+            fireEvent("touchBG",e);
+        }  
+    };
+    return multiLayerTouches;
+}

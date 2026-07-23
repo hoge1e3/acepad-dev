@@ -1,0 +1,26 @@
+extends EventMod;
+"field strict";
+
+let mmls:Array;// of T("mml")
+\new(mmls) {
+    this.mmls=mmls;
+    let c=mmls.length;
+    for (let mml of mmls) {
+        mml.on("ended") \{
+            c--;
+            if(c<=0)fireEvent("ended");
+        };
+    }
+}
+\currentTime {
+    return mmls[0].currentTime;    
+}
+\pause() {
+    for (let mml of mmls) mml.pause();
+}
+\stop(){
+    for (let mml of mmls) mml.stop();
+}
+\start(){
+    for (let mml of mmls) mml.start();
+}

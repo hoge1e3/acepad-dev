@@ -1,0 +1,13 @@
+extends null;
+includes MathMod,PrintMod,AssertionMod;
+native Tonyu;
+\new (options) {
+    if (typeof options=="object") extend(options);
+    this.main();
+}
+nowait \extend(obj) {
+    return Tonyu.extend(this,obj);
+}
+\toString() {
+    return `[${getClassInfo().fullName}]`;
+}

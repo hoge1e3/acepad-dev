@@ -1,0 +1,76 @@
+extends TObject;
+"field strict";
+let _layerPath:LayerPath; 
+
+\order {
+    return 0;
+}
+\clone(value) {
+    throw new Error("clone::abstract");
+}
+\changeLayer(value) {
+    layer=value;
+}
+\changeLayerPath(value) {
+    throw new Error("changeLayerPath::abstract");
+}
+\intersects(s:AbstractShape) {
+    if (!s) return false;
+    if (s.layerPath===layerPath || !s.layerPath || !layerPath) {
+        return intersectsRaw(s);
+    }
+    return intersectsRaw(s.layerPathChanged(layerPath));
+}
+\intersectsRaw(s:AbstractShape) {
+    if (s is PointShape) {
+        return containsRaw(s);
+    }
+    if (s.order>order) {
+        return s.intersectsRaw(this);
+    }
+    throw new Error("intersectsRaw::abstract");
+}
+\contains(s:AbstractShape/*x,y,layerPath*/) {
+    if (!s) return false;
+    if (s.layerPath===layerPath || !s.layerPath || !layerPath) {
+        return containsRaw(s);
+    }
+    return containsRaw(s.layerPathChanged(layerPath));
+}
+\containsRaw(s:Object/*x,y,layerPath*/) {
+    throw new Error("containsRaw::abstract");
+}
+\layerPathChanged(layerPath) {
+    var res=clone();
+    res.layerPath=layerPath;
+    return res;
+}
+\layerPathFromLayer(layer) {
+    if (layer is LayerPath) return layer;
+    let nl=(_layerPath && _layerPath.withNeighborTarget(layer)) || layer.defaultLayerPath;
+    return assertIs(nl, LayerPath);
+}
+\layerChanged(layer) {
+    let nl=layerPathFromLayer(layer);
+    return layerPathChanged(nl);
+}
+\layer {return _layerPath && _layerPath.target;}
+\layer=value {
+    layerPath=layerPathFromLayer(value);
+}
+\layerPath=value {
+    if (!_layerPath || _layerPath===value) _layerPath=value;
+    else changeLayerPath(value);
+}
+\layerPath {
+    return _layerPath;
+}
+/*\screen {
+    return (layer && layer.screen) || $Screen;
+}*/
+/*override them
+\xmin {return x-width/2;}
+\xmax {return x+width/2;}
+\ymin {return y-height/2;}
+\ymax {return y+height/2;}
+*/

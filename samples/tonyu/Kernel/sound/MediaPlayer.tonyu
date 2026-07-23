@@ -1,0 +1,17 @@
+extends null;
+// For Tonyu1 compat
+\play(s) {
+    $sound.playBGM(s);
+}
+\stop() {
+    $sound.stopBGM(s);
+}
+\playSE() {
+    $sound.playSE(s);
+}
+\setDelay(){
+
+}
+\setVolume(){
+
+}

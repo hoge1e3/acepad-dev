@@ -1,0 +1,30 @@
+extends TObject;
+
+var sprites:Array;//of Actor/Actor3D
+var transform:Transform;
+let name:String;
+//var layer;//optional: when layer.p===this
+\get(i) {
+    return sprites[i];
+}
+\addSubsprite() {
+    return add.apply(this,arguments);
+}
+\add(){
+    throw new Error("SpriteGroup::add abstract");
+}
+\has(a:Actor) {
+    return sprites.indexOf(a)>=0;
+}
+\saveAndClear(excludes:Array) {
+    var saved=sprites;
+    sprites=sprites.filter \(s) {
+        return excludes.indexOf(s)>=0;
+    };
+    if (!saved) throw new Error("Invalid saved data "+saved);
+    return saved;
+}
+\restore(saved) {
+    if (!saved) throw new Error("Invalid data "+saved);
+    sprites=saved;
+}

@@ -1,0 +1,5 @@
+{
+    "name": "tonyu2-kernel",
+    "type":"module",
+    "main": "./js/contat.js"
+}

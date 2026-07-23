@@ -1,0 +1,175 @@
+extends TObject;
+includes EventMod;
+native Tonyu;
+native console;
+native window;
+native performance;
+"field strict";
+let newScheduler; // when `timeStop`ed, the old Scheduler refers new Scheduler 
+// old browser support
+if (typeof performance==="undefined") {
+    window.performance = {};
+}
+if (!performance.now) {
+    performance.now = function now() {
+        return Date.now();
+    };
+}
+
+let cur=[];
+let next=[];
+let lastSteps;
+\addObj(obj,name,args) {
+    return newThread(obj, name, args);
+}
+\newThread(obj, name, args, options) { //options:{pOrder, threadGroup}
+    name=name||"main";
+    args=args||[];
+    var th=Tonyu.thread();
+    th.apply(obj,name,args);
+    th.name=(obj.getClassInfo? obj.getClassInfo().shortName:"Unknown")+"::"+name;
+    addToCur(th);
+    return th;
+}
+\addToCur(th) {
+    if (th.scheduled) return;
+    cur.push(th);
+    th.scheduled=this;
+    if ($Boot.newLimit) {
+        $Boot.newLimitCount--;
+        if ($Boot.newLimitCount<=0) throw new Error("一度にたくさんのスレッドを作りすぎています\n"
+        +"       $Boot.newLimitの値を変更すると、1フレーム間に生成できる オブジェクト+スレッドの合計数 を変更できます\n"
+        +"       $Boot.newLimit="+$Boot.newLimit+"; // 現在の オブジェクト数+スレッド数 の限度\n"
+        +"       update(); // 次フレームから適用されます\n"
+        +"       [参考] https://edit.tonyu.jp/doc/limitations.html\n");
+    }
+}
+\addToNext(th) {
+    if (th.scheduled) return;
+    if (newScheduler) {
+        return newScheduler.addToNext(th);
+    }
+    next.push(th);
+    th.scheduled=this;
+}
+\unschedule(th) {
+    var i=cur.indexOf(th);
+    if (i>=0) {
+        cur.splice(i,1);
+        delete th.scheduled;
+    } else {
+        i=next.indexOf(th);
+        if (i>=0) {
+            next.splice(i,1);
+            delete th.scheduled;
+        }
+    }
+}
+\checkTimeout() {
+    var now=performance.now();
+    if (now-lastSteps>1000) {
+        throw new Error("待機不能モードでupdateが呼ばれています．ブラウザが固まるのを防ぐために停止します．");
+    }
+}
+\checkDuplicate() {
+    var dupc={};
+    for (var t of cur) {
+        if (dupc[t.id]) {
+            console.log("WARNING","Scheduler: duplicate thread detected in cur",t);
+        }
+        dupc[t.id]="cur";
+    }
+    for (var t of next) {
+        if (dupc[t.id]) {
+            console.log("WARNING","Scheduler: duplicate thread detected in next and "+dupc[t.id],t);
+        }
+        dupc[t.id]="next";
+    }
+}
+\doTimeStop(newS) {
+    newScheduler=newS;
+    next=allThreads;
+    cur=[];
+    return next;
+}
+\moveToNew(th_ac) {
+    if (!newScheduler) return;
+    return moveTo(th_ac, newScheduler);
+}
+\moveTo(th_ac, newS) {
+    if (!newS) return;
+    if (!th_ac) {
+        for (let th of allThreads) {
+            moveTo(th, newS);
+        }
+        return;
+    }
+    if (th_ac is SchedulerMod) {
+        th_ac._scheduler=newS;
+        for (let th of findByThreadGroup(th_ac)) {
+            //print("th", th);
+            moveTo(th, newS);
+        }
+        return;    
+    }
+    let th=th_ac;
+    if (
+    th._threadGroup is SchedulerMod &&
+    th._threadGroup._scheduler!=newS) {
+        th._threadGroup._scheduler=newS;
+    }
+    if (th.scheduled===newS) return;
+    unschedule(th);
+    newS.addToNext(th);
+    newS.checkDuplicate();
+}
+\resetLastSteps() {
+    lastSteps=performance.now();
+}
+\stepsAll() {
+    resetLastSteps();
+    var dupc={};
+    fireEvent("beforeSteps");
+    while(cur.length) {
+        var t=cur.shift();
+        if (dupc[t.id]) {
+            console.log("WARNING","Scheduler: duplicate thread detected",t);
+            continue;
+        }
+        dupc[t.id]=t;
+        delete t.scheduled;
+        if (t.waitCount) {
+            t.waitCount--;
+            addToNext(t);
+        } else {
+            //$Boot.debug("StepsAll",t.name);
+            t.steps();
+            //$Boot.debug("StepsAllEnd",t.name);
+            if (t.preempted) {
+                t.hadPreemption=true;
+                $Boot.fireEvent("preempted") {thread:t, scheduler:this};
+                //$Boot.debug("Preempted: ",t);
+                addToNext(t);
+            } else {
+                if (t.hadPreemption) t.preemptionTime++;
+                t.hadPreemption=false;
+            }
+        }
+        //$Boot.checkTimer();
+    }
+    fireEvent("afterSteps");
+    cur=next;
+    next=[];
+    return cur.length;
+}
+\allThreads {
+    return cur.concat(next);
+}
+\findByThreadGroup(o) {
+    return allThreads.filter \(t) {
+        return t._threadGroup===o;
+    };
+}
+\isEmpty {
+    return allThreads.length==0;
+}
