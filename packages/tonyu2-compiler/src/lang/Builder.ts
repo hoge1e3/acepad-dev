@@ -356,7 +356,11 @@ export default class Builder {
 			JSGenerator.genJS(c, env, genOptions);
 		}
         genOptions.codeBuffer.printf("%n});%n");	
-		return Promise.resolve();
+		if (genOptions.esm) {
+            //genOptions.codeBuffer.printf(`import {Tonyu} from "tonyu2-runtime";%n`);
+            genOptions.codeBuffer.printf(`export default Tonyu.classes.${env.options.compiler.namespace};%n`);
+        }
+        return Promise.resolve();
 	}
     showProgress (m:string) {
 		console.log("Progress:" ,m);

@@ -350,7 +350,7 @@ export default class Builder {
             throw new Error("genOptions.codeBuffer is not set");
         // TODO: delete polyfill
         if (genOptions.esm) {
-            genOptions.codeBuffer.printf(`import Tonyu from "tonyu2-runtime";%n`);
+            genOptions.codeBuffer.printf(`import {Tonyu} from "tonyu2-runtime";%n`);
         }
         genOptions.codeBuffer.printf("if(!Tonyu.load)Tonyu.load=(_,f)=>f();%n");
         //
@@ -360,6 +360,10 @@ export default class Builder {
             JSGenerator.genJS(c, env, genOptions);
         }
         genOptions.codeBuffer.printf("%n});%n");
+        if (genOptions.esm) {
+            //genOptions.codeBuffer.printf(`import {Tonyu} from "tonyu2-runtime";%n`);
+            genOptions.codeBuffer.printf(`export default Tonyu.classes.${env.options.compiler.namespace};%n`);
+        }
         return Promise.resolve();
     }
     showProgress(m) {
