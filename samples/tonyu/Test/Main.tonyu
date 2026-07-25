@@ -1,2 +1,8 @@
 native console;
-console.log(2+40);
+native setTimeout;
+t=()=>new Promise((s)=>
+setTimeout(s,100));
+for(i=0;i<10;i++){
+console.log(2+i);
+__await t();
+}

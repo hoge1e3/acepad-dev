@@ -18,6 +18,12 @@
     "Compiler",
     "Game"
   ],
+  "bin":{
+    "tonyuc": "./js/cli.js"
+  },
+  "bin-ace":{
+    "tonyuc": "./js/cli-ace.js"
+  },
   "author": "hoge1e3",
   "license": "MIT",
   "bugs": {

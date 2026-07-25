@@ -1,0 +1,136 @@
+includes SpriteMod,EventMod;
+native console;
+"field strict";
+let x,y,layer;
+\enableDrag(options) {
+    options=options||{};
+    options=Object.assign({},options);
+    on("touch") \(e) {
+        let f=e.finger;
+        let startCancelled;
+        e.end=\() {startCancelled=true;};
+        if (typeof options.start==="function") {
+            options.start(e);
+        }
+        if (startCancelled) return;
+        let cloned=parseCloneDescriptor(options.clone, f);
+        /*if (typeof options.clone==="object") {
+            let clo=Object.assign({}, options.clone);
+            let cl=clo.class || Actor;
+            if (clo.layer) {
+                let tolp=clo.layer.defaultLayerPath;
+                let lp=f.layerPath.convert({x,y},tolp);
+                clo.x=lp.x;
+                clo.y=lp.y;
+                f.layerPath=tolp;
+            }
+            delete clo.class;
+            for (let k of ["x","y","p","layer",
+            "fillStyle","alpha","rotation","scaleX","scaleY","radius","width","height"]) {
+                clo[k]=clo[k]||this[k];
+            }
+            //console.log("CLO",clo);
+            let cloned=new cl(clo);
+            cloned.startDrag(e, options);
+        } else {
+            startDrag(e,options);
+        }*/
+        options.sourceActor=this;
+        cloned.startDrag(e, options);
+    };
+    return options;
+}
+
+\parseCloneDescriptor(desc, finger) {
+    if (typeof desc==="function") {
+        return desc{actor:this, finger};
+    }
+    if (!desc || typeof desc!=="object") return this;
+    let clo=Object.assign({}, desc);
+    let cl=clo.class || Actor;
+    if (clo.layer) {
+        let tolp=clo.layer.defaultLayerPath;
+        let lp=finger.layerPath.convert({x,y},tolp);
+        clo.x=lp.x;
+        clo.y=lp.y;
+        finger.layerPath=tolp;
+    }
+    delete clo.class;
+    for (let k of ["x","y","p","layer",
+    "fillStyle","alpha","rotation","scaleX","scaleY","radius","width","height"]) {
+        clo[k]=clo[k]||this[k];
+    }
+    let cloned=new cl(clo);
+    return cloned;
+}
+\startDrag(e, options) {
+    options=options||{};
+    let a=this;
+    let f=e.finger;    
+    let sx=f.x-x, sy=f.y-y;
+    let relative=options.relative;
+    \forceEnd() {
+        evm.remove();
+        eve.remove();
+        e.forceEnded=true;
+        handleEnd(e);
+    }
+    \handleEnd(e) {
+        //e.actor=this;
+        let dropped=parseCloneDescriptor(options.end, f);
+        if (options.sourceActor!=this && dropped is Actor && dropped!=this) {
+            this.die();
+        }
+        /*if (typeof options.end==="function") {
+            options.end(e);
+        }*/
+    }
+    
+    let evm,eve;
+    evm=f.on("move") \(eo) {
+        let e={
+            //vx=eo.vx, vy=eo.vy,
+            //x=f.x-sx, y=f.y-sy,
+            cancel=\{e.cancelled=true;},
+            end=forceEnd,
+        };
+        e.px=x;
+        e.py=y;
+        if (relative) {
+            e.vx=eo.vx;
+            e.vy=eo.vy;
+            e.x=e.px+e.vx;
+            e.y=e.py+e.vy;
+        } else {
+            e.x=f.x-sx;
+            e.y=f.y-sy;
+            e.vx=e.x-e.px;
+            e.vy=e.y-e.py;
+        }
+        e.actor=this;
+        x=e.x;
+        y=e.y;
+        if (typeof options.valid==="function") {
+            if (!options.valid()) {
+                y=e.y;
+                x=e.px;
+                if (!options.valid()) {
+                    y=e.py;
+                    x=e.x;
+                    if (!options.valid()) {
+                        y=e.py;
+                        x=e.px;
+                    }
+                }
+            }
+        }            
+        if (typeof options.move==="function") {
+            options.move(e);
+            if (e.cancelled) {
+                a.x=e.px;
+                a.y=e.py;
+            }
+        }
+    };
+    eve=f.on("end",handleEnd);
+}

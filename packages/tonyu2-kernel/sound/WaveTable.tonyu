@@ -1,0 +1,42 @@
+extends TObject;
+native T;
+
+wav={};
+env={};
+\setWav(num, synth) {
+    wav[num]=synth;
+}
+\setEnv(num, synth) {
+    env[num]=synth;
+}
+\timbre(...args){
+    return T(...args);
+}
+\get(w,e) {
+    var synth=T("OscGen") {osc:wav[w], env:env[e], mul:0.25};
+    return synth;
+}
+\stop() {
+    /*for (var k,v in tbl) {
+        v.pause();
+        v.stop();
+    }*/
+}
+
+if (typeof T!=="undefined") {
+    //env=T("adsr", {a:0,d:200,s:0.5,r:10});
+    env = T("env",{table:[1, [0.6, 50], [0, 100]], /*releaseNode:2*/});
+    setEnv(0, env);
+    env = T("env",{table:[1, [0.9, 50], [0.8, 100]], /*releaseNode:2*/});
+    setEnv(1, env);
+    env = T("env",{table:[1, [0.6, 25], [0, 50]], /*releaseNode:2*/});
+    setEnv(2, env);
+    setWav(0, T("pulse"));
+    setWav(1, T("saw"));
+    setWav(2, T("tri"));
+    setWav(3, T("sin"));
+    setWav(10, T("noise"));
+    setWav(11, T("pink"));
+    //    synth=T("OscGen") {wave:"pulse", env, mul:0.25};
+    //set(0,synth);    
+}

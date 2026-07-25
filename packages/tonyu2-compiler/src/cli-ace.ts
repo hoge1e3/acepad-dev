@@ -14,49 +14,49 @@ import pNode from "petit-node"
 //import * as R from "./lib/R";
 //const {sourceFiles} = SourceFiles;
 export async function main(this:any,...args:any[]) {
-const [cmdopt,from,to]=this.pickOptions(args);
-const prjDir=this.resolve(".") as SFile;
-const run=cmdopt.r;
-const daemon=cmdopt.d;
-const rename={do:!!cmdopt.ren} as {
-    do:boolean,
-    from?:string,
-    to?:string,
-};
-/*Tonyu.loadEvent=(e)=>{
-    console.log("loadEvent",e);
-};*/
-//R.setLocale("ja");
-if (rename.do) {
-    rename.from=from;
-    rename.to=to;
-    rename.do=!!(rename.from&&rename.to);
-}
-//if (typeof require==="function") require('source-map-support').install();
-
-F.addType("compilable",({dir})=>{
-    return F.createDirBasedCore({dir}).include(langMod);
-});
-/*const ns2depspec=new NS2DepSpec([
-    {namespace:"kernel", dir: "test/fixure/Kernel_offscr/"},
-]);*/
-F.addDependencyResolver((prj,spec)=>{
-    if (spec && spec.namespace==="kernel") {
-        return compiledProject.create({
-            dir:prjDir.rel("test/fixture/Kernel_offscr/")
-        });
+    const [cmdopt,from,to]=this.pickOptions(args);
+    const prjDir=this.resolve(".") as SFile;
+    const run=cmdopt.r;
+    const daemon=cmdopt.d;
+    const rename={do:!!cmdopt.ren} as {
+        do:boolean,
+        from?:string,
+        to?:string,
+    };
+    /*Tonyu.loadEvent=(e)=>{
+        console.log("loadEvent",e);
+    };*/
+    //R.setLocale("ja");
+    if (rename.do) {
+        rename.from=from;
+        rename.to=to;
+        rename.do=!!(rename.from&&rename.to);
     }
-});
-const prj=F.create("compilable",{dir:prjDir}) as DirBasedTonyuProject;  //F.createDirBasedCore({dir:prjDir}).include(langMod);
-const builder=new Builder(prj);
-if (rename.do) {
-    console.log(rename);
-    const r=await builder.renameClassName(rename.from!, rename.to!)
-    console.log("Renamed", r.map(e=>e.path()));
-    return;
-}
-let opt={destinations:{file:true,memory:true}};
-if (daemon) opt={destinations:{file:false,memory:true}};
+    //if (typeof require==="function") require('source-map-support').install();
+
+    F.addType("compilable",({dir})=>{
+        return F.createDirBasedCore({dir}).include(langMod);
+    });
+    /*const ns2depspec=new NS2DepSpec([
+        {namespace:"kernel", dir: "test/fixure/Kernel_offscr/"},
+    ]);*/
+    F.addDependencyResolver((prj,spec)=>{
+        if (spec && spec.namespace==="kernel") {
+            return compiledProject.create({
+                dir:prjDir.rel("test/fixture/Kernel_offscr/")
+            });
+        }
+    });
+    const prj=F.create("compilable",{dir:prjDir}) as DirBasedTonyuProject;  //F.createDirBasedCore({dir:prjDir}).include(langMod);
+    const builder=new Builder(prj);
+    if (rename.do) {
+        console.log(rename);
+        const r=await builder.renameClassName(rename.from!, rename.to!)
+        console.log("Renamed", r.map(e=>e.path()));
+        return;
+    }
+    let opt={destinations:{file:true,memory:true}};
+    if (daemon) opt={destinations:{file:false,memory:true}};
     const s=await builder.fullCompile(opt);
     if (run) {
         const script=prj.getOutputFile();
@@ -92,7 +92,7 @@ if (daemon) opt={destinations:{file:false,memory:true}};
             MainClass=Tonyu.getClass(mainClassName);
             useBoot=true;
         } else {
-          mainClassName=`${prj.getNamespace()}.Main`;
+        mainClassName=`${prj.getNamespace()}.Main`;
             MainClass=Tonyu.getClass(mainClassName);
         }
         if (!MainClass) throw new Error(`Main Class ${mainClassName} not found`);

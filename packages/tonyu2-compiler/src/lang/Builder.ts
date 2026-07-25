@@ -346,7 +346,13 @@ export default class Builder {
         // TODO: delete polyfill
         if (genOptions.esm) {
             genOptions.codeBuffer.printf(`import {Tonyu} from "tonyu2-runtime";%n`);
-
+            for (let dep of env.options.compiler.dependingProjects) {
+                if (dep.dir) {
+                    genOptions.codeBuffer.printf(`import ${JSON.stringify(dep.dir)};%n`);                   
+                } else if (dep.outputFile) {
+                    genOptions.codeBuffer.printf(`import ${JSON.stringify(dep.outputFile)};%n`);                   
+                }
+            }
         }
         genOptions.codeBuffer.printf("if(!Tonyu.load)Tonyu.load=(_,f)=>f();%n");
         //
@@ -356,7 +362,11 @@ export default class Builder {
 			JSGenerator.genJS(c, env, genOptions);
 		}
         genOptions.codeBuffer.printf("%n});%n");	
-		return Promise.resolve();
+		if (genOptions.esm) {
+            //genOptions.codeBuffer.printf(`import {Tonyu} from "tonyu2-runtime";%n`);
+            genOptions.codeBuffer.printf(`export default Tonyu.classes.${env.options.compiler.namespace};%n`);
+        }
+        return Promise.resolve();
 	}
     showProgress (m:string) {
 		console.log("Progress:" ,m);
