@@ -1,0 +1,39 @@
+native Tonyu;
+
+\new() {
+    R=Tonyu.messages;
+    let ja={
+        "notA":"{1}{2}は{3}ではありません．",
+        "netEQ": "{1}!=={2}",
+        "noPushedPages":"loadPageで戻る先のページがありません．引数にページ名を忘れているかもしれません．",
+    };
+    let en={
+        "notA":"{1}{2} is not a {3}.",
+        "netEQ": "{1}!=={2}",
+        "noPushedPages":"loadPage(Pop page) failed. You should push page (or you forgot Page argument?)",
+        screenConvertFailed:"Screen::conv invalid from {2} to {3}",
+        cannotGetNeighborTarget:"Cannot get neighbor target {1} {2}",
+        worldToChipInvalidArgs: "Map2::worldToChip: invalid args ({1},{2})",
+        touchFingerSetLayerFailed: "Cannot set layer: toLayer={1}",
+        touchFingerSetLayerPathFailed: "layerPath convert failed: to= {1}",
+        invalidLayer: "Invalid layer: {1}",
+        alreadyAdded: "Layer {1} is already added",
+    };
+    for (let k,v in en) if (!ja[k]) ja[k]=v;
+    Object.assign(R.dicts.ja,ja);
+    Object.assign(R.dicts.en,en);
+}
+\r(name, ...args) {
+    return R(name, ...args);
+}
+\register(name, mesgs) {
+    if (mesgs.ja) R.dicts.ja[name]=mesgs.ja;
+    if (mesgs.en) R.dicts.en[name]=mesgs.en;
+
+}
+\functionShortcut() {
+    let R=\(...args) {return r(...args);};
+    R.register=\(...args) {return register(...args);};
+    R.self=this;
+    return R;
+}

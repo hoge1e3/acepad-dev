@@ -1,0 +1,16 @@
+extends TObject;
+includes EventMod;
+
+let group, screen;
+let name:String;
+\new(p) {
+    super(p);
+    //on(TouchStartOnLayer) 
+}
+\addSubsprite() {
+    return group.addSubsprite.apply(group,arguments);
+}
+
+\all() {
+    return group.all.apply(group,arguments);
+}

@@ -1,0 +1,40 @@
+//extends BaseActor;
+extends null;
+native Tonyu;
+"field strict";
+
+nowait \parallel() {
+    var args=[];
+    for (var i=1; i<arguments.length; i++) {
+        args.push(arguments[i]);
+    }
+    var name=arguments[0];
+    var th;
+    th=$Boot.schedule(this,name,args);
+    return th;
+}
+\para_no_op(){}
+\call() {
+    if (!_thread) throw new Error("callは待機可能モードで呼び出してください");
+    var a=new ArgParser(arguments);
+    var t=a.shift();
+    var n=a.shift();
+    if (n && n.methodInfo) {
+        n=n.methodInfo.name;
+    }
+    var f=t["fiber$"+n];
+    if (!f) {
+        throw new Error("メソッド"+n+"が見つかりません");
+    }
+    var th=Tonyu.thread();
+    var ag2=a.toArray();
+    th.apply(t,n,ag2);
+    th.setThreadGroup(_thread);
+    try {
+        th.stepsLoop();
+        return __await th.promise();
+    } catch (e) {
+        if (e.isKilled) _thread.kill();
+        else throw e;
+    }
+}

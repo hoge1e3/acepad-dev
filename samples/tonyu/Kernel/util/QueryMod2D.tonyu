@@ -1,0 +1,66 @@
+extends null;
+includes QueryMod, SpriteMod2D;
+native Math;
+"field strict";
+\getCrashShape() {// 2D
+    //return new CubeShape(...);// if 3D
+    if (typeof radius=="number" && radius) {
+        return new CircleShape{x,y,radius:radius*crashScale};
+    }
+    return new RectShape(getCrashRect());
+}
+nowait \dist(dx,dy,dz) {
+    if (typeof dx=="object") {
+        var t=dx;
+        dx=t.x-x;dy=t.y-y;dz=0;
+    }
+    return super.dist(dx,dy,dz);
+}
+
+nowait \getCrashRect() {//2D
+    if (_align && !_align.isOriginPivot) {
+        var scx=scaleX;
+        var scy=(scaleY==null?scaleX:scaleY);
+        var r=this._align.getDrawRect{
+            width : (width ||radius*2),
+            height: (height||radius*2),
+        };
+        var v=new Vec3(r.x*scx, r.y*scy);
+        v.rotateX(rotation).addX(x,y);
+        return {
+            x=v.x, y=v.y,
+            width =abs(r.width*scx*crashScale),
+            height=abs(r.height*scy*crashScale),
+        };
+    }
+    var actWidth=(width||radius*2)*scaleX*crashScale, actHeight;
+    if(typeof scaleY==="undefined"){
+        actHeight=(height||radius*2)*scaleX*crashScale;
+    }else{
+        actHeight=(height||radius*2)*scaleY*crashScale;
+    }
+    return typeof x=="number" &&
+    typeof y=="number" &&
+    typeof actWidth=="number" &&
+    typeof actHeight=="number" &&
+    {x,y,width:Math.abs(actWidth),height:Math.abs(actHeight)};
+}
+\getTouchShape() {
+    return new RectShape(getTouchRect());
+}
+\getTouchRect(scale){
+    return getCrashRect();
+}
+\screenOut(...args) {//2D
+    let a=0,sc=$Screen;
+    for (let e of args) {
+        if (typeof e==="number") {
+            a=e;
+        } else if (e is Screen) {
+            sc=e;
+        }
+    }
+    let cp=sc.convert(this,sc);
+    return abs(clamped(cp.x,-a,sc.width+a))+
+    abs(clamped(cp.y,-a, sc.height+a));
+}
