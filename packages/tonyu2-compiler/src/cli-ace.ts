@@ -10,9 +10,14 @@ import {Tonyu} from "tonyu2-runtime";
 //import NS2DepSpec from "./project/NS2DepSpec";
 import type { DirBasedTonyuProject } from "./project/projectTypes";
 import { SFile } from "@hoge1e3/sfile";
-import pNode from "petit-node"
+//import pNode from "petit-node"
 //import * as R from "./lib/R";
 //const {sourceFiles} = SourceFiles;
+ async function _import(url:string):Promise<any> {
+    const g:any=globalThis;
+    if (g.pNode) return await g.pNode.import(url);
+    return await import(url);
+}
 export async function main(this:any,...args:any[]) {
     const [cmdopt,from,to]=this.pickOptions(args);
     const prjDir=this.resolve(".") as SFile;
@@ -60,7 +65,7 @@ export async function main(this:any,...args:any[]) {
     const s=await builder.fullCompile(opt);
     if (run) {
         const script=prj.getOutputFile();
-        await pNode.import("file://"+script.path());
+        await _import("file://"+script.path());
     }
     if (daemon) {
         const tmpdir=prj.getOutputFile().up();

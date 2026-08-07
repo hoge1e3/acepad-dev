@@ -8,6 +8,7 @@ import { checkExpr, checkTypeDecl } from "./TypeChecker.js";
 import { BuilderContext, BuilderContextDef, BuilderEnv, C_Meta, C_MetaMap, Destinations, GenOptions, isFileDest, isMemoryDest } from "./CompilerTypes.js";
 import { DirBasedTonyuProject } from "../project/projectTypes.js";
 import { SFile } from "@hoge1e3/sfile";
+import { npmVarName } from "./compiler.js";
 
 //type ClassMap={[key: string]:Meta};
 //const langMod=require("./langMod");
@@ -343,28 +344,33 @@ export default class Builder {
 		// 途中でコンパイルエラーを起こすと。。。
         const env=this.getEnv();
         if (!genOptions.codeBuffer) throw new Error("genOptions.codeBuffer is not set");
+        const buf = genOptions.codeBuffer;
         // TODO: delete polyfill
         if (genOptions.esm) {
-            genOptions.codeBuffer.printf(`import {Tonyu} from "tonyu2-runtime";%n`);
-            for (let dep of env.options.compiler.dependingProjects) {
-                if (dep.dir) {
-                    genOptions.codeBuffer.printf(`import ${JSON.stringify(dep.dir)};%n`);                   
+            buf.printf(`import {Tonyu} from "tonyu2-runtime";%n`);
+            const dep=env.options.compiler.npmDependencies||{};
+            for (let pkg in dep) {
+                buf.printf(`import * as %s from %l;%n`, npmVarName(pkg), pkg);
+            }
+            for (let dep of env.options.compiler.dependingProjects||[]) {
+                if (dep.npm) {
+                    buf.printf(`import ${JSON.stringify(dep.npm)};%n`);                   
                 } else if (dep.outputFile) {
-                    genOptions.codeBuffer.printf(`import ${JSON.stringify(dep.outputFile)};%n`);                   
+                    buf.printf(`import ${JSON.stringify(dep.outputFile)};%n`);                   
                 }
             }
         }
-        genOptions.codeBuffer.printf("if(!Tonyu.load)Tonyu.load=(_,f)=>f();%n");
+        buf.printf("if(!Tonyu.load)Tonyu.load=(_,f)=>f();%n");
         //
-        genOptions.codeBuffer.printf("Tonyu.load(%s, ()=>{%n", JSON.stringify(env.options));
+        buf.printf("Tonyu.load(%s, ()=>{%n", JSON.stringify(env.options));
 		for (let c of ord) {
             console.log("genJS", c.fullName);
 			JSGenerator.genJS(c, env, genOptions);
 		}
-        genOptions.codeBuffer.printf("%n});%n");	
+        buf.printf("%n});%n");	
 		if (genOptions.esm) {
-            //genOptions.codeBuffer.printf(`import {Tonyu} from "tonyu2-runtime";%n`);
-            genOptions.codeBuffer.printf(`export default Tonyu.classes.${env.options.compiler.namespace};%n`);
+            //buf.printf(`import {Tonyu} from "tonyu2-runtime";%n`);
+            buf.printf(`export default Tonyu.classes.${env.options.compiler.namespace};%n`);
         }
         return Promise.resolve();
 	}

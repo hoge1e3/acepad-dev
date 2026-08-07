@@ -5,7 +5,7 @@ import langMod from "../lang/langMod.js";
 import { DirBasedCore, DirBasedMod, DirBasedOptions, DirBasedTonyuProject, IProject, LangMod, LoadContext, URLBasedTonyuProject } from "./projectTypes.js";
 import { SFile } from "@hoge1e3/sfile";
 import { DependencySpec } from "tonyu2-runtime";
-
+import {PackageJson} from "./pkg.js";
 F.addType("compiled",(params:any)=> {
     if (params.namespace && params.url) return urlBased(params);
     if (params.namespace && params.outputFile) return outputFileBased(params);
@@ -84,6 +84,13 @@ F.addDependencyResolver((prj:IProject, spec:DependencySpec)=> {
     if (spec.dir && isDirBasedProject(prj)) {
         return F.create("compiled",{dir:prj.resolve(spec.dir)});
     }
+    if(spec.npm && isDirBasedProject(prj)){
+      const p=PackageJson.find(
+        spec.npm,prj.getDir());
+      if(!p)throw Error(`${spec.npm} not found.`);
+      return F.create("compiled",{dir:p.dir});
+        
+    }
     if (spec.namespace && spec.url) {
         return F.create("compiled",spec);
     }
@@ -93,4 +100,5 @@ F.addDependencyResolver((prj:IProject, spec:DependencySpec)=> {
             outputFile: prj.resolve(spec.outputFile)
         });
     }
+    
 });

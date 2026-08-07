@@ -18,11 +18,14 @@ import { ParsedNode, Token } from "./parser.js";
 	export function isNonBlockScopeDeclprefix(t:Token|null){
 		return t && t.text===NONBLOCKSCOPE_DECLPREFIX;
 	}
+	export function npmVarName(packageName:string){
+		return "__npm__"+packageName.replace(/\W/g,"_");
+	}
 	export const ScopeTypes={
 			FIELD:"field", METHOD:"method", NATIVE:"native",//B
 			LOCAL:"local", THVAR:"threadvar",PROP:"property",
-			PARAM:"param", GLOBAL:"global",
-			CLASS:"class", MODULE:"module"
+			PARAM:"param", GLOBAL:"global", 
+			CLASS:"class", MODULE:"module", IMPORT:"import",
 	} as const;
 	export namespace ScopeInfos{
 		export class LOCAL {
@@ -54,6 +57,10 @@ import { ParsedNode, Token } from "./parser.js";
 			type=ScopeTypes.NATIVE;
 			constructor(public name:string , public value:NativeClass){}
 		}
+		export class IMPORT{
+			type=ScopeTypes.IMPORT;
+			constructor(public packageName:string ){}
+		}
 		export class CLASS{
 			type=ScopeTypes.CLASS;
 			constructor(public name:string , public fullName:string, public info:C_Meta){}
@@ -66,7 +73,7 @@ import { ParsedNode, Token } from "./parser.js";
 			type=ScopeTypes.MODULE;
 			constructor(public name:string){}
 		}
-		export type ALL=(FIELD|METHOD|NATIVE|LOCAL|THVAR|PROP|PARAM|GLOBAL|CLASS|MODULE) & {resolvedType?:AnnotatedType};
+		export type ALL=(FIELD|METHOD|NATIVE|LOCAL|THVAR|PROP|PARAM|GLOBAL|CLASS|MODULE|IMPORT) & {resolvedType?:AnnotatedType};
 	};
 	export type ScopeInfo=ScopeInfos.ALL;
 	export type ScopeType=valueOf<typeof ScopeTypes>;

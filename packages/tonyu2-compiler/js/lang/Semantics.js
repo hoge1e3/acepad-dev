@@ -82,8 +82,10 @@ export function initClassDecls(klass, env) {
     const node = parse(klass, env.options);
     var MAIN = { klass, name: "main", stmts: [], isMain: true, nowait: false }; //, klass:klass.fullName};
     // method := fiber | function
-    const fields = {}, methods = { main: MAIN }, natives = {}, amds = {}, softRefClasses = {};
-    klass.decls = { fields, methods, natives, amds, softRefClasses };
+    const fields = {}, methods = { main: MAIN }, natives = {}, amds = {}, imports = {}, softRefClasses = {};
+    klass.decls = { fields, methods, natives, amds, softRefClasses,
+        imports,
+    };
     // ↑ このクラスが持つフィールド，ファイバ，関数，ネイティブ変数，AMDモジュール変数
     //   extends/includes以外から参照してれるクラス の集まり．親クラスの宣言は含まない
     klass.node = node;
@@ -213,6 +215,9 @@ export function initClassDecls(klass, env) {
             }
             else if (stmt.type == "nativeDecl") {
                 natives[stmt.name.text] = stmt;
+            }
+            else if (stmt.type == "importDecl") {
+                imports[stmt.importAs.text] = stmt;
             }
             else {
                 MAIN.stmts.push(stmt);
@@ -378,6 +383,9 @@ function annotateSource2(klass, env) {
         }
         for (let i in decls.natives) {
             s[i] = new SI.NATIVE("native::" + i, { class: globalThis[i] });
+        }
+        for (let i in decls.imports) {
+            s[i] = new SI.IMPORT(decls.imports[i].package.text);
         }
     }
     function inheritSuperMethod() {

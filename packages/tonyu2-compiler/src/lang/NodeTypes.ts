@@ -376,6 +376,12 @@ export type NativeDecl=NodeBase&{
   type: "nativeDecl";
   name: Token
 };
+export type ImportDecl=NodeBase&{
+  type: "importDecl";
+  package: Token,
+  exportAs: Token,
+  importAs: Token,
+};
 export function isNativeDecl(n:TNode):n is NativeDecl {
    return n && n.type==="nativeDecl";
 }
@@ -394,7 +400,7 @@ export type Empty=NodeBase&{
 export function isEmpty(n:TNode):n is Empty {
    return n && n.type==="empty";
 }
-export type Stmt=Return|If|For|While|Do|Break|Continue|Switch|IfWait|Try|Throw|NativeDecl|FuncDecl|Compound|Exprstmt|VarsDecl|Empty;
+export type Stmt=Return|If|For|While|Do|Break|Continue|Switch|IfWait|Try|Throw|NativeDecl|ImportDecl|FuncDecl|Compound|Exprstmt|VarsDecl|Empty;
 export type FuncExprHead=NodeBase&{
   type: "funcExprHead";
   name: Token|null,
@@ -488,4 +494,4 @@ export type BackquoteLiteral=NodeBase&{
 export function isBackquoteLiteral(n:TNode):n is BackquoteLiteral {
   return n && n.type==="backquoteLiteral";
 }
-export type TNode=ArrayElem|ArgList|Member|ParenExpr|VarAccess|FuncExprArg|ObjlitArg|Call|Scall|NewExpr|SuperExpr|Exprstmt|Compound|Return|If|Forin|NormalFor|For|While|Do|Case|Default|Switch|Break|Continue|Finally|Catch|Try|Throw|TypeExpr|TypeDecl|VarDecl|VarsDecl|ParamDecl|ParamDecls|SetterDecl|FuncDeclHead|FuncDecl|NativeDecl|IfWait|Empty|FuncExprHead|FuncExpr|JsonElem|Objlit|Arylit|Extends|Includes|Program|Expression|BackquoteLiteral;
+export type TNode=ArrayElem|ArgList|Member|ParenExpr|VarAccess|FuncExprArg|ObjlitArg|Call|Scall|NewExpr|SuperExpr|Exprstmt|Compound|Return|If|Forin|NormalFor|For|While|Do|Case|Default|Switch|Break|Continue|Finally|Catch|Try|Throw|TypeExpr|TypeDecl|VarDecl|VarsDecl|ParamDecl|ParamDecls|SetterDecl|FuncDeclHead|FuncDecl|NativeDecl|ImportDecl|IfWait|Empty|FuncExprHead|FuncExpr|JsonElem|Objlit|Arylit|Extends|Includes|Program|Expression|BackquoteLiteral;

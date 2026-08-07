@@ -1,6 +1,7 @@
 import * as F from "./ProjectFactory.js";
 import { sourceFiles } from "../lang/SourceFiles.js";
 import langMod from "../lang/langMod.js";
+import { PackageJson } from "./pkg.js";
 F.addType("compiled", (params) => {
     if (params.namespace && params.url)
         return urlBased(params);
@@ -77,6 +78,12 @@ export const create = (params) => F.create("compiled", params);
 F.addDependencyResolver((prj, spec) => {
     if (spec.dir && isDirBasedProject(prj)) {
         return F.create("compiled", { dir: prj.resolve(spec.dir) });
+    }
+    if (spec.npm && isDirBasedProject(prj)) {
+        const p = PackageJson.find(spec.npm, prj.getDir());
+        if (!p)
+            throw Error(`${spec.npm} not found.`);
+        return F.create("compiled", { dir: p.dir });
     }
     if (spec.namespace && spec.url) {
         return F.create("compiled", spec);

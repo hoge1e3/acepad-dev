@@ -1,8 +1,14 @@
+import * as cnt from "@hoge1e3/counter";
 native console;
+native document;
 native setTimeout;
 t=()=>new Promise((s)=>
 setTimeout(s,100));
 for(i=0;i<10;i++){
-console.log(2+i);
-__await t();
+    console.log(2+i);
+    document.write(2+i);
+    if(i>=5)a.b;
+    __await t();
 }
+console.log(counter);
+console.log(Actor);

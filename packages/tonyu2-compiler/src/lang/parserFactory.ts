@@ -32,6 +32,7 @@ export default function PF({TT}:{TT:Tokenizer}) {
 	}).setName("numberLiteral");
 	var symbol=tk("symbol");
 	var symresv=tk("symbol");
+	const localResv=(text:string)=>symbol.except((r:Token)=>r.text!==text);
 	for (var resvk in TT.reserved) {
 		var resvp=tk(resvk);
 		//console.log(resvk,resvp, resvp instanceof Parser.Parser);
@@ -307,10 +308,14 @@ export default function PF({TT}:{TT:Tokenizer}) {
 	).ret("nowait","ftype","name","setter", "params","rtype");
 	var funcDecl=g("funcDecl").ands("funcDeclHead","compound").ret("head","body");
 	var nativeDecl=g("nativeDecl").ands(tk("native"),symbol,tk(";")).ret(null, "name");
+	const importDecl=g("importDecl").
+		ands(localResv("import"), tk("*"), localResv("as"), symbol, localResv("from"), literal).ret(
+			    null,          "exportAs",     null,     "importAs", null,           "package",
+		);
 	var ifwait=g("ifWait").ands(tk("ifwait"),"stmt",elseP.opt()).ret(null, "then","_else");
 	//var useThread=g("useThread").ands(tk("usethread"),symbol,"stmt").ret(null, "threadVarName","stmt");
 	var empty=g("empty").ands(tk(";")).ret(null);
-	const stmt_built=g("stmt").ors("return", "if", "for", "while", "do","break", "continue", "switch","ifWait","try", "throw","nativeDecl", "funcDecl", "compound", "exprstmt", "varsDecl","empty");
+	const stmt_built=g("stmt").ors("return", "if", "for", "while", "do","break", "continue", "switch","ifWait","try", "throw","nativeDecl", "importDecl","funcDecl", "compound", "exprstmt", "varsDecl","empty");
 	// ------- end of stmts
 	g("funcExprHead").ands(tk("function").or(tk("\\")), symbol.opt() ,paramDecls.opt() ).ret(null,"name","params");
 	const nonArrowFuncExpr=g("nonArrowFuncExpr").ands("funcExprHead","compound").ret("head","body");
@@ -320,6 +325,7 @@ export default function PF({TT}:{TT:Tokenizer}) {
 			symbol.or(literal),
 			tk(":").or(tk("=")).and(expr).retN(1).opt()
 	).ret("key","value");
+	
 	var objlit=g("objlit").ands(tk("{"), comLastOpt( jsonElem ), tk("}")).ret(null, "elems");
 	var arylit=g("arylit").ands(tk("["), comLastOpt( dottableExpr ),  tk("]")).ret(null, "elems");
 	var ext=g("extends").ands(tk("extends"),symbol.or(tk("null")), tk(";")).

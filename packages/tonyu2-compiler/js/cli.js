@@ -3,5 +3,5 @@ const prjPath = process.argv[2];
 const run = process.argv.indexOf("-r") >= 0;
 const daemon = process.argv.indexOf("-d") >= 0;
 const rename = { idx: process.argv.indexOf("-ren") };
-await main(prjPath, { run, daemon, rename });
+await main({ run, daemon, rename }, ...process.argv.filter(e => !e.startsWith("-")));
 //# sourceMappingURL=cli.js.map

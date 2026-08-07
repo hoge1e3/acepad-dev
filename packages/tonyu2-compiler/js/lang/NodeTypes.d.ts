@@ -277,6 +277,12 @@ export type NativeDecl = NodeBase & {
     type: "nativeDecl";
     name: Token;
 };
+export type ImportDecl = NodeBase & {
+    type: "importDecl";
+    package: Token;
+    exportAs: Token;
+    importAs: Token;
+};
 export declare function isNativeDecl(n: TNode): n is NativeDecl;
 export type IfWait = NodeBase & {
     type: "ifWait";
@@ -288,7 +294,7 @@ export type Empty = NodeBase & {
     type: "empty";
 };
 export declare function isEmpty(n: TNode): n is Empty;
-export type Stmt = Return | If | For | While | Do | Break | Continue | Switch | IfWait | Try | Throw | NativeDecl | FuncDecl | Compound | Exprstmt | VarsDecl | Empty;
+export type Stmt = Return | If | For | While | Do | Break | Continue | Switch | IfWait | Try | Throw | NativeDecl | ImportDecl | FuncDecl | Compound | Exprstmt | VarsDecl | Empty;
 export type FuncExprHead = NodeBase & {
     type: "funcExprHead";
     name: Token | null;
@@ -352,4 +358,4 @@ export type BackquoteLiteral = NodeBase & {
     body: (BackquoteText | Expr)[];
 };
 export declare function isBackquoteLiteral(n: TNode): n is BackquoteLiteral;
-export type TNode = ArrayElem | ArgList | Member | ParenExpr | VarAccess | FuncExprArg | ObjlitArg | Call | Scall | NewExpr | SuperExpr | Exprstmt | Compound | Return | If | Forin | NormalFor | For | While | Do | Case | Default | Switch | Break | Continue | Finally | Catch | Try | Throw | TypeExpr | TypeDecl | VarDecl | VarsDecl | ParamDecl | ParamDecls | SetterDecl | FuncDeclHead | FuncDecl | NativeDecl | IfWait | Empty | FuncExprHead | FuncExpr | JsonElem | Objlit | Arylit | Extends | Includes | Program | Expression | BackquoteLiteral;
+export type TNode = ArrayElem | ArgList | Member | ParenExpr | VarAccess | FuncExprArg | ObjlitArg | Call | Scall | NewExpr | SuperExpr | Exprstmt | Compound | Return | If | Forin | NormalFor | For | While | Do | Case | Default | Switch | Break | Continue | Finally | Catch | Try | Throw | TypeExpr | TypeDecl | VarDecl | VarsDecl | ParamDecl | ParamDecls | SetterDecl | FuncDeclHead | FuncDecl | NativeDecl | ImportDecl | IfWait | Empty | FuncExprHead | FuncExpr | JsonElem | Objlit | Arylit | Extends | Includes | Program | Expression | BackquoteLiteral;

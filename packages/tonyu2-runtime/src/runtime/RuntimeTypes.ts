@@ -99,10 +99,12 @@ export type DependencySpec={
 	dir?: string,
 	url?: string,
 	outputFile?: SFile,
+	npm?: string,
 }
 export type CompilerOptions={
 	namespace: string,
 	dependingProjects: DependencySpec[],
+	npmDependencies: Record<string,string>,
 	typeCheck?: boolean,
 	outputFile?: string,
 	//typeInference?: boolean,

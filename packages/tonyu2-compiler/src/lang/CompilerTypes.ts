@@ -87,11 +87,18 @@ export type C_FieldInfo=FieldInfo & {
 };
 export type C_NativeInfo={};
 export type C_AmdInfo={};
+export type C_NpmInfo={
+	// import exportAs as importAs from "package";
+	package: Token,
+	exportAs: Token,
+	importAs: Token,
+}
 export type C_Decls={
 	methods: {[key:string]: NonArrowFuncInfo},
 	fields:  {[key:string]: C_FieldInfo},
 	natives: {[key:string]: C_NativeInfo},
 	amds: {[key:string]: C_AmdInfo},
+	imports: {[key:string]: C_NpmInfo},
 	softRefClasses: {[key:string]: ScopeInfo}
 }
 export type C_Meta=SrcMeta & {

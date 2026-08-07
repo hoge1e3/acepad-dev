@@ -97,8 +97,11 @@ export function initClassDecls(klass:C_Meta, env:BuilderEnv ) {//S
 		methods:Methods={main: MAIN}, 
 		natives:C_Decls["natives"]={}, 
 		amds:C_Decls["amds"]={},
+		imports:C_Decls["imports"]={},
 		softRefClasses:C_Decls["softRefClasses"]={};
-	klass.decls={fields, methods, natives, amds, softRefClasses};
+	klass.decls={fields, methods, natives, amds, softRefClasses,
+	  imports,
+	};
 	// ↑ このクラスが持つフィールド，ファイバ，関数，ネイティブ変数，AMDモジュール変数
 	//   extends/includes以外から参照してれるクラス の集まり．親クラスの宣言は含まない
 	klass.node=node;
@@ -222,6 +225,8 @@ export function initClassDecls(klass:C_Meta, env:BuilderEnv ) {//S
 				};
 			} else if (stmt.type=="nativeDecl") {
 				natives[stmt.name.text]=stmt;
+			} else if (stmt.type=="importDecl") {
+				imports[stmt.importAs.text]=stmt;
 			} else {
 				MAIN.stmts.push(stmt);
 			}
@@ -382,6 +387,9 @@ function annotateSource2(klass:C_Meta, env:BuilderEnv) {//B
 		}
 		for (let i in decls.natives) {
 			s[i]=new SI.NATIVE("native::"+i, {class:(globalThis as any)[i]});
+		}
+		for (let i in decls.imports) {
+			s[i]=new SI.IMPORT(decls.imports[i].package.text);
 		}
 	}
 	function inheritSuperMethod() {//S

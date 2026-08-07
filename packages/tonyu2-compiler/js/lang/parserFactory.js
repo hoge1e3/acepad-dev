@@ -28,6 +28,7 @@ export default function PF({ TT }) {
     }).setName("numberLiteral");
     var symbol = tk("symbol");
     var symresv = tk("symbol");
+    const localResv = (text) => symbol.except((r) => r.text !== text);
     for (var resvk in TT.reserved) {
         var resvp = tk(resvk);
         //console.log(resvk,resvp, resvp instanceof Parser.Parser);
@@ -293,10 +294,12 @@ export default function PF({ TT }) {
     ).ret("nowait", "ftype", "name", "setter", "params", "rtype");
     var funcDecl = g("funcDecl").ands("funcDeclHead", "compound").ret("head", "body");
     var nativeDecl = g("nativeDecl").ands(tk("native"), symbol, tk(";")).ret(null, "name");
+    const importDecl = g("importDecl").
+        ands(localResv("import"), tk("*"), localResv("as"), symbol, localResv("from"), literal).ret(null, "exportAs", null, "importAs", null, "package");
     var ifwait = g("ifWait").ands(tk("ifwait"), "stmt", elseP.opt()).ret(null, "then", "_else");
     //var useThread=g("useThread").ands(tk("usethread"),symbol,"stmt").ret(null, "threadVarName","stmt");
     var empty = g("empty").ands(tk(";")).ret(null);
-    const stmt_built = g("stmt").ors("return", "if", "for", "while", "do", "break", "continue", "switch", "ifWait", "try", "throw", "nativeDecl", "funcDecl", "compound", "exprstmt", "varsDecl", "empty");
+    const stmt_built = g("stmt").ors("return", "if", "for", "while", "do", "break", "continue", "switch", "ifWait", "try", "throw", "nativeDecl", "importDecl", "funcDecl", "compound", "exprstmt", "varsDecl", "empty");
     // ------- end of stmts
     g("funcExprHead").ands(tk("function").or(tk("\\")), symbol.opt(), paramDecls.opt()).ret(null, "name", "params");
     const nonArrowFuncExpr = g("nonArrowFuncExpr").ands("funcExprHead", "compound").ret("head", "body");

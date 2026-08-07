@@ -1,0 +1,46 @@
+import { SFile } from "@hoge1e3/sfile";
+
+export class PackageJson {
+  file:SFile;
+  dir:SFile;
+  obj:object;
+  constructor (dir:SFile){
+    if(!dir.isDir()&&dir.name()==("package.json")){
+      this.file=dir;
+    }else if(dir.rel("package.json").exists()){
+      this.file=dir.rel("package.json");
+    }else {
+      throw new Error(`${dir} is not a npm module`);
+    }
+    this.dir=this.file.up()!;
+    this.obj=this.file.obj();
+  }
+  save(){
+    const t=JSON.stringify(this.obj,null,4);
+    if (this.file.text()!==t){
+      this.file.text(t);
+    }
+  }
+  static find(path:string, origin:SFile) {
+  /* find npm package.json and return PackageJson instance that can be resolved from origin
+    origin is a "File" object that have following methods:
+      o.rel(relPath:string):File  
+      o.up():File  (find parent dir. If o is root, return null)
+      o.exists():boolean
+    
+      */
+    let current:SFile|null = origin;
+    while (current) {
+      const node_modules = current.rel("node_modules");
+      if (node_modules.exists()) {
+        const pkgFile = node_modules.rel(path).rel("package.json");
+        if (pkgFile.exists()) {
+          return new PackageJson(pkgFile);
+        }
+      }
+      current = current.up();
+    }
+    return null;
+  }
+}
+  

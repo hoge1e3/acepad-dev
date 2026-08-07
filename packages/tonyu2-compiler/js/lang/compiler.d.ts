@@ -5,6 +5,7 @@ import { ParsedNode, Token } from "./parser.js";
 type valueOf<T> = T[keyof T];
 export declare function isBlockScopeDeclprefix(t: Token | null): boolean | null;
 export declare function isNonBlockScopeDeclprefix(t: Token | null): boolean | null;
+export declare function npmVarName(packageName: string): string;
 export declare const ScopeTypes: {
     readonly FIELD: "field";
     readonly METHOD: "method";
@@ -16,6 +17,7 @@ export declare const ScopeTypes: {
     readonly GLOBAL: "global";
     readonly CLASS: "class";
     readonly MODULE: "module";
+    readonly IMPORT: "import";
 };
 export declare namespace ScopeInfos {
     class LOCAL {
@@ -60,6 +62,11 @@ export declare namespace ScopeInfos {
         type: "native";
         constructor(name: string, value: NativeClass);
     }
+    class IMPORT {
+        packageName: string;
+        type: "import";
+        constructor(packageName: string);
+    }
     class CLASS {
         name: string;
         fullName: string;
@@ -77,13 +84,13 @@ export declare namespace ScopeInfos {
         type: "module";
         constructor(name: string);
     }
-    type ALL = (FIELD | METHOD | NATIVE | LOCAL | THVAR | PROP | PARAM | GLOBAL | CLASS | MODULE) & {
+    type ALL = (FIELD | METHOD | NATIVE | LOCAL | THVAR | PROP | PARAM | GLOBAL | CLASS | MODULE | IMPORT) & {
         resolvedType?: AnnotatedType;
     };
 }
 export type ScopeInfo = ScopeInfos.ALL;
 export type ScopeType = valueOf<typeof ScopeTypes>;
-export declare function getScopeType(st: ScopeInfo): "class" | "method" | "field" | "native" | "local" | "threadvar" | "property" | "param" | "global" | "module" | null;
+export declare function getScopeType(st: ScopeInfo): "class" | "method" | "field" | "native" | "local" | "threadvar" | "property" | "param" | "global" | "module" | "import" | null;
 export declare function newScope<T extends object>(s: T): T;
 export declare function nullCheck(o: any, mesg: string): any;
 export declare function genSym(prefix: string): string;

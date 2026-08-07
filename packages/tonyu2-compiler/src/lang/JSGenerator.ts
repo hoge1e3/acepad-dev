@@ -110,6 +110,8 @@ export function genJS(klass:C_Meta, env:BuilderEnv, genOptions:GenOptions) {//B
 			buf.printf("%s",getClassName(n));
 		} else if (t==ST.GLOBAL) {
 			buf.printf("%s%s",GLOBAL_HEAD, n);
+		} else if (si.type===cu.ScopeTypes.IMPORT/* t==ST.IMPORT*/) {
+			buf.printf("%s", cu.npmVarName(si.packageName ));
 		} else if (t==ST.PARAM || t==ST.LOCAL || t==ST.NATIVE || t==ST.MODULE) {
 			if (isTonyu1(env.options) && t==ST.NATIVE) {
 				buf.printf("%s.%s",THIZ, n);

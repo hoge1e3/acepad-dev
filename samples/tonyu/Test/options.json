@@ -2,9 +2,12 @@
   "compiler":{
     "namespace":"user",
     "esm": true,
+    "npmDependencies":{
+      "@hoge1e3/counter": "^1.0.0"
+    },
     "_defaultSuperClass":"kernel.Actor",
-    "_dependingProjects":[
-      {"namespace":"kernel"}
+    "dependingProjects":[
+      {"npm":"tonyu2-kernel"}
     ]
   },
   "run":{

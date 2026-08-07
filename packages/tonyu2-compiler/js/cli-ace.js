@@ -4,9 +4,15 @@ import * as F from "./project/ProjectFactory.js";
 import langMod from "./lang/langMod.js";
 import * as compiledProject from "./project/CompiledProject.js";
 import { Tonyu } from "tonyu2-runtime";
-import pNode from "petit-node";
+//import pNode from "petit-node"
 //import * as R from "./lib/R";
 //const {sourceFiles} = SourceFiles;
+async function _import(url) {
+    const g = globalThis;
+    if (g.pNode)
+        return await g.pNode.import(url);
+    return await import(url);
+}
 export async function main(...args) {
     const [cmdopt, from, to] = this.pickOptions(args);
     const prjDir = this.resolve(".");
@@ -50,7 +56,7 @@ export async function main(...args) {
     const s = await builder.fullCompile(opt);
     if (run) {
         const script = prj.getOutputFile();
-        await pNode.import("file://" + script.path());
+        await _import("file://" + script.path());
     }
     if (daemon) {
         const tmpdir = prj.getOutputFile().up();

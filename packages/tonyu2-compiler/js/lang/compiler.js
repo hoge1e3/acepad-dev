@@ -7,11 +7,14 @@ export function isBlockScopeDeclprefix(t) {
 export function isNonBlockScopeDeclprefix(t) {
     return t && t.text === NONBLOCKSCOPE_DECLPREFIX;
 }
+export function npmVarName(packageName) {
+    return "__npm__" + packageName.replace(/\W/g, "_");
+}
 export const ScopeTypes = {
     FIELD: "field", METHOD: "method", NATIVE: "native", //B
     LOCAL: "local", THVAR: "threadvar", PROP: "property",
     PARAM: "param", GLOBAL: "global",
-    CLASS: "class", MODULE: "module"
+    CLASS: "class", MODULE: "module", IMPORT: "import",
 };
 export var ScopeInfos;
 (function (ScopeInfos) {
@@ -83,6 +86,14 @@ export var ScopeInfos;
         }
     }
     ScopeInfos.NATIVE = NATIVE;
+    class IMPORT {
+        packageName;
+        type = ScopeTypes.IMPORT;
+        constructor(packageName) {
+            this.packageName = packageName;
+        }
+    }
+    ScopeInfos.IMPORT = IMPORT;
     class CLASS {
         name;
         fullName;
