@@ -226,6 +226,7 @@ export function initClassDecls(klass:C_Meta, env:BuilderEnv ) {//S
 			} else if (stmt.type=="nativeDecl") {
 				natives[stmt.name.text]=stmt;
 			} else if (stmt.type=="importDecl") {
+				console.log("importDecl",stmt);
 				imports[stmt.importAs.text]=stmt;
 			} else {
 				MAIN.stmts.push(stmt);
@@ -389,8 +390,9 @@ function annotateSource2(klass:C_Meta, env:BuilderEnv) {//B
 			s[i]=new SI.NATIVE("native::"+i, {class:(globalThis as any)[i]});
 		}
 		for (let i in decls.imports) {
-			s[i]=new SI.IMPORT(decls.imports[i].package.text);
+			s[i]=new SI.IMPORT(decls.imports[i].packageName.text);
 		}
+		//console.log("topLevelScope",topLevelScope);
 	}
 	function inheritSuperMethod() {//S
 		var d=getDependingClasses(klass);

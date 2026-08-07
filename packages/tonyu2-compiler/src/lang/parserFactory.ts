@@ -32,7 +32,7 @@ export default function PF({TT}:{TT:Tokenizer}) {
 	}).setName("numberLiteral");
 	var symbol=tk("symbol");
 	var symresv=tk("symbol");
-	const localResv=(text:string)=>symbol.except((r:Token)=>r.text!==text);
+	const localResv=(text:string)=>symbol.except((r:Token)=>r.text!==text).firstTokens(["symbol"]);
 	for (var resvk in TT.reserved) {
 		var resvp=tk(resvk);
 		//console.log(resvk,resvp, resvp instanceof Parser.Parser);
@@ -310,7 +310,7 @@ export default function PF({TT}:{TT:Tokenizer}) {
 	var nativeDecl=g("nativeDecl").ands(tk("native"),symbol,tk(";")).ret(null, "name");
 	const importDecl=g("importDecl").
 		ands(localResv("import"), tk("*"), localResv("as"), symbol, localResv("from"), literal).ret(
-			    null,          "exportAs",     null,     "importAs", null,           "package",
+			    "_i",          "exportAs",     "_a",     "importAs", "_f",           "packageName",
 		);
 	var ifwait=g("ifWait").ands(tk("ifwait"),"stmt",elseP.opt()).ret(null, "then","_else");
 	//var useThread=g("useThread").ands(tk("usethread"),symbol,"stmt").ret(null, "threadVarName","stmt");

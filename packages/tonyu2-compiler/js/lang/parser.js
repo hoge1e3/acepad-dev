@@ -175,9 +175,10 @@ export class Parser {
     }
     except(f) {
         var t = this;
-        return this.and(this.create((res) => {
-            //var res=t.parse(s);
-            //if (!res.success) return res;
+        return this.create((s) => {
+            var res = t.parse(s);
+            if (!res.success)
+                return res;
             res = res.clone();
             if (f.apply({}, res.result)) {
                 res.error = "Except";
@@ -186,7 +187,7 @@ export class Parser {
                 res.error = null;
             }
             return res;
-        }).setName("(except " + t.name + ")", this));
+        }).setName("(except " + t.name + ")", this);
     }
     noFollow(p) {
         var t = this;

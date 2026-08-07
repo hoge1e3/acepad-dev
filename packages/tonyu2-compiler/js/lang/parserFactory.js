@@ -28,7 +28,7 @@ export default function PF({ TT }) {
     }).setName("numberLiteral");
     var symbol = tk("symbol");
     var symresv = tk("symbol");
-    const localResv = (text) => symbol.except((r) => r.text !== text);
+    const localResv = (text) => symbol.except((r) => r.text !== text).firstTokens(["symbol"]);
     for (var resvk in TT.reserved) {
         var resvp = tk(resvk);
         //console.log(resvk,resvp, resvp instanceof Parser.Parser);
@@ -295,7 +295,7 @@ export default function PF({ TT }) {
     var funcDecl = g("funcDecl").ands("funcDeclHead", "compound").ret("head", "body");
     var nativeDecl = g("nativeDecl").ands(tk("native"), symbol, tk(";")).ret(null, "name");
     const importDecl = g("importDecl").
-        ands(localResv("import"), tk("*"), localResv("as"), symbol, localResv("from"), literal).ret(null, "exportAs", null, "importAs", null, "package");
+        ands(localResv("import"), tk("*"), localResv("as"), symbol, localResv("from"), literal).ret("_i", "exportAs", "_a", "importAs", "_f", "packageName");
     var ifwait = g("ifWait").ands(tk("ifwait"), "stmt", elseP.opt()).ret(null, "then", "_else");
     //var useThread=g("useThread").ands(tk("usethread"),symbol,"stmt").ret(null, "threadVarName","stmt");
     var empty = g("empty").ands(tk(";")).ret(null);

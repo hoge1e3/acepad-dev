@@ -378,7 +378,7 @@ export type NativeDecl=NodeBase&{
 };
 export type ImportDecl=NodeBase&{
   type: "importDecl";
-  package: Token,
+  packageName: Token,
   exportAs: Token,
   importAs: Token,
 };

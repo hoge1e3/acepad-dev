@@ -202,9 +202,9 @@ export class Parser {// class Parser
 	}
 	except(f:Function) {
 		var t=this;
-		return this.and(this.create((res:State)=>{
-			//var res=t.parse(s);
-			//if (!res.success) return res;
+		return this.create((s:State)=>{
+			var res=t.parse(s);
+			if (!res.success) return res;
 			res=res.clone();
 			if (f.apply({}, res.result)) {
 				res.error="Except";
@@ -212,7 +212,7 @@ export class Parser {// class Parser
 				res.error=null;
 			}
 			return res;
-		}).setName("(except "+t.name+")",this));
+		}).setName("(except "+t.name+")",this);
 	}
 	noFollow(p:Parser) {
 		var t=this;

@@ -217,6 +217,7 @@ export function initClassDecls(klass, env) {
                 natives[stmt.name.text] = stmt;
             }
             else if (stmt.type == "importDecl") {
+                console.log("importDecl", stmt);
                 imports[stmt.importAs.text] = stmt;
             }
             else {
@@ -385,8 +386,9 @@ function annotateSource2(klass, env) {
             s[i] = new SI.NATIVE("native::" + i, { class: globalThis[i] });
         }
         for (let i in decls.imports) {
-            s[i] = new SI.IMPORT(decls.imports[i].package.text);
+            s[i] = new SI.IMPORT(decls.imports[i].packageName.text);
         }
+        //console.log("topLevelScope",topLevelScope);
     }
     function inheritSuperMethod() {
         var d = getDependingClasses(klass);

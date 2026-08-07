@@ -88,8 +88,8 @@ export type C_FieldInfo=FieldInfo & {
 export type C_NativeInfo={};
 export type C_AmdInfo={};
 export type C_NpmInfo={
-	// import exportAs as importAs from "package";
-	package: Token,
+	// import exportAs as importAs from "packageName";
+	packageName: Token,
 	exportAs: Token,
 	importAs: Token,
 }

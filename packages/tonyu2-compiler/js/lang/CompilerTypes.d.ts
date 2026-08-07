@@ -50,7 +50,7 @@ export type C_FieldInfo = FieldInfo & {
 export type C_NativeInfo = {};
 export type C_AmdInfo = {};
 export type C_NpmInfo = {
-    package: Token;
+    packageName: Token;
     exportAs: Token;
     importAs: Token;
 };
