@@ -1,1 +1,1 @@
-apsh node_modules\.bin\npm-link
+apsh node_modules/.bin/npm-link
