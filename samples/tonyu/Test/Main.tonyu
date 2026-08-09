@@ -12,5 +12,6 @@ for(let i=0;i<10;i++){
     if(i>=5)a.b;
     __await t();
 }
-console.log(counter);
+cnt=new counter.Counter();
+console.log(cnt.add("test"));
 console.log(Actor);
