@@ -1,5 +1,5 @@
 #!run
-let max=60,cur=22;
+let max=60,cur=31;
 export async function main(){
   return (max-cur)/restday();
 }
