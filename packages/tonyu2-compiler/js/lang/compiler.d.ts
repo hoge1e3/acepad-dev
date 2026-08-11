@@ -90,7 +90,7 @@ export declare namespace ScopeInfos {
 }
 export type ScopeInfo = ScopeInfos.ALL;
 export type ScopeType = valueOf<typeof ScopeTypes>;
-export declare function getScopeType(st: ScopeInfo): "class" | "method" | "field" | "native" | "local" | "threadvar" | "property" | "param" | "global" | "module" | "import" | null;
+export declare function getScopeType(st: ScopeInfo): "field" | "method" | "native" | "local" | "threadvar" | "property" | "param" | "global" | "class" | "module" | "import" | null;
 export declare function newScope<T extends object>(s: T): T;
 export declare function nullCheck(o: any, mesg: string): any;
 export declare function genSym(prefix: string): string;

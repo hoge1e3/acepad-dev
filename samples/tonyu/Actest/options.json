@@ -1,0 +1,26 @@
+{
+  "compiler":{
+    "namespace":"user",
+    "esm": true,
+    "npmDependencies":{
+      "@hoge1e3/counter": "^1.0.0"
+    },
+    "_defaultSuperClass":"kernel.Actor",
+    "dependingProjects":[
+      {"npm":"tonyu2-kernel"}
+    ]
+  },
+  "run":{
+    "mainClass":"user.Main",
+    "bootClass":"kernel.Boot",
+    "globals":{
+      "$defaultFPS":60,
+      "$imageSmoothingDisabled":true,
+      "$soundLoadAndDecode":false
+    }
+  },
+  "plugins":{},
+  "kernelEditable":false,
+  "language":"tonyu",
+  "version":1740040693405
+}

@@ -9,6 +9,6 @@ export async function main(){
   }
   change variable --keypad-height into 10%
   */
-  document.body.style.setProperty('--keypad-height', '10%');
+  document.querySelector(".acepad").style.setProperty('--keypad-height', '10%');
   return ;
 }

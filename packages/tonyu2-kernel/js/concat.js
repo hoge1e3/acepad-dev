@@ -4760,6 +4760,34 @@ Tonyu.klass.define({
   decls: {"methods":{"main":{"nowait":false,"isMain":true,"vtype":{"params":[],"returnValue":null}},"zip":{"nowait":false,"isMain":false,"vtype":{"params":[null,null],"returnValue":null}},"unzip":{"nowait":false,"isMain":false,"vtype":{"params":[null,null],"returnValue":null}}},"fields":{}}
 });
 Tonyu.klass.define({
+  fullName: 'kernel.Polyfill',
+  shortName: 'Polyfill',
+  namespace: 'kernel',
+  superclass: Tonyu.classes.kernel.TObject,
+  includes: [],
+  methods: function (__superClass) {
+    return {
+      main :function _trc_Polyfill_main() {
+        var _this=this;
+        
+      },
+      fiber$main :function* _trc_Polyfill_f_main(_thread) {
+        var _this=this;
+        
+        
+      },
+      initialize :function _trc_Polyfill_initialize() {
+        var _this=this;
+        
+        Tonyu.globals.$currentProject={getResource: (()=>({images: [],sounds: []})),getOptions: (()=>({run: {mainClass: "user.Main"}})),loadPlugins: ((s)=>(s())),requestPlugin: ((s)=>(_this.console.log("Plugin",s)))};
+        globalThis.ImageList={load: ((_,succ)=>(succ([])))};
+      },
+      __dummy: false
+    };
+  },
+  decls: {"methods":{"main":{"nowait":false,"isMain":true,"vtype":{"params":[],"returnValue":null}},"new":{"nowait":false,"isMain":false,"vtype":{"params":[],"returnValue":null}}},"fields":{"console":{}}}
+});
+Tonyu.klass.define({
   fullName: 'kernel.EventHandler',
   shortName: 'EventHandler',
   namespace: 'kernel',
@@ -38019,6 +38047,7 @@ Tonyu.klass.define({
         }
         Tonyu.resetLoopCheck(10000);
         Tonyu.globals.$Boot=_this;
+        new Tonyu.classes.kernel.Polyfill;
         _this.R=new Tonyu.classes.kernel.MessageResource().functionShortcut();
         _this.setScheduler(new Tonyu.classes.kernel.Scheduler);
         _this.initGlobals();
@@ -38055,6 +38084,7 @@ Tonyu.klass.define({
         }
         Tonyu.resetLoopCheck(10000);
         Tonyu.globals.$Boot=_this;
+        new Tonyu.classes.kernel.Polyfill;
         _this.R=new Tonyu.classes.kernel.MessageResource().functionShortcut();
         (yield* _this.fiber$setScheduler(_thread, new Tonyu.classes.kernel.Scheduler));
         (yield* _this.fiber$initGlobals(_thread));
@@ -38084,7 +38114,7 @@ Tonyu.klass.define({
         _this._th=Tonyu.thread();
         _this._th.apply(_this,"main");
         _this._th.stepsLoop();
-        _this.on("die",(function anonymous_1048() {
+        _this.on("die",(function anonymous_1061() {
           
           if (_this._th) {
             _this._th.kill();
@@ -38125,13 +38155,13 @@ Tonyu.klass.define({
         newS = _this._scheduler;
         
         oldS.doTimeStop(newS);
-        res = {release: (function anonymous_1673(a) {
+        res = {release: (function anonymous_1686(a) {
           
           if (! a) {
             return res.releaseAll();
           }
           oldS.moveToNew(a);
-        }),releaseAll: (function anonymous_2098() {
+        }),releaseAll: (function anonymous_2111() {
           
           oldS.moveToNew();
         })};
@@ -38153,13 +38183,13 @@ Tonyu.klass.define({
         newS = _this._scheduler;
         
         oldS.doTimeStop(newS);
-        res = {release: (function anonymous_1673(a) {
+        res = {release: (function anonymous_1686(a) {
           
           if (! a) {
             return res.releaseAll();
           }
           oldS.moveToNew(a);
-        }),releaseAll: (function anonymous_2098() {
+        }),releaseAll: (function anonymous_2111() {
           
           oldS.moveToNew();
         })};
@@ -38225,7 +38255,7 @@ Tonyu.klass.define({
         
         Tonyu.globals.$InputDevice=new Tonyu.classes.kernel.InputDevice;
         Tonyu.globals.$Screen.multiLayerTouches=new Tonyu.classes.kernel.MultiLayerTouches({screen: Tonyu.globals.$Screen});
-        Tonyu.globals.$InputDevice.on("touchstart",(function anonymous_2837(e) {
+        Tonyu.globals.$InputDevice.on("touchstart",(function anonymous_2850(e) {
           var shape;
           var f;
           var a;
@@ -38286,7 +38316,7 @@ Tonyu.klass.define({
         Tonyu.globals.$printLimit=500;
         if (Tonyu.globals.$debugger) {
           _this.autoReload=Tonyu.globals.$debugger.startWithAutoReload;
-          Tonyu.globals.$debugger.on("classChanged",(function anonymous_4468() {
+          Tonyu.globals.$debugger.on("classChanged",(function anonymous_4481() {
             
             _this.getMainClass();
             _this.doAutoReload();
@@ -38300,7 +38330,7 @@ Tonyu.klass.define({
         
         Tonyu.globals.$InputDevice=new Tonyu.classes.kernel.InputDevice;
         Tonyu.globals.$Screen.multiLayerTouches=new Tonyu.classes.kernel.MultiLayerTouches({screen: Tonyu.globals.$Screen});
-        Tonyu.globals.$InputDevice.on("touchstart",(function anonymous_2837(e) {
+        Tonyu.globals.$InputDevice.on("touchstart",(function anonymous_2850(e) {
           var shape;
           var f;
           var a;
@@ -38361,7 +38391,7 @@ Tonyu.klass.define({
         Tonyu.globals.$printLimit=500;
         if (Tonyu.globals.$debugger) {
           _this.autoReload=Tonyu.globals.$debugger.startWithAutoReload;
-          Tonyu.globals.$debugger.on("classChanged",(function anonymous_4468() {
+          Tonyu.globals.$debugger.on("classChanged",(function anonymous_4481() {
             
             _this.getMainClass();
             _this.doAutoReload();
@@ -38415,7 +38445,7 @@ Tonyu.klass.define({
         Tonyu.globals.$camera3D=new Tonyu.classes.kernel.Camera3D({layer: Tonyu.globals.$sprites3D,x: 0,y: 0,z: - 100});
         Tonyu.globals.$mainLayer3D=new Tonyu.classes.kernel.Layer3D({group: Tonyu.globals.$sprites3D,camera: Tonyu.globals.$camera3D});
         Tonyu.globals.$Screen=new Tonyu.classes.kernel.Screen({width: Tonyu.globals.$screenWidth,height: Tonyu.globals.$screenHeight,layer: Tonyu.globals.$uiLayer});
-        Tonyu.globals.$Screen.on("resize",(function anonymous_5631() {
+        Tonyu.globals.$Screen.on("resize",(function anonymous_5644() {
           
           Tonyu.globals.$screenWidth=Tonyu.globals.$Screen.width;
           Tonyu.globals.$screenHeight=Tonyu.globals.$Screen.height;
@@ -38460,7 +38490,7 @@ Tonyu.klass.define({
         Tonyu.globals.$camera3D=new Tonyu.classes.kernel.Camera3D({layer: Tonyu.globals.$sprites3D,x: 0,y: 0,z: - 100});
         Tonyu.globals.$mainLayer3D=new Tonyu.classes.kernel.Layer3D({group: Tonyu.globals.$sprites3D,camera: Tonyu.globals.$camera3D});
         Tonyu.globals.$Screen=new Tonyu.classes.kernel.Screen({width: Tonyu.globals.$screenWidth,height: Tonyu.globals.$screenHeight,layer: Tonyu.globals.$uiLayer});
-        Tonyu.globals.$Screen.on("resize",(function anonymous_5631() {
+        Tonyu.globals.$Screen.on("resize",(function anonymous_5644() {
           
           Tonyu.globals.$screenWidth=Tonyu.globals.$Screen.width;
           Tonyu.globals.$screenHeight=Tonyu.globals.$Screen.height;
@@ -38521,7 +38551,7 @@ Tonyu.klass.define({
         var _this=this;
         
         _this.progress("Loading plugins..");
-        _this.runPromise((function anonymous_6662(r) {
+        _this.runPromise((function anonymous_6675(r) {
           
           Tonyu.globals.$currentProject.loadPlugins(r);
         }));
@@ -38531,7 +38561,7 @@ Tonyu.klass.define({
         var _this=this;
         
         (yield* _this.fiber$progress(_thread, "Loading plugins.."));
-        (yield* _this.fiber$runPromise(_thread, (function anonymous_6662(r) {
+        (yield* _this.fiber$runPromise(_thread, (function anonymous_6675(r) {
           
           Tonyu.globals.$currentProject.loadPlugins(r);
         })));
@@ -38549,7 +38579,7 @@ Tonyu.klass.define({
         rs = Tonyu.globals.$currentProject.getResource();
         
         
-        r=_this.runPromise((function anonymous_6874(succ) {
+        r=_this.runPromise((function anonymous_6887(succ) {
           
           ImageList.load(rs.images,succ,{baseDir: Tonyu.globals.$currentProject.getDir(),prj: Tonyu.globals.$currentProject});
         }));
@@ -38571,7 +38601,7 @@ Tonyu.klass.define({
         rs = Tonyu.globals.$currentProject.getResource();
         
         
-        r=(yield* _this.fiber$runPromise(_thread, (function anonymous_6874(succ) {
+        r=(yield* _this.fiber$runPromise(_thread, (function anonymous_6887(succ) {
           
           ImageList.load(rs.images,succ,{baseDir: Tonyu.globals.$currentProject.getDir(),prj: Tonyu.globals.$currentProject});
         })));
@@ -38590,7 +38620,7 @@ Tonyu.klass.define({
         _this.initT2MediaPlayer();
         _this.loadFromProject(Tonyu.globals.$currentProject);
         _this.progress("Loading sounds done.");
-        _this.on("stop",(function anonymous_7323() {
+        _this.on("stop",(function anonymous_7336() {
           
           _this.allResetBGM();
         }));
@@ -38603,7 +38633,7 @@ Tonyu.klass.define({
         (yield* _this.fiber$initT2MediaPlayer(_thread));
         (yield* _this.fiber$loadFromProject(_thread, Tonyu.globals.$currentProject));
         (yield* _this.fiber$progress(_thread, "Loading sounds done."));
-        _this.on("stop",(function anonymous_7323() {
+        _this.on("stop",(function anonymous_7336() {
           
           _this.allResetBGM();
         }));
@@ -38782,7 +38812,7 @@ Tonyu.klass.define({
           } else {
             a = Tonyu.globals.$Screen.all();
             
-            a=a.find((function anonymous_9393(e) {
+            a=a.find((function anonymous_9406(e) {
               
               return pass.indexOf(e)<0;
             }));
@@ -38868,7 +38898,7 @@ Tonyu.klass.define({
           } else {
             a = Tonyu.globals.$Screen.all();
             
-            a=a.find((function anonymous_9393(e) {
+            a=a.find((function anonymous_9406(e) {
               
               return pass.indexOf(e)<0;
             }));
@@ -38904,16 +38934,16 @@ Tonyu.klass.define({
         var e;
         var r;
         
-        return new Promise((function anonymous_9805(resolve) {
+        return new Promise((function anonymous_9818(resolve) {
           var evt;
           var e;
           var r;
           
-          evt = {die: (function anonymous_9889() {
+          evt = {die: (function anonymous_9902() {
             
             _this.die();
             resolve();
-          }),preventDefault: (function anonymous_10025() {
+          }),preventDefault: (function anonymous_10038() {
             
             evt.defaultPrevented=true;
           })};
@@ -38940,16 +38970,16 @@ Tonyu.klass.define({
         var e;
         var r;
         
-        return new Promise((function anonymous_9805(resolve) {
+        return new Promise((function anonymous_9818(resolve) {
           var evt;
           var e;
           var r;
           
-          evt = {die: (function anonymous_9889() {
+          evt = {die: (function anonymous_9902() {
             
             _this.die();
             resolve();
-          }),preventDefault: (function anonymous_10025() {
+          }),preventDefault: (function anonymous_10038() {
             
             evt.defaultPrevented=true;
           })};
@@ -39481,7 +39511,7 @@ Tonyu.klass.define({
           return _this;
         }
         _this._drawFrameRequested=true;
-        requestAnimationFrame((function anonymous_16501() {
+        requestAnimationFrame((function anonymous_16514() {
           
           _this.drawFrame();
           _this._drawFrameRequested=false;
@@ -39497,7 +39527,7 @@ Tonyu.klass.define({
           return _this;
         }
         _this._drawFrameRequested=true;
-        requestAnimationFrame((function anonymous_16501() {
+        requestAnimationFrame((function anonymous_16514() {
           
           _this.drawFrame();
           _this._drawFrameRequested=false;

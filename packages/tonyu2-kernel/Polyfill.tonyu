@@ -1,0 +1,20 @@
+extends TObject;
+native globalThis;
+// Polyfill(?) for pnode
+\new() {
+    $currentProject={
+        getResource:()=>{
+            images:[],sounds:[]
+        },
+        getOptions:()=>{
+            run: {
+                mainClass: "user.Main",
+            },
+        },
+        loadPlugins:(s)=>s(),
+        requestPlugin:(s)=>console.log("Plugin", s),
+    };
+    globalThis.ImageList={
+        load:(_,succ)=>succ([])
+    };
+}

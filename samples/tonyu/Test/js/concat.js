@@ -31,7 +31,9 @@ Tonyu.klass.define({
             _this.t();
           }
         }
-        console.log(__npm____hoge1e3_counter_);
+        _this.cnt = new __npm____hoge1e3_counter_.Counter();
+        
+        console.log(_this.cnt.add("test"));
         console.log(Tonyu.classes.kernel.Actor);
       },
       fiber$main :function* _trc_Main_f_main(_thread) {
@@ -55,14 +57,16 @@ Tonyu.klass.define({
             (yield* _thread.await(_this.t()));
           }
         }
-        console.log(__npm____hoge1e3_counter_);
+        _this.cnt = new __npm____hoge1e3_counter_.Counter();
+        
+        console.log(_this.cnt.add("test"));
         console.log(Tonyu.classes.kernel.Actor);
         
       },
       __dummy: false
     };
   },
-  decls: {"methods":{"main":{"nowait":false,"isMain":true,"vtype":{"params":[],"returnValue":null}}},"fields":{"t":{},"a":{}}}
+  decls: {"methods":{"main":{"nowait":false,"isMain":true,"vtype":{"params":[],"returnValue":null}}},"fields":{"t":{},"a":{},"cnt":{}}}
 });
 
 });

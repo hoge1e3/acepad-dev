@@ -1,0 +1,7 @@
+x=y=10;
+fillStyle="white";
+radius=20;
+while(x<200) {
+  x++;
+  update();
+}
