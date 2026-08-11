@@ -32,7 +32,7 @@ if (!performance.now) {
 }
 Tonyu.resetLoopCheck(10000);
 $Boot=this;
-new Polyfill;
+//new Polyfill;
 R=new MessageResource().functionShortcut();
 setScheduler(new Scheduler);
 initGlobals();

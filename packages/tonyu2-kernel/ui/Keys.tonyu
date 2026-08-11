@@ -10,9 +10,9 @@ codes={
     shift:16, ctrl:17, alt:18, esc:27, bs:8, del:46,
     mouseleft: 1,mouseright:2, mousewheel: 4,
 };
-preventDefaults={
-    "37":true,"38":true,"39":true,"40":true,"32":true
-};
+preventDefaults={};
+//    "37":true,"38":true,"39":true,"40":true,"32":true
+//};
 for (var i=65 ; i<65+26; i++) {
     codes[String.fromCharCode(i).toLowerCase()]=i;
 }
