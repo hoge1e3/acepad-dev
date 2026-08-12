@@ -2,7 +2,7 @@
 import {Tonyu} from "tonyu2-runtime";
 import {showWidget} from "@acepad/widget";
 import {t} from "@hoge1e3/dom";
-import "/idb/run/samples/tonyu/Actest/js/concat.js";
+//import "/idb/run/samples/tonyu/Actest/js/concat.js";
 const raf=()=>new Promise(requestAnimationFrame); 
 export async function main(){
   let cv=t.canvas();
@@ -14,7 +14,9 @@ export async function main(){
   wid.element.appendChild(cv);
   let g=Tonyu.globals;
   const sh=this;
-  sh.cd("/idb/run/samples/tonyu/Actest/js/concat.js");
+  sh.cd("/idb/run/samples/tonyu/Actest/");
+  await sh.import(".");
+  
   g.$mainCanvas=$(cv);
   g.$shell=this;
   g.$pNode=pNode;
