@@ -9,7 +9,6 @@ sel(false);
  
   return ;
     function sel(m){
-        return function (){
             if(m){
                 localStorage.mobile=true;
                 delete localStorage.nomobile;
@@ -20,6 +19,6 @@ sel(false);
                 if(acepad)acepad.selectKeyDevice("p");
             }
 //            w.close();
-        };
+        
     }
 }

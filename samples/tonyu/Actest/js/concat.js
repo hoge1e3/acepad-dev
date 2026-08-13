@@ -2,11 +2,12 @@ import {Tonyu} from "tonyu2-runtime";
 import * as __npm___hoge1e3_counter from '@hoge1e3/counter';
 import "tonyu2-kernel";
 if(!Tonyu.load)Tonyu.load=(_,f)=>f();
-Tonyu.load({"compiler":{"namespace":"user","esm":true,"npmDependencies":{"@hoge1e3/counter":"^1.0.0"},"_defaultSuperClass":"kernel.Actor","dependingProjects":[{"npm":"tonyu2-kernel"}]},"run":{"mainClass":"user.Main","bootClass":"kernel.Boot","globals":{"$defaultFPS":60,"$imageSmoothingDisabled":true,"$soundLoadAndDecode":false}},"plugins":{},"kernelEditable":false,"language":"tonyu","version":1740040693405}, ()=>{
+Tonyu.load({"compiler":{"namespace":"user","esm":true,"npmDependencies":{"@hoge1e3/counter":"^1.0.0"},"defaultSuperClass":"kernel.Actor","dependingProjects":[{"npm":"tonyu2-kernel"}]},"run":{"mainClass":"user.Main","bootClass":"kernel.Boot","globals":{"$defaultFPS":60,"$imageSmoothingDisabled":true,"$soundLoadAndDecode":false}},"plugins":{},"kernelEditable":false,"language":"tonyu","version":1740040693405}, ()=>{
 Tonyu.klass.define({
   fullName: 'user.Main',
   shortName: 'Main',
   namespace: 'user',
+  superclass: Tonyu.classes.kernel.Actor,
   includes: [],
   methods: function (__superClass) {
     return {
@@ -32,7 +33,7 @@ Tonyu.klass.define({
         while (_this.x<200) {
           yield null;
           _this.x++;
-          _this.update();
+          (yield* _this.fiber$update(_thread));
           
         }
         
@@ -40,7 +41,7 @@ Tonyu.klass.define({
       __dummy: false
     };
   },
-  decls: {"methods":{"main":{"nowait":false,"isMain":true,"vtype":{"params":[],"returnValue":null}}},"fields":{"x":{},"y":{},"fillStyle":{},"radius":{},"update":{}}}
+  decls: {"methods":{"main":{"nowait":false,"isMain":true,"vtype":{"params":[],"returnValue":null}}},"fields":{}}
 });
 
 });
