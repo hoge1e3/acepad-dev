@@ -1,7 +1,0 @@
-extends TObject;
-includes SpriteMod2D;
-
-\new(param) {
-    super(param);
-    initSpriteMod();
-}
