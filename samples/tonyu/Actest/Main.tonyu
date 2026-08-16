@@ -2,13 +2,20 @@ x=y=10;
 fillStyle="white";
 radius=20;
 $Screen.setBGColor("skyblue");
+c=-100;
 while(x<2000) {
+  c+=20;
   if (getkey("right")) x+=2;
   //x=$mouseX;
   y+=$touches[0].vy;
   radius=16+cos($frameCount*10)*3;
-  if($frameCount%8==0){
+  if(c>y){
+    c=0;
     new Bullet{x,y};
   }
+  if($frameCount%18==0){
+    new Enemy{x:$screenWidth,
+    y:rnd($screenHeight)};
+  } 
   update();
 }

@@ -1,0 +1,19 @@
+width=height=25;
+fillStyle="black";
+vy=rndFloat(-10,10);
+
+while(true){
+  x-=3;
+  if(screenOut())die();
+  b=crashTo(Bullet);
+  if(b){
+    b.die();
+    die ();
+  }
+  vy+=0.5;
+  y+=vy;
+  c=clamped(y,0,$screenHeight);
+  y+=c;
+  if(c)vy*=-1;
+  update();
+}
