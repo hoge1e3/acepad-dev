@@ -1,0 +1,7 @@
+width=height=10;
+fillStyle="red";
+while(true){
+  x+=5;
+  if(screenOut())die();
+  update();
+}

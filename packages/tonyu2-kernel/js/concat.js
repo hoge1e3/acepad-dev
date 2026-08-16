@@ -39379,7 +39379,7 @@ Tonyu.klass.define({
       initFPSParams :function _trc_Boot_initFPSParams() {
         var _this=this;
         
-        _this._fps=Tonyu.globals.$defaultFPS||30;
+        _this._fps=Tonyu.globals.$defaultFPS||60;
         _this.maxFrameSkip=5;
         _this.minFrameSkip=1;
         _this.frameCnt=0;

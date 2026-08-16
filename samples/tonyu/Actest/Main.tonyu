@@ -1,7 +1,14 @@
 x=y=10;
 fillStyle="white";
 radius=20;
-while(x<200) {
-  x++;
+$Screen.setBGColor("skyblue");
+while(x<2000) {
+  if (getkey("right")) x+=2;
+  //x=$mouseX;
+  y+=$touches[0].vy;
+  radius=16+cos($frameCount*10)*3;
+  if($frameCount%8==0){
+    new Bullet{x,y};
+  }
   update();
 }

@@ -1,4 +1,5 @@
 #!run
 export function main(f){
-  this.webpage(f);  
+  this.cd(this.resolve(f).up());
+  this.tonyu(f);  
 }
