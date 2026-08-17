@@ -21,14 +21,14 @@ Tonyu.klass.define({
         _this.c=- 100;
         while (_this.x<2000) {
           Tonyu.checkLoop();
-          _this.c+=20;
+          _this.c+=40;
           if (_this.getkey("right")) {
             _this.x+=2;
           }
           _this.y+=Tonyu.globals.$touches[0].vy;
           _this.radius=16+_this.cos(Tonyu.globals.$frameCount*10)*3;
           if (_this.c>_this.y) {
-            _this.c=0;
+            _this.c=- 100;
             new Tonyu.classes.user.Bullet({x: _this.x,y: _this.y});
             
           }
@@ -50,14 +50,14 @@ Tonyu.klass.define({
         _this.c=- 100;
         while (_this.x<2000) {
           yield null;
-          _this.c+=20;
+          _this.c+=40;
           if (_this.getkey("right")) {
             _this.x+=2;
           }
           _this.y+=Tonyu.globals.$touches[0].vy;
           _this.radius=16+_this.cos(Tonyu.globals.$frameCount*10)*3;
           if (_this.c>_this.y) {
-            _this.c=0;
+            _this.c=- 100;
             new Tonyu.classes.user.Bullet({x: _this.x,y: _this.y});
             
           }

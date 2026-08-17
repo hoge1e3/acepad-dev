@@ -4,13 +4,13 @@ radius=20;
 $Screen.setBGColor("skyblue");
 c=-100;
 while(x<2000) {
-  c+=20;
+  c+=40;
   if (getkey("right")) x+=2;
   //x=$mouseX;
   y+=$touches[0].vy;
   radius=16+cos($frameCount*10)*3;
   if(c>y){
-    c=0;
+    c=-100;
     new Bullet{x,y};
   }
   if($frameCount%18==0){
