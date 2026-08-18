@@ -18,6 +18,10 @@
   open git config at '\config': not found (os error 2)
   ok progress
   ok do not follow symlinks
+  if sync without resolve conflict...
+    log.txt will be OLD one:
+     at conflicted side: log.txt is NOT updated. log(aaaaa).txt is updated instead.
+     if commit, log.txt is regarded as "NEWER" version.
 ok sbin/tmp/arc
 bauth copy console
  editor
