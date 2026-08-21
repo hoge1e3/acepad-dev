@@ -1,4 +1,3 @@
-hogera
 01234567012345670123456701234567
 @hoge1e3/workarea
 @hoge1e3/gsync

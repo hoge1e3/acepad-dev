@@ -21,6 +21,7 @@ export async function main(opt={}){
   if(opt.cmd){
     sh.exec(opt.cmd);
   }
+  sh.try("remoteshell");
     //sh.try("wcart-menu");
 }
 /*if(!globalThis.pNodeBootLoader?.version){

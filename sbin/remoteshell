@@ -1,0 +1,16 @@
+#!run
+
+export async function main(){
+  addEventListener("message",async (e)=>{
+    const data=(e.data);
+    if(data.type==="shell") {
+      const result=await this.enterCommand(data.command);
+      e.source.postMessage({
+        result
+      },{
+        targetOrigin: e.origin,
+      });
+    }
+  });
+  return ;
+}
