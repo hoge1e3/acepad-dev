@@ -1,0 +1,12 @@
+#!run
+export async function main(){
+  return  send.call(this,"transmit");
+}
+export async function send(f){
+  //transmit file object to iframe
+  f=this.resolve(f);
+  return await f.getBlob();
+}
+export async function recv(f){
+
+}
