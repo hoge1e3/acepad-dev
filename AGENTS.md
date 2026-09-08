@@ -104,6 +104,7 @@ export async function main() {
 Reactive widget example:
 
 ```js
+#!run
 import {r} from "@hoge1e3/dom-ref";
 import {ref} from "@hoge1e3/ref";
 
