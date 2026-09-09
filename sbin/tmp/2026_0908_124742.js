@@ -1,0 +1,5 @@
+#!run
+
+export async function main(){
+  return 9+10+11+12+13+14;
+}

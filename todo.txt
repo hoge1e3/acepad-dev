@@ -1,6 +1,7 @@
 01234567012345670123456701234567
 ok @hoge1e3/workarea
 @hoge1e3/gsync
+  merge cmd builtin
   ok reset_hard
    overwrite with branch
   diff
