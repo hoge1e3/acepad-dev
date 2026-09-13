@@ -390,7 +390,9 @@ function annotateSource2(klass:C_Meta, env:BuilderEnv) {//B
 			s[i]=new SI.NATIVE("native::"+i, {class:(globalThis as any)[i]});
 		}
 		for (let i in decls.imports) {
-			s[i]=new SI.IMPORT(decls.imports[i].packageName.text);
+		  // text has " "
+			s[i]=new SI.IMPORT(JSON.parse(
+			  decls.imports[i].packageName.text));
 		}
 		//console.log("topLevelScope",topLevelScope);
 	}

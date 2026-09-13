@@ -386,7 +386,8 @@ function annotateSource2(klass, env) {
             s[i] = new SI.NATIVE("native::" + i, { class: globalThis[i] });
         }
         for (let i in decls.imports) {
-            s[i] = new SI.IMPORT(decls.imports[i].packageName.text);
+            // text has " "
+            s[i] = new SI.IMPORT(JSON.parse(decls.imports[i].packageName.text));
         }
         //console.log("topLevelScope",topLevelScope);
     }

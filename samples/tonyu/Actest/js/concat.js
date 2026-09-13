@@ -14,6 +14,8 @@ Tonyu.klass.define({
       main :function _trc_Main_main() {
         var _this=this;
         
+        ;
+        
         _this.x=_this.y=10;
         _this.fillStyle="white";
         _this.radius=20;
@@ -39,9 +41,12 @@ Tonyu.klass.define({
           _this.update();
           
         }
+        __npm___hoge1e3_counter;
       },
       fiber$main :function* _trc_Main_f_main(_thread) {
         var _this=this;
+        
+        ;
         
         _this.x=_this.y=10;
         _this.fillStyle="white";
@@ -68,6 +73,7 @@ Tonyu.klass.define({
           (yield* _this.fiber$update(_thread));
           
         }
+        __npm___hoge1e3_counter;
         
       },
       __dummy: false

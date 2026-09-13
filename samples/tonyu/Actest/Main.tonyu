@@ -1,3 +1,4 @@
+import * as cnt from "@hoge1e3/counter";
 x=y=10;
 fillStyle="white";
 radius=20;
@@ -19,3 +20,4 @@ while(x<2000) {
   } 
   update();
 }
+cnt;

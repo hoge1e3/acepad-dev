@@ -13,13 +13,27 @@ export async function main(){
   const f=si.file?.up()||this.$home
   const p=findLiteral(s);
   console.log(p)
-  if(!p)return ;
+  if(!p){
+    const p2=findFilePath(s);
+    if (p2) {
+      this.edit(p2[1]);
+    }
+    return ;
+  }
   //console.log(pNode.resolveEntry+"")
   const ent=pNode.resolveEntry("import",
-  
   p.value.replace(/["']/g,""),f);
   console.log("edit",ent)
-  return ent&&this.edit(ent.file);
+  return ent&&ent.file&&this.edit(ent.file);
+}
+function findFilePath(session) {
+  var cursor = session.selection.getCursor();
+  var line = session.getLine(cursor.row);
+  var col = cursor.column;
+  const m=/file:\/\/([^:\)]+)(?::(\d+):(\d+))?/.exec(line);
+  if (m) {
+    return m;
+  }
 }
 function findLiteral(session) {
   // session is ace editor session

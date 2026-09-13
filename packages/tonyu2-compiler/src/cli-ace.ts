@@ -3,7 +3,7 @@ import Builder from "./lang/Builder.js";
 import * as F from "./project/ProjectFactory.js";
 import langMod from "./lang/langMod.js";
 import * as compiledProject from "./project/CompiledProject.js";
-import {Tonyu} from "tonyu2-runtime";
+import {Tonyu, isTError} from "tonyu2-runtime";
 //import * as FS from "./lib/FS";
 //import * as fs from "node:fs";
 //import * as SourceFiles from "./lang/SourceFiles";
@@ -19,6 +19,7 @@ import { SFile } from "@hoge1e3/sfile";
     return await import(url);
 }
 export async function main(this:any,...args:any[]) {
+  try{
     const [cmdopt,from,to]=this.pickOptions(args);
     const prjDir=this.resolve(".") as SFile;
     const run=cmdopt.r;
@@ -116,4 +117,11 @@ export async function main(this:any,...args:any[]) {
             console.error(e);
         });*/
     }
+  }catch(e) {
+    if (isTError(e)) {
+      this.echo(e.src.path()+":"+e.row+":"+e.col);
+    }
+    console.log("T-err",e);
+    throw e;
+  }
 }
