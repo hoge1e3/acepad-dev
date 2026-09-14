@@ -17,8 +17,7 @@ Tonyu.klass.define({
         ;
         
         _this.x=_this.y=10;
-        _this.fillStyle="white";
-        _this.radius=20;
+        _this.p=0;
         Tonyu.globals.$Screen.setBGColor("skyblue");
         _this.c=- 100;
         while (_this.x<2000) {
@@ -49,8 +48,7 @@ Tonyu.klass.define({
         ;
         
         _this.x=_this.y=10;
-        _this.fillStyle="white";
-        _this.radius=20;
+        _this.p=0;
         Tonyu.globals.$Screen.setBGColor("skyblue");
         _this.c=- 100;
         while (_this.x<2000) {

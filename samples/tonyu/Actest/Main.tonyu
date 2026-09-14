@@ -1,7 +1,8 @@
 import * as cnt from "@hoge1e3/counter";
 x=y=10;
-fillStyle="white";
-radius=20;
+/*fillStyle="white";
+radius=20;*/
+p=0;
 $Screen.setBGColor("skyblue");
 c=-100;
 while(x<2000) {
