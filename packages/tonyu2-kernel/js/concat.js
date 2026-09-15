@@ -38579,10 +38579,12 @@ Tonyu.klass.define({
         var val;
         
         _this.progress("Loading pats..");
+        console.log("curprj",Tonyu.globals.$currentProject);
         rs = Tonyu.globals.$currentProject.getResource();
         
+        console.log("rsrc",rs);
         
-        r=_this.runPromise((function anonymous_6934(succ) {
+        r=_this.runPromise((function anonymous_7005(succ) {
           
           __npm___hoge1e3_tonyu_ide.ImageList.load(rs.images,succ,{baseDir: Tonyu.globals.$currentProject.getDir(),prj: Tonyu.globals.$currentProject});
         }));
@@ -38601,10 +38603,12 @@ Tonyu.klass.define({
         var val;
         
         (yield* _this.fiber$progress(_thread, "Loading pats.."));
+        console.log("curprj",Tonyu.globals.$currentProject);
         rs = Tonyu.globals.$currentProject.getResource();
         
+        console.log("rsrc",rs);
         
-        r=(yield* _this.fiber$runPromise(_thread, (function anonymous_6934(succ) {
+        r=(yield* _this.fiber$runPromise(_thread, (function anonymous_7005(succ) {
           
           __npm___hoge1e3_tonyu_ide.ImageList.load(rs.images,succ,{baseDir: Tonyu.globals.$currentProject.getDir(),prj: Tonyu.globals.$currentProject});
         })));
@@ -38623,7 +38627,7 @@ Tonyu.klass.define({
         _this.initT2MediaPlayer();
         _this.loadFromProject(Tonyu.globals.$currentProject);
         _this.progress("Loading sounds done.");
-        _this.on("stop",(function anonymous_7387() {
+        _this.on("stop",(function anonymous_7458() {
           
           _this.allResetBGM();
         }));
@@ -38636,7 +38640,7 @@ Tonyu.klass.define({
         (yield* _this.fiber$initT2MediaPlayer(_thread));
         (yield* _this.fiber$loadFromProject(_thread, Tonyu.globals.$currentProject));
         (yield* _this.fiber$progress(_thread, "Loading sounds done."));
-        _this.on("stop",(function anonymous_7387() {
+        _this.on("stop",(function anonymous_7458() {
           
           _this.allResetBGM();
         }));
@@ -38815,7 +38819,7 @@ Tonyu.klass.define({
           } else {
             a = Tonyu.globals.$Screen.all();
             
-            a=a.find((function anonymous_9457(e) {
+            a=a.find((function anonymous_9528(e) {
               
               return pass.indexOf(e)<0;
             }));
@@ -38901,7 +38905,7 @@ Tonyu.klass.define({
           } else {
             a = Tonyu.globals.$Screen.all();
             
-            a=a.find((function anonymous_9457(e) {
+            a=a.find((function anonymous_9528(e) {
               
               return pass.indexOf(e)<0;
             }));
@@ -38937,16 +38941,16 @@ Tonyu.klass.define({
         var e;
         var r;
         
-        return new Promise((function anonymous_9869(resolve) {
+        return new Promise((function anonymous_9940(resolve) {
           var evt;
           var e;
           var r;
           
-          evt = {die: (function anonymous_9953() {
+          evt = {die: (function anonymous_10024() {
             
             _this.die();
             resolve();
-          }),preventDefault: (function anonymous_10089() {
+          }),preventDefault: (function anonymous_10160() {
             
             evt.defaultPrevented=true;
           })};
@@ -38973,16 +38977,16 @@ Tonyu.klass.define({
         var e;
         var r;
         
-        return new Promise((function anonymous_9869(resolve) {
+        return new Promise((function anonymous_9940(resolve) {
           var evt;
           var e;
           var r;
           
-          evt = {die: (function anonymous_9953() {
+          evt = {die: (function anonymous_10024() {
             
             _this.die();
             resolve();
-          }),preventDefault: (function anonymous_10089() {
+          }),preventDefault: (function anonymous_10160() {
             
             evt.defaultPrevented=true;
           })};
@@ -39052,6 +39056,7 @@ Tonyu.klass.define({
       progress :function _trc_Boot_progress(m) {
         var _this=this;
         
+        console.log(m);
         if (typeof  SplashScreen=="undefined") {
           return _this;
         }
@@ -39067,6 +39072,7 @@ Tonyu.klass.define({
         var _this=this;
         var _arguments=Tonyu.A(arguments);
         
+        console.log(m);
         if (typeof  SplashScreen=="undefined") {
           return _this;
         }
@@ -39514,7 +39520,7 @@ Tonyu.klass.define({
           return _this;
         }
         _this._drawFrameRequested=true;
-        requestAnimationFrame((function anonymous_16565() {
+        requestAnimationFrame((function anonymous_16654() {
           
           _this.drawFrame();
           _this._drawFrameRequested=false;
@@ -39530,7 +39536,7 @@ Tonyu.klass.define({
           return _this;
         }
         _this._drawFrameRequested=true;
-        requestAnimationFrame((function anonymous_16565() {
+        requestAnimationFrame((function anonymous_16654() {
           
           _this.drawFrame();
           _this._drawFrameRequested=false;

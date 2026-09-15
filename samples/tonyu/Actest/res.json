@@ -3,6 +3,10 @@
     {
       "name":"$pat_base",
       "url":"./images/base.png","pwidth":32,"pheight":32
+    },
+    {
+      "name":"$pat_e",
+      "url":"./images/e.png","pwidth":32,"pheight":32
     }
   ],
   "sounds":[]

@@ -16,7 +16,7 @@ Tonyu.klass.define({
         
         ;
         
-        _this.x=_this.y=10;
+        _this.x=_this.y=16;
         _this.p=0;
         Tonyu.globals.$Screen.setBGColor("skyblue");
         _this.c=- 100;
@@ -47,7 +47,7 @@ Tonyu.klass.define({
         
         ;
         
-        _this.x=_this.y=10;
+        _this.x=_this.y=16;
         _this.p=0;
         Tonyu.globals.$Screen.setBGColor("skyblue");
         _this.c=- 100;
@@ -134,9 +134,8 @@ Tonyu.klass.define({
       main :function _trc_Enemy_main() {
         var _this=this;
         
-        _this.width=_this.height=25;
-        _this.fillStyle="black";
         _this.vy=_this.rndFloat(- 10,10);
+        _this.p=1;
         while (true) {
           Tonyu.checkLoop();
           _this.x-=3;
@@ -163,9 +162,8 @@ Tonyu.klass.define({
       fiber$main :function* _trc_Enemy_f_main(_thread) {
         var _this=this;
         
-        _this.width=_this.height=25;
-        _this.fillStyle="black";
         _this.vy=_this.rndFloat(- 10,10);
+        _this.p=1;
         while (true) {
           yield null;
           _this.x-=3;

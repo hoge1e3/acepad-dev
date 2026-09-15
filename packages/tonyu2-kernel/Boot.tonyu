@@ -254,7 +254,9 @@ mainLoop();
 }
 \loadImages() {
     progress("Loading pats..");
+    console.log("curprj",$currentProject);
     var rs=$currentProject.getResource();
+    console.log("rsrc",rs);
     var r;
     r=runPromise \(succ) {
         ide.ImageList.load( rs.images, succ) {
@@ -405,6 +407,7 @@ mainLoop();
     return th;
 }
 \progress(m) {
+  console.log(m);
     if (typeof SplashScreen=="undefined") return;
     if (m) {
         console.log.apply(console,arguments);

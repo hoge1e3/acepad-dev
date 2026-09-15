@@ -1,5 +1,5 @@
 import * as cnt from "@hoge1e3/counter";
-x=y=10;
+x=y=16;
 /*fillStyle="white";
 radius=20;*/
 p=0;
