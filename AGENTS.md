@@ -25,6 +25,7 @@ patterns in `bin/`, `sbin/`, and `samples/` over a separate web-app scaffold.
 export async function main(file = ".") {
   const f = this.resolve(file, true);
   this.echo(f.path());
+  this.echo(f.ls());
 }
 ```
 
@@ -57,6 +58,21 @@ Common shell-object APIs used by local commands:
   under the nearest `node_modules/`, set `"type": "module"`, and make
   `scripts.test` run a `#!run` test file.
 - npm-related commands live in `node_modules/.bin`.
+
+## Use of node-compatible file system API.
+
+- Acepad is based on petit-node, that provides node-compatible file module like `"fs"` and `"path"`.
+- The following sample uses `"fs"` module.
+
+```js
+#!run
+import * as fs from "fs";
+export async function main(file = ".") {
+  const f = this.resolve(file, true);
+  const files=fs.readdirSync(f.path());
+  this.echo(...files);
+}
+```
 
 ## Widget apps
 
